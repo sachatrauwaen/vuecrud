@@ -9,8 +9,7 @@
 import Vue from "vue";
 
 export default {
-    name: "selectComponent",
-
+    name: "VcSelect",
     props: {
         value: {},
         schema: {},
