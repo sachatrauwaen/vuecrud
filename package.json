@@ -2,12 +2,14 @@
   "name": "vuecrud",
   "version": "0.1.0",
   "private": true,
+  "main": "dist/vuecrud.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "element-ui": "^2.4.5",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1"
   },
