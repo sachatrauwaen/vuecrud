@@ -1,31 +1,31 @@
-﻿<template>
+<template>
   <el-input v-model="model"></el-input>
 </template>
 
 <script>
-  import Vue from "vue";
-     
-  export default {
-              name: "inputComponent",
+import Vue from 'vue'
 
-        props: {
-            value: String,
-            schema: {},
-            prop: String,
-            options: {
+export default {
+  name: 'inputComponent',
 
-            },
-        },
-        computed: {
-            model: {
-                get: function () {
-                    return this.value
-                },
-                set: function (val) {
-                    this.$emit('input', val)
-                }
-            }
-        },
+  props: {
+    value: String,
+    schema: {},
+    prop: String,
+    options: {
+
     }
-   
+  },
+  computed: {
+    model: {
+      get: function () {
+        return this.value
+      },
+      set: function (val) {
+        this.$emit('input', val)
+      }
+    }
+  }
+}
+
 </script>

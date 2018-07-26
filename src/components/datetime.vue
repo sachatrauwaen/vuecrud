@@ -1,31 +1,31 @@
-﻿<template>
+<template>
   <el-date-picker v-model="model" type="datetime" format="dd/MM/dd HH:mm" ></el-date-picker>
 </template>
 
 <script>
-  import Vue from "vue";
-     
-  export default {
-              name: "datetimeComponent",
+import Vue from 'vue'
 
-        props: {
-            value: {},
-            schema: {},
-            prop: String,
-            options: {
+export default {
+  name: 'datetimeComponent',
 
-            },
-        },
-        computed: {
-            model: {
-                get: function () {
-                    return this.value
-                },
-                set: function (val) {
-                    this.$emit('input', val)
-                }
-            }
-        },
+  props: {
+    value: {},
+    schema: {},
+    prop: String,
+    options: {
+
     }
-   
+  },
+  computed: {
+    model: {
+      get: function () {
+        return this.value
+      },
+      set: function (val) {
+        this.$emit('input', val)
+      }
+    }
+  }
+}
+
 </script>

@@ -15,8 +15,8 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-rc.5",
-    "@vue/cli-plugin-eslint": "^3.0.0-rc.5",
-    "@vue/cli-service": "^3.0.0-rc.5",
+    "@vue/cli-plugin-eslint": "^3.0.0-rc.6",
+    "@vue/cli-service": "^3.0.0-rc.6",
     "@vue/eslint-config-standard": "^3.0.0-rc.5",
     "vue-template-compiler": "^2.5.16"
   },
@@ -27,7 +27,7 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "@vue/standard"
+      "eslint:recommended"
     ],
     "rules": {},
     "parserOptions": {
