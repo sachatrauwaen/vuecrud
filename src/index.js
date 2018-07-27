@@ -16,10 +16,11 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
 
-module.exports = {
+export default {
   version: '2.4.5',
   install,
   Select
-}
+};
 
-module.exports.default = module.exports
+//const _default = module.exports;
+//export { _default as default };
