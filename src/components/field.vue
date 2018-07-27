@@ -58,8 +58,8 @@ export default {
 
       var compName = 'oa-' + type
 
-      //var comp = Vue.component(compName)
-      var comp = VueCrud.components[compName];
+      var comp = Vue.component(compName)
+      //var comp = VueCrud.components[compName];
 
       if (!comp) {
         comp = function (resolve, reject) {

@@ -2604,12 +2604,12 @@ var dialogform_component = normalizeComponent(
 )
 
 /* harmony default export */ var dialogform = (dialogform_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://sacha//vue//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/field.vue?vue&type=template&id=53042832&
-var fieldvue_type_template_id_53042832_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('el-form-item',{attrs:{"label":_vm.label,"prop":_vm.prop}},[_c(_vm.currentView,_vm._b({tag:"component",on:{"propChange":_vm.propChange},model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v},expression:"model"}},'component',_vm.$props,false))],1)}
-var fieldvue_type_template_id_53042832_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://sacha//vue//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/field.vue?vue&type=template&id=7ca8eb67&
+var fieldvue_type_template_id_7ca8eb67_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('el-form-item',{attrs:{"label":_vm.label,"prop":_vm.prop}},[_c(_vm.currentView,_vm._b({tag:"component",on:{"propChange":_vm.propChange},model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v},expression:"model"}},'component',_vm.$props,false))],1)}
+var fieldvue_type_template_id_7ca8eb67_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/field.vue?vue&type=template&id=53042832&
+// CONCATENATED MODULE: ./src/components/field.vue?vue&type=template&id=7ca8eb67&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/components/field.vue?vue&type=script&lang=js&
 
@@ -2665,9 +2665,8 @@ var fieldvue_type_template_id_53042832_staticRenderFns = []
         type = 'input';
       }
 
-      var compName = 'oa-' + type; //var comp = Vue.component(compName)
-
-      var comp = src.components[compName];
+      var compName = 'oa-' + type;
+      var comp = external_commonjs_vue_commonjs2_vue_root_Vue_default.a.component(compName); //var comp = VueCrud.components[compName];
 
       if (!comp) {
         comp = function comp(resolve, reject) {
@@ -2713,8 +2712,8 @@ var fieldvue_type_template_id_53042832_staticRenderFns = []
 
 var field_component = normalizeComponent(
   components_fieldvue_type_script_lang_js_,
-  fieldvue_type_template_id_53042832_render,
-  fieldvue_type_template_id_53042832_staticRenderFns,
+  fieldvue_type_template_id_7ca8eb67_render,
+  fieldvue_type_template_id_7ca8eb67_staticRenderFns,
   false,
   null,
   null,
