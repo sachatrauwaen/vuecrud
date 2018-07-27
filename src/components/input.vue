@@ -3,10 +3,8 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
 export default {
-  name: 'inputComponent',
+  name: 'OaInput',
 
   props: {
     value: String,

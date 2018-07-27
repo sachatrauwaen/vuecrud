@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "element-ui": "^2.4.5",
+    "json-ref-lite": "^1.1.0",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1"
   },

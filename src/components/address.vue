@@ -8,10 +8,9 @@
 import Vue from 'vue'
 
 export default {
-  name: 'addressComponent',
+  name: 'OaAddress',
   props: {
-    value: Object,
-    schema: {},
+    value: Object,    
     prop: String,
     schema: {},
     options: {},
@@ -240,7 +239,7 @@ function ensureGoogleMaps (options, fn) {
   } else if (Vue.google) {
     fn(Vue.google)
   } else {
-    loadGoogleMapsAPI(
+    window.loadGoogleMapsAPI(
       {
         key: options.key,
         client: options.client,
@@ -260,7 +259,7 @@ var CALLBACK_NAME = '__googleMapsApiOnLoadCallback'
 
 var OPTIONS_KEYS = ['client', 'key', 'language', 'region', 'v']
 
-loadGoogleMapsAPI = function (options, callback) {
+window.loadGoogleMapsAPI = function (options, callback) {
   options = options || {}
 
   // Exit if not running inside a browser.

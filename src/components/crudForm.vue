@@ -3,10 +3,9 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
+import VueForms from '../index'
 export default {
-  name: 'oaCrudForm',
+  name: 'OaCrudForm',
   props: {},
   data: function () {
     var self = this
@@ -30,7 +29,6 @@ export default {
                   })
                 })
               } else {
-                console.log('error submit!!')
                 return false
               }
             })
@@ -66,11 +64,11 @@ export default {
     },
     schema: function () {
       if (this.isnew) {
-        return jref.resolve(
+        return VueForms.jsonSchema.resolve(
           abp.schemas.app[this.resource].create.parameters.input
         )
       } else {
-        return jref.resolve(
+        return VueForms.jsonSchema.resolve(
           abp.schemas.app[this.resource].update.parameters.input
         )
       }

@@ -12,10 +12,8 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
 export default {
-  name: 'RelationComponent',
+  name: 'OaRelation',
 
   props: {
     value: {},
@@ -26,7 +24,7 @@ export default {
     label: String
   },
   data: function () {
-    var self = this
+    //var self = this
     return {
       form: {},
       loading: false,

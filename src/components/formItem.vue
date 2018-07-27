@@ -6,10 +6,8 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
 export default {
-  name: 'oaFormItem',
+  name: 'OaFormItem',
   props: {
     label: {},
     prop: String,

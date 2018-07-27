@@ -7,7 +7,7 @@
 import Vue from 'vue'
 
 export default {
-  name: 'switchComponent',
+  name: 'OaSwitch',
 
   props: {
     value: Boolean,

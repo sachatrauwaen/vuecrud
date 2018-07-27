@@ -16,10 +16,9 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
+import VueForms from '../index'
 export default {
-  name: 'oaCrudGrid',
+  name: 'OaCrudGrid',
   data: function () {
     return {
       model: [],
@@ -40,7 +39,7 @@ export default {
       return abp.services.app[this.resource]
     },
     schema: function () {
-      return jref.resolve(abp.schemas.app[this.resource].get.returnValue)
+      return VueForms.jsonSchema.resolve(abp.schemas.app[this.resource].get.returnValue)
     },
     messages: function () {
       return abp.localization.values[this.module]

@@ -22,10 +22,9 @@
 
 <script>
 import Vue from 'vue'
-
+import VueForms from '../index'
 export default {
-  name: 'oa-grid',
-
+  name: 'OaGrid',
   props: {
     model: {},
     schema: {},

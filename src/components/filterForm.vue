@@ -8,10 +8,8 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
 export default {
-  name: 'oaFilterform',
+  name: 'OaFilterform',
   props: {
     model: {},
     schema: {},
@@ -49,7 +47,7 @@ export default {
     rules: function () {
       var rules = {}
       for (var key in this.schema.properties) {
-        var prop = this.schema.properties[key]
+        //var prop = this.schema.properties[key]
         var itemRules = []
         rules[key] = itemRules
       }
@@ -71,12 +69,11 @@ export default {
         if (callback) callback(valid)
       })
     },
-    submitForm: function (formName) {
+    submitForm: function () {
       this.$refs.form.validate(function (valid) {
         if (valid) {
           alert('submit!')
-        } else {
-          console.log('error submit!!')
+        } else {          
           return false
         }
       })

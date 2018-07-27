@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'VcSelect',
+  name: 'OaSelect',
   props: {
     value: {},
     schema: {},

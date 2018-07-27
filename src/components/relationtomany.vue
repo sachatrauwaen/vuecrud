@@ -12,10 +12,8 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
 export default {
-  name: 'RelationToManyComponent',
+  name: 'OaRelationToMany',
 
   props: {
     value: {},
@@ -26,7 +24,7 @@ export default {
     label: String
   },
   data: function () {
-    var self = this
+    //var self = this
     return {
       form: {},
       loading: false,
@@ -155,8 +153,7 @@ export default {
         this.options = null
       }
     },
-    updateModel: function (value) {
-      console.log(value)
+    updateModel: function (value) {      
       this.model = value
       // this.$emit('input', value);
     },

@@ -4,10 +4,10 @@
 </template>
 
 <script>
-import Vue from 'vue'
+
 
 export default {
-  name: 'timeComponent',
+  name: 'OaTime',
 
   props: {
     value: {},

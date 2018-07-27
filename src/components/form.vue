@@ -16,7 +16,7 @@
 import Vue from 'vue'
 
 export default {
-  name: 'oaForm',
+  name: 'OaForm',
   props: {
     model: {},
     schema: {},
@@ -98,20 +98,6 @@ export default {
         groups[group][key] = el
       };
       return groups
-      return Object.keys(groups).map(function (key) {
-        return {
-          key: key,
-          values: groups[key]
-        }
-      })
-
-      /*
-            for (var key in this.properties) {
-                var group = this.properties[key]['x-ui-group'];
-                if (group) {
-                    if (tabs.indexOf(group))
-                }
-            } */
     },
     isMobile: function () {
       return window.matchMedia('only screen and (max-width: 760px)').matches
