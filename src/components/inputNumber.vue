@@ -6,7 +6,7 @@
 import Vue from 'vue'
 
 export default {
-  name: 'OaInputNumber',
+  name: 'oa-inputnumber',
 
   props: {
     value: Number,

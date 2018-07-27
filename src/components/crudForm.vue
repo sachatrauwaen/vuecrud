@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import VueForms from '../index'
+import VueForms from '../vueforms'
 export default {
-  name: 'OaCrudForm',
+  name: 'oa-crud-form',
   props: {},
   data: function () {
     var self = this

@@ -6,7 +6,7 @@
 import Vue from 'vue'
 
 export default {
-  name: 'OaDatetime',
+  name: 'oa-datetime',
 
   props: {
     value: {},

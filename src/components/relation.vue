@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'OaRelation',
+  name: 'oa-relation',
 
   props: {
     value: {},

@@ -6,7 +6,7 @@
 import Vue from 'vue'
 
 export default {
-  name: 'OaTextarea',
+  name: 'oa-textarea',
 
   props: {
     value: String,

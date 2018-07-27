@@ -16,9 +16,12 @@
 </template>
 
 <script>
-import VueForms from '../index'
+import VueForms from '../vueforms'
+
+
+
 export default {
-  name: 'OaCrudGrid',
+  name: 'oa-crud-grid',
   data: function () {
     return {
       model: [],
@@ -175,15 +178,15 @@ export default {
       // { skipCount: 0, maxResultCount: 999 }
       self.service
         .getAll(self.filterModel)
-        .done(function (data) {
-          self.model = data.items
-          self.totalCount = data.totalCount
-          if (callback) callback()
-          // this.pagination.totalItems = data.total;
-        })
-        .always(function () {
-          // abp.ui.clearBusy(_$app);
-        })
+          .done(function (data) {
+            self.model = data.items
+            self.totalCount = data.totalCount
+            if (callback) callback()
+            // this.pagination.totalItems = data.total;
+          })
+          .always(function () {
+            // abp.ui.clearBusy(_$app);
+          })
     },
     deleteData: function (data, callback) {
       var self = this

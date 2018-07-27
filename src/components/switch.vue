@@ -1,13 +1,12 @@
 <template>
-<el-switch v-model="model" on-text="" off-text="">
-</el-switch>
+<el-switch v-model="model" on-text="" off-text=""></el-switch>
 </template>
 
 <script>
 import Vue from 'vue'
 
 export default {
-  name: 'OaSwitch',
+  name: 'oa-switch',
 
   props: {
     value: Boolean,

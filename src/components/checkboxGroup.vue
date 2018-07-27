@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: 'OaCheckboxGroup',
+    name: 'oa-checkbox-group',
     props: {
         value: {
             type: Array,

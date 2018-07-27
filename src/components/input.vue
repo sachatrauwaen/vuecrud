@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'OaInput',
+  name: 'oa-input',
 
   props: {
     value: String,

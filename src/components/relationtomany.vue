@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'OaRelationToMany',
+  name: 'oa-relation-to-many',
 
   props: {
     value: {},

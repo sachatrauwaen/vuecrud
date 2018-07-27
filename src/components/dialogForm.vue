@@ -6,7 +6,7 @@
 <script>
 import VueForms from '../index'
 export default {
-    name: 'OaDialogForm',
+    name: 'oa-dialog-form',
 
     props: {
         resource: {},

@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'OaFormItem',
+  name: 'oa-form-item',
   props: {
     label: {},
     prop: String,

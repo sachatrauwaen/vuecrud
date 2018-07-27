@@ -8,7 +8,7 @@
 import Vue from 'vue'
 
 export default {
-  name: 'OaAddress',
+  name: 'oa-address',
   props: {
     value: Object,    
     prop: String,

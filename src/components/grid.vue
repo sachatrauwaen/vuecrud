@@ -24,7 +24,7 @@
 import Vue from 'vue'
 import VueForms from '../index'
 export default {
-  name: 'OaGrid',
+  name: 'oa-grid',
   props: {
     model: {},
     schema: {},

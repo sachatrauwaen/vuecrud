@@ -16,7 +16,7 @@
 import Vue from 'vue'
 
 export default {
-  name: 'OaForm',
+  name: 'oa-form',
   props: {
     model: {},
     schema: {},

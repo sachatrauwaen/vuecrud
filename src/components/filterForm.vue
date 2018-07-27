@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'OaFilterform',
+  name: 'oa-filter-form',
   props: {
     model: {},
     schema: {},

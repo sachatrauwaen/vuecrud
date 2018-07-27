@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'OaDaterange',
+  name: 'oa-daterange',
 
   data: function () {
     return {

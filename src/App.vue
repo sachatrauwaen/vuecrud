@@ -1,11 +1,14 @@
 <template>
   <div id="app">
-
-
-
-
     <oa-select v-model="val" :schema="schema"></oa-select>
-    {{val}}
+
+  <a href="#/app/user">Users</a>
+
+<hr />
+
+   <router-view></router-view>
+
+
   </div>
 </template>
 
@@ -13,12 +16,12 @@
 
 import Vue from 'vue'
 
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
 
-import VueCrud from './index'
-Vue.use(VueCrud);
+
+
+
+import Demo from './demo'
+
 
 export default {
   name: 'app',

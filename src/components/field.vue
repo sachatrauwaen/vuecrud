@@ -1,14 +1,15 @@
 <template>
-<el-form-item :label="label" :prop="prop"> \
-    <component v-bind:is="currentView" v-model="model" v-bind="$props" @propChange="propChange"></component> \
+<el-form-item :label="label" :prop="prop">
+    <component v-bind:is="currentView" v-model="model" v-bind="$props" @propChange="propChange"></component>
 </el-form-item>
 </template>
 
 <script>
 import Vue from 'vue'
+import VueForms from '../vueforms'
 
 export default {
-  name: 'OaField',
+  name: 'oa-field',
   template: ' ',
   props: {
     value: {},

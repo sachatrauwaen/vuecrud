@@ -7,7 +7,7 @@
 
 
 export default {
-  name: 'OaTime',
+  name: 'oa-time',
 
   props: {
     value: {},
