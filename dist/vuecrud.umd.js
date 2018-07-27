@@ -96,13 +96,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ 0:
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-
 /***/ "01f9":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -242,13 +235,6 @@ module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
 };
 
-
-/***/ }),
-
-/***/ 1:
-/***/ (function(module, exports) {
-
-/* (ignored) */
 
 /***/ }),
 
@@ -742,219 +728,6 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ "685b":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Based on Kendo UI Core expression code <https://github.com/telerik/kendo-ui-core#license-information>
- */
-
-
-function Cache(maxSize) {
-  this._maxSize = maxSize
-  this.clear()
-}
-Cache.prototype.clear = function() {
-  this._size = 0
-  this._values = {}
-}
-Cache.prototype.get = function(key) {
-  return this._values[key]
-}
-Cache.prototype.set = function(key, value) {
-  this._size >= this._maxSize && this.clear()
-  if (!this._values.hasOwnProperty(key)) {
-    this._size++
-  }
-  return this._values[key] = value
-}
-
-var SPLIT_REGEX = /[^.^\]^[]+|(?=\[\]|\.\.)/g,
-  DIGIT_REGEX = /^\d+$/,
-  LEAD_DIGIT_REGEX = /^\d/,
-  SPEC_CHAR_REGEX = /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g,
-  CLEAN_QUOTES_REGEX = /^\s*(['"]?)(.*?)(\1)\s*$/,
-  MAX_CACHE_SIZE = 512
-
-var contentSecurityPolicy = false,
-  pathCache = new Cache(MAX_CACHE_SIZE),
-  setCache = new Cache(MAX_CACHE_SIZE),
-  getCache = new Cache(MAX_CACHE_SIZE)
-
-try {
-  new Function('')
-} catch (error) {
-  contentSecurityPolicy = true
-}
-
-module.exports = {
-  Cache: Cache,
-
-  expr: expr,
-
-  split: split,
-
-  normalizePath: normalizePath,
-
-  setter: contentSecurityPolicy
-    ? function(path) {
-      var parts = normalizePath(path)
-      return function(data, value) {
-        return setterFallback(parts, data, value)
-      }
-    }
-    : function(path) {
-      return setCache.get(path) || setCache.set(
-        path,
-        new Function(
-          'data, value',
-          expr(path, 'data') + ' = value'
-        )
-      )
-    },
-
-  getter: contentSecurityPolicy
-    ? function(path, safe) {
-      var parts = normalizePath(path)
-      return function(data) {
-        return getterFallback(parts, safe, data)
-      }
-    }
-    : function(path, safe) {
-      var key = path + '_' + safe
-      return getCache.get(key) || getCache.set(
-        key,
-        new Function('data', 'return ' + expr(path, safe, 'data'))
-      )
-    },
-
-  join: function(segments) {
-    return segments.reduce(function(path, part) {
-      return (
-        path +
-        (isQuoted(part) || DIGIT_REGEX.test(part)
-          ? '[' + part + ']'
-          : (path ? '.' : '') + part)
-      )
-    }, '')
-  },
-
-  forEach: function(path, cb, thisArg) {
-    forEach(split(path), cb, thisArg)
-  }
-}
-
-function setterFallback(parts, data, value) {
-  var index = 0,
-    len = parts.length
-  while (index < len - 1) {
-    data = data[parts[index++]]
-  }
-  data[parts[index]] = value
-}
-
-function getterFallback(parts, safe, data) {
-  var index = 0,
-    len = parts.length
-  while (index < len) {
-    if (data == null || !safe) {
-      data = data[parts[index++]]
-    } else {
-      return
-    }
-  }
-  return data
-}
-
-function normalizePath(path) {
-  return pathCache.get(path) || pathCache.set(
-    path,
-    split(path).map(function(part) {
-      return part.replace(CLEAN_QUOTES_REGEX, '$2')
-    })
-  )
-}
-
-function split(path) {
-  return path.match(SPLIT_REGEX)
-}
-
-function expr(expression, safe, param) {
-  expression = expression || ''
-
-  if (typeof safe === 'string') {
-    param = safe
-    safe = false
-  }
-
-  param = param || 'data'
-
-  if (expression && expression.charAt(0) !== '[') expression = '.' + expression
-
-  return safe ? makeSafe(expression, param) : param + expression
-}
-
-function forEach(parts, iter, thisArg) {
-  var len = parts.length,
-    part,
-    idx,
-    isArray,
-    isBracket
-
-  for (idx = 0; idx < len; idx++) {
-    part = parts[idx]
-
-    if (part) {
-      if (shouldBeQuoted(part)) {
-        part = '"' + part + '"'
-      }
-
-      isBracket = isQuoted(part)
-      isArray = !isBracket && /^\d+$/.test(part)
-
-      iter.call(thisArg, part, isBracket, isArray, idx, parts)
-    }
-  }
-}
-
-function isQuoted(str) {
-  return (
-    typeof str === 'string' && str && ["'", '"'].indexOf(str.charAt(0)) !== -1
-  )
-}
-
-function makeSafe(path, param) {
-  var result = param,
-    parts = split(path),
-    isLast
-
-  forEach(parts, function(part, isBracket, isArray, idx, parts) {
-    isLast = idx === parts.length - 1
-
-    part = isBracket || isArray ? '[' + part + ']' : '.' + part
-
-    result += part + (!isLast ? ' || {})' : ')')
-  })
-
-  return new Array(parts.length + 1).join('(') + result
-}
-
-function hasLeadingNumber(part) {
-  return part.match(LEAD_DIGIT_REGEX) && !part.match(DIGIT_REGEX)
-}
-
-function hasSpecialChars(part) {
-  return SPEC_CHAR_REGEX.test(part)
-}
-
-function shouldBeQuoted(part) {
-  return !isQuoted(part) && (hasLeadingNumber(part) || hasSpecialChars(part))
-}
-
-
-/***/ }),
-
 /***/ "69a8":
 /***/ (function(module, exports) {
 
@@ -1156,21 +929,6 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 /***/ }),
 
-/***/ "9281":
-/***/ (function(module, exports) {
-
-function webpackEmptyContext(req) {
-	var e = new Error("Cannot find module '" + req + "'");
-	e.code = 'MODULE_NOT_FOUND';
-	throw e;
-}
-webpackEmptyContext.keys = function() { return []; };
-webpackEmptyContext.resolve = webpackEmptyContext;
-module.exports = webpackEmptyContext;
-webpackEmptyContext.id = "9281";
-
-/***/ }),
-
 /***/ "9b43":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1233,204 +991,6 @@ module.exports = !__webpack_require__("79e5")(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
-
-/***/ }),
-
-/***/ "a440":
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(__dirname) {var expr, fs, request;
-
-fs = (typeof window === "undefined" || window === null ? __webpack_require__(0) : false);
-request = (fs && fs.existsSync(__dirname + '/../sync-request') ? __webpack_require__(1) : false);
-expr = __webpack_require__("685b");
-
-module.exports = function() {
-  this.cache = {};
-  this.reftoken = '$ref';
-  this.pathtoken = "#";
-  this.debug = false;
-  this.clone = function(obj) {
-    var key, temp;
-    if (obj === null || typeof obj !== 'object' || typeof obj === 'function') {
-      return obj;
-    }
-    temp = obj.constructor();
-    for (key in obj) {
-      temp[key] = this.clone(obj[key]);
-    }
-    return temp;
-  };
-  this.findIds = function(json, ids) {
-    var id, k, obj, v;
-    id = false;
-    obj = {};
-    for (k in json) {
-      v = json[k];
-      if (json.id != null) {
-        id = json.id;
-      }
-      if (id && k !== "id") {
-        obj[k] = v;
-      }
-      if (typeof v === 'object') {
-        this.findIds(v, ids);
-      }
-    }
-    if (id) {
-      return ids[id] = obj;
-    }
-  };
-  this.get_json_pointer = function(ref, root) {
-    var err, error, evalstr, result;
-    evalstr = ref.replace(/\\\//, '#SLASH#').replace(/\//g, '.').replace(/#SLASH#/, '/');
-    evalstr = evalstr.replace(new RegExp('^' + this.pathtoken), '');
-    if (evalstr[0] === '.') {
-      evalstr = evalstr.substr(1, evalstr.length - 1);
-    }
-    try {
-      if (this.debug) {
-        console.log("evaluating '" + evalstr + "'");
-      }
-      result = expr.getter(evalstr)(root);
-    } catch (error) {
-      err = error;
-      result = "";
-    }
-    return result;
-  };
-  this.replace = function(json, ids, root) {
-    var jsonpointer, k, ref, ref1, ref2, results, str, v;
-    results = [];
-    for (k in json) {
-      v = json[k];
-      if (this.debug && typeof ref === 'string') {
-        console.log("checking " + k);
-      }
-      if ((v != null) && (v[this.reftoken] != null)) {
-        ref = v[this.reftoken];
-				var properties = this.clone(v)
-				delete properties[this.reftoken]
-        if (this.debug && typeof ref === 'string') {
-          console.log("checking " + k + " -> " + ref);
-        }
-        if (Array.isArray(ref)) {
-          ref = this.replace(ref, ids, root);
-        } else if (ids[ref] != null) {
-          json[k] = Object.assign(ids[ref],properties);
-        } else if (request && String(ref).match(/^http/)) {
-          if (!this.cache[ref]) {
-            this.cache[ref] = JSON.parse(request("GET", ref).getBody().toString());
-          }
-          json[k] = this.cache[ref];
-          if (ref.match(this.pathtoken)) {
-            jsonpointer = ref.replace(new RegExp(".*" + pathtoken), this.pathtoken);
-            if (jsonpointer.length) {
-              json[k] = this.get_json_pointer(jsonpointer, json[k]);
-            }
-          }
-        } else if (fs && fs.existsSync(ref)) {
-          str = fs.readFileSync(ref).toString();
-          if (str.match(/module\.exports/)) {
-            json[k] = __webpack_require__("9281")(ref);
-          } else {
-            json[k] = JSON.parse(str);
-          }
-        } else if (String(ref).match(new RegExp('^' + this.pathtoken))) {
-          if (this.debug) {
-            console.log("checking " + ref + " pathtoken");
-          }
-          json[k] = Object.assign( this.get_json_pointer(ref, root) || {}, properties )
-        }
-        if ((((ref1 = json[k]) != null ? ref1.length : void 0) != null) && ((ref2 = json[k]) != null ? ref2.length : void 0) === 0 && this.debug) {
-          results.push(console.log(ref + " reference not found"));
-        } else {
-          results.push(void 0);
-        }
-      } else {
-        if (typeof v === 'object') {
-          results.push(this.replace(v, ids, root));
-        } else {
-          results.push(void 0);
-        }
-      }
-    }
-    return results;
-  };
-  this.resolve = function(json) {
-    var ids;
-    ids = {};
-    this.findIds(json, ids);
-    if (this.debug && Object.keys(ids).length) {
-      console.dir(ids);
-    }
-    this.replace(json, ids, json);
-    return json;
-  };
-  this.evaluate = function(json, data, cb) {
-    var k, ref1, v;
-    if (cb == null) {
-      cb = this.evaluateStr;
-    }
-    ref1 = this.clone(json);
-    for (k in ref1) {
-      v = ref1[k];
-      if (typeof v === 'string') {
-        json[k] = cb(v, data);
-      }
-      if (typeof v === 'object') {
-        json[k] = this.evaluate(v, data);
-      }
-    }
-    return json;
-  };
-  this.evaluateStr = function(k, data) {
-    var error, itemstr;
-    if (typeof k !== 'string') {
-      return k;
-    }
-    if (k[0] === '{' && k[k.length - 1] === '}') {
-      try {
-        return expr.getter(k.replace(/^{/, '').replace(/}$/, ''))(data);
-      } catch (error) {
-        return null;
-      }
-    } else {
-      itemstr = k.replace(/(\{)(.*?)(\})/g, function($0, $1, $2) {
-        var err, error1, result;
-        result = '';
-        if ((data == null) || ($2 == null)) {
-          return result;
-        }
-        if ((data[$2] != null) && typeof data[$2] === 'function') {
-          result = data[$2]();
-        } else {
-          if (data[$2] != null) {
-            result = data[$2];
-          } else {
-            try {
-              $2 = $2.replace(new RegExp('^' + this.pathtoken + '\/'), '').replace(/\//g, '.');
-              result = expr.getter($2)(data);
-            } catch (error1) {
-              err = error1;
-              result = '';
-            }
-            if (result == null) {
-              result = '';
-            }
-          }
-        }
-        this.evaluateStr(result, data);
-        return result;
-      });
-      return itemstr;
-    }
-  };
-  return this;
-}.apply({})
-
-
-/* WEBPACK VAR INJECTION */}.call(this, "/"))
 
 /***/ }),
 
@@ -2402,11 +1962,8 @@ var crudformvue_type_template_id_5ee1ef28_staticRenderFns = []
 
 // CONCATENATED MODULE: ./src/components/crudform.vue?vue&type=template&id=5ee1ef28&
 
-// EXTERNAL MODULE: ./node_modules/json-ref-lite/index.js
-var json_ref_lite = __webpack_require__("a440");
-
 // CONCATENATED MODULE: ./src/vueforms.js
-
+//import jref from 'json-ref-lite'
 var VueForms = {};
 VueForms.jsonSchema = {};
 
@@ -3526,12 +3083,12 @@ var formitem_component = normalizeComponent(
 )
 
 /* harmony default export */ var formitem = (formitem_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://sacha//vue//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/grid.vue?vue&type=template&id=734cbf27&
-var gridvue_type_template_id_734cbf27_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(!_vm.isMobile)?_c('el-table',{staticStyle:{"width":"100%"},attrs:{"data":_vm.model,"row-style":{cursor: 'pointer'}},on:{"row-click":_vm.rowClick}},[_vm._l((_vm.columns),function(value,key){return _c('el-table-column',{key:key,attrs:{"prop":key,"label":_vm.label(key),"formatter":_vm.formatter,"class-name":"crudcell"}})}),_c('el-table-column',{attrs:{"align":"right","min-width":"120px"},scopedSlots:_vm._u([{key:"default",fn:function(scope){return _vm._l((_vm.actions),function(action){return _c('el-button',{directives:[{name:"show",rawName:"v-show",value:(_vm.actionVisible(action, scope.row, scope.$index)),expression:"actionVisible(action, scope.row, scope.$index)"}],key:action.name,attrs:{"icon":action.icon,"size":"small"},on:{"click":function($event){action.execute(scope.row, scope.$index)}}})})}}])})],2):_vm._l((_vm.model),function(row){return _c('el-card',{key:row.id,staticStyle:{"margin-bottom":"10px"}},[_vm._l((_vm.columns),function(value,key){return _c('el-row',{key:key,attrs:{"gutter":10}},[_c('el-col',{attrs:{"span":12}},[_vm._v(_vm._s(_vm.label(key)))]),_c('el-col',{attrs:{"span":12}},[_vm._v(_vm._s(row[key]))])],1)}),_c('div',{staticStyle:{"padding-top":"10px"}},_vm._l((_vm.actions),function(action){return _c('el-button',{directives:[{name:"show",rawName:"v-show",value:(_vm.actionVisible(action, row)),expression:"actionVisible(action, row)"}],key:action.name,attrs:{"icon":action.icon,"size":"small"},on:{"click":function($event){action.execute(row)}}})}))],2)})],2)}
-var gridvue_type_template_id_734cbf27_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://sacha//vue//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/grid.vue?vue&type=template&id=63a8654c&
+var gridvue_type_template_id_63a8654c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(!_vm.isMobile)?_c('el-table',{staticStyle:{"width":"100%"},attrs:{"data":_vm.model,"row-style":{cursor: 'pointer'}},on:{"row-click":_vm.rowClick}},[_vm._l((_vm.columns),function(value,key){return _c('el-table-column',{key:key,attrs:{"prop":key,"label":_vm.label(key),"formatter":_vm.formatter,"class-name":"crudcell"}})}),_c('el-table-column',{attrs:{"align":"right","min-width":"120px"},scopedSlots:_vm._u([{key:"default",fn:function(scope){return _vm._l((_vm.actions),function(action){return _c('el-button',{directives:[{name:"show",rawName:"v-show",value:(_vm.actionVisible(action, scope.row, scope.$index)),expression:"actionVisible(action, scope.row, scope.$index)"}],key:action.name,attrs:{"icon":action.icon,"size":"small"},on:{"click":function($event){action.execute(scope.row, scope.$index)}}})})}}])})],2):_vm._l((_vm.model),function(row){return _c('el-card',{key:row.id,staticStyle:{"margin-bottom":"10px"}},[_vm._l((_vm.columns),function(value,key){return _c('el-row',{key:key,attrs:{"gutter":10}},[_c('el-col',{attrs:{"span":12}},[_vm._v(_vm._s(_vm.label(key)))]),_c('el-col',{attrs:{"span":12}},[_vm._v(_vm._s(row[key]))])],1)}),_c('div',{staticStyle:{"padding-top":"10px"}},_vm._l((_vm.actions),function(action){return _c('el-button',{directives:[{name:"show",rawName:"v-show",value:(_vm.actionVisible(action, row)),expression:"actionVisible(action, row)"}],key:action.name,attrs:{"icon":action.icon,"size":"small"},on:{"click":function($event){action.execute(row)}}})}))],2)})],2)}
+var gridvue_type_template_id_63a8654c_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/grid.vue?vue&type=template&id=734cbf27&
+// CONCATENATED MODULE: ./src/components/grid.vue?vue&type=template&id=63a8654c&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/components/grid.vue?vue&type=script&lang=js&
 
@@ -3581,7 +3138,7 @@ var gridvue_type_template_id_734cbf27_staticRenderFns = []
       return fields;
     },
     isMobile: function isMobile() {
-      return src.isMobile();
+      return vueforms.isMobile();
     }
   },
   methods: {
@@ -3595,7 +3152,7 @@ var gridvue_type_template_id_734cbf27_staticRenderFns = []
       }
     },
     formatter: function formatter(row, column, cellValue) {
-      var schema = src.jsonSchema.getNotNull(this.schema.properties[column.property]);
+      var schema = vueforms.jsonSchema.getNotNull(this.schema.properties[column.property]);
 
       if (schema.type == 'boolean') {
         return cellValue ? this.messages['Yes'] : this.messages['No'];
@@ -3635,8 +3192,8 @@ var gridvue_type_template_id_734cbf27_staticRenderFns = []
 
 var grid_component = normalizeComponent(
   components_gridvue_type_script_lang_js_,
-  gridvue_type_template_id_734cbf27_render,
-  gridvue_type_template_id_734cbf27_staticRenderFns,
+  gridvue_type_template_id_63a8654c_render,
+  gridvue_type_template_id_63a8654c_staticRenderFns,
   false,
   null,
   null,

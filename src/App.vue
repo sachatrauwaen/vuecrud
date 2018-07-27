@@ -2,6 +2,9 @@
   <div id="app">
     <oa-select v-model="val" :schema="schema"></oa-select>
 
+<el-form>
+ <oa-field v-model="val" prop="state" :schema="schema" :messages="{}" ></oa-field>
+</el-form>
   <a href="#/app/user">Users</a>
 
 <hr />

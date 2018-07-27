@@ -21,8 +21,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import VueForms from '../index'
+import VueForms from '../vueforms'
 export default {
   name: 'oa-grid',
   props: {

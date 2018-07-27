@@ -1,4 +1,4 @@
-import jref from 'json-ref-lite'
+//import jref from 'json-ref-lite'
 
 const VueForms = {}
 VueForms.jsonSchema = {};
