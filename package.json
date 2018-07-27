@@ -2,10 +2,10 @@
   "name": "vuecrud",
   "version": "0.1.0",
   "private": true,
-  "main": "dist/vuecrud.common.js",
+  "main": "dist/vuecrud.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name vuecrud ./src/index.js",
+    "build": "vue-cli-service build --target lib --name vuecrud src/index.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
