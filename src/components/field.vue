@@ -7,6 +7,7 @@
 <script>
 import Vue from 'vue'
 import VueForms from '../vueforms'
+import VueCrud from '../index'
 
 export default {
   name: 'oa-field',
@@ -57,7 +58,8 @@ export default {
 
       var compName = 'oa-' + type
 
-      var comp = Vue.component(compName)
+      //var comp = Vue.component(compName)
+      var comp = VueCrud.components[compName];
 
       if (!comp) {
         comp = function (resolve, reject) {

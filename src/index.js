@@ -73,9 +73,9 @@ const install = function (Vue) {
 }
 
 /* istanbul ignore if */
-if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue)
-}
+// if (typeof window !== 'undefined' && window.Vue) {
+//   install(window.Vue)
+// }
 
 String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
@@ -98,12 +98,16 @@ Array.prototype.groupBy = function (keyFunction) {
   });
 };
 
+let comps ={}
+components.forEach((val)=>{
+  comps[val.name]=val;
+})
 
 
 export default {
   version: '2.0.0',
   install,
-  Select
+  components:comps
 };
 
 //const _default = module.exports;
