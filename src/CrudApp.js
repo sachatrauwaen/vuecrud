@@ -4,8 +4,6 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
 
-import VueCrud from './index'
-Vue.use(VueCrud);
 
 import OaConnector from './connectors/OaConnector'
 

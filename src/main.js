@@ -8,6 +8,10 @@ import 'element-ui/lib/theme-chalk/index.css';
 import locale from 'element-ui/lib/locale/lang/en'
 Vue.use(ElementUI, {locale});
 
+
+import VueCrud from './index'
+Vue.use(VueCrud);
+
 import CrudApp from './CrudApp'
 import Layout from './layout'
 CrudApp.create('#app', Layout, locale);
