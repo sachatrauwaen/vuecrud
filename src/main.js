@@ -10,11 +10,15 @@ Vue.use(ElementUI, {locale});
 
 
 import VueCrud from './index'
-Vue.use(VueCrud);
+//Vue.use(VueCrud);
 
-import CrudApp from './CrudApp'
+
+//import CrudApp from './CrudApp'
 import Layout from './layout'
-CrudApp.create('#app', Layout, locale);
+//CrudApp.create('#app', Layout);
+
+VueCrud.createApp('#app', Layout);
+
 
 /*
 

@@ -4,27 +4,31 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
 
+import VueCrud from './index'
 
 import OaConnector from './connectors/OaConnector'
-
-const crudGrid = Vue.component('oa-crud-grid');
-const crudForm = Vue.component('oa-crud-form');
-// const crudGrid = Vue.component('OaCrudGrid');
-// const crudForm = Vue.component('OaCrudForm');
-
-const router = new VueRouter({
-    //scrollBehavior: () => ({ y: 0 }),
-    routes: [
-        { path: '/:module/:resource', component: crudGrid, name: 'grid' },
-        { path: '/:module/:resource/edit/:id', component: crudForm, name: 'edit' },
-        { path: '/:module/:resource/add', component: crudForm, name: 'add' }
-    ]
-});
 
 export default {
 
     create(id, layout) {
-        
+
+        Vue.use(VueCrud);
+
+        const crudGrid = Vue.component('oa-crud-grid');
+        const crudForm = Vue.component('oa-crud-form');
+        // const crudGrid = Vue.component('OaCrudGrid');
+        // const crudForm = Vue.component('OaCrudForm');
+
+        const router = new VueRouter({
+            //scrollBehavior: () => ({ y: 0 }),
+            routes: [
+                { path: '/:module/:resource', component: crudGrid, name: 'grid' },
+                { path: '/:module/:resource/edit/:id', component: crudForm, name: 'edit' },
+                { path: '/:module/:resource/add', component: crudForm, name: 'add' }
+            ]
+        });
+
+
         new Vue({
             router: router,
             connector: OaConnector,
@@ -33,8 +37,8 @@ export default {
             render(h) {
                 return h(layout, {
                     scopedSlots: {
-                        default: (props) => {
-                            props.title=this.pageTitle;
+                        default: () => {
+
                             return h('router-view')
                         }
                     },
@@ -44,7 +48,7 @@ export default {
                 })
             },
             computed: {
-                messages(){
+                messages() {
                     return OaConnector.messages(this.$route.params.module);
                 },
                 pageTitle: function () {

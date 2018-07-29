@@ -4046,40 +4046,39 @@ if (inBrowser && window.Vue) {
 
 external_commonjs_vue_commonjs2_vue_root_Vue_default.a.use(vue_router_esm);
 
-var crudGrid = external_commonjs_vue_commonjs2_vue_root_Vue_default.a.component('oa-crud-grid');
-var crudForm = external_commonjs_vue_commonjs2_vue_root_Vue_default.a.component('oa-crud-form'); // const crudGrid = Vue.component('OaCrudGrid');
-// const crudForm = Vue.component('OaCrudForm');
 
-var router = new vue_router_esm({
-  //scrollBehavior: () => ({ y: 0 }),
-  routes: [{
-    path: '/:module/:resource',
-    component: crudGrid,
-    name: 'grid'
-  }, {
-    path: '/:module/:resource/edit/:id',
-    component: crudForm,
-    name: 'edit'
-  }, {
-    path: '/:module/:resource/add',
-    component: crudForm,
-    name: 'add'
-  }]
-});
 /* harmony default export */ var CrudApp = ({
   create: function create(id, layout) {
+    external_commonjs_vue_commonjs2_vue_root_Vue_default.a.use(src);
+    var crudGrid = external_commonjs_vue_commonjs2_vue_root_Vue_default.a.component('oa-crud-grid');
+    var crudForm = external_commonjs_vue_commonjs2_vue_root_Vue_default.a.component('oa-crud-form'); // const crudGrid = Vue.component('OaCrudGrid');
+    // const crudForm = Vue.component('OaCrudForm');
+
+    var router = new vue_router_esm({
+      //scrollBehavior: () => ({ y: 0 }),
+      routes: [{
+        path: '/:module/:resource',
+        component: crudGrid,
+        name: 'grid'
+      }, {
+        path: '/:module/:resource/edit/:id',
+        component: crudForm,
+        name: 'edit'
+      }, {
+        path: '/:module/:resource/add',
+        component: crudForm,
+        name: 'add'
+      }]
+    });
     new external_commonjs_vue_commonjs2_vue_root_Vue_default.a({
       router: router,
       connector: OaConnector,
       //render: h => h('router-view')
       //render: h => h(layout, [h('router-view')]),
       render: function render(h) {
-        var _this = this;
-
         return h(layout, {
           scopedSlots: {
-            default: function _default(props) {
-              props.title = _this.pageTitle;
+            default: function _default() {
               return h('router-view');
             }
           },
