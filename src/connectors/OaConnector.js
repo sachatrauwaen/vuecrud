@@ -40,9 +40,9 @@ export default {
             if (alwaysCallback) alwaysCallback();
         })
     },
-    messages() {
+    messages(module) {
         // eslint-disable-next-line
-        let data = abp.localization.values['app'];
+        let data = abp.localization.values[module];
         return data;
     },
     componentsPath() {

@@ -4031,9 +4031,9 @@ if (inBrowser && window.Vue) {
       if (alwaysCallback) alwaysCallback();
     });
   },
-  messages: function messages() {
+  messages: function messages(module) {
     // eslint-disable-next-line
-    var data = abp.localization.values['app'];
+    var data = abp.localization.values[module];
     return data;
   },
   componentsPath: function componentsPath() {
@@ -4090,7 +4090,7 @@ var router = new vue_router_esm({
       },
       computed: {
         messages: function messages() {
-          return OaConnector.messages();
+          return OaConnector.messages(this.$route.params.module);
         },
         pageTitle: function pageTitle() {
           if (this.$route.params.resource) {

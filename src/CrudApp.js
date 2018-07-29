@@ -45,7 +45,7 @@ export default {
             },
             computed: {
                 messages(){
-                    return OaConnector.messages();
+                    return OaConnector.messages(this.$route.params.module);
                 },
                 pageTitle: function () {
                     if (this.$route.params.resource) {
