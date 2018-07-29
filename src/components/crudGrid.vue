@@ -45,7 +45,7 @@ export default {
       );
     },
     messages: function() {
-      return this.connector.messages();
+      return this.connector.messages(this.$route.params.module);
     },
     gridActions: function() {
       var self = this;
