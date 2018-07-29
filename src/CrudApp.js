@@ -3,9 +3,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
 
 import VueCrud from './index'
 Vue.use(VueCrud);
@@ -28,11 +25,45 @@ const router = new VueRouter({
 
 export default {
 
-    create(id) {
+    create(id, layout) {
+        
+        
+        
+
         new Vue({
             router: router,
             connector: OaConnector,
-            render: h => h('router-view')
+            //render: h => h('router-view')
+            //render: h => h(layout, [h('router-view')]),
+            render(h) {
+                return h(layout, {
+                    scopedSlots: {
+                        default: (props) => {
+                            props.title=this.pageTitle;
+                            return h('router-view')
+                        }
+                    },
+                    props: {
+                        title: this.pageTitle
+                    }
+                })
+            },
+            computed: {
+                messages(){
+                    return OaConnector.messages();
+                },
+                pageTitle: function () {
+                    if (this.$route.params.resource) {
+                        let key = this.$route.params.resource.capitalize() + 's';
+                        let title = this.messages[[this.$route.params.resource.capitalize() + 's']]
+                        return title ? title : key;
+                    }
+                    else {
+                        return 'Crud app';
+                    }
+                }
+            }
+
         }).$mount(id)
 
     }

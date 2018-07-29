@@ -1,9 +1,16 @@
+import Vue from 'vue'
 
 // eslint-disable-next-line
 import Demo from './demo'
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import locale from 'element-ui/lib/locale/lang/en'
+Vue.use(ElementUI, {locale});
+
 import CrudApp from './CrudApp'
-CrudApp.create('#app');
+import Layout from './layout'
+CrudApp.create('#app', Layout, locale);
 
 /*
 

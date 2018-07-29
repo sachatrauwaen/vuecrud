@@ -22,6 +22,33 @@ import Demo from './demo'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
+function route(path, component, name, children) {
+  return {
+      exact: true,
+      path,
+      name,
+      children,
+      component: component
+  };
+}
+const crudGrid = Vue.component('oa-crud-grid');
+const crudForm = Vue.component('oa-crud-form');
+// const crudGrid = Vue.component('OaCrudGrid');
+// const crudForm = Vue.component('OaCrudForm');
+
+
+
+const router = new VueRouter({
+  //scrollBehavior: () => ({ y: 0 }),
+  routes: [
+      route('/:module/:resource', crudGrid, 'grid'),
+      route('/:module/:resource/edit/:id', crudForm, 'edit'),
+      route('/:module/:resource/add', crudForm, 'add'),
+      //
+  ]
+});
+
+
 export default {
     name: 'app',
     components: {
