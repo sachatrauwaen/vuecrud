@@ -19,7 +19,7 @@ export default {
     value: {},
     schema: {},
     messages: Object,
-    service: {},
+    connector: {},
     prop: String,
     label: String
   },
@@ -80,7 +80,7 @@ export default {
 
   },
   watch: {
-    value: function (val, oldVal) {
+    value: function (val) {
       var self = this
       if (val) {
         this.options = [{
@@ -99,8 +99,10 @@ export default {
           value: this.value
         })
       } else if (query && query !== '' && (!self.value || query != self.value[self.relationTextField])) {
-        self.loading = true
-        self.service[self.relationAction](query).done(function (data) {
+        self.loading = true;
+
+        self.connector.service(self.relationResource,self.relationAction,query,
+        function (data) {
           self.options = data.items.map(function (t) {
             // return { label: t.firstname + " " + t.lastname, value: t.id };
             return {
@@ -109,9 +111,9 @@ export default {
             }
           })
           self.loading = false
-        }).always(function () {
+        },function () {
           // abp.ui.clearBusy(_$app);
-        })
+        });
       } else if (query == '') {
         this.options = []
       }

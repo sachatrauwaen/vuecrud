@@ -1,3 +1,12 @@
+
+// eslint-disable-next-line
+import Demo from './demo'
+
+import CrudApp from './CrudApp'
+CrudApp.create('#app');
+
+/*
+
 import Vue from 'vue'
 
 import VueRouter from 'vue-router'
@@ -12,6 +21,8 @@ Vue.use(ElementUI);
 
 import VueCrud from './index'
 Vue.use(VueCrud);
+
+import OaConnector from './connectors/OaConnector'
 
 Vue.use(VueRouter);
 function route(path, component, name, children) {
@@ -42,5 +53,8 @@ const router = new VueRouter({
 
 new Vue({
   router: router,
+  connector: OaConnector,
   render: h => h(App)
 }).$mount('#app')
+
+*/

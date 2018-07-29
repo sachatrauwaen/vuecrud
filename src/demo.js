@@ -2,6 +2,7 @@
 
 var data = [];
 
+
 const abp = abp || {};
 
 var demoajax = function(data)  {
@@ -10,6 +11,11 @@ var demoajax = function(data)  {
 
         this.done = (callback) => {
             if (callback) callback(this.lst);
+            return this;
+        };
+
+        this.fail = () => {
+            
             return this;
         };
 
@@ -29,10 +35,11 @@ abp.services.app = abp.services.app || {};
 abp.services.app.user = abp.services.app.user || {};
 
 // action 'create'
+// eslint-disable-next-line
 abp.services.app.user.create = function (input, ajaxParams) {
     input.id = Math.random();
     data.push(input);
-    return input;
+    return new demoajax(input);
     /* return abp.ajax($.extend(true, {
       url: abp.appPath + 'api/services/app/User/Create',
       type: 'POST',
@@ -41,6 +48,7 @@ abp.services.app.user.create = function (input, ajaxParams) {
 };
 
 // action 'update'
+// eslint-disable-next-line
 abp.services.app.user.update = function (input, ajaxParams) {
     let lst = data.filter((val) => {
         return val.id == input.id;
@@ -48,7 +56,7 @@ abp.services.app.user.update = function (input, ajaxParams) {
     if (lst.length == 1) {
         Object.assign(lst[0], input);
     }
-    return input;
+    return new demoajax(input);
 
     /* return abp.ajax($.extend(true, {
       url: abp.appPath + 'api/services/app/User/Update',
@@ -58,6 +66,7 @@ abp.services.app.user.update = function (input, ajaxParams) {
 };
 
 // action 'delete'
+// eslint-disable-next-line
 abp.services.app.user['delete'] = function (input, ajaxParams) {
     let lst = data.filter((val) => {
         return val.id == input.id;
@@ -73,14 +82,15 @@ abp.services.app.user['delete'] = function (input, ajaxParams) {
 
 
 // action 'get'
+// eslint-disable-next-line
 abp.services.app.user.get = function (input, ajaxParams) {
     let lst = data.filter((val) => {
         return val.id == input.id;
     });
     if (lst.length == 1) {
-        return lst[0];
+        return new demoajax(lst[0]);
     }
-    return null;
+    return new demoajax({});
     /* return abp.ajax($.extend(true, {
       url: abp.appPath + 'api/services/app/User/Get' + abp.utils.buildQueryString([{ name: 'id', value: input.id }]) + '',
       type: 'GET'
@@ -88,8 +98,13 @@ abp.services.app.user.get = function (input, ajaxParams) {
 };
 
 // action 'getAll'
+// eslint-disable-next-line
 abp.services.app.user.getAll = function (input, ajaxParams) {
-    return new demoajax(data);
+    var res = {
+        items : data,
+        totalCount : data.length
+    }
+    return new demoajax(res);
     /* return abp.ajax($.extend(true, {
       url: abp.appPath + 'api/services/app/User/GetAll' + abp.utils.buildQueryString([{ name: 'userName', value: input.userName }, { name: 'email', value: input.email }, { name: 'skipCount', value: input.skipCount }, { name: 'maxResultCount', value: input.maxResultCount }]) + '',
       type: 'GET'
@@ -575,7 +590,7 @@ abp.schemas.app.user.getAll.parameters = {
 };
 
 
-/******************************** **********************************/
+/******************************** messages **********************************/
 abp.localization = abp.localization || {};
 abp.localization.values = {}
 abp.localization.values['app'] = {};

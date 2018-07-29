@@ -2,10 +2,10 @@
 <el-form ref="form" :model="model" :rules="rules" label-width="120px" :label-position="labelPosition">
     <el-tabs v-if="Object.keys(tabs).length > 1" :value="Object.keys(tabs)[0]">
         <el-tab-pane v-for="(gvalue, gkey) in tabs" :key="gkey" :label="label(gkey)" :name="gkey">
-            <oa-field v-for="(value, key) in gvalue" :key="key" :prop="key" :schema="properties[key]" v-model="model[key]" :messages="messages" @propChange="propChange" :service="service"></oa-field>
+            <oa-field v-for="(value, key) in gvalue" :key="key" :prop="key" :schema="properties[key]" v-model="model[key]" :messages="messages" @propChange="propChange" :connector="connector"></oa-field>
         </el-tab-pane>
     </el-tabs>
-    <oa-field v-else v-for="(value, key) in fields" :key="key" :prop="key" :schema="properties[key]" v-model="model[key]" :messages="messages" @propChange="propChange" :service="service"></oa-field>
+    <oa-field v-else v-for="(value, key) in fields" :key="key" :prop="key" :schema="properties[key]" v-model="model[key]" :messages="messages" @propChange="propChange" :connector="connector" ></oa-field>
     <el-form-item>
         <el-button v-for="action in actions" :key="action.name" size="small" :type="action.type" @click="action.execute()">{{action.name}}</el-button>
     </el-form-item>
@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
 export default {
   name: 'oa-form',
   props: {
@@ -26,7 +24,7 @@ export default {
     columns: {
 
     },
-    service: {}
+    connector: {}
   },
   data: function () {
     return {}
@@ -57,8 +55,8 @@ export default {
     rules: function () {
       var rules = {}
       for (var key in this.schema.properties) {
-        var prop = this.schema.properties[key]
-        var itemRules = []
+        let prop = this.schema.properties[key]
+        let itemRules = []
         if (prop.required && prop.type != 'object') {
           itemRules.push({
             required: true,
@@ -69,8 +67,8 @@ export default {
       }
       if (this.schema.required) {
         for (var i = 0; i < this.schema.required.length; i++) {
-          var prop = this.schema.required[i]
-          var itemRules = rules[prop]
+          let prop = this.schema.required[i]
+          let itemRules = rules[prop]
           if (!itemRules) {
             itemRules = []
             rules[prop] = itemRules
@@ -96,7 +94,7 @@ export default {
           groups[group] = {}
         }
         groups[group][key] = el
-      };
+      }
       return groups
     },
     isMobile: function () {
@@ -110,16 +108,6 @@ export default {
     validate: function (callback) {
       this.$refs.form.validate(function (valid) {
         if (callback) callback(valid)
-      })
-    },
-    submitForm: function (formName) {
-      this.$refs.form.validate(function (valid) {
-        if (valid) {
-          alert('submit!')
-        } else {
-          console.log('error submit!!')
-          return false
-        }
       })
     },
     resetForm: function () {

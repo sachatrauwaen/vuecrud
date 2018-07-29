@@ -13,43 +13,46 @@
 
 <script>
 export default {
-  name: 'oa-relation-to-many',
+  name: "oa-relation-to-many",
 
   props: {
     value: {},
     schema: {},
     messages: Object,
-    service: {},
+    connector: {},
     prop: String,
     label: String
   },
-  data: function () {
+  data: function() {
     //var self = this
     return {
       form: {},
       loading: false,
       dialogVisible: false,
       options: null
-    }
+    };
   },
   computed: {
-    relationResource: function () {
-      return this.schema['x-rel-to-many-app']
+    relationResource: function() {
+      return this.schema["x-rel-to-many-app"];
     },
-    relationAction: function () {
-      return this.schema['x-rel-to-many-action'] || 'get' + this.prop.capitalize() + 's'
+    relationAction: function() {
+      return (
+        this.schema["x-rel-to-many-action"] ||
+        "get" + this.prop.capitalize() + "s"
+      );
     },
-    relationValueField: function () {
-      return this.schema['x-rel-to-many-valuefield'] || 'id'
+    relationValueField: function() {
+      return this.schema["x-rel-to-many-valuefield"] || "id";
     },
-    relationTextField: function () {
-      return this.schema['x-rel-to-many-textfield'] || 'fullName'
+    relationTextField: function() {
+      return this.schema["x-rel-to-many-textfield"] || "fullName";
     },
-    id: function () {
-      return this.value ? this.value[this.relationValueField] : null
+    id: function() {
+      return this.value ? this.value[this.relationValueField] : null;
     },
-    isnew: function () {
-      return !this.value
+    isnew: function() {
+      return !this.value;
     },
     // schema: function() {
     //    if (this.isnew)
@@ -58,47 +61,56 @@ export default {
     //        return jref.resolve(abp.schemas.app[this.resource].update.input).properties[this.prop];
     // },
     model: {
-      get: function () {
-        return this.value
+      get: function() {
+        return this.value;
       },
-      set: function (val) {
-        this.$emit('input', val)
+      set: function(val) {
+        this.$emit("input", val);
       }
     },
-    isMobile: function () {
-      return window.matchMedia('only screen and (max-width: 760px)').matches
+    isMobile: function() {
+      return window.matchMedia("only screen and (max-width: 760px)").matches;
     },
-    fullscreen: function () {
-      return this.isMobile
+    fullscreen: function() {
+      return this.isMobile;
     },
-    buttonIcon: function () {
-      return this.isnew ? 'el-icon-plus' : 'el-icon-edit'
+    buttonIcon: function() {
+      return this.isnew ? "el-icon-plus" : "el-icon-edit";
     },
-    computedOptions: function () {
-      var baseOptions = []
+    computedOptions: function() {
+      var baseOptions = [];
 
       if (this.value) {
-        baseOptions = this.value.map(function (t) {
-          return {
-            label: t[this.relationTextField],
-            value: t
-          }
-        }.bind(this))
+        baseOptions = this.value.map(
+          function(t) {
+            return {
+              label: t[this.relationTextField],
+              value: t
+            };
+          }.bind(this)
+        );
       }
       if (this.options) {
-        var retval = baseOptions.concat(this.options)
+        var retval = baseOptions.concat(this.options);
         // Remove duplicates
-        retval = retval.filter(function (item, index, arr) {
-          var firstIndex = arr.findIndex(function (element) {
-            return element.value[this.relationValueField] == item.value[this.relationValueField]
-          }.bind(this))
-          if (firstIndex == index) return item
-        }.bind(this))
-        return retval
+        retval = retval.filter(
+          function(item, index, arr) {
+            var firstIndex = arr.findIndex(
+              function(element) {
+                return (
+                  element.value[this.relationValueField] ==
+                  item.value[this.relationValueField]
+                );
+              }.bind(this)
+            );
+            if (firstIndex == index) return item;
+          }.bind(this)
+        );
+        return retval;
       }
 
-      if (baseOptions.length <= 0) return null
-      return baseOptions
+      if (baseOptions.length <= 0) return null;
+      return baseOptions;
     }
   },
   // watch: {
@@ -110,63 +122,72 @@ export default {
   //    }
   // },
   methods: {
-    remoteMethod: function (query) {
-      var self = this
+    remoteMethod: function(query) {
+      var self = this;
       if (!query && self.value) {
         // this.options.push({ label: self.value[self.relationTextField], value: this.value });
-        this.options = null
-      } else if (query && query !== '' && (!self.value || query != self.value[self.relationTextField])) {
-        self.loading = true
-        self.service[self.relationAction](query).done(function (data) {
-          self.options = data.items.map(function (t) {
-            // return { label: t.firstname + " " + t.lastname, value: t.id };
-            return {
-              label: t[self.relationTextField],
-              value: t
-            }
-          })
-          self.loading = false
-        }).always(function () {
-          // abp.ui.clearBusy(_$app);
-        })
-      } else if (query == '') {
-        this.options = null
+        this.options = null;
+      } else if (
+        query &&
+        query !== "" &&
+        (!self.value || query != self.value[self.relationTextField])
+      ) {
+        self.loading = true;
+        self.service(
+          self.relationResource,
+          self.relationAction,
+          query,
+          function(data) {
+            self.options = data.items.map(function(t) {
+              // return { label: t.firstname + " " + t.lastname, value: t.id };
+              return {
+                label: t[self.relationTextField],
+                value: t
+              };
+            });
+            self.loading = false;
+          },
+          function() {
+            // abp.ui.clearBusy(_$app);
+          }
+        );
+      } else if (query == "") {
+        this.options = null;
       }
     },
-    clear: function () {
+    clear: function() {
       // this.form.customerId = null;
-      this.model = null
+      this.model = null;
     },
-    edit: function () {
-      this.dialogVisible = true
-      if (this.$refs.form) this.$refs.form.fetchData()
+    edit: function() {
+      this.dialogVisible = true;
+      if (this.$refs.form) this.$refs.form.fetchData();
     },
-    handleClose: function (done) {
-      done()
+    handleClose: function(done) {
+      done();
     },
-    close: function (model) {
-      var self = this
-      this.dialogVisible = false
+    close: function(model) {
+      this.dialogVisible = false;
       if (model) {
-        this.model = model
+        this.model = model;
         // this.options = [{ label: model[self.relationTextField], value: model }];
-        this.options = null
+        this.options = null;
       }
     },
-    updateModel: function (value) {      
-      this.model = value
+    updateModel: function(value) {
+      this.model = value;
       // this.$emit('input', value);
     },
-    openDialog: function () {
+    openDialog: function() {
       if (this.fullscreen) {
         // document.body.style.position = 'fixed'; // for ios cursor bug
-        document.body.classList.add('dialog-open')
+        document.body.classList.add("dialog-open");
       }
     },
-    closeDialog: function () {
+    closeDialog: function() {
       if (this.fullscreen) {
         // document.body.style.position = ''; // for ios cursor bug
-        document.body.classList.remove('dialog-open')
+        document.body.classList.remove("dialog-open");
       }
     }
     // },
@@ -176,5 +197,5 @@ export default {
     //        this.options = [{ label: self.value[self.relationTextField], value: this.value }];
     //    }
   }
-}
+};
 </script>

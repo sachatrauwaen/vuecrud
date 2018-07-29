@@ -1,113 +1,137 @@
 <template>
-<oa-form ref="form" :model="model" :schema="schema" :actions="actions" :messages="messages" :service="service">
+<oa-form ref="form" :model="model" :schema="schema" :actions="actions" :messages="messages" :connector="connector">
 </oa-form>
 </template>
 
 <script>
-import VueForms from '../index'
+import VueForms from "../index";
 export default {
-    name: 'oa-dialog-form',
+  name: "oa-dialog-form",
 
-    props: {
-        resource: {},
-        value: {}
-    },
-    data: function () {
-        var self = this
-        return {
-            messages: abp.localization.values['JobManager'],
-            model: {},
-            actions: [{
-                    name: 'Save',
-                    type: 'primary',
-                    execute: function () {
-                        self.$refs.form.validate(function (valid) {
-                            if (valid) {
-                                self.saveData(self.model, function () {
-                                    self.$message({
-                                        type: 'success',
-                                        message: 'Save completed'
-                                    })
-                                    self.$emit('close', self.model)
-                                })
-                            } else {
-                                console.log('error submit!!')
-                                return false
-                            }
-                        })
-                    }
-                },
-                {
-                    name: 'Cancel',
-                    execute: function () {
-                        self.$emit('close')
-                    }
-                }
-            ]
+  props: {
+    resource: {},
+    value: {},
+    connector: Object
+  },
+  data: function() {
+    var self = this;
+    return {
+      model: {},
+      actions: [
+        {
+          name: "Save",
+          type: "primary",
+          execute: function() {
+            self.$refs.form.validate(function(valid) {
+              if (valid) {
+                self.saveData(self.model, function() {
+                  self.$message({
+                    type: "success",
+                    message: "Save completed"
+                  });
+                  self.$emit("close", self.model);
+                });
+              } else {
+                return false;
+              }
+            });
+          }
+        },
+        {
+          name: "Cancel",
+          execute: function() {
+            self.$emit("close");
+          }
         }
+      ]
+    };
+  },
+  computed: {
+    id: function() {
+      return this.value ? this.value[this.relationValueField] : null;
     },
-    computed: {
-        id: function () {
-            return this.value ? this.value[this.relationValueField] : null
-        },
-        isnew: function () {
-            return !this.value
-        },
-        relationValueField: function () {
-            return this.schema['x-rel-valuefield'] || 'id'
-        },
-        schema: function () {
-            if (this.isnew) {
-                return VueForms.jsonSchema.resolve(abp.schemas.app[this.resource].create.parameters.input)
-            } else {
-                return VueForms.jsonSchema.resolve(abp.schemas.app[this.resource].update.parameters.input)
-            }
-        },
-        service: function () {
-            return abp.services.app[this.resource]
-        }
+    isnew: function() {
+      return !this.value;
     },
-    methods: {
-        fetchData: function () {
-            var self = this
-            self.$refs.form.resetForm()
-            if (!this.isnew) {
-                abp.services.app[this.resource].get({
-                    id: self.id
-                }).done(function (data) {
-                    self.model = data
-                    // this.pagination.totalItems = data.total;
-                }).always(function () {
-                    // abp.ui.clearBusy(_$app);
-                })
-            } else {
-                self.model = {}
-            }
-        },
-        saveData: function (data, callback) {
-            var self = this
-            if (self.isnew) { // add
-                self.service.create(data).done(function (newdata) {
-                    self.model = newdata
-                    self.$emit('input', newdata[this.relationValueField])
-                    if (callback) callback()
-                }).always(function () {
-                    // abp.ui.clearBusy(_$app);
-                })
-            } else { // update
-                data.id = self.id
-                self.service.update(data).done(function (newdata) {
-                    self.model = newdata
-                    self.$emit('input', newdata.id)
-                    if (callback) callback()
-                }).always(function () {
-                    // abp.ui.clearBusy(_$app);
-                })
-            }
-        }
+    relationValueField: function() {
+      return this.schema["x-rel-valuefield"] || "id";
     },
-    mounted: function () {
-        this.fetchData()
+    schema: function() {
+      if (this.isnew) {
+        return VueForms.jsonSchema.resolve(
+          this.connector.schemas(this.resource, "create")
+        );
+      } else {
+        return VueForms.jsonSchema.resolve(
+          this.connector.schemas(this.resource, "update")
+        );
+      }
+    },
+    messages: function() {
+      return this.connector.messages();
     }
-}
+  },
+  methods: {
+    fetchData: function() {
+      var self = this;
+      self.$refs.form.resetForm();
+      if (!this.isnew) {
+        self.connector(
+          self.resource,
+          "get",
+          {
+            id: self.id
+          },
+          function(data) {
+            self.model = data;
+            // this.pagination.totalItems = data.total;
+          },
+          function() {
+            // abp.ui.clearBusy(_$app);
+          }
+        );
+      } else {
+        self.model = {};
+      }
+    },
+    saveData: function(data, callback) {
+      var self = this;
+      if (self.isnew) {
+        // add
+        self.connector(
+          self.resource,
+          "create",
+          data,
+          function(newdata) {
+            self.model = newdata;
+            self.$emit("input", newdata[this.relationValueField]);
+            if (callback) callback();
+          },
+          function() {
+            // abp.ui.clearBusy(_$app);
+          }
+        );
+      } else {
+        // update
+        data.id = self.id;
+        self.connector(
+          self.resource,
+          "update",
+          data,
+          function(newdata) {
+            self.model = newdata;
+            self.$emit("input", newdata.id);
+            if (callback) callback();
+          },
+          function() {
+            // abp.ui.clearBusy(_$app);
+          }
+        );
+      }
+    }
+  },
+  mounted: function() {
+    this.fetchData();
+  }
+};
 </script>

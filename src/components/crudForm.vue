@@ -1,5 +1,5 @@
 <template>
-    <oa-form ref="form" :model="model" :schema="schema" :actions="actions" :service="service" :messages="messages"></oa-form>
+    <oa-form ref="form" :model="model" :schema="schema" :actions="actions" :connector="connector" :messages="messages" ></oa-form>
 </template>
 
 <script>
@@ -54,7 +54,7 @@ export default {
       return this.$route.params.resource
     },
     messages: function () {
-      return abp.localization.values[this.module]
+      return this.connector.messages();
     },
     id: function () {
       return this.$route.params.id
@@ -65,11 +65,11 @@ export default {
     schema: function () {
       if (this.isnew) {
         return VueForms.jsonSchema.resolve(
-          abp.schemas.app[this.resource].create.parameters.input
+          this.connector.schema(this.resource,'create')
         )
       } else {
         return VueForms.jsonSchema.resolve(
-          abp.schemas.app[this.resource].update.parameters.input
+          this.connector.schema(this.resource,'update')
         )
       }
     },
@@ -81,21 +81,20 @@ export default {
                 */
       return null
     },
-    service: function () {
-      return abp.services.app[this.resource]
+    connector: function () {
+      return this.$root.$options.connector;
     }
   },
   methods: {
     fetchData: function () {
       var self = this
       if (!this.isnew) {
-        self.service
-          .get({ id: self.id })
-          .done(function (data) {
+        self.connector.service(this.resource,'get',{ id: self.id },
+          function (data) {
             self.model = data
             // this.pagination.totalItems = data.total;
-          })
-          .always(function () {
+          },
+          function () {
             // abp.ui.clearBusy(_$app);
           })
       }
@@ -104,27 +103,23 @@ export default {
       var self = this
       if (self.isnew) {
         // add
-        self.service
-          .create(data)
-          .done(function (newdata) {
+        self.connector.service(this.resource,'create',data,
+          function (newdata) {
             if (callback) callback()
             // this.pagination.totalItems = data.total;
-          })
-          .always(function () {
+          },function () {
             // abp.ui.clearBusy(_$app);
-          })
+          });
       } else {
         // update
         data.id = self.id
-        self.service
-          .update(data)
-          .done(function (newdata) {
+        self.connector.service(this.resource,'update',data,
+          function (newdata) {
             if (callback) callback()
             // this.pagination.totalItems = data.total;
-          })
-          .always(function () {
+          },function () {
             // abp.ui.clearBusy(_$app);
-          })
+          });
       }
     }
   },
