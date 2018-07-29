@@ -1,3 +1,4 @@
+import CrudApp from './CrudApp'
 
 import Address from './components/address.vue'
 import CheckboxGroup from './components/checkboxGroup.vue'
@@ -107,7 +108,8 @@ components.forEach((val)=>{
 export default {
   version: '2.0.0',
   install,
-  components:comps
+  //components:comps,
+  createApp:CrudApp.create 
 };
 
 //const _default = module.exports;

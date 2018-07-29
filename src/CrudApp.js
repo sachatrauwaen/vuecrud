@@ -27,9 +27,6 @@ export default {
 
     create(id, layout) {
         
-        
-        
-
         new Vue({
             router: router,
             connector: OaConnector,
