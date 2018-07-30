@@ -4,13 +4,16 @@ import Address from './components/address.vue'
 import CheckboxGroup from './components/checkboxGroup.vue'
 import CrudForm from './components/crudform.vue'
 import CrudGrid from './components/crudgrid.vue'
+import Date from './components/date.vue'
 import Daterange from './components/daterange.vue'
 import DialogForm from './components/dialogform.vue'
 import Field from './components/field.vue'
+import Fields from './components/fields.vue'
 import FilterForm from './components/filterform.vue'
 import Form from './components/form.vue'
 import FormItem from './components/formitem.vue'
 import Grid from './components/grid.vue'
+import List from './components/list.vue'
 import Input from './components/input.vue'
 import Inputnumber from './components/inputnumber.vue'
 import RelationToMany from './components/relationtomany.vue'
@@ -26,13 +29,16 @@ const components = [
   CheckboxGroup,
   CrudForm,
   CrudGrid,
+  Date,
   Daterange,
   DialogForm,
   Field,
+  Fields,
   FilterForm,
   Form,
   FormItem,
   Grid,
+  List,
   Input,
   Inputnumber,
   RelationToMany,

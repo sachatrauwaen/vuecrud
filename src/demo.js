@@ -6,14 +6,11 @@ var data = [];
 const abp = abp || {};
 
 var demoajax = function(data)  {
-    
         this.lst = data;
-
         this.done = (callback) => {
             if (callback) callback(this.lst);
             return this;
         };
-
         this.fail = () => {
             
             return this;
@@ -23,7 +20,6 @@ var demoajax = function(data)  {
             if (callback) callback();
             return this;
         }
-    
 }
 
 /*************************************** services****************/
@@ -110,6 +106,21 @@ abp.services.app.user.getAll = function (input, ajaxParams) {
       type: 'GET'
     }, ajaxParams));; */
 };
+
+// action 'getRoles'
+// eslint-disable-next-line
+abp.services.app.user.getRoles = function(ajaxParams) {
+    var res = {
+        items : [{normalizedName:"admin", displayName:"admin"}],
+        totalCount : data.length
+    }
+    return new demoajax(res);
+    
+    // return abp.ajax($.extend(true, {
+    //   url: abp.appPath + 'api/services/app/User/GetRoles',
+    //   type: 'GET'
+    // }, ajaxParams));;
+  };
 
 /****************************** schema *******************************/
 
@@ -234,7 +245,7 @@ abp.schemas.app.user.create.parameters = {
                 "items": {
                     "type": "string"
                 },
-                //"x-enum-action": "getRoles",
+                "x-enum-action": "getRoles",
                 "x-enum-valuefield": "normalizedName",
                 "x-enum-textfield": "displayName"
             },
@@ -242,6 +253,53 @@ abp.schemas.app.user.create.parameters = {
                 "type": "string",
                 "maxLength": 32,
                 "minLength": 0
+            },
+            "times": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "dayOfWeek",
+                    "startTime",
+                    "endTime"
+                  ],
+                  "properties": {
+                    "dayOfWeek": {
+                      "type": "integer",
+                      "minLength": 1,
+                      "x-enumNames": [
+                        "Sunday",
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday"
+                      ],
+                      "enum": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6
+                      ]
+                    },
+                    "startTime": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "endTime": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "id": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
+                  }
+                }
             }
         }
     },

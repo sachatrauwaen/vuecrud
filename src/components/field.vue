@@ -61,6 +61,8 @@ export default {
         type = "textarea";
       } else if (type == "address") {
         type = "address";
+      } else if (type == "array") {  
+        type = "list";
       } else {
         type = "input";
       }
