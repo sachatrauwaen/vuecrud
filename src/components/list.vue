@@ -79,8 +79,7 @@ export default {
       return VueForms.isMobile();
     }
   },
-  created: function() {
-    var self = this;
+  created: function() {    
     var sch = VueForms.jsonSchema.getNotNull(this.schema);
   },
   methods: {
