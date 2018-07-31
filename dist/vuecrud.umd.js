@@ -4044,11 +4044,11 @@ if (inBrowser && window.Vue) {
 // CONCATENATED MODULE: ./src/CrudApp.js
 
 
-external_commonjs_vue_commonjs2_vue_root_Vue_default.a.use(vue_router_esm);
 
 
 /* harmony default export */ var CrudApp = ({
   create: function create(id, layout) {
+    external_commonjs_vue_commonjs2_vue_root_Vue_default.a.use(vue_router_esm);
     external_commonjs_vue_commonjs2_vue_root_Vue_default.a.use(src);
     var crudGrid = external_commonjs_vue_commonjs2_vue_root_Vue_default.a.component('oa-crud-grid');
     var crudForm = external_commonjs_vue_commonjs2_vue_root_Vue_default.a.component('oa-crud-form'); // const crudGrid = Vue.component('OaCrudGrid');

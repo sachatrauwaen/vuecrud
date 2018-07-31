@@ -1,17 +1,12 @@
 import Vue from 'vue'
-
 import VueRouter from 'vue-router'
-Vue.use(VueRouter);
-
-
 import VueCrud from './index'
-
 import OaConnector from './connectors/OaConnector'
 
 export default {
 
     create(id, layout) {
-
+        Vue.use(VueRouter);
         Vue.use(VueCrud);
 
         const crudGrid = Vue.component('oa-crud-grid');
