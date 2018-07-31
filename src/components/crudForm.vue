@@ -54,7 +54,7 @@ export default {
       return this.$route.params.resource
     },
     messages: function () {
-      return this.connector.messages();
+      return this.connector.messages(this.$route.params.module);
     },
     id: function () {
       return this.$route.params.id
@@ -104,7 +104,7 @@ export default {
       if (self.isnew) {
         // add
         self.connector.service(this.resource,'create',data,
-          function (newdata) {
+          function () {
             if (callback) callback()
             // this.pagination.totalItems = data.total;
           },function () {
@@ -114,7 +114,7 @@ export default {
         // update
         data.id = self.id
         self.connector.service(this.resource,'update',data,
-          function (newdata) {
+          function () {
             if (callback) callback()
             // this.pagination.totalItems = data.total;
           },function () {

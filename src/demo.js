@@ -651,7 +651,12 @@ abp.schemas.app.user.getAll.parameters = {
 /******************************** messages **********************************/
 abp.localization = abp.localization || {};
 abp.localization.values = {}
-abp.localization.values['app'] = {};
+abp.localization.values['app'] = {
+
+    Surname:"prénom",
+    UserName:"Nom d'utilisateur"
+
+};
 
 
 window.abp = abp;
