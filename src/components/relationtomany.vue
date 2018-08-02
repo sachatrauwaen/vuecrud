@@ -134,7 +134,7 @@ export default {
       ) {
         self.loading = true;
         self.service(
-          self.relationResource,
+          self.relationResource ? self.relationResource : self.resource,
           self.relationAction,
           query,
           function(data) {

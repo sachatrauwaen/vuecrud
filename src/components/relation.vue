@@ -76,6 +76,9 @@ export default {
     },
     buttonIcon: function () {
       return this.isnew ? 'el-icon-plus' : 'el-icon-edit'
+    },
+    resource: function () {
+      return this.$route.params.resource
     }
 
   },
@@ -99,9 +102,8 @@ export default {
           value: this.value
         })
       } else if (query && query !== '' && (!self.value || query != self.value[self.relationTextField])) {
-        self.loading = true;
-
-        self.connector.service(self.relationResource,self.relationAction,query,
+        self.loading = true;        
+        self.connector.service(self.relationResource ? self.relationResource : self.resource,self.relationAction,query,
         function (data) {
           self.options = data.items.map(function (t) {
             // return { label: t.firstname + " " + t.lastname, value: t.id };
