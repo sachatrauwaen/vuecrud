@@ -59,10 +59,11 @@ export default {
                 name: self.translate("Duplicate"),
                 icon: "el-icon-plus",
                 execute: function (row) {
-                    var index = self.model.indexOf(row);
-                    if (index > -1) {
-                        self.model.push(JSON.parse(JSON.stringify(row)));
-                    }
+                        var clone = JSON.parse(JSON.stringify(row))
+                        if (clone.hasOwnProperty('id')){
+                            delete(clone.id);
+                        }
+                        self.model.push(clone);
                 }
             }]
         };
@@ -122,7 +123,7 @@ export default {
                 return cellValue ? this.messages["Yes"] : this.messages["No"];
             } else if (schema.format == "date-time") {
                 if (!cellValue) return "";
-                
+                // eslint-disable-next-line
                 return moment(cellValue)
                     .locale("fr")
                     .format("lll");
