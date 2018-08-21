@@ -99,7 +99,7 @@ export default {
         }
     },
     created: function () {
-        var sch = VueForms.jsonSchema.getNotNull(this.schema);
+        
     },
     methods: {
         translate: function (text) {
@@ -122,6 +122,7 @@ export default {
                 return cellValue ? this.messages["Yes"] : this.messages["No"];
             } else if (schema.format == "date-time") {
                 if (!cellValue) return "";
+                
                 return moment(cellValue)
                     .locale("fr")
                     .format("lll");
