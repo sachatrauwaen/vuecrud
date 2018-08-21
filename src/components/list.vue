@@ -54,6 +54,16 @@ export default {
                         self.model.splice(index, 1);
                     }
                 }
+            },
+            {
+                name: self.translate("Duplicate"),
+                icon: "el-icon-plus",
+                execute: function (row) {
+                    var index = self.model.indexOf(row);
+                    if (index > -1) {
+                        self.model.push(JSON.parse(JSON.stringify(row)));
+                    }
+                }
             }]
         };
     },
