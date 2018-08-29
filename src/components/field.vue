@@ -26,7 +26,8 @@ export default {
         return {};
       }
     },
-    connector: {}
+    connector: {},
+    resource: {}
   },
 
   computed: {
