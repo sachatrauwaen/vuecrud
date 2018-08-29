@@ -1,7 +1,7 @@
 <template>
 <el-form ref="form" :model="model" :rules="rules" label-width="120px" :label-position="labelPosition">
 
-    <oa-fields :model="model" :schema="schema" :connector="connector" :messages="messages"></oa-fields>
+    <oa-fields :model="model" :schema="schema" :connector="connector" :resource="resource" :messages="messages"></oa-fields>
 
 <!--
     <el-tabs v-if="Object.keys(tabs).length > 1" :value="Object.keys(tabs)[0]">
@@ -29,7 +29,8 @@ export default {
     columns: {
 
     },
-    connector: {}
+    connector: {},
+    resource: {},
   },
   data: function () {
     return {}
