@@ -11,7 +11,7 @@
     <el-card v-else style="margin-bottom:10px;" v-for="row in model" :key="row.id">
         <el-row :gutter="10" v-for="(value, key) in columns" :key="key">
             <el-col :span="12">{{label(key)}}</el-col>
-            <el-col :span="12">{{row[key]}}</el-col>
+            <el-col :span="12">{{format(key, row[key])}}</el-col>
         </el-row>
         <div style="padding-top:10px;">
             <el-button v-for="action in actions" :key="action.name" :icon="action.icon" size="small" v-show="actionVisible(action, row)" @click="action.execute(row)"></el-button>
@@ -53,7 +53,10 @@ export default {
       if (this.messages && this.messages[name]) { return this.messages[name] } else { return name }
     },
     formatter: function (row, column, cellValue) {
-      var schema = VueForms.jsonSchema.getNotNull(this.schema.properties[column.property])
+      return this.format(column.property, cellValue);
+    },
+    format: function (property, cellValue) {
+      var schema = VueForms.jsonSchema.getNotNull(this.schema.properties[property])
       if (schema.type == 'boolean') {
         return cellValue ? this.messages['Yes'] : this.messages['No']
       } else if (schema.format == 'date-time') {
