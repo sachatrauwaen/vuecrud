@@ -1,4 +1,5 @@
 import CrudApp from './CrudApp'
+import OaConnector from './connectors/OaConnector'
 
 import Address from './components/address.vue'
 import CheckboxGroup from './components/checkboxGroup.vue'
@@ -115,6 +116,7 @@ export default {
   version: '2.0.0',
   install,
   //components:comps,
+  OaConnector: OaConnector,
   createApp:CrudApp.create 
 };
 

@@ -7094,6 +7094,7 @@ var time_component = normalizeComponent(
 
 
 
+
 var components = [address, checkboxGroup, crudform, crudgrid, date, daterange, dialogform, field, fields, filterform, components_form, formitem, grid, list, input, inputnumber, relationtomany, relation, components_select, components_switch, components_textarea, time];
 
 var src_install = function install(Vue) {
@@ -7162,6 +7163,7 @@ components.forEach(function (val) {
   version: '2.0.0',
   install: src_install,
   //components:comps,
+  OaConnector: OaConnector,
   createApp: CrudApp.create
 }); //const _default = module.exports;
 //export { _default as default };
