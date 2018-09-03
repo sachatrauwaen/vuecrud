@@ -77,11 +77,7 @@ export default {
     },
     buttonIcon: function () {
       return this.isnew ? 'el-icon-plus' : 'el-icon-edit'
-    },
-    resource: function () {
-      return this.$route.params.resource
     }
-
   },
   watch: {
     value: function (val) {
