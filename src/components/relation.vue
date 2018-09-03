@@ -20,6 +20,7 @@ export default {
     schema: {},
     messages: Object,
     connector: {},
+    resource: {},
     prop: String,
     label: String
   },
@@ -103,7 +104,7 @@ export default {
         })
       } else if (query && query !== '' && (!self.value || query != self.value[self.relationTextField])) {
         self.loading = true;        
-        self.connector.service(self.relationResource ? self.relationResource : self.resource,self.relationAction,query,
+        self.connector.service( self.resource,self.relationAction,query,
         function (data) {
           self.options = data.items.map(function (t) {
             // return { label: t.firstname + " " + t.lastname, value: t.id };
