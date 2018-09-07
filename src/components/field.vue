@@ -71,10 +71,13 @@ export default {
       var compName = "oa-" + type;
 
       var comp = Vue.component(compName);
+      
+      console.log(this.$options.components);
+      console.log(Vue.$loadComponent);
       //var comp = VueCrud.components[compName];
 
       if (!comp) {
-        comp = function(resolve, reject) {
+        comp = (resolve, reject) => {
           Vue.$loadComponent({
             name: compName,
             path: this.connector.componentsPath + type + ".js",
