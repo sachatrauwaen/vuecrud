@@ -69,12 +69,7 @@ export default {
       }
 
       var compName = "oa-" + type;
-
       var comp = Vue.component(compName);
-      
-      console.log(this.$options.components);
-      console.log(Vue.$loadComponent);
-      //var comp = VueCrud.components[compName];
 
       if (!comp) {
         comp = (resolve, reject) => {
@@ -101,7 +96,7 @@ export default {
 
     label: function() {
       if (this.hideLabel) return "";
-      var name = this.schema.title ? this.schema.title : this.prop.capitalize();
+      var name = this.schema.title ? this.schema.title : Utils.capitalize(this.prop);
       if (this.messages && this.messages[name]) return this.messages[name];
       else return this.schema.title ? this.schema.title : name;
     },

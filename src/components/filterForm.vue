@@ -83,7 +83,6 @@ export default {
       this.$refs.form.resetFields()
     },
     label: function (name) {
-      // var name = this.schema.properties[prop].title ? this.schema.properties[prop].title : prop.capitalize();
       if (this.messages && this.messages[name]) return this.messages[name]
       else return name
     },

@@ -49,24 +49,24 @@ export default {
   },
   methods: {
     label: function (prop) {
-      var name = this.schema.properties[prop].title ? this.schema.properties[prop].title : prop.capitalize()
+      var name = this.schema.properties[prop].title ? this.schema.properties[prop].title : Utils.capitalize(prop)
       if (this.messages && this.messages[name]) { return this.messages[name] } else { return name }
     },
     formatter: function (row, column, cellValue) {
       return this.format(column.property, cellValue);
     },
     format: function (property, cellValue) {
-      var schema = Utils.jsonSchema.getNotNull(this.schema.properties[property])
+      var schema = Utils.jsonSchema.getNotNull(this.schema.properties[property]);
       if (schema.type == 'boolean') {
-        return cellValue ? this.messages['Yes'] : this.messages['No']
+        return cellValue ? this.messages['Yes'] : this.messages['No'];
       } else if (schema.format == 'date-time') {
-        if (!cellValue) return ''
-        return moment(cellValue).locale('fr').format('lll')
+        if (!cellValue) return '';
+        return moment(cellValue).locale('fr').format('lll'); // TODO: Refactor: Assumes globally loaded moment
       } else if (schema.enum) {
         var i = schema.enum.indexOf(cellValue)
-        return this.messages[schema['x-enumNames'][i]] ? this.messages[schema['x-enumNames'][i]] : schema['x-enumNames'][i]
+        return this.messages[schema['x-enumNames'][i]] ? this.messages[schema['x-enumNames'][i]] : schema['x-enumNames'][i];
       }
-      return cellValue
+      return cellValue;
     },
     rowClick: function (row, event, column) {
       if (column.label) {

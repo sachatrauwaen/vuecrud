@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { default as Utils } from "../utils";
 export default {
   name: 'oa-relation',
 
@@ -41,7 +42,7 @@ export default {
       return this.sch['x-rel-app']
     },
     relationAction: function () {
-      return this.sch['x-rel-action'] || 'get' + this.prop.capitalize() + 's'
+      return this.sch['x-rel-action'] || 'get' + Utils.capitalize(this.prop) + 's'
     },
     relationValueField: function () {
       return this.sch['x-rel-valuefield'] || 'id'

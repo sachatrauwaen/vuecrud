@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { default as Utils } from "../utils";
 export default {
   name: "oa-relation-to-many",
 
@@ -39,7 +40,7 @@ export default {
     relationAction: function() {
       return (
         this.schema["x-rel-to-many-action"] ||
-        "get" + this.prop.capitalize() + "s"
+        "get" + Utils.capitalize(this.prop) + "s"
       );
     },
     relationValueField: function() {

@@ -15,9 +15,30 @@ const isMobile = () => window.matchMedia("only screen and (max-width: 760px)").m
 
 const resolve = (json) => json;
 
+const capitalize = (value) => value.charAt(0).toUpperCase() + value.slice(1);
+
+const groupBy = (arr) => (keyFunction) => {
+  let groups = {};
+  arr.forEach(el => {
+      const key = keyFunction(el);
+      if (key in groups === false) {
+          groups[key] = [];
+      }
+      groups[key].push(el);
+  });
+  return Object
+    .keys(groups)
+    .map(key => ({
+      key: key,
+      values: groups[key]
+    }));
+};
+
 
  export default {
      jsonSchema,
      isMobile,
-     resolve
+     resolve,
+     capitalize,
+     groupBy
  };

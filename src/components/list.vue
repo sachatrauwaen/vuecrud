@@ -111,7 +111,7 @@ export default {
             var sch = this.schema.items;
             var name = sch.properties[prop].title ?
                 sch.properties[prop].title :
-                prop.capitalize();
+                Utils.capitalize(prop);
             if (this.messages && this.messages[name]) return this.messages[name];
             else return name;
         },

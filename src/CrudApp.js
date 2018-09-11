@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueCrud from './index'
 import OaConnector from './connectors/OaConnector'
+import { default as Utils } from "./utils";
 
 export default {
 
@@ -48,8 +49,8 @@ export default {
                 },
                 pageTitle: function () {
                     if (this.$route.params.resource) {
-                        let key = this.$route.params.resource.capitalize() + 's';
-                        let title = this.messages[[this.$route.params.resource.capitalize() + 's']]
+                        let key = Utils.capitalize(this.$route.params.resource) + 's';
+                        let title = this.messages[[key]]
                         return title ? title : key;
                     }
                     else {
