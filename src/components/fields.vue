@@ -44,10 +44,10 @@ export default {
       if (this.options) {
         return this.options.fields;
       } else {
-        var fields = {};
-        for (var key in this.schema.properties) {
+        let fields = {};
+        for (let key in this.schema.properties) {
           if (
-            key != "id" &&
+            key !== "id" &&
             !this.schema.properties[key].readonly &&
             !this.schema.properties[key]["x-rel-app"] &&
             !this.schema.properties[key]["x-rel-to-many-app"]
@@ -59,10 +59,10 @@ export default {
       }
     },
     tabs: function() {
-      var groups = {};
+      let groups = {};
       for (let key in this.fields) {
         let el = this.fields[key];
-        var group = el["x-ui-group"];
+        const group = el["x-ui-group"];
         if (group in groups == false) {
           groups[group] = {};
         }

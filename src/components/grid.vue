@@ -44,7 +44,7 @@ export default {
       return fields
     },
     isMobile: function () {
-      return Utils.isMobile()
+      return Utils.isMobile(window);
     }
   },
   methods: {
