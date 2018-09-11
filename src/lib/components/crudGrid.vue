@@ -28,16 +28,23 @@ export default {
       pageSize: 10
     };
   },
+  props: {
+      module: String,
+      resource: String,
+      connector: Object,
+      doOnEdit: Function,
+      doOnAdd: Function
+  },
   computed: {
-    module: function() {
-      return this.$route.params.module;
-    },
-    resource: function() {
-      return this.$route.params.resource;
-    },
-    connector: function() {
-      return this.$root.$options.connector;
-    },
+    // module: function() {
+    //   return this.$route.params.module;
+    // },
+    // resource: function() {
+    //   return this.$route.params.resource;
+    // },
+    // connector: function() {
+    //   return this.$root.$options.connector;
+    // },
     schema: function() {
       return this.connector.schema(this.resource, "get")
     },
@@ -49,15 +56,7 @@ export default {
         {
           name: this.translate("Edit"),
           icon: "el-icon-edit",
-          execute: (row) => {
-            this.$router.push({
-              name: "edit",
-              params: {
-                resource: this.resource,
-                id: row.id
-              }
-            });
-          }
+          execute: this.doOnEdit
         },
         {
           name: this.translate("Delete"),
@@ -98,14 +97,7 @@ export default {
         {
           icon: "el-icon-plus",
           type: "primary",
-          execute: () => {
-            this.$router.push({
-              name: "add",
-              params: {
-                resource: this.resource
-              }
-            });
-          }
+          execute: this.doOnAdd
         }
       ];
     },
@@ -194,7 +186,7 @@ export default {
     this.fetchData();
   },
   watch: {
-    // Call the method again whenever the route changes
+    // TODO this seems suboptimal, and won't work when using without router
     $route: function() {
       this.fetchData();
     }

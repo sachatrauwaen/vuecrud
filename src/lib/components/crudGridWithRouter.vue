@@ -1,0 +1,95 @@
+<template>
+<div>
+    <oa-crud-grid
+        :module="resource"
+        :resource="resource"
+        :connector="connector"
+        :doOnEdit="onEdit"
+        :doOnAdd="onAdd">
+    </oa-crud-grid>
+</div>
+</template>
+
+<script>
+import { default as Utils } from '../utils/utils'
+export default {
+  name: "oa-crud-grid-with-router",
+  data: function() {
+    return {};
+  },
+  computed: {
+      module () {
+          return this.$route.params.module;
+      },
+      resource () {
+          return this.$route.params.resource;
+      },
+      connector () {
+          return this.$root.$options.connector;
+      },
+  },
+  methods: {
+    onEdit (row) {
+      this.$router.push({
+        name: "edit",
+        params: {
+          resource: this.resource,
+          id: row.id
+        }
+      });
+    },
+    onAdd () {
+      this.$router.push({
+        name: "add",
+        params: {
+          resource: this.resource
+        }
+      });
+    },
+  },
+  created() {},
+  watch: {}
+};
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const onEdit = (row) => {
+  this.$router.push({
+    name: "edit",
+    params: {
+      resource: this.resource,
+      id: row.id
+    }
+  });
+};
+
+const onAdd =  () => {
+  this.$router.push({
+    name: "add",
+    params: {
+      resource: this.resource
+    }
+  });
+};
