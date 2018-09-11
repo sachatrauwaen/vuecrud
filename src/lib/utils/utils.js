@@ -53,9 +53,9 @@ const loadComponent = (opts) => {
 
 
  export default {
-     jsonSchema,
-     isMobile,
-     capitalize,
-     groupBy,
-     loadComponent
+    jsonSchema,
+    isMobile,
+    capitalize,
+    groupBy,
+    loadComponent
  };

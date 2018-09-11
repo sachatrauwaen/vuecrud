@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import VueCrud from './index'
-import OaConnector from './connectors/OaConnector'
-import { default as Utils } from "./utils";
+import VueCrud from '../lib/index'
+import { default as Utils } from "../lib/utils/utils";
 
 export default {
 
@@ -27,7 +26,7 @@ export default {
 
         new Vue({
             router: router,
-            connector: OaConnector,
+            connector: VueCrud.OaConnector,
             //render: h => h('router-view')
             //render: h => h(layout, [h('router-view')]),
             render(h) {

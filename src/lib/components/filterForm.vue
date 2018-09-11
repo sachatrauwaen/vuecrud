@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { default as Utils } from "../utils";
+import { default as Utils } from '../utils/utils'
 export default {
   name: 'oa-filter-form',
   props: {

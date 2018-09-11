@@ -9,7 +9,7 @@ import locale from 'element-ui/lib/locale/lang/en'
 Vue.use(ElementUI, {locale});
 
 
-import VueCrud from './index'
+import VueCrud from '../lib'
 import Layout from './layout'
 
 VueCrud.createApp('#app', Layout);
