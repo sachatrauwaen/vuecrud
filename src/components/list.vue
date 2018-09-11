@@ -45,7 +45,7 @@ export default {
     data: function () {
         return {
             actions: [{
-                name: self.translate("Delete"),
+                name: this.translate("Delete"),
                 icon: "el-icon-delete",
                 execute: (row) => {
                     var index = this.model.indexOf(row);
@@ -55,7 +55,7 @@ export default {
                 }
             },
             {
-                name: self.translate("Duplicate"),
+                name: this.translate("Duplicate"),
                 icon: "el-icon-plus",
                 execute: (row) => {
                         var clone = JSON.parse(JSON.stringify(row))

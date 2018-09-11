@@ -8,8 +8,6 @@ const jsonSchema = {
     }
 }
 
-const isMobile = (window) => window.matchMedia("only screen and (max-width: 760px)").matches;
-
 const capitalize = (value) => value.charAt(0).toUpperCase() + value.slice(1);
 
 const groupBy = (arr) => (keyFunction) => {
@@ -29,10 +27,35 @@ const groupBy = (arr) => (keyFunction) => {
     }));
 };
 
+/* TODO : Might want to move these to a 'domUtils' file. They are mostly effectfull or tightly coupled to the DOM. */
+
+const isMobile = (window) => window.matchMedia("only screen and (max-width: 760px)").matches; 
+const loadComponent = (opts) => {
+    var script = document.createElement('script');
+
+    opts.onLoad = opts.onLoad || function () { };
+    opts.onError = opts.onError || function () { };
+
+    script.src = opts.path;
+    script.async = true;
+
+    script.onload = function () {
+        var component = Vue.component(opts.name);
+        if (component)
+            opts.onLoad(component);
+        else
+            opts.onError();
+    };
+    script.onerror = opts.onError;
+
+    document.body.appendChild(script);
+}
+
 
  export default {
      jsonSchema,
      isMobile,
      capitalize,
-     groupBy
+     groupBy,
+     loadComponent
  };

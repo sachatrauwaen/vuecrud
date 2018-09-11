@@ -22,7 +22,7 @@ import Textarea from './components/textarea.vue'
 import Time from './components/time.vue'
 
 
-const components = [
+export const components = {
   Address,
   CheckboxGroup,
   CrudForm,
@@ -45,29 +45,6 @@ const components = [
   Switch,
   Textarea,
   Time
-];
+};
 
-export default install = (Vue) => {
-    components.map(component => Vue.component(component.name, component));
-  
-    Vue.$loadComponent = function (opts) {
-      var script = document.createElement('script');
-    
-      opts.onLoad = opts.onLoad || function () { };
-      opts.onError = opts.onError || function () { };
-    
-      script.src = opts.path;
-      script.async = true;
-    
-      script.onload = function () {
-          var component = Vue.component(opts.name);
-          if (component)
-            opts.onLoad(component);
-          else
-            opts.onError();
-      };
-      script.onerror = opts.onError;
-    
-      document.body.appendChild(script);
-    }
-}
+export const install = (Vue) => Object.keys(components).forEach(key => Vue.component(components[key].name, components[key]));

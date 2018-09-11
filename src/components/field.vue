@@ -73,7 +73,7 @@ export default {
 
       if (!comp) {
         comp = (resolve, reject) => {
-          Vue.$loadComponent({
+          Utils.loadComponent({
             name: compName,
             path: this.connector.componentsPath + type + ".js",
             onLoad: resolve,
