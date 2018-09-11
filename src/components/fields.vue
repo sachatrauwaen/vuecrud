@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { default as Utils } from "../utils";
 export default {
   name: "oa-fields",
   props: {
@@ -77,7 +78,7 @@ export default {
       return this.generateColumns(this.fields);
     },
     isMobile: function() {
-      return window.matchMedia("only screen and (max-width: 760px)").matches;
+      return Utils.isMobile(window);
     },
     labelPosition: function() {
       return this.isMobile ? "top" : "right";

@@ -8,7 +8,7 @@ const jsonSchema = {
     }
 }
 
-const isMobile = () => window.matchMedia("only screen and (max-width: 760px)").matches;
+const isMobile = (window) => window.matchMedia("only screen and (max-width: 760px)").matches;
 
 const capitalize = (value) => value.charAt(0).toUpperCase() + value.slice(1);
 

@@ -70,7 +70,7 @@ export default {
       }
     },
     isMobile: function() {
-      return window.matchMedia("only screen and (max-width: 760px)").matches;
+      return Utils.isMobile(window);
     },
     fullscreen: function() {
       return this.isMobile;

@@ -43,27 +43,26 @@ export default {
         connector: {}
     },
     data: function () {
-        var self = this;
         return {
             actions: [{
                 name: self.translate("Delete"),
                 icon: "el-icon-delete",
-                execute: function (row) {
-                    var index = self.model.indexOf(row);
+                execute: (row) => {
+                    var index = this.model.indexOf(row);
                     if (index > -1) {
-                        self.model.splice(index, 1);
+                        this.model.splice(index, 1);
                     }
                 }
             },
             {
                 name: self.translate("Duplicate"),
                 icon: "el-icon-plus",
-                execute: function (row) {
+                execute: (row) => {
                         var clone = JSON.parse(JSON.stringify(row))
                         if (clone.hasOwnProperty('id')){
                             delete(clone.id);
                         }
-                        self.model.push(clone);
+                        this.model.push(clone);
                 }
             }]
         };
@@ -96,7 +95,7 @@ export default {
             return fields;
         },
         isMobile: function () {
-            return Utils.isMobile();
+            return Utils.isMobile(window);
         }
     },
     created: function () {
