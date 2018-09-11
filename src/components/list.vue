@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import VueForms from "../vueforms";
+import { default as Utils } from "../utils";
 
 export default {
     name: "oa-list",
@@ -96,7 +96,7 @@ export default {
             return fields;
         },
         isMobile: function () {
-            return VueForms.isMobile();
+            return Utils.isMobile();
         }
     },
     created: function () {
@@ -116,7 +116,7 @@ export default {
             else return name;
         },
         formatter: function (row, column, cellValue) {
-            var schema = VueForms.jsonSchema.getNotNull(
+            var schema = Utils.jsonSchema.getNotNull(
                 this.schema.items.properties[column.property]
             );
             if (schema.type == "boolean") {

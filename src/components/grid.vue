@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import VueForms from '../vueforms'
+import { default as Utils } from "../utils";
 export default {
   name: 'oa-grid',
   props: {
@@ -44,7 +44,7 @@ export default {
       return fields
     },
     isMobile: function () {
-      return VueForms.isMobile()
+      return Utils.isMobile()
     }
   },
   methods: {
@@ -56,7 +56,7 @@ export default {
       return this.format(column.property, cellValue);
     },
     format: function (property, cellValue) {
-      var schema = VueForms.jsonSchema.getNotNull(this.schema.properties[property])
+      var schema = Utils.jsonSchema.getNotNull(this.schema.properties[property])
       if (schema.type == 'boolean') {
         return cellValue ? this.messages['Yes'] : this.messages['No']
       } else if (schema.format == 'date-time') {

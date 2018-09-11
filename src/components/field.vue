@@ -6,7 +6,7 @@
 
 <script>
 import Vue from "vue";
-import VueForms from "../vueforms";
+import { default as Utils } from "../utils";
 
 export default {
   name: "oa-field",
@@ -32,7 +32,7 @@ export default {
 
   computed: {
     currentView: function() {
-      var sch = VueForms.jsonSchema.getNotNull(this.schema);
+      var sch = Utils.jsonSchema.getNotNull(this.schema);
 
       var type = Array.isArray(sch.type)
         ? sch.type[0] == "null" ? sch.type[1] : sch.type[0]

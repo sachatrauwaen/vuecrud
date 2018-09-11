@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import VueForms from '../vueforms'
+import { default as Utils } from '../utils'
 export default {
   name: 'oa-crud-form',
   props: {},
@@ -64,11 +64,11 @@ export default {
     },
     schema: function () {
       if (this.isnew) {
-        return VueForms.jsonSchema.resolve(
+        return Utils.jsonSchema.resolve(
           this.connector.schema(this.resource,'create')
         )
       } else {
-        return VueForms.jsonSchema.resolve(
+        return Utils.jsonSchema.resolve(
           this.connector.schema(this.resource,'update')
         )
       }
