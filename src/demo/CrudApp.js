@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import VueCrud from './index'
-import OaConnector from './connectors/OaConnector'
+import VueCrud from '../lib/index'
+import { default as Utils } from "../lib/utils/utils";
 
 export default {
-
     create(id, layout) {
         Vue.use(VueRouter);
         Vue.use(VueCrud);
@@ -23,10 +22,9 @@ export default {
             ]
         });
 
-
         new Vue({
             router: router,
-            connector: OaConnector,
+            connector: VueCrud.OaConnector,
             //render: h => h('router-view')
             //render: h => h(layout, [h('router-view')]),
             render(h) {
@@ -44,12 +42,12 @@ export default {
             },
             computed: {
                 messages() {
-                    return OaConnector.messages(this.$route.params.module);
+                    return VueCrud.OaConnector.messages(this.$route.params.module);
                 },
                 pageTitle: function () {
                     if (this.$route.params.resource) {
-                        let key = this.$route.params.resource.capitalize() + 's';
-                        let title = this.messages[[this.$route.params.resource.capitalize() + 's']]
+                        let key = Utils.capitalize(this.$route.params.resource) + 's';
+                        let title = this.messages[[key]]
                         return title ? title : key;
                     }
                     else {
@@ -57,8 +55,6 @@ export default {
                     }
                 }
             }
-
         }).$mount(id)
-
     }
 }

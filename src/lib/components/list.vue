@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import VueForms from "../vueforms";
+import { default as Utils } from '../utils/utils'
 
 export default {
     name: "oa-list",
@@ -42,45 +42,44 @@ export default {
         prop: String,
         connector: {}
     },
-    data: function () {
-        var self = this;
+    data () {
         return {
             actions: [{
-                name: self.translate("Delete"),
+                name: this.translate("Delete"),
                 icon: "el-icon-delete",
-                execute: function (row) {
-                    var index = self.model.indexOf(row);
+                execute: (row) => {
+                    var index = this.model.indexOf(row);
                     if (index > -1) {
-                        self.model.splice(index, 1);
+                        this.model.splice(index, 1);
                     }
                 }
             },
             {
-                name: self.translate("Duplicate"),
+                name: this.translate("Duplicate"),
                 icon: "el-icon-plus",
-                execute: function (row) {
+                execute: (row) => {
                         var clone = JSON.parse(JSON.stringify(row))
                         if (clone.hasOwnProperty('id')){
                             delete(clone.id);
                         }
-                        self.model.push(clone);
+                        this.model.push(clone);
                 }
             }]
         };
     },
     computed: {
         model: {
-            get: function () {
+            get () {
                 return this.value;
             },
-            set: function (val) {
+            set (val) {
                 this.$emit("input", val);
             }
         },
-        rowSchema: function () {
+        rowSchema () {
             return this.schema.items;
         },
-        columns: function () {
+        columns () {
             var fields = {};
             var sch = this.schema.items;
             for (var key in sch.properties) {
@@ -95,28 +94,26 @@ export default {
             }
             return fields;
         },
-        isMobile: function () {
-            return VueForms.isMobile();
+        isMobile () {
+            return Utils.isMobile(window);
         }
     },
-    created: function () {
-        
-    },
+    created () {},
     methods: {
-        translate: function (text) {
+        translate (text) {
             if (this.messages && this.messages[text]) return this.messages[text];
             else return text;
         },
-        label: function (prop) {
+        label (prop) {
             var sch = this.schema.items;
             var name = sch.properties[prop].title ?
                 sch.properties[prop].title :
-                prop.capitalize();
+                Utils.capitalize(prop);
             if (this.messages && this.messages[name]) return this.messages[name];
             else return name;
         },
-        formatter: function (row, column, cellValue) {
-            var schema = VueForms.jsonSchema.getNotNull(
+        formatter (row, column, cellValue) {
+            var schema = Utils.jsonSchema.getNotNull(
                 this.schema.items.properties[column.property]
             );
             if (schema.type == "boolean") {
@@ -135,13 +132,13 @@ export default {
             }
             return cellValue;
         },
-        rowClick: function (row, event, column) {
+        rowClick (row, event, column) {
             if (column.label) {
                 //this.defaultAction.execute(row, event, column);
                 this.$refs.table.toggleRowExpansion(row, true);
             }
         },
-        addRow: function () {
+        addRow () {
             var row = {};
             var sch = this.schema.items;
             for (var key in sch.properties) {

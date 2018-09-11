@@ -1,13 +1,15 @@
 <template>
-  <el-input v-model="model"></el-input>
+<el-switch v-model="model" on-text="" off-text=""></el-switch>
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
-  name: 'oa-input',
+  name: 'oa-switch',
 
   props: {
-    value: String,
+    value: Boolean,
     schema: {},
     prop: String,
     options: {
@@ -16,14 +18,13 @@ export default {
   },
   computed: {
     model: {
-      get: function () {
+      get () {
         return this.value
       },
-      set: function (val) {
+      set (val) {
         this.$emit('input', val)
       }
     }
   }
 }
-
 </script>

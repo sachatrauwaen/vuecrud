@@ -1,15 +1,13 @@
 <template>
-  <el-date-picker v-model="model" type="datetime" format="dd/MM/yyyy HH:mm" ></el-date-picker>
+  <el-input v-model="model"></el-input>
 </template>
 
 <script>
-import Vue from 'vue'
-
 export default {
-  name: 'oa-datetime',
+  name: 'oa-input',
 
   props: {
-    value: {},
+    value: String,
     schema: {},
     prop: String,
     options: {
@@ -18,10 +16,10 @@ export default {
   },
   computed: {
     model: {
-      get: function () {
+      get () {
         return this.value
       },
-      set: function (val) {
+      set (val) {
         this.$emit('input', val)
       }
     }

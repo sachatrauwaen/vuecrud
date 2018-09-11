@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import VueForms from "../index";
+import { default as Utils } from '../utils/utils'
 export default {
   name: "oa-dialog-form",
 
@@ -13,7 +13,7 @@ export default {
     value: {},
     connector: Object
   },
-  data: function() {
+  data() {
     var self = this;
     return {
       model: {},
@@ -47,32 +47,27 @@ export default {
     };
   },
   computed: {
-    id: function() {
+    id() {
       return this.value ? this.value[this.relationValueField] : null;
     },
-    isnew: function() {
+    isnew() {
       return !this.value;
     },
-    relationValueField: function() {
+    relationValueField() {
       return this.schema["x-rel-valuefield"] || "id";
     },
-    schema: function() {
-      if (this.isnew) {
-        return VueForms.jsonSchema.resolve(
-          this.connector.schemas(this.resource, "create")
-        );
-      } else {
-        return VueForms.jsonSchema.resolve(
-          this.connector.schemas(this.resource, "update")
-        );
-      }
+    schema() {
+      if (this.isnew)
+        return this.connector.schemas(this.resource, "create")
+      else
+        return this.connector.schemas(this.resource, "update")
     },
-    messages: function() {
+    messages() {
       return this.connector.messages();
     }
   },
   methods: {
-    fetchData: function() {
+    fetchData() {
       var self = this;
       self.$refs.form.resetForm();
       if (!this.isnew) {
@@ -94,7 +89,7 @@ export default {
         self.model = {};
       }
     },
-    saveData: function(data, callback) {
+    saveData(data, callback) {
       var self = this;
       if (self.isnew) {
         // add
@@ -130,7 +125,7 @@ export default {
       }
     }
   },
-  mounted: function() {
+  mounted() {
     this.fetchData();
   }
 };

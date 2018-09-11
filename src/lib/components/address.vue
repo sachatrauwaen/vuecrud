@@ -56,11 +56,11 @@ export default {
     }
   },
   watch: {
-    autocompleteText: function (newVal, oldVal) {
+    autocompleteText (newVal, oldVal) {
       this.$emit('inputChange', { newVal: newVal, oldVal: oldVal })
     }
   },
-  mounted: function () {
+  mounted () {
     var self = this
     ensureGoogleMaps(
       {
@@ -137,50 +137,50 @@ export default {
     /**
      * When the input gets focus
      */
-    onFocus: function () {
+    onFocus () {
       this.geolocate()
       this.$emit('focus')
     },
     /**
      * When the input loses focus
      */
-    onBlur: function () {
+    onBlur () {
       this.$emit('blur')
     },
     /**
      * When the input got changed
      */
-    onChange: function () {
+    onChange () {
       this.$emit('change', this.autocompleteText)
     },
     /**
      * When a key gets pressed
      * @param  {Event} event A keypress event
      */
-    onKeyPress: function (event) {
+    onKeyPress (event) {
       this.$emit('keypress', event)
     },
     /**
      * Clear the input
      */
-    clear: function () {
+    clear () {
       this.autocompleteText = ''
     },
     /**
      * Focus the input
      */
-    focus: function () {
+    focus () {
       this.$refs.autocomplete.focus()
     },
     /**
      * Blur the input
      */
-    blur: function () {
+    blur () {
       this.$refs.autocomplete.blur()
     },
     // Bias the autocomplete object to the user's geographical location,
     // as supplied by the browser's 'navigator.geolocation' object.
-    geolocate: function () {
+    geolocate () {
       if (this.enableGeolocation) {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function (position) {
@@ -201,17 +201,17 @@ export default {
 
   computed: {
     model: {
-      get: function () {
+      get() {
         return this.value
       },
-      set: function (val) {
+      set(val) {
         this.$emit('input', val)
       }
     },
-    properties: function () {
+    properties () {
       return this.schema.properties
     },
-    fields: function () {
+    fields () {
       var fields = {}
       for (var key in this.schema.properties) {
         if (this.columns) {

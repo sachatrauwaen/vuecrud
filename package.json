@@ -4,8 +4,8 @@
   "private": true,
   "main": "dist/vuecrud.umd.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name vuecrud src/index.js",
+    "serve": "vue-cli-service serve src/demo/main.js",
+    "build": "vue-cli-service build --target lib --name vuecrud src/lib/index.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

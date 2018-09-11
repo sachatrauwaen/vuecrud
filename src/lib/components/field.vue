@@ -6,7 +6,7 @@
 
 <script>
 import Vue from "vue";
-import VueForms from "../vueforms";
+import { default as Utils } from '../utils/utils'
 
 export default {
   name: "oa-field",
@@ -31,8 +31,8 @@ export default {
   },
 
   computed: {
-    currentView: function() {
-      var sch = VueForms.jsonSchema.getNotNull(this.schema);
+    currentView() {
+      var sch = Utils.jsonSchema.getNotNull(this.schema);
 
       var type = Array.isArray(sch.type)
         ? sch.type[0] == "null" ? sch.type[1] : sch.type[0]
@@ -69,13 +69,11 @@ export default {
       }
 
       var compName = "oa-" + type;
-
       var comp = Vue.component(compName);
-      //var comp = VueCrud.components[compName];
 
       if (!comp) {
-        comp = function(resolve, reject) {
-          Vue.$loadComponent({
+        comp = (resolve, reject) => {
+          Utils.loadComponent({
             name: compName,
             path: this.connector.componentsPath + type + ".js",
             onLoad: resolve,
@@ -88,30 +86,29 @@ export default {
     },
 
     model: {
-      get: function() {
+      get() {
         return this.value;
       },
-      set: function(val) {
+      set(val) {
         this.$emit("input", val);
       }
     },
 
-    label: function() {
+    label() {
       if (this.hideLabel) return "";
-      var name = this.schema.title ? this.schema.title : this.prop.capitalize();
+      var name = this.schema.title ? this.schema.title : Utils.capitalize(this.prop);
       if (this.messages && this.messages[name]) return this.messages[name];
       else return this.schema.title ? this.schema.title : name;
     },
-    hideLabel: function() {
+    hideLabel() {
       return this.schema["x-ui-hideLabel"];
     },
     labelWidth: function() {
       return this.hideLabel ? "0px" : "120px";
     }
   },
-
   methods: {
-    propChange: function(key, value) {
+    propChange(key, value) {
       this.$emit("propChange", key, value);
     }
   }

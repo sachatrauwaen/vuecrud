@@ -16,11 +16,9 @@
 </template>
 
 <script>
-import VueForms from "../vueforms";
-
 export default {
   name: "oa-crud-grid",
-  data: function() {
+  data() {
     return {
       model: [],
       filterModel: {},
@@ -30,61 +28,59 @@ export default {
     };
   },
   computed: {
-    module: function() {
+    module() {
       return this.$route.params.module;
     },
-    resource: function() {
+    resource() {
       return this.$route.params.resource;
     },
-    connector: function() {
+    connector() {
       return this.$root.$options.connector;
     },
-    schema: function() {
-      return VueForms.jsonSchema.resolve(
-        this.connector.schema(this.resource, "get")
-      );
+    schema() {
+      return this.connector.schema(this.resource, "get")
     },
-    messages: function() {
+    messages() {
       return this.connector.messages(this.$route.params.module);
     },
-    gridActions: function() {
-      var self = this;
+    gridActions() {
       return [
         {
-          name: self.translate("Edit"),
+          name: this.translate("Edit"),
           icon: "el-icon-edit",
-          execute: function(row) {
-            self.$router.push({
+          execute: (row) => {
+            // eslint-disable-next-line
+            this.$router.push({
               name: "edit",
               params: {
-                resource: self.resource,
+                resource: this.resource,
                 id: row.id
               }
             });
           }
         },
         {
-          name: self.translate("Delete"),
+          name: this.translate("Delete"),
           icon: "el-icon-delete",
-          execute: function(row) {
+          execute: (row) => {
             // eslint-disable-next-line
-            self
-              .$confirm("Confirm delete ?", self.translate("Delete"), {
+            this
+              .$confirm("Confirm delete ?", this.translate("Delete"), {
                 confirmButtonText: "OK",
                 cancelButtonText: "Cancel",
                 type: "warning"
               })
-              .then(function() {
-                self.deleteData(row, function() {
-                  self.$message({
+              .then(() => {
+                this.deleteData(row, () => {
+                  this.$message({
                     type: "success",
-                    message: self.translate("Delete completed")
+                    message: this.translate("Delete completed")
                   });
                 });
               })
-              .catch(function() {});
+              .catch(() => {});
           },
-          visible: function(row) {
+          visible: (row) => {
             if (typeof row.canDelete !== "undefined") {
               return row.canDelete;
             } else {
@@ -94,28 +90,27 @@ export default {
         }
       ];
     },
-    defaultAction: function() {
+    defaultAction() {
       return this.gridActions[0];
     },
-    actions: function() {
-      var self = this;
+    actions() {
       return [
         {
-          // name: self.translate('Add'),
           icon: "el-icon-plus",
           type: "primary",
-          execute: function() {
-            self.$router.push({
+          execute: () => {
+            // eslint-disable-next-line
+            this.$router.push({
               name: "add",
               params: {
-                resource: self.resource
+                resource: this.resource
               }
             });
           }
         }
       ];
     },
-    filterSchema: function() {
+    filterSchema() {
       var schema = {
         properties: {}
       };
@@ -127,102 +122,80 @@ export default {
       }
       return schema;
     },
-    hasFilter: function() {
+    hasFilter() {
       return Object.keys(this.filterSchema.properties).length > 0;
     },
-    filterActions: function() {
-      var self = this;
+    filterActions() {
       return [
         {
-          // name: self.translate('Search'),
           icon: "el-icon-search",
           type: "primary",
-          execute: function() {
-            self.fetchData();
+          execute: () => {
+            this.fetchData();
           }
         },
         {
-          // name: self.translate('Reset'),
           icon: "el-icon-close",
-          execute: function() {
-            self.$refs.filterform.resetForm();
-            self.fetchData();
+          execute: () => {
+            this.$refs.filterform.resetForm();
+            this.fetchData();
           }
         }
       ];
     },
-    options: function() {
-      /*
-                      if (abp.grids.app[this.resource] && abp.grids.app[this.resource].options)
-                          return abp.grids.app[this.resource].options;
-                      else
-                          return null;
-
-                      var cols = [];
-                      for (var key in this.schema.properties) {
-                          cols.push(key);
-                      }
-                      */
+    options() {
       return null;
     },
-    totalPages: function() {
+    totalPages() {
       return Math.ceil(
         this.pagination.totalItems / this.pagination.rowsPerPage
       );
     }
   },
   methods: {
-    currentPageChange: function() {
+    currentPageChange() {
       this.fetchData(); 
     },
-    fetchData: function(callback) {
-      var self = this;
-      self.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
-      self.filterModel.maxResultCount = this.pageSize;
-      // { skipCount: 0, maxResultCount: 999 }
-      self.connector.service(
+    fetchData(callback) {
+      this.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
+      this.filterModel.maxResultCount = this.pageSize;
+      this.connector.service(
         this.resource,
         "getAll",
-        self.filterModel,
-        function(data) {
-          self.model = data.items;
-          self.totalCount = data.totalCount;
+        this.filterModel,
+        (data) => {
+          this.model = data.items;
+          this.totalCount = data.totalCount;
           if (callback) callback();
-          // this.pagination.totalItems = data.total;
         },
-        function() {
-          // abp.ui.clearBusy(_$app);
-        }
+        () => {}
       );
     },
-    deleteData: function(data, callback) {
-      var self = this;
-      self.connector.service(
+    deleteData(data, callback) {
+      this.connector.service(
         this.resource,
         "delete",
         {
           id: data.id
         },
-        function() {
-          self.fetchData(callback);
+        () => {
+          this.fetchData(callback);
         },
-        function() {
-          // abp.ui.clearBusy(_$app);
-        }
+        () => {}
       );
     },
-    translate: function(text) {
-      if (this.messages && this.messages[text]) return this.messages[text];
-      else return text;
+    translate(text) {
+      if (this.messages && this.messages[text])
+        return this.messages[text];
+      else
+        return text;
     }
   },
-  created: function() {
-    // this.$store.commit('setPageTitle', global.helper.i.titleize(global.helper.i.pluralize(this.resource)))
-    // this.fetchGrid().then(() => { })
+  created() {
     this.fetchData();
   },
   watch: {
-    // call again the method if the route changes
+    // Call the method again whenever the route changes
     $route: function() {
       this.fetchData();
     }

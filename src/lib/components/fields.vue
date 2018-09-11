@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { default as Utils } from '../utils/utils'
 export default {
   name: "oa-fields",
   props: {
@@ -32,21 +33,21 @@ export default {
     connector: {},
     resource: {},
   },
-  data: function() {
+  data() {
     return {};
   },
   computed: {
-    properties: function() {
+    properties() {
       return this.schema.properties;
     },
-    fields: function() {
+    fields() {
       if (this.options) {
         return this.options.fields;
       } else {
-        var fields = {};
-        for (var key in this.schema.properties) {
+        let fields = {};
+        for (let key in this.schema.properties) {
           if (
-            key != "id" &&
+            key !== "id" &&
             !this.schema.properties[key].readonly &&
             !this.schema.properties[key]["x-rel-app"] &&
             !this.schema.properties[key]["x-rel-to-many-app"]
@@ -57,11 +58,11 @@ export default {
         return fields;
       }
     },
-    tabs: function() {
-      var groups = {};
+    tabs() {
+      let groups = {};
       for (let key in this.fields) {
         let el = this.fields[key];
-        var group = el["x-ui-group"];
+        const group = el["x-ui-group"];
         if (group in groups == false) {
           groups[group] = {};
         }
@@ -73,26 +74,25 @@ export default {
       }
       return groups;
     },
-    columns: function() {
+    columns() {
       return this.generateColumns(this.fields);
     },
-    isMobile: function() {
-      return window.matchMedia("only screen and (max-width: 760px)").matches;
+    isMobile() {
+      return Utils.isMobile(window);
     },
-    labelPosition: function() {
+    labelPosition() {
       return this.isMobile ? "top" : "right";
     }
   },
   methods: {
-    label: function(name) {
-      //var name = this.schema.properties[prop].title ? this.schema.properties[prop].title : prop.capitalize();
+    label(name) {
       if (this.messages && this.messages[name]) return this.messages[name];
       else return name;
     },
-    propChange: function(key, value) {
+    propChange(key, value) {
       this.$set(this.model, key, value);
     },
-    generateColumns: function(fields) {
+    generateColumns(fields) {
       var columns = {};
       for (var key in fields) {
         var el = this.fields[key];

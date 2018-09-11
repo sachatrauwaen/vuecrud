@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { default as Utils } from '../utils/utils'
 export default {
   name: "oa-relation-to-many",
 
@@ -24,7 +25,6 @@ export default {
     label: String
   },
   data: function() {
-    //var self = this
     return {
       form: {},
       loading: false,
@@ -33,25 +33,25 @@ export default {
     };
   },
   computed: {
-    relationResource: function() {
+    relationResource() {
       return this.schema["x-rel-to-many-app"];
     },
-    relationAction: function() {
+    relationAction() {
       return (
         this.schema["x-rel-to-many-action"] ||
-        "get" + this.prop.capitalize() + "s"
+        "get" + Utils.capitalize(this.prop) + "s"
       );
     },
-    relationValueField: function() {
+    relationValueField() {
       return this.schema["x-rel-to-many-valuefield"] || "id";
     },
-    relationTextField: function() {
+    relationTextField() {
       return this.schema["x-rel-to-many-textfield"] || "fullName";
     },
-    id: function() {
+    id() {
       return this.value ? this.value[this.relationValueField] : null;
     },
-    isnew: function() {
+    isnew() {
       return !this.value;
     },
     // schema: function() {
@@ -61,23 +61,23 @@ export default {
     //        return jref.resolve(abp.schemas.app[this.resource].update.input).properties[this.prop];
     // },
     model: {
-      get: function() {
+      get() {
         return this.value;
       },
-      set: function(val) {
+      set(val) {
         this.$emit("input", val);
       }
     },
-    isMobile: function() {
-      return window.matchMedia("only screen and (max-width: 760px)").matches;
+    isMobile() {
+      return Utils.isMobile(window);
     },
-    fullscreen: function() {
+    fullscreen() {
       return this.isMobile;
     },
-    buttonIcon: function() {
+    buttonIcon() {
       return this.isnew ? "el-icon-plus" : "el-icon-edit";
     },
-    computedOptions: function() {
+    computedOptions() {
       var baseOptions = [];
 
       if (this.value) {
@@ -113,19 +113,10 @@ export default {
       return baseOptions;
     }
   },
-  // watch: {
-  //    value: function (val, oldVal) {
-  //        var self = this;
-  //        if (val) {
-  //            this.options= [{ label: self.value[self.relationTextField], value: val }];
-  //        }
-  //    }
-  // },
   methods: {
-    remoteMethod: function(query) {
+    remoteMethod(query) {
       var self = this;
       if (!query && self.value) {
-        // this.options.push({ label: self.value[self.relationTextField], value: this.value });
         this.options = null;
       } else if (
         query &&
@@ -147,55 +138,42 @@ export default {
             });
             self.loading = false;
           },
-          function() {
-            // abp.ui.clearBusy(_$app);
-          }
+          () => {}
         );
       } else if (query == "") {
         this.options = null;
       }
     },
-    clear: function() {
-      // this.form.customerId = null;
+    clear() {
       this.model = null;
     },
-    edit: function() {
+    edit() {
       this.dialogVisible = true;
       if (this.$refs.form) this.$refs.form.fetchData();
     },
-    handleClose: function(done) {
+    handleClose(done) {
       done();
     },
-    close: function(model) {
+    close(model) {
       this.dialogVisible = false;
       if (model) {
         this.model = model;
-        // this.options = [{ label: model[self.relationTextField], value: model }];
         this.options = null;
       }
     },
-    updateModel: function(value) {
+    updateModel(value) {
       this.model = value;
-      // this.$emit('input', value);
     },
-    openDialog: function() {
+    openDialog() {
       if (this.fullscreen) {
-        // document.body.style.position = 'fixed'; // for ios cursor bug
         document.body.classList.add("dialog-open");
       }
     },
-    closeDialog: function() {
+    closeDialog() {
       if (this.fullscreen) {
-        // document.body.style.position = ''; // for ios cursor bug
         document.body.classList.remove("dialog-open");
       }
     }
-    // },
-    // created: function () {
-    //    var self = this;
-    //    if (this.value) {
-    //        this.options = [{ label: self.value[self.relationTextField], value: this.value }];
-    //    }
   }
 };
 </script>

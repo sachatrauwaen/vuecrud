@@ -1,15 +1,15 @@
 <template>
-<el-switch v-model="model" on-text="" off-text=""></el-switch>
+  <el-input type="textarea" autosize v-model="model"></el-input>
 </template>
 
 <script>
 import Vue from 'vue'
 
 export default {
-  name: 'oa-switch',
+  name: 'oa-textarea',
 
   props: {
-    value: Boolean,
+    value: String,
     schema: {},
     prop: String,
     options: {
@@ -18,13 +18,14 @@ export default {
   },
   computed: {
     model: {
-      get: function () {
+      get () {
         return this.value
       },
-      set: function (val) {
+      set (val) {
         this.$emit('input', val)
       }
     }
   }
 }
+
 </script>

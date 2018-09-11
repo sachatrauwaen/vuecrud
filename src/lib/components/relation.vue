@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { default as Utils } from '../utils/utils'
 export default {
   name: 'oa-relation',
 
@@ -24,8 +25,7 @@ export default {
     prop: String,
     label: String
   },
-  data: function () {
-    //var self = this
+  data () {
     return {
       form: {},
       loading: false,
@@ -34,25 +34,25 @@ export default {
     }
   },
   computed: {
-    sch: function () {
+    sch () {
       return this.schema.oneOf && this.schema.oneOf[0] ? this.schema.oneOf[0] : this.schema
     },
-    relationResource: function () {
+    relationResource () {
       return this.sch['x-rel-app']
     },
-    relationAction: function () {
-      return this.sch['x-rel-action'] || 'get' + this.prop.capitalize() + 's'
+    relationAction () {
+      return this.sch['x-rel-action'] || 'get' + Utils.capitalize(this.prop) + 's'
     },
-    relationValueField: function () {
+    relationValueField () {
       return this.sch['x-rel-valuefield'] || 'id'
     },
-    relationTextField: function () {
+    relationTextField () {
       return this.sch['x-rel-textfield'] || 'fullName'
     },
-    id: function () {
+    id () {
       return this.value ? this.value[this.relationValueField] : null
     },
-    isnew: function () {
+    isnew () {
       return !this.value
     },
     // schema: function() {
@@ -62,103 +62,104 @@ export default {
     //        return jref.resolve(abp.schemas.app[this.resource].update.input).properties[this.prop];
     // },
     model: {
-      get: function () {
+      get () {
         return this.value
       },
-      set: function (val) {
+      set (val) {
         this.$emit('input', val)
       }
     },
-    isMobile: function () {
-      return window.matchMedia('only screen and (max-width: 760px)').matches
+    isMobile () {
+      return Utils.isMobile(window);
     },
-    fullscreen: function () {
+    fullscreen () {
       return this.isMobile
     },
-    buttonIcon: function () {
+    buttonIcon () {
       return this.isnew ? 'el-icon-plus' : 'el-icon-edit'
     }
   },
   watch: {
-    value: function (val) {
-      var self = this
+    value (val) {
       if (val) {
         this.options = [{
-          label: self.value[self.relationTextField],
+          label: this.value[self.relationTextField],
           value: val
         }]
       }
     }
   },
   methods: {
-    remoteMethod: function (query) {
-      var self = this
+    remoteMethod (query) {
       if (!query && self.value) {
-        this.options.push({
-          label: self.value[self.relationTextField],
+        const option = {
+          label: this.value[this.relationTextField],
           value: this.value
-        })
-      } else if (query && query !== '' && (!self.value || query != self.value[self.relationTextField])) {
-        self.loading = true;        
-        self.connector.service( self.resource,self.relationAction,query,
-        function (data) {
-          self.options = data.items.map(function (t) {
-            // return { label: t.firstname + " " + t.lastname, value: t.id };
-            return {
-              label: t[self.relationTextField],
-              value: t
-            }
-          })
-          self.loading = false
-        },function () {
-          // abp.ui.clearBusy(_$app);
-        });
+        };
+        this.options.push(option);
+      } else if (query && query !== '' && (!this.value || query != this.value[this.relationTextField])) {
+        this.loading = true;        
+        this.connector.service(
+          this.resource,
+          this.relationAction,
+          query,
+          (data) => {
+            this.options = data.items.map(function (t) {
+              return {
+                label: t[this.relationTextField],
+                value: t
+              }
+            })
+            this.loading = false
+          },
+          () => {}
+        );
       } else if (query == '') {
         this.options = []
       }
     },
-    clear: function () {
-      // this.form.customerId = null;
-      this.model = null
+    clear () {
+      this.model = null;
     },
-    edit: function () {
+    edit () {
       this.dialogVisible = true
       if (this.$refs.form) this.$refs.form.fetchData()
     },
-    handleClose: function (done) {
+    handleClose (done) {
       done()
     },
-    close: function (model) {
-      var self = this
+    close (model) {
       this.dialogVisible = false
       if (model) {
         this.model = model
-        this.options = [{
-          label: model[self.relationTextField],
-          value: model
-        }]
+        this.options = [
+          {
+            label: model[this.relationTextField],
+            value: model
+          }
+        ]
       }
     },
-    openDialog: function () {
+    openDialog () {
       if (this.fullscreen) {
-        // document.body.style.position = 'fixed'; // for ios cursor bug
         document.body.classList.add('dialog-open')
       }
     },
-    closeDialog: function () {
+    closeDialog () {
       if (this.fullscreen) {
         // document.body.style.position = ''; // for ios cursor bug
         document.body.classList.remove('dialog-open')
       }
     }
   },
-  created: function () {
-    var self = this
+  created () {
     if (this.value) {
-      this.options = [{
-        label: self.value[self.relationTextField],
-        value: this.value
-      }]
+      this.options = [
+        {
+          label: this.value[this.relationTextField],
+          value: this.value
+        }
+      ]
     }
   }
 }

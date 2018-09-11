@@ -1,15 +1,15 @@
 <template>
-  <el-input type="textarea" autosize v-model="model"></el-input>
+  <el-input-number v-model="model" ></el-input-number>
 </template>
 
 <script>
 import Vue from 'vue'
 
 export default {
-  name: 'oa-textarea',
+  name: 'oa-inputnumber',
 
   props: {
-    value: String,
+    value: Number,
     schema: {},
     prop: String,
     options: {
@@ -18,10 +18,10 @@ export default {
   },
   computed: {
     model: {
-      get: function () {
+      get () {
         return this.value
       },
-      set: function (val) {
+      set (val) {
         this.$emit('input', val)
       }
     }

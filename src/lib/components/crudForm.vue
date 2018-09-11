@@ -3,11 +3,10 @@
 </template>
 
 <script>
-import VueForms from '../vueforms'
 export default {
   name: 'oa-crud-form',
   props: {},
-  data: function () {
+  data () {
     var self = this
     return {
       model: {},
@@ -47,38 +46,28 @@ export default {
     }
   },
   computed: {
-    module: function () {
+    module () {
       return this.$route.params.module
     },
-    resource: function () {
+    resource () {
       return this.$route.params.resource
     },
-    messages: function () {
+    messages () {
       return this.connector.messages(this.$route.params.module);
     },
-    id: function () {
+    id () {
       return this.$route.params.id
     },
-    isnew: function () {
+    isnew () {
       return !this.id
     },
-    schema: function () {
-      if (this.isnew) {
-        return VueForms.jsonSchema.resolve(
-          this.connector.schema(this.resource,'create')
-        )
-      } else {
-        return VueForms.jsonSchema.resolve(
-          this.connector.schema(this.resource,'update')
-        )
-      }
+    schema () {
+      if (this.isnew)
+        return this.connector.schema(this.resource,'create');
+      else
+        return this.connector.schema(this.resource,'update')
     },
-    options: function () {
-      /*
-                if (abp.forms.app[this.resource] && abp.forms.app[this.resource].options)
-                    return abp.forms.app[this.resource].options;
-                else
-                */
+    options () {
       return null
     },
     connector: function () {
@@ -86,44 +75,42 @@ export default {
     }
   },
   methods: {
-    fetchData: function () {
+    fetchData () {
       var self = this
       if (!this.isnew) {
         self.connector.service(this.resource,'get',{ id: self.id },
           function (data) {
             self.model = data
-            // this.pagination.totalItems = data.total;
           },
           function () {
-            // abp.ui.clearBusy(_$app);
           })
       }
     },
-    saveData: function (data, callback) {
+    saveData (data, callback) {
       var self = this
       if (self.isnew) {
         // add
-        self.connector.service(this.resource,'create',data,
-          function () {
-            if (callback) callback()
-            // this.pagination.totalItems = data.total;
-          },function () {
-            // abp.ui.clearBusy(_$app);
-          });
+        self.connector.service(
+          this.resource,
+          'create',
+          data,
+          callback ? callback : (() => {}),
+          () => {}
+        );
       } else {
         // update
         data.id = self.id
-        self.connector.service(this.resource,'update',data,
-          function () {
-            if (callback) callback()
-            // this.pagination.totalItems = data.total;
-          },function () {
-            // abp.ui.clearBusy(_$app);
-          });
+        self.connector.service(
+          this.resource,
+          'update',
+          data,
+          callback ? callback : (() => {}),
+          () => {}
+        );
       }
     }
   },
-  created: function () {
+  created () {
     // this.$store.commit('setPageTitle', global.helper.i.titleize(global.helper.i.pluralize(this.resource)))
     // this.fetchGrid().then(() => { })
     this.fetchData()
