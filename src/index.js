@@ -3,20 +3,20 @@ import OaConnector from './connectors/OaConnector'
 
 import Address from './components/address.vue'
 import CheckboxGroup from './components/checkboxGroup.vue'
-import CrudForm from './components/crudform.vue'
-import CrudGrid from './components/crudgrid.vue'
+import CrudForm from './components/crudForm.vue'
+import CrudGrid from './components/crudGrid.vue'
 import Date from './components/date.vue'
 import Daterange from './components/daterange.vue'
-import DialogForm from './components/dialogform.vue'
+import DialogForm from './components/dialogForm.vue'
 import Field from './components/field.vue'
 import Fields from './components/fields.vue'
-import FilterForm from './components/filterform.vue'
+import FilterForm from './components/filterForm.vue'
 import Form from './components/form.vue'
-import FormItem from './components/formitem.vue'
+import FormItem from './components/formItem.vue'
 import Grid from './components/grid.vue'
 import List from './components/list.vue'
 import Input from './components/input.vue'
-import Inputnumber from './components/inputnumber.vue'
+import Inputnumber from './components/inputNumber.vue'
 import RelationToMany from './components/relationtomany.vue'
 import Relation from './components/relation.vue'
 import Select from './components/select.vue'
@@ -51,9 +51,7 @@ const components = [
 ];
 
 const install = function (Vue) {
-  components.map(component => {
-    Vue.component(component.name, component)
-  })
+  components.map(component => Vue.component(component.name, component));
 
   Vue.$loadComponent = function (opts) {
     var script = document.createElement('script');
@@ -66,12 +64,10 @@ const install = function (Vue) {
   
     script.onload = function () {
         var component = Vue.component(opts.name);
-  
-        if (component) {
-            opts.onLoad(component);
-        } else {
-            opts.onError();
-        }
+        if (component)
+          opts.onLoad(component);
+        else
+          opts.onError();
     };
     script.onerror = opts.onError;
   
@@ -80,14 +76,7 @@ const install = function (Vue) {
 
 }
 
-/* istanbul ignore if */
-// if (typeof window !== 'undefined' && window.Vue) {
-//   install(window.Vue)
-// }
-
-String.prototype.capitalize = function () {
-  return this.charAt(0).toUpperCase() + this.slice(1);
-}
+String.prototype.capitalize = () => this.charAt(0).toUpperCase() + this.slice(1);
 
 Array.prototype.groupBy = function (keyFunction) {
   var groups = {};
@@ -98,27 +87,18 @@ Array.prototype.groupBy = function (keyFunction) {
       }
       groups[key].push(el);
   });
-  return Object.keys(groups).map(function (key) {
-      return {
-          key: key,
-          values: groups[key]
-      };
-  });
+  return Object
+    .keys(groups)
+    .map((key) => ({
+      key: key,
+      values: groups[key]
+    }));
 };
-
-let comps ={}
-components.forEach((val)=>{
-  comps[val.name]=val;
-})
 
 
 export default {
   version: '2.0.0',
   install,
-  //components:comps,
   OaConnector: OaConnector,
   createApp:CrudApp.create 
 };
-
-//const _default = module.exports;
-//export { _default as default };

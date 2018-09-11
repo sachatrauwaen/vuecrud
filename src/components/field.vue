@@ -112,7 +112,6 @@ export default {
       return this.hideLabel ? "0px" : "120px";
     }
   },
-
   methods: {
     propChange: function(key, value) {
       this.$emit("propChange", key, value);

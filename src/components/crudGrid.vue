@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import VueForms from "../vueforms";
+import { default as VueForms } from "../vueforms";
 
 export default {
   name: "oa-crud-grid",
@@ -217,11 +217,6 @@ export default {
     }
   },
   created: function() {
-    console.error('I DID IT! <3 -- janne');
-    console.warn('I DID IT! <3 -- janne');
-    console.log('I DID IT! <3 -- janne');
-    // this.$store.commit('setPageTitle', global.helper.i.titleize(global.helper.i.pluralize(this.resource)))
-    // this.fetchGrid().then(() => { })
     this.fetchData();
   },
   watch: {
