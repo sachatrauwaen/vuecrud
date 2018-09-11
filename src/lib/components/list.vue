@@ -42,7 +42,7 @@ export default {
         prop: String,
         connector: {}
     },
-    data: function () {
+    data () {
         return {
             actions: [{
                 name: this.translate("Delete"),
@@ -69,17 +69,17 @@ export default {
     },
     computed: {
         model: {
-            get: function () {
+            get () {
                 return this.value;
             },
-            set: function (val) {
+            set (val) {
                 this.$emit("input", val);
             }
         },
-        rowSchema: function () {
+        rowSchema () {
             return this.schema.items;
         },
-        columns: function () {
+        columns () {
             var fields = {};
             var sch = this.schema.items;
             for (var key in sch.properties) {
@@ -94,19 +94,17 @@ export default {
             }
             return fields;
         },
-        isMobile: function () {
+        isMobile () {
             return Utils.isMobile(window);
         }
     },
-    created: function () {
-        
-    },
+    created () {},
     methods: {
-        translate: function (text) {
+        translate (text) {
             if (this.messages && this.messages[text]) return this.messages[text];
             else return text;
         },
-        label: function (prop) {
+        label (prop) {
             var sch = this.schema.items;
             var name = sch.properties[prop].title ?
                 sch.properties[prop].title :
@@ -114,7 +112,7 @@ export default {
             if (this.messages && this.messages[name]) return this.messages[name];
             else return name;
         },
-        formatter: function (row, column, cellValue) {
+        formatter (row, column, cellValue) {
             var schema = Utils.jsonSchema.getNotNull(
                 this.schema.items.properties[column.property]
             );
@@ -134,13 +132,13 @@ export default {
             }
             return cellValue;
         },
-        rowClick: function (row, event, column) {
+        rowClick (row, event, column) {
             if (column.label) {
                 //this.defaultAction.execute(row, event, column);
                 this.$refs.table.toggleRowExpansion(row, true);
             }
         },
-        addRow: function () {
+        addRow () {
             var row = {};
             var sch = this.schema.items;
             for (var key in sch.properties) {

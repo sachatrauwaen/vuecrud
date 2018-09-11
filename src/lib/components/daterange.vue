@@ -6,7 +6,7 @@
 export default {
   name: 'oa-daterange',
 
-  data: function () {
+  data () {
     return {
       pickerOptions: {
         shortcuts: [
@@ -49,10 +49,10 @@ export default {
   },
   computed: {
     model: {
-      get: function () {
+      get () {
         return this.value
       },
-      set: function (val) {
+      set (val) {
         this.$emit('input', val)
       }
     }

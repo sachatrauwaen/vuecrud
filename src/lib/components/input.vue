@@ -16,10 +16,10 @@ export default {
   },
   computed: {
     model: {
-      get: function () {
+      get () {
         return this.value
       },
-      set: function (val) {
+      set (val) {
         this.$emit('input', val)
       }
     }

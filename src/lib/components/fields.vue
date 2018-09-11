@@ -33,14 +33,14 @@ export default {
     connector: {},
     resource: {},
   },
-  data: function() {
+  data() {
     return {};
   },
   computed: {
-    properties: function() {
+    properties() {
       return this.schema.properties;
     },
-    fields: function() {
+    fields() {
       if (this.options) {
         return this.options.fields;
       } else {
@@ -58,7 +58,7 @@ export default {
         return fields;
       }
     },
-    tabs: function() {
+    tabs() {
       let groups = {};
       for (let key in this.fields) {
         let el = this.fields[key];
@@ -74,25 +74,25 @@ export default {
       }
       return groups;
     },
-    columns: function() {
+    columns() {
       return this.generateColumns(this.fields);
     },
-    isMobile: function() {
+    isMobile() {
       return Utils.isMobile(window);
     },
-    labelPosition: function() {
+    labelPosition() {
       return this.isMobile ? "top" : "right";
     }
   },
   methods: {
-    label: function(name) {
+    label(name) {
       if (this.messages && this.messages[name]) return this.messages[name];
       else return name;
     },
-    propChange: function(key, value) {
+    propChange(key, value) {
       this.$set(this.model, key, value);
     },
-    generateColumns: function(fields) {
+    generateColumns(fields) {
       var columns = {};
       for (var key in fields) {
         var el = this.fields[key];

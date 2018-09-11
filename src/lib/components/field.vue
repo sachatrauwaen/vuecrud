@@ -31,7 +31,7 @@ export default {
   },
 
   computed: {
-    currentView: function() {
+    currentView() {
       var sch = Utils.jsonSchema.getNotNull(this.schema);
 
       var type = Array.isArray(sch.type)
@@ -86,21 +86,21 @@ export default {
     },
 
     model: {
-      get: function() {
+      get() {
         return this.value;
       },
-      set: function(val) {
+      set(val) {
         this.$emit("input", val);
       }
     },
 
-    label: function() {
+    label() {
       if (this.hideLabel) return "";
       var name = this.schema.title ? this.schema.title : Utils.capitalize(this.prop);
       if (this.messages && this.messages[name]) return this.messages[name];
       else return this.schema.title ? this.schema.title : name;
     },
-    hideLabel: function() {
+    hideLabel() {
       return this.schema["x-ui-hideLabel"];
     },
     labelWidth: function() {
@@ -108,7 +108,7 @@ export default {
     }
   },
   methods: {
-    propChange: function(key, value) {
+    propChange(key, value) {
       this.$emit("propChange", key, value);
     }
   }

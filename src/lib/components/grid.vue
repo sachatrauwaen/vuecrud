@@ -32,7 +32,7 @@ export default {
     defaultAction: {}
   },
   computed: {
-    columns: function () {
+    columns () {
       var fields = {}
       for (var key in this.schema.properties) {
         if (key != 'id' && this.schema.properties[key].type != 'array' &&
@@ -43,19 +43,19 @@ export default {
       }
       return fields
     },
-    isMobile: function () {
+    isMobile () {
       return Utils.isMobile(window);
     }
   },
   methods: {
-    label: function (prop) {
+    label (prop) {
       var name = this.schema.properties[prop].title ? this.schema.properties[prop].title : Utils.capitalize(prop)
       if (this.messages && this.messages[name]) { return this.messages[name] } else { return name }
     },
-    formatter: function (row, column, cellValue) {
+    formatter (row, column, cellValue) {
       return this.format(column.property, cellValue);
     },
-    format: function (property, cellValue) {
+    format (property, cellValue) {
       var schema = Utils.jsonSchema.getNotNull(this.schema.properties[property]);
       if (schema.type == 'boolean') {
         return cellValue ? this.messages['Yes'] : this.messages['No'];
@@ -68,12 +68,12 @@ export default {
       }
       return cellValue;
     },
-    rowClick: function (row, event, column) {
+    rowClick (row, event, column) {
       if (column.label) {
         this.defaultAction.execute(row, event, column)
       }
     },
-    actionVisible: function (action, row, index) {
+    actionVisible (action, row, index) {
       if (action.visible) {
         return action.visible(row, index)
       } else {

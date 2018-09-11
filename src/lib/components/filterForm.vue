@@ -21,14 +21,14 @@ export default {
     actions: {},
     columns: {}
   },
-  data: function () {
+  data () {
     return {}
   },
   computed: {
-    properties: function () {
+    properties () {
       return this.schema.properties
     },
-    fields: function () {
+    fields () {
       if (this.options) {
         return this.options.fields
       } else {
@@ -46,7 +46,7 @@ export default {
         return fields
       }
     },
-    rules: function () {
+    rules () {
       var rules = {}
       for (var key in this.schema.properties) {
         //var prop = this.schema.properties[key]
@@ -55,23 +55,23 @@ export default {
       }
       return rules
     },
-    isMobile: function () {
+    isMobile () {
       return Utils.isMobile(window);
     },
-    labelPosition: function () {
+    labelPosition () {
       return this.isMobile ? 'top' : 'right'
     },
-    labelwidth: function () {
+    labelwidth () {
       return this.isMobile ? '100px' : ''
     }
   },
   methods: {
-    validate: function (callback) {
+    validate (callback) {
       this.$refs.form.validate(function (valid) {
         if (callback) callback(valid)
       })
     },
-    submitForm: function () {
+    submitForm () {
       this.$refs.form.validate(function (valid) {
         if (valid) {
           alert('submit!')
@@ -80,29 +80,16 @@ export default {
         }
       })
     },
-    resetForm: function () {
+    resetForm () {
       this.$refs.form.resetFields()
     },
-    label: function (name) {
+    label (name) {
       if (this.messages && this.messages[name]) return this.messages[name]
       else return name
     },
-    propChange: function (key, value) {
+    propChange (key, value) {
       this.$set(this.model, key, value)
     }
   }
-  /*
-          created: function(){
-
-              for (key in this.fields) {
-                  if (this.fields[key].type == "string"){
-                      Vue.set(this.model, key, "");
-                  } else if (this.fields[key].type == "int") {
-                      Vue.set(this.model, key, 0);
-                  }
-              }
-
-          }
-          */
 }
 </script>
