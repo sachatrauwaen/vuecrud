@@ -46,43 +46,42 @@ export default {
       return this.connector.messages(this.$route.params.module);
     },
     gridActions: function() {
-      var self = this;
       return [
         {
-          name: self.translate("Edit"),
+          name: this.translate("Edit"),
           icon: "el-icon-edit",
-          execute: function(row) {
-            self.$router.push({
+          execute: (row) => {
+            this.$router.push({
               name: "edit",
               params: {
-                resource: self.resource,
+                resource: this.resource,
                 id: row.id
               }
             });
           }
         },
         {
-          name: self.translate("Delete"),
+          name: this.translate("Delete"),
           icon: "el-icon-delete",
-          execute: function(row) {
+          execute: (row) => {
             // eslint-disable-next-line
-            self
-              .$confirm("Confirm delete ?", self.translate("Delete"), {
+            this
+              .$confirm("Confirm delete ?", this.translate("Delete"), {
                 confirmButtonText: "OK",
                 cancelButtonText: "Cancel",
                 type: "warning"
               })
-              .then(function() {
-                self.deleteData(row, function() {
-                  self.$message({
+              .then(() => {
+                this.deleteData(row, () => {
+                  this.$message({
                     type: "success",
-                    message: self.translate("Delete completed")
+                    message: this.translate("Delete completed")
                   });
                 });
               })
-              .catch(function() {});
+              .catch(() => {});
           },
-          visible: function(row) {
+          visible: (row) => {
             if (typeof row.canDelete !== "undefined") {
               return row.canDelete;
             } else {
@@ -96,17 +95,15 @@ export default {
       return this.gridActions[0];
     },
     actions: function() {
-      var self = this;
       return [
         {
-          // name: self.translate('Add'),
           icon: "el-icon-plus",
           type: "primary",
-          execute: function() {
-            self.$router.push({
+          execute: () => {
+            this.$router.push({
               name: "add",
               params: {
-                resource: self.resource
+                resource: this.resource
               }
             });
           }
@@ -129,38 +126,24 @@ export default {
       return Object.keys(this.filterSchema.properties).length > 0;
     },
     filterActions: function() {
-      var self = this;
       return [
         {
-          // name: self.translate('Search'),
           icon: "el-icon-search",
           type: "primary",
-          execute: function() {
-            self.fetchData();
+          execute: () => {
+            this.fetchData();
           }
         },
         {
-          // name: self.translate('Reset'),
           icon: "el-icon-close",
-          execute: function() {
-            self.$refs.filterform.resetForm();
-            self.fetchData();
+          execute: () => {
+            this.$refs.filterform.resetForm();
+            this.fetchData();
           }
         }
       ];
     },
     options: function() {
-      /*
-                      if (abp.grids.app[this.resource] && abp.grids.app[this.resource].options)
-                          return abp.grids.app[this.resource].options;
-                      else
-                          return null;
-
-                      var cols = [];
-                      for (var key in this.schema.properties) {
-                          cols.push(key);
-                      }
-                      */
       return null;
     },
     totalPages: function() {
@@ -174,51 +157,45 @@ export default {
       this.fetchData(); 
     },
     fetchData: function(callback) {
-      var self = this;
-      self.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
-      self.filterModel.maxResultCount = this.pageSize;
-      // { skipCount: 0, maxResultCount: 999 }
-      self.connector.service(
+      this.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
+      this.filterModel.maxResultCount = this.pageSize;
+      this.connector.service(
         this.resource,
         "getAll",
-        self.filterModel,
-        function(data) {
-          self.model = data.items;
-          self.totalCount = data.totalCount;
+        this.filterModel,
+        (data) => {
+          this.model = data.items;
+          this.totalCount = data.totalCount;
           if (callback) callback();
-          // this.pagination.totalItems = data.total;
         },
-        function() {
-          // abp.ui.clearBusy(_$app);
-        }
+        () => {}
       );
     },
     deleteData: function(data, callback) {
-      var self = this;
-      self.connector.service(
+      this.connector.service(
         this.resource,
         "delete",
         {
           id: data.id
         },
-        function() {
-          self.fetchData(callback);
+        () => {
+          this.fetchData(callback);
         },
-        function() {
-          // abp.ui.clearBusy(_$app);
-        }
+        () => {}
       );
     },
     translate: function(text) {
-      if (this.messages && this.messages[text]) return this.messages[text];
-      else return text;
+      if (this.messages && this.messages[text])
+        return this.messages[text];
+      else
+        return text;
     }
   },
   created: function() {
     this.fetchData();
   },
   watch: {
-    // call again the method if the route changes
+    // Call the method again whenever the route changes
     $route: function() {
       this.fetchData();
     }

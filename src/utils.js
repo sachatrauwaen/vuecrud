@@ -1,6 +1,3 @@
-//import jref from 'json-ref-lite'
-
-
 const jsonSchema = {
     getNotNull: function (schema) {
         if (schema.oneOf) {
