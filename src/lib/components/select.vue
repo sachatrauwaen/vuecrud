@@ -16,7 +16,7 @@ export default {
     prop: String,
     connector: {}
   },
-  data: function() {
+  data() {
     return {
       options: [],
       hideNone: false,
@@ -34,7 +34,7 @@ export default {
       }
     }
   },
-  created: function() {
+  created() {
     var self = this;
     var sch =
       this.schema.oneOf && this.schema.oneOf[0]

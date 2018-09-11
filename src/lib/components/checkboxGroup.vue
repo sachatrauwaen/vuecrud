@@ -17,25 +17,25 @@ export default {
         schema: {},
         prop: String
     },
-    data: function () {
+    data () {
         return {
             options: []
         }
     },
     computed: {
         model: {
-            get: function () {
+            get () {
                 return this.value
             },
-            set: function (val) {
+            set (val) {
                 this.$emit('input', val)
             }
         },
-        resource: function () {
+        resource () {
             return this.$route.params.resource
         }
     },
-    created: function () {
+    created () {
         var self = this
         var enumAction = this.schema['x-enum-action']
         if (enumAction) {

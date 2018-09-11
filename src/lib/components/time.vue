@@ -19,20 +19,20 @@ export default {
   },
   computed: {
     model: {
-      get: function () {
+      get () {
         return this.value
       },
-      set: function (val) {
+      set (val) {
         this.$emit('input', val)
       }
     },
-    start: function () {
+    start () {
       return this.schema['x-ui-start'] ? this.schema['x-ui-start'] : '00:00'
     },
-    step: function () {
+    step () {
       return this.schema['x-ui-step'] ? this.schema['x-ui-step'] : '00:30'
     },
-    end: function () {
+    end () {
       return this.schema['x-ui-end'] ? this.schema['x-ui-end'] : '23:30'
     }
   }

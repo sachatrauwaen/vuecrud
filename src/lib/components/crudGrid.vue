@@ -19,7 +19,7 @@
 import { default as Utils } from '../utils/utils'
 export default {
   name: "oa-crud-grid",
-  data: function() {
+  data() {
     return {
       model: [],
       filterModel: {},
@@ -29,22 +29,22 @@ export default {
     };
   },
   computed: {
-    module: function() {
+    module() {
       return this.$route.params.module;
     },
-    resource: function() {
+    resource() {
       return this.$route.params.resource;
     },
-    connector: function() {
+    connector() {
       return this.$root.$options.connector;
     },
-    schema: function() {
+    schema() {
       return this.connector.schema(this.resource, "get")
     },
-    messages: function() {
+    messages() {
       return this.connector.messages(this.$route.params.module);
     },
-    gridActions: function() {
+    gridActions() {
       return [
         {
           name: this.translate("Edit"),
@@ -90,10 +90,10 @@ export default {
         }
       ];
     },
-    defaultAction: function() {
+    defaultAction() {
       return this.gridActions[0];
     },
-    actions: function() {
+    actions() {
       return [
         {
           icon: "el-icon-plus",
@@ -109,7 +109,7 @@ export default {
         }
       ];
     },
-    filterSchema: function() {
+    filterSchema() {
       var schema = {
         properties: {}
       };
@@ -121,10 +121,10 @@ export default {
       }
       return schema;
     },
-    hasFilter: function() {
+    hasFilter() {
       return Object.keys(this.filterSchema.properties).length > 0;
     },
-    filterActions: function() {
+    filterActions() {
       return [
         {
           icon: "el-icon-search",
@@ -142,20 +142,20 @@ export default {
         }
       ];
     },
-    options: function() {
+    options() {
       return null;
     },
-    totalPages: function() {
+    totalPages() {
       return Math.ceil(
         this.pagination.totalItems / this.pagination.rowsPerPage
       );
     }
   },
   methods: {
-    currentPageChange: function() {
+    currentPageChange() {
       this.fetchData(); 
     },
-    fetchData: function(callback) {
+    fetchData(callback) {
       this.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
       this.filterModel.maxResultCount = this.pageSize;
       this.connector.service(
@@ -170,7 +170,7 @@ export default {
         () => {}
       );
     },
-    deleteData: function(data, callback) {
+    deleteData(data, callback) {
       this.connector.service(
         this.resource,
         "delete",
@@ -183,14 +183,14 @@ export default {
         () => {}
       );
     },
-    translate: function(text) {
+    translate(text) {
       if (this.messages && this.messages[text])
         return this.messages[text];
       else
         return text;
     }
   },
-  created: function() {
+  created() {
     this.fetchData();
   },
   watch: {
