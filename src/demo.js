@@ -267,6 +267,7 @@ abp.schemas.app.user.create.parameters = {
                     "dayOfWeek": {
                       "type": "integer",
                       "minLength": 1,
+                      "default":1,
                       "x-enumNames": [
                         "Sunday",
                         "Monday",
