@@ -4,7 +4,6 @@ import VueCrud from '../lib/index'
 import { default as Utils } from "../lib/utils/utils";
 
 export default {
-
     create(id, layout) {
         Vue.use(VueRouter);
         Vue.use(VueCrud);
@@ -22,7 +21,6 @@ export default {
                 { path: '/:module/:resource/add', component: crudForm, name: 'add' }
             ]
         });
-
 
         new Vue({
             router: router,
@@ -44,7 +42,7 @@ export default {
             },
             computed: {
                 messages() {
-                    return OaConnector.messages(this.$route.params.module);
+                    return VueCrud.OaConnector.messages(this.$route.params.module);
                 },
                 pageTitle: function () {
                     if (this.$route.params.resource) {
@@ -57,8 +55,6 @@ export default {
                     }
                 }
             }
-
         }).$mount(id)
-
     }
 }
