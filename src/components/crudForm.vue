@@ -63,15 +63,10 @@ export default {
       return !this.id
     },
     schema: function () {
-      if (this.isnew) {
-        return Utils.jsonSchema.resolve(
-          this.connector.schema(this.resource,'create')
-        )
-      } else {
-        return Utils.jsonSchema.resolve(
-          this.connector.schema(this.resource,'update')
-        )
-      }
+      if (this.isnew)
+        return this.connector.schema(this.resource,'create');
+      else
+        return this.connector.schema(this.resource,'update')
     },
     options: function () {
       /*

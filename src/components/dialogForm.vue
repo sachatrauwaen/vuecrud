@@ -57,15 +57,10 @@ export default {
       return this.schema["x-rel-valuefield"] || "id";
     },
     schema: function() {
-      if (this.isnew) {
-        return Utils.jsonSchema.resolve(
-          this.connector.schemas(this.resource, "create")
-        );
-      } else {
-        return Utils.jsonSchema.resolve(
-          this.connector.schemas(this.resource, "update")
-        );
-      }
+      if (this.isnew)
+        return this.connector.schemas(this.resource, "create")
+      else
+        return this.connector.schemas(this.resource, "update")
     },
     messages: function() {
       return this.connector.messages();

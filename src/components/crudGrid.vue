@@ -40,9 +40,7 @@ export default {
       return this.$root.$options.connector;
     },
     schema: function() {
-      return Utils.jsonSchema.resolve(
-        this.connector.schema(this.resource, "get")
-      );
+      return this.connector.schema(this.resource, "get")
     },
     messages: function() {
       return this.connector.messages(this.$route.params.module);

@@ -13,8 +13,6 @@ const jsonSchema = {
 
 const isMobile = () => window.matchMedia("only screen and (max-width: 760px)").matches;
 
-const resolve = (json) => json;
-
 const capitalize = (value) => value.charAt(0).toUpperCase() + value.slice(1);
 
 const groupBy = (arr) => (keyFunction) => {
@@ -38,7 +36,6 @@ const groupBy = (arr) => (keyFunction) => {
  export default {
      jsonSchema,
      isMobile,
-     resolve,
      capitalize,
      groupBy
  };
