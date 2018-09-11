@@ -1,6 +1,7 @@
 import Address from '../components/address.vue'
 import CheckboxGroup from '../components/checkboxGroup.vue'
 import CrudForm from '../components/crudForm.vue'
+import CrudFormWithRouter from '../components/CrudFormWithRouter.vue'
 import CrudGrid from '../components/crudGrid.vue'
 import CrudGridWithRouter from '../components/crudGridWithRouter.vue'
 import Date from '../components/date.vue'

@@ -6,7 +6,10 @@
 import { default as Utils } from '../utils/utils'
 export default {
   name: 'oa-crud-form',
-  props: {},
+  props: {
+      resource: String,
+      redirect: Function
+  },
   data () {
     var self = this
     return {
@@ -15,32 +18,29 @@ export default {
         {
           name: 'Save',
           type: 'primary',
-          execute: function () {
-            self.$refs.form.validate(function (valid) {
-              if (valid) {
-                self.saveData(self.model, function () {
-                  self.$message({
+          execute:  () => {
+            const onSaveData = () => {
+                this.$message({
                     type: 'success',
                     message: 'Save completed'
-                  })
-                  self.$router.push({
-                    name: 'grid',
-                    params: { resource: self.resource }
-                  })
-                })
-              } else {
-                return false
-              }
-            })
+                });
+                this.redirect();
+                //this.$router.go(-1); // go back
+            };
+
+            const validate = (valid) => {
+                if (valid) this.saveData(this.model, onSaveData);
+                else       return false;
+            };
+
+            this.$refs.form.validate(validate);
           }
         },
         {
           name: 'Cancel',
-          execute: function () {
-            self.$router.push({
-              name: 'grid',
-              params: { resource: self.resource }
-            })
+          execute: () => {
+              this.redirect();
+              //this.$router.go(-1); // go back
           }
         }
       ]
@@ -48,11 +48,12 @@ export default {
   },
   computed: {
     module () {
+      // TODO extract route dependency
       return this.$route.params.module
     },
-    resource () {
-      return this.$route.params.resource
-    },
+    // resource () {
+    //   return this.$route.params.resource
+    // },
     messages () {
       return this.connector.messages(this.$route.params.module);
     },
@@ -118,6 +119,7 @@ export default {
   },
   watch: {
     // call again the method if the route changes
+    // TODO remove route dependency
     $route: function () {
       this.fetchData()
     }
