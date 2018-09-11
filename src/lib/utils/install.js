@@ -1,7 +1,7 @@
 import Address from '../components/address.vue'
 import CheckboxGroup from '../components/checkboxGroup.vue'
 import CrudForm from '../components/crudForm.vue'
-import CrudFormWithRouter from '../components/CrudFormWithRouter.vue'
+import CrudFormWithRouter from '../components/crudFormWithRouter.vue'
 import CrudGrid from '../components/crudGrid.vue'
 import CrudGridWithRouter from '../components/crudGridWithRouter.vue'
 import Date from '../components/date.vue'
@@ -47,7 +47,8 @@ export const components = {
   Switch,
   Textarea,
   Time,
-  CrudGridWithRouter
+  CrudGridWithRouter,
+  CrudFormWithRouter
 };
 
 export const install = (Vue) => Object.keys(components).forEach(key => Vue.component(components[key].name, components[key]));
