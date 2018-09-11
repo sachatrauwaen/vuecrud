@@ -1,7 +1,3 @@
-import CrudApp from './CrudApp'
-import OaConnector from './connectors/OaConnector'
-import install from './install'
-
 import Address from './components/address.vue'
 import CheckboxGroup from './components/checkboxGroup.vue'
 import CrudForm from './components/crudForm.vue'
@@ -25,7 +21,8 @@ import Switch from './components/switch.vue'
 import Textarea from './components/textarea.vue'
 import Time from './components/time.vue'
 
-const components = {
+
+const components = [
   Address,
   CheckboxGroup,
   CrudForm,
@@ -48,12 +45,29 @@ const components = {
   Switch,
   Textarea,
   Time
-};
+];
 
-export default {
-  version: '2.0.0',
-  install,
-  OaConnector,
-  createApp: CrudApp.create,
-  components
-};
+export default install = (Vue) => {
+    components.map(component => Vue.component(component.name, component));
+  
+    Vue.$loadComponent = function (opts) {
+      var script = document.createElement('script');
+    
+      opts.onLoad = opts.onLoad || function () { };
+      opts.onError = opts.onError || function () { };
+    
+      script.src = opts.path;
+      script.async = true;
+    
+      script.onload = function () {
+          var component = Vue.component(opts.name);
+          if (component)
+            opts.onLoad(component);
+          else
+            opts.onError();
+      };
+      script.onerror = opts.onError;
+    
+      document.body.appendChild(script);
+    }
+}
