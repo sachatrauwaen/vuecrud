@@ -61,7 +61,7 @@ export default {
         return cellValue ? this.messages['Yes'] : this.messages['No'];
       } else if (schema.format == 'date-time') {
         if (!cellValue) return '';
-        return moment(cellValue).locale('fr').format('lll'); // TODO: Refactor: Assumes globally loaded moment
+        return moment(cellValue).locale('fr').format('lll'); // TODO: Refactor: Assumes globally loaded moment // TODO: Assuming 'fr' locale is not ok
       } else if (schema.enum) {
         var i = schema.enum.indexOf(cellValue)
         return this.messages[schema['x-enumNames'][i]] ? this.messages[schema['x-enumNames'][i]] : schema['x-enumNames'][i];
