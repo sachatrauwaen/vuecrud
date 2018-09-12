@@ -1,10 +1,11 @@
 <template>
-		<oa-form ref="form" :model="model" :schema="schema" :actions="actions" :connector="connector" :messages="messages" ></oa-form>
+	<oa-form ref="form" :model="model" :schema="schema" :actions="actions" :connector="connector" :messages="messages" ></oa-form>
 </template>
 
 <script>
+// Form based on API endpoint (method) signature (input DTO).
 export default {
-	name: 'oa-method-form',
+	name: 'oa-command-form',
 	props: {
 		appService: String,
 		module: String,

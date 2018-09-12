@@ -22,7 +22,7 @@ import Select from '../components/select.vue'
 import Switch from '../components/switch.vue'
 import Textarea from '../components/textarea.vue'
 import Time from '../components/time.vue'
-import MethodForm from '../components/methodForm.vue'
+import CommandForm from '../components/commandForm.vue'
 
 
 export const components = {
@@ -50,7 +50,7 @@ export const components = {
   Time,
   CrudGridWithRouter,
   CrudFormWithRouter,
-  MethodForm
+  CommandForm
 };
 
 export const install = (Vue) => Object.keys(components).forEach(key => Vue.component(components[key].name, components[key]));
