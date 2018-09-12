@@ -31,8 +31,8 @@ function route(path, component, name, children) {
       component: component
   };
 }
-const crudGrid = Vue.component('oa-crud-grid-with-router');
-const crudForm = Vue.component('oa-crud-form-with-router');
+const crudGrid = Vue.component('oa-crud-grid');
+const crudForm = Vue.component('oa-crud-form');
 
 
 

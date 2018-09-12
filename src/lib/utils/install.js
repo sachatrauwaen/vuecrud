@@ -1,9 +1,9 @@
 import Address from '../components/address.vue'
 import CheckboxGroup from '../components/checkboxGroup.vue'
 import CrudForm from '../components/crudForm.vue'
-import CrudFormWithRouter from '../components/crudFormWithRouter.vue'
+import CrudFormWithoutRouter from '../components/crudFormWithoutRouter.vue'
 import CrudGrid from '../components/crudGrid.vue'
-import CrudGridWithRouter from '../components/crudGridWithRouter.vue'
+import CrudGridWithoutRouter from '../components/crudGridWithoutRouter.vue'
 import Date from '../components/date.vue'
 import Daterange from '../components/daterange.vue'
 import DialogForm from '../components/dialogForm.vue'
@@ -48,8 +48,8 @@ export const components = {
   Switch,
   Textarea,
   Time,
-  CrudGridWithRouter,
-  CrudFormWithRouter,
+  CrudGridWithoutRouter,
+  CrudFormWithoutRouter,
   CommandForm
 };
 
