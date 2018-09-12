@@ -4707,19 +4707,18 @@ var checkboxGroup_component = normalizeComponent(
 )
 
 /* harmony default export */ var checkboxGroup = (checkboxGroup_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudForm.vue?vue&type=template&id=73cf3b80&
-var crudFormvue_type_template_id_73cf3b80_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('oa-form',{ref:"form",attrs:{"model":_vm.model,"schema":_vm.schema,"actions":_vm.actions,"connector":_vm.connector,"resource":_vm.resource,"messages":_vm.messages}})}
-var crudFormvue_type_template_id_73cf3b80_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudForm.vue?vue&type=template&id=17cfbbf2&
+var crudFormvue_type_template_id_17cfbbf2_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('oa-form',{ref:"form",attrs:{"model":_vm.model,"schema":_vm.schema,"actions":_vm.actions,"connector":_vm.connector,"resource":_vm.resource,"messages":_vm.messages}})}
+var crudFormvue_type_template_id_17cfbbf2_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/lib/components/crudForm.vue?vue&type=template&id=73cf3b80&
+// CONCATENATED MODULE: ./src/lib/components/crudForm.vue?vue&type=template&id=17cfbbf2&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudForm.vue?vue&type=script&lang=js&
 //
 //
 //
 //
-
 /* harmony default export */ var crudFormvue_type_script_lang_js_ = ({
   name: 'oa-crud-form',
   props: {
@@ -4838,8 +4837,8 @@ var crudFormvue_type_template_id_73cf3b80_staticRenderFns = []
 
 var crudForm_component = normalizeComponent(
   components_crudFormvue_type_script_lang_js_,
-  crudFormvue_type_template_id_73cf3b80_render,
-  crudFormvue_type_template_id_73cf3b80_staticRenderFns,
+  crudFormvue_type_template_id_17cfbbf2_render,
+  crudFormvue_type_template_id_17cfbbf2_staticRenderFns,
   false,
   null,
   null,
@@ -5463,12 +5462,12 @@ var dialogForm_component = normalizeComponent(
 )
 
 /* harmony default export */ var dialogForm = (dialogForm_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/field.vue?vue&type=template&id=c2bb390e&
-var fieldvue_type_template_id_c2bb390e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('el-form-item',{attrs:{"label":_vm.label,"prop":_vm.prop,"label-width":_vm.labelWidth}},[_c(_vm.currentView,_vm._b({tag:"component",on:{"propChange":_vm.propChange},model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v},expression:"model"}},'component',_vm.$props,false))],1)}
-var fieldvue_type_template_id_c2bb390e_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/field.vue?vue&type=template&id=7c32032c&
+var fieldvue_type_template_id_7c32032c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('el-form-item',{attrs:{"label":_vm.label,"prop":_vm.prop,"label-width":_vm.labelWidth}},[_c(_vm.currentView,_vm._b({tag:"component",on:{"propChange":_vm.propChange},model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v},expression:"model"}},'component',_vm.$props,false))],1)}
+var fieldvue_type_template_id_7c32032c_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/lib/components/field.vue?vue&type=template&id=c2bb390e&
+// CONCATENATED MODULE: ./src/lib/components/field.vue?vue&type=template&id=7c32032c&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/field.vue?vue&type=script&lang=js&
 
@@ -5523,7 +5522,7 @@ var fieldvue_type_template_id_c2bb390e_staticRenderFns = []
       } else if (type == "boolean") {
         type = "switch";
       } else if (type == "integer" || type == "number") {
-        type = "input-number";
+        type = "inputnumber";
       } else if (type == "array" && this.schema.items.format == "date-time") {
         type = "daterange";
       } else if (sch.format == "date-time") {
@@ -5592,8 +5591,8 @@ var fieldvue_type_template_id_c2bb390e_staticRenderFns = []
 
 var field_component = normalizeComponent(
   components_fieldvue_type_script_lang_js_,
-  fieldvue_type_template_id_c2bb390e_render,
-  fieldvue_type_template_id_c2bb390e_staticRenderFns,
+  fieldvue_type_template_id_7c32032c_render,
+  fieldvue_type_template_id_7c32032c_staticRenderFns,
   false,
   null,
   null,
@@ -6871,12 +6870,12 @@ var relation_component = normalizeComponent(
 )
 
 /* harmony default export */ var relation = (relation_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/select.vue?vue&type=template&id=6066bb18&
-var selectvue_type_template_id_6066bb18_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('el-select',{attrs:{"placeholder":"Select"},model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v},expression:"model"}},[(!_vm.hideNone)?_c('el-option',{attrs:{"label":_vm.noneLabel,"value":_vm.noneValue}}):_vm._e(),_vm._l((_vm.options),function(item){return _c('el-option',{key:item.value,attrs:{"label":item.label,"value":item.value}})})],2)}
-var selectvue_type_template_id_6066bb18_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/select.vue?vue&type=template&id=9d335804&
+var selectvue_type_template_id_9d335804_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('el-select',{attrs:{"placeholder":"Select"},model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v},expression:"model"}},[(!_vm.hideNone)?_c('el-option',{attrs:{"label":_vm.noneLabel,"value":_vm.noneValue}}):_vm._e(),_vm._l((_vm.options),function(item){return _c('el-option',{key:item.value,attrs:{"label":item.label,"value":item.value}})})],2)}
+var selectvue_type_template_id_9d335804_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/lib/components/select.vue?vue&type=template&id=6066bb18&
+// CONCATENATED MODULE: ./src/lib/components/select.vue?vue&type=template&id=9d335804&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/select.vue?vue&type=script&lang=js&
 //
@@ -6956,6 +6955,10 @@ var selectvue_type_template_id_6066bb18_staticRenderFns = []
     if (sch["x-enum-hideNone"]) {
       this.hideNone = sch["x-enum-hideNone"];
     }
+
+    if (sch["default"]) {
+      this.model = sch["default"];
+    }
   }
 });
 // CONCATENATED MODULE: ./src/lib/components/select.vue?vue&type=script&lang=js&
@@ -6970,8 +6973,8 @@ var selectvue_type_template_id_6066bb18_staticRenderFns = []
 
 var select_component = normalizeComponent(
   components_selectvue_type_script_lang_js_,
-  selectvue_type_template_id_6066bb18_render,
-  selectvue_type_template_id_6066bb18_staticRenderFns,
+  selectvue_type_template_id_9d335804_render,
+  selectvue_type_template_id_9d335804_staticRenderFns,
   false,
   null,
   null,
@@ -7214,6 +7217,8 @@ var install_install = function install(Vue) {
 // CONCATENATED MODULE: ./src/lib/index.js
 
 
+
+/* Library public API */
 
 /* harmony default export */ var lib = ({
   version: '2.0.0',
