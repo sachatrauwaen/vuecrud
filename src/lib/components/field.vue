@@ -53,7 +53,7 @@ export default {
       } else if (type == "boolean") {
         type = "switch";
       } else if (type == "integer" || type == "number") {
-        type = "input-number";
+        type = "inputnumber";
       } else if (type == "array" && this.schema.items.format == "date-time") {
         type = "daterange";
       } else if (sch.format == "date-time") {

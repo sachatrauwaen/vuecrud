@@ -1,11 +1,11 @@
 ﻿.pac-container {
     z-index: 10000 !important;
 }
-
+/*
 .el-message-box {
     width: 320px !important;
 }
-
+*/
 .el-table .crudcell .cell {
     white-space: nowrap !important;
 }
