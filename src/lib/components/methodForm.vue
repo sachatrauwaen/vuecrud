@@ -59,7 +59,7 @@ export default {
 		}
 	},
 	methods: {
-		saveData (data, callback) {
+		saveData (data) {
 			return this.connector.pService(this.appService, this.method, data);
 		}
 	},
