@@ -7138,24 +7138,25 @@ var time_component = normalizeComponent(
 )
 
 /* harmony default export */ var time = (time_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/methodForm.vue?vue&type=template&id=2365cce8&
-var methodFormvue_type_template_id_2365cce8_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('oa-form',{ref:"form",attrs:{"model":_vm.model,"schema":_vm.schema,"actions":_vm.actions,"connector":_vm.connector,"messages":_vm.messages}})}
-var methodFormvue_type_template_id_2365cce8_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/commandForm.vue?vue&type=template&id=6f276289&
+var commandFormvue_type_template_id_6f276289_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('oa-form',{ref:"form",attrs:{"model":_vm.model,"schema":_vm.schema,"actions":_vm.actions,"connector":_vm.connector,"messages":_vm.messages}})}
+var commandFormvue_type_template_id_6f276289_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/lib/components/methodForm.vue?vue&type=template&id=2365cce8&
+// CONCATENATED MODULE: ./src/lib/components/commandForm.vue?vue&type=template&id=6f276289&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/methodForm.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/commandForm.vue?vue&type=script&lang=js&
 //
 //
 //
 //
-/* harmony default export */ var methodFormvue_type_script_lang_js_ = ({
-  name: 'oa-method-form',
+// Form based on API endpoint (command-method) signature (input DTO).
+/* harmony default export */ var commandFormvue_type_script_lang_js_ = ({
+  name: 'oa-command-form',
   props: {
     appService: String,
     module: String,
-    method: String,
+    command: String,
     redirect: Function,
     initialModel: Object
   },
@@ -7213,9 +7214,9 @@ var methodFormvue_type_template_id_2365cce8_staticRenderFns = []
     this.model = this.initialModel || {};
   }
 });
-// CONCATENATED MODULE: ./src/lib/components/methodForm.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_methodFormvue_type_script_lang_js_ = (methodFormvue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/lib/components/methodForm.vue
+// CONCATENATED MODULE: ./src/lib/components/commandForm.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_commandFormvue_type_script_lang_js_ = (commandFormvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/lib/components/commandForm.vue
 
 
 
@@ -7223,10 +7224,10 @@ var methodFormvue_type_template_id_2365cce8_staticRenderFns = []
 
 /* normalize component */
 
-var methodForm_component = normalizeComponent(
-  components_methodFormvue_type_script_lang_js_,
-  methodFormvue_type_template_id_2365cce8_render,
-  methodFormvue_type_template_id_2365cce8_staticRenderFns,
+var commandForm_component = normalizeComponent(
+  components_commandFormvue_type_script_lang_js_,
+  commandFormvue_type_template_id_6f276289_render,
+  commandFormvue_type_template_id_6f276289_staticRenderFns,
   false,
   null,
   null,
@@ -7234,7 +7235,7 @@ var methodForm_component = normalizeComponent(
   
 )
 
-/* harmony default export */ var methodForm = (methodForm_component.exports);
+/* harmony default export */ var commandForm = (commandForm_component.exports);
 // CONCATENATED MODULE: ./src/lib/utils/install.js
 
 
@@ -7290,7 +7291,7 @@ var components = {
   Time: time,
   CrudGridWithRouter: crudGridWithRouter,
   CrudFormWithRouter: crudFormWithRouter,
-  MethodForm: methodForm
+  CommandForm: commandForm
 };
 var install_install = function install(Vue) {
   return Object.keys(components).forEach(function (key) {
