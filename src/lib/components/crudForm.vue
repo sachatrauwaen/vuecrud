@@ -28,14 +28,14 @@ export default {
 							//this.$router.go(-1); // go back
 						};
 
-						const validate = (valid) => {
+						const onValidate = (valid) => {
 							if (valid)
 								this.saveData(this.model, onSaveData);
 							else
 								return false;
 						};
 
-						this.$refs.form.validate(validate);
+						this.$refs.form.validate(onValidate);
 					}
 				},
 				{
@@ -94,6 +94,9 @@ export default {
 				this.add(data, callback);
 			else
 				this.update(data, callback);
+
+			// Refresh data
+			this.fetchData();
 		},
 		add (data, callback) {
 			this.connector.service(
@@ -117,13 +120,6 @@ export default {
 	},
 	created () {
 		this.fetchData()
-	},
-	watch: {
-		// call again the method if the route changes
-		// TODO remove route dependency
-		$route: function () {
-			this.fetchData()
-		}
 	}
 }
 </script>
