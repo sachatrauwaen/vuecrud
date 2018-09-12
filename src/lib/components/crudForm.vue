@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import { default as Utils } from '../utils/utils'
 export default {
   name: 'oa-crud-form',
   props: {},

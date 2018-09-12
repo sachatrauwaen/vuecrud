@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import { default as Utils } from '../utils/utils'
 export default {
   name: "oa-crud-grid",
   data() {
@@ -50,6 +49,7 @@ export default {
           name: this.translate("Edit"),
           icon: "el-icon-edit",
           execute: (row) => {
+            // eslint-disable-next-line
             this.$router.push({
               name: "edit",
               params: {
@@ -99,6 +99,7 @@ export default {
           icon: "el-icon-plus",
           type: "primary",
           execute: () => {
+            // eslint-disable-next-line
             this.$router.push({
               name: "add",
               params: {
