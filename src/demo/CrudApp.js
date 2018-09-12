@@ -25,10 +25,7 @@ export default {
             render(h) {
                 return h(layout, {
                     scopedSlots: {
-                        default: () => {
-
-                            return h('router-view')
-                        }
+                        default: () => h('router-view')
                     },
                     props: {
                         title: this.pageTitle
