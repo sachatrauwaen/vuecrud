@@ -26,11 +26,15 @@ export default {
 							});
 							this.redirect();
 							//this.$router.go(-1); // go back
+							
+							// Refresh data
+							this.fetchData();
 						};
 
 						const onValidate = (valid) => {
 							if (valid)
-								this.saveData(this.model, onSaveData);
+								this.saveData(this.model)
+									.done(onSaveData);
 							else
 								return false;
 						};
@@ -62,16 +66,16 @@ export default {
 		//   return this.$route.params.id
 		// },
 		isnew () {
-			return !this.id
+			return !this.id;
 		},
 		schema () {
 			if (this.isnew)
 				return this.connector.schema(this.resource,'create');
 			else
-				return this.connector.schema(this.resource,'update')
+				return this.connector.schema(this.resource,'update');
 		},
 		options () {
-			return null
+			return null;
 		},
 		connector: function () {
 			return this.$root.$options.connector;
@@ -79,42 +83,31 @@ export default {
 	},
 	methods: {
 		fetchData () {
-			if (!this.isnew) {
-				this.connector.service(
-					this.resource,
-					'get',
-					{ id: this.id },
-					(data) => this.model = data,
-					() => {}
-				)
-			}
+			if (this.isnew) return;
+
+			this.connector
+				.pService(this.resource, 'get', { id: this.id })
+				.done(data => this.model = data);
 		},
 		saveData (data, callback) {
 			if (this.isnew)
-				this.add(data, callback);
+				return this.add(data);
 			else
-				this.update(data, callback);
-
-			// Refresh data
-			this.fetchData();
+				return this.update(data);
 		},
-		add (data, callback) {
-			this.connector.service(
+		add (data) {
+			return this.connector.pService(
 				this.resource,
 				'create',
-				data,
-				callback || (() => {}),
-				() => {}
+				data
 			);
 		},
-		update (data, callback) {
-			data.id = this.id
-			this.connector.service(
+		update (data) {
+			data.id = this.id; // TODO is this line necessary?
+			return this.connector.pService(
 				this.resource,
 				'update',
-				data,
-				callback || (() => {}),
-				() => {}
+				data
 			);
 		}
 	},

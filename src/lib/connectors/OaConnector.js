@@ -40,6 +40,10 @@ export default {
             if (alwaysCallback) alwaysCallback();
         })
     },
+    // Service returning a promise
+    pService(resource, action, data) {
+        return abp.services.app[resource][action](data);
+    },
     messages(module) {
         // eslint-disable-next-line
         let data = abp.localization.values[module];
