@@ -74,9 +74,6 @@ export default {
 			else
 				return this.connector.schema(this.resource,'update');
 		},
-		options () {
-			return null;
-		},
 		connector: function () {
 			return this.$root.$options.connector;
 		}
