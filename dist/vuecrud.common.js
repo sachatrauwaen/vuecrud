@@ -4698,20 +4698,84 @@ var checkboxGroup_component = normalizeComponent(
 )
 
 /* harmony default export */ var checkboxGroup = (checkboxGroup_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudForm.vue?vue&type=template&id=60205f6e&
-var crudFormvue_type_template_id_60205f6e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('oa-form',{ref:"form",attrs:{"model":_vm.model,"schema":_vm.schema,"actions":_vm.actions,"connector":_vm.connector,"resource":_vm.resource,"messages":_vm.messages}})}
-var crudFormvue_type_template_id_60205f6e_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudForm.vue?vue&type=template&id=637947b7&
+var crudFormvue_type_template_id_637947b7_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('oa-crud-form-without-router',{attrs:{"resource":_vm.resource,"redirect":_vm.redirect,"module":_vm.module,"id":_vm.id}})}
+var crudFormvue_type_template_id_637947b7_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/lib/components/crudForm.vue?vue&type=template&id=60205f6e&
+// CONCATENATED MODULE: ./src/lib/components/crudForm.vue?vue&type=template&id=637947b7&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudForm.vue?vue&type=script&lang=js&
 //
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ var crudFormvue_type_script_lang_js_ = ({
   name: 'oa-crud-form',
+  props: {},
+  data: function data() {
+    return {};
+  },
+  computed: {
+    resource: function resource() {
+      return this.$route.params.resource;
+    },
+    module: function module() {
+      return this.$route.params.module;
+    },
+    id: function id() {
+      return this.$route.params.id;
+    }
+  },
+  methods: {
+    redirect: function redirect() {
+      this.$router.go(-1);
+    }
+  },
+  created: function created() {},
+  watch: {}
+});
+// CONCATENATED MODULE: ./src/lib/components/crudForm.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_crudFormvue_type_script_lang_js_ = (crudFormvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/lib/components/crudForm.vue
+
+
+
+
+
+/* normalize component */
+
+var crudForm_component = normalizeComponent(
+  components_crudFormvue_type_script_lang_js_,
+  crudFormvue_type_template_id_637947b7_render,
+  crudFormvue_type_template_id_637947b7_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ var components_crudForm = (crudForm_component.exports);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudFormWithoutRouter.vue?vue&type=template&id=72277f64&
+var crudFormWithoutRoutervue_type_template_id_72277f64_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('oa-form',{ref:"form",attrs:{"model":_vm.model,"schema":_vm.schema,"actions":_vm.actions,"connector":_vm.connector,"resource":_vm.resource,"messages":_vm.messages}})}
+var crudFormWithoutRoutervue_type_template_id_72277f64_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/lib/components/crudFormWithoutRouter.vue?vue&type=template&id=72277f64&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudFormWithoutRouter.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+/* harmony default export */ var crudFormWithoutRoutervue_type_script_lang_js_ = ({
+  name: 'oa-crud-form-without-router',
   props: {
     resource: String,
     module: String,
@@ -4789,7 +4853,7 @@ var crudFormvue_type_template_id_60205f6e_staticRenderFns = []
         return _this2.model = data;
       });
     },
-    saveData: function saveData(data, callback) {
+    saveData: function saveData(data) {
       if (this.isnew) return this.add(data);else return this.update(data);
     },
     add: function add(data) {
@@ -4805,9 +4869,9 @@ var crudFormvue_type_template_id_60205f6e_staticRenderFns = []
     this.fetchData();
   }
 });
-// CONCATENATED MODULE: ./src/lib/components/crudForm.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_crudFormvue_type_script_lang_js_ = (crudFormvue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/lib/components/crudForm.vue
+// CONCATENATED MODULE: ./src/lib/components/crudFormWithoutRouter.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_crudFormWithoutRoutervue_type_script_lang_js_ = (crudFormWithoutRoutervue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/lib/components/crudFormWithoutRouter.vue
 
 
 
@@ -4815,10 +4879,10 @@ var crudFormvue_type_template_id_60205f6e_staticRenderFns = []
 
 /* normalize component */
 
-var crudForm_component = normalizeComponent(
-  components_crudFormvue_type_script_lang_js_,
-  crudFormvue_type_template_id_60205f6e_render,
-  crudFormvue_type_template_id_60205f6e_staticRenderFns,
+var crudFormWithoutRouter_component = normalizeComponent(
+  components_crudFormWithoutRoutervue_type_script_lang_js_,
+  crudFormWithoutRoutervue_type_template_id_72277f64_render,
+  crudFormWithoutRoutervue_type_template_id_72277f64_staticRenderFns,
   false,
   null,
   null,
@@ -4826,87 +4890,15 @@ var crudForm_component = normalizeComponent(
   
 )
 
-/* harmony default export */ var components_crudForm = (crudForm_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudFormWithRouter.vue?vue&type=template&id=2289071f&
-var crudFormWithRoutervue_type_template_id_2289071f_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('oa-crud-form',{attrs:{"resource":_vm.resource,"redirect":_vm.redirect,"module":_vm.module,"id":_vm.id}})}
-var crudFormWithRoutervue_type_template_id_2289071f_staticRenderFns = []
+/* harmony default export */ var crudFormWithoutRouter = (crudFormWithoutRouter_component.exports);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudGrid.vue?vue&type=template&id=81357438&
+var crudGridvue_type_template_id_81357438_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('oa-crud-grid-without-router',{attrs:{"module":_vm.resource,"resource":_vm.resource,"connector":_vm.connector,"doOnEdit":_vm.onEdit,"doOnAdd":_vm.onAdd}})],1)}
+var crudGridvue_type_template_id_81357438_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/lib/components/crudFormWithRouter.vue?vue&type=template&id=2289071f&
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudFormWithRouter.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ var crudFormWithRoutervue_type_script_lang_js_ = ({
-  name: 'oa-crud-form-with-router',
-  props: {},
-  data: function data() {
-    return {};
-  },
-  computed: {
-    resource: function resource() {
-      return this.$route.params.resource;
-    },
-    module: function module() {
-      return this.$route.params.module;
-    },
-    id: function id() {
-      return this.$route.params.id;
-    }
-  },
-  methods: {
-    redirect: function redirect() {
-      this.$router.go(-1);
-    }
-  },
-  created: function created() {},
-  watch: {}
-});
-// CONCATENATED MODULE: ./src/lib/components/crudFormWithRouter.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_crudFormWithRoutervue_type_script_lang_js_ = (crudFormWithRoutervue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/lib/components/crudFormWithRouter.vue
-
-
-
-
-
-/* normalize component */
-
-var crudFormWithRouter_component = normalizeComponent(
-  components_crudFormWithRoutervue_type_script_lang_js_,
-  crudFormWithRoutervue_type_template_id_2289071f_render,
-  crudFormWithRoutervue_type_template_id_2289071f_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var crudFormWithRouter = (crudFormWithRouter_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudGrid.vue?vue&type=template&id=0abbfad5&
-var crudGridvue_type_template_id_0abbfad5_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('el-row',{attrs:{"gutter":10}},[_c('el-col',{staticStyle:{"padding-bottom":"20px"},attrs:{"xs":24,"sm":2,"md":2,"lg":2,"xl":2}},_vm._l((_vm.actions),function(action){return _c('el-button',{key:action.name,attrs:{"icon":action.icon,"size":"small","type":action.type},on:{"click":function($event){action.execute()}}},[_vm._v(_vm._s(action.name))])})),_c('el-col',{attrs:{"xs":24,"sm":22,"md":22,"lg":22,"xl":22}},[(_vm.hasFilter)?_c('oa-filter-form',{ref:"filterform",attrs:{"model":_vm.filterModel,"schema":_vm.filterSchema,"connector":_vm.connector,"actions":_vm.filterActions,"messages":_vm.messages}}):_vm._e()],1)],1),_c('oa-grid',{attrs:{"model":_vm.model,"schema":_vm.schema,"messages":_vm.messages,"options":_vm.options,"actions":_vm.gridActions,"default-action":_vm.gridActions[0]}}),_c('br'),_c('div',{staticStyle:{"float":"right","margin-bottom":"10px"}},[_c('el-pagination',{attrs:{"current-page":_vm.currentPage,"page-size":_vm.pageSize,"layout":"total, prev, pager, next","total":_vm.totalCount},on:{"current-change":_vm.currentPageChange,"update:currentPage":function($event){_vm.currentPage=$event}}})],1)],1)}
-var crudGridvue_type_template_id_0abbfad5_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/lib/components/crudGrid.vue?vue&type=template&id=0abbfad5&
+// CONCATENATED MODULE: ./src/lib/components/crudGrid.vue?vue&type=template&id=81357438&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudGrid.vue?vue&type=script&lang=js&
-
-
-
-//
-//
-//
-//
-//
 //
 //
 //
@@ -4922,6 +4914,95 @@ var crudGridvue_type_template_id_0abbfad5_staticRenderFns = []
 
 /* harmony default export */ var crudGridvue_type_script_lang_js_ = ({
   name: "oa-crud-grid",
+  data: function data() {
+    return {};
+  },
+  computed: {
+    module: function module() {
+      return this.$route.params.module;
+    },
+    resource: function resource() {
+      return this.$route.params.resource;
+    },
+    connector: function connector() {
+      return this.$root.$options.connector;
+    }
+  },
+  methods: {
+    onEdit: function onEdit(row) {
+      this.$router.push({
+        name: "edit",
+        params: {
+          resource: this.resource,
+          id: row.id
+        }
+      });
+    },
+    onAdd: function onAdd() {
+      this.$router.push({
+        name: "add",
+        params: {
+          resource: this.resource
+        }
+      });
+    }
+  },
+  created: function created() {},
+  watch: {}
+});
+// CONCATENATED MODULE: ./src/lib/components/crudGrid.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_crudGridvue_type_script_lang_js_ = (crudGridvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/lib/components/crudGrid.vue
+
+
+
+
+
+/* normalize component */
+
+var crudGrid_component = normalizeComponent(
+  components_crudGridvue_type_script_lang_js_,
+  crudGridvue_type_template_id_81357438_render,
+  crudGridvue_type_template_id_81357438_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ var components_crudGrid = (crudGrid_component.exports);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudGridWithoutRouter.vue?vue&type=template&id=52a4e36e&
+var crudGridWithoutRoutervue_type_template_id_52a4e36e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('el-row',{attrs:{"gutter":10}},[_c('el-col',{staticStyle:{"padding-bottom":"20px"},attrs:{"xs":24,"sm":2,"md":2,"lg":2,"xl":2}},_vm._l((_vm.actions),function(action){return _c('el-button',{key:action.name,attrs:{"icon":action.icon,"size":"small","type":action.type},on:{"click":function($event){action.execute()}}},[_vm._v(_vm._s(action.name))])})),_c('el-col',{attrs:{"xs":24,"sm":22,"md":22,"lg":22,"xl":22}},[(_vm.hasFilter)?_c('oa-filter-form',{ref:"filterform",attrs:{"model":_vm.filterModel,"schema":_vm.filterSchema,"connector":_vm.connector,"actions":_vm.filterActions,"messages":_vm.messages}}):_vm._e()],1)],1),_c('oa-grid',{attrs:{"model":_vm.model,"schema":_vm.schema,"messages":_vm.messages,"options":_vm.options,"actions":_vm.gridActions,"default-action":_vm.gridActions[0]}}),_c('br'),_c('div',{staticStyle:{"float":"right","margin-bottom":"10px"}},[_c('el-pagination',{attrs:{"current-page":_vm.currentPage,"page-size":_vm.pageSize,"layout":"total, prev, pager, next","total":_vm.totalCount},on:{"current-change":_vm.currentPageChange,"update:currentPage":function($event){_vm.currentPage=$event}}})],1)],1)}
+var crudGridWithoutRoutervue_type_template_id_52a4e36e_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/lib/components/crudGridWithoutRouter.vue?vue&type=template&id=52a4e36e&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudGridWithoutRouter.vue?vue&type=script&lang=js&
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ var crudGridWithoutRoutervue_type_script_lang_js_ = ({
+  name: "oa-crud-grid-without-router",
   data: function data() {
     return {
       model: [],
@@ -5078,9 +5159,9 @@ var crudGridvue_type_template_id_0abbfad5_staticRenderFns = []
     }
   }
 });
-// CONCATENATED MODULE: ./src/lib/components/crudGrid.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_crudGridvue_type_script_lang_js_ = (crudGridvue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/lib/components/crudGrid.vue
+// CONCATENATED MODULE: ./src/lib/components/crudGridWithoutRouter.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_crudGridWithoutRoutervue_type_script_lang_js_ = (crudGridWithoutRoutervue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/lib/components/crudGridWithoutRouter.vue
 
 
 
@@ -5088,10 +5169,10 @@ var crudGridvue_type_template_id_0abbfad5_staticRenderFns = []
 
 /* normalize component */
 
-var crudGrid_component = normalizeComponent(
-  components_crudGridvue_type_script_lang_js_,
-  crudGridvue_type_template_id_0abbfad5_render,
-  crudGridvue_type_template_id_0abbfad5_staticRenderFns,
+var crudGridWithoutRouter_component = normalizeComponent(
+  components_crudGridWithoutRoutervue_type_script_lang_js_,
+  crudGridWithoutRoutervue_type_template_id_52a4e36e_render,
+  crudGridWithoutRoutervue_type_template_id_52a4e36e_staticRenderFns,
   false,
   null,
   null,
@@ -5099,88 +5180,7 @@ var crudGrid_component = normalizeComponent(
   
 )
 
-/* harmony default export */ var components_crudGrid = (crudGrid_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudGridWithRouter.vue?vue&type=template&id=526b5778&
-var crudGridWithRoutervue_type_template_id_526b5778_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('oa-crud-grid',{attrs:{"module":_vm.resource,"resource":_vm.resource,"connector":_vm.connector,"doOnEdit":_vm.onEdit,"doOnAdd":_vm.onAdd}})],1)}
-var crudGridWithRoutervue_type_template_id_526b5778_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/lib/components/crudGridWithRouter.vue?vue&type=template&id=526b5778&
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudGridWithRouter.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ var crudGridWithRoutervue_type_script_lang_js_ = ({
-  name: "oa-crud-grid-with-router",
-  data: function data() {
-    return {};
-  },
-  computed: {
-    module: function module() {
-      return this.$route.params.module;
-    },
-    resource: function resource() {
-      return this.$route.params.resource;
-    },
-    connector: function connector() {
-      return this.$root.$options.connector;
-    }
-  },
-  methods: {
-    onEdit: function onEdit(row) {
-      this.$router.push({
-        name: "edit",
-        params: {
-          resource: this.resource,
-          id: row.id
-        }
-      });
-    },
-    onAdd: function onAdd() {
-      this.$router.push({
-        name: "add",
-        params: {
-          resource: this.resource
-        }
-      });
-    }
-  },
-  created: function created() {},
-  watch: {}
-});
-// CONCATENATED MODULE: ./src/lib/components/crudGridWithRouter.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_crudGridWithRoutervue_type_script_lang_js_ = (crudGridWithRoutervue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/lib/components/crudGridWithRouter.vue
-
-
-
-
-
-/* normalize component */
-
-var crudGridWithRouter_component = normalizeComponent(
-  components_crudGridWithRoutervue_type_script_lang_js_,
-  crudGridWithRoutervue_type_template_id_526b5778_render,
-  crudGridWithRoutervue_type_template_id_526b5778_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var crudGridWithRouter = (crudGridWithRouter_component.exports);
+/* harmony default export */ var crudGridWithoutRouter = (crudGridWithoutRouter_component.exports);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://Work//Holoncom//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/date.vue?vue&type=template&id=7d56a0a4&
 var datevue_type_template_id_7d56a0a4_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('el-date-picker',{attrs:{"type":"date","format":"dd/MM/yyyy"},model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v},expression:"model"}})}
 var datevue_type_template_id_7d56a0a4_staticRenderFns = []
@@ -7289,8 +7289,8 @@ var components = {
   Switch: components_switch,
   Textarea: components_textarea,
   Time: time,
-  CrudGridWithRouter: crudGridWithRouter,
-  CrudFormWithRouter: crudFormWithRouter,
+  CrudGridWithoutRouter: crudGridWithoutRouter,
+  CrudFormWithoutRouter: crudFormWithoutRouter,
   CommandForm: commandForm
 };
 var install_install = function install(Vue) {
