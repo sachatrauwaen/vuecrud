@@ -33,7 +33,7 @@ export default {
       resource: String,
       connector: Object,
       doOnEdit: Function,
-      doOnAdd: Function
+      doOnAdd: Function,
   },
   computed: {
     // module() {

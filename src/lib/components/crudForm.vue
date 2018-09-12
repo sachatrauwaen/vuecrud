@@ -7,7 +7,9 @@ export default {
   name: 'oa-crud-form',
   props: {
       resource: String,
-      redirect: Function
+      module: String,
+      redirect: Function,
+      id: String
   },
   data () {
     var self = this
@@ -46,19 +48,18 @@ export default {
     }
   },
   computed: {
-    module () {
-      // TODO extract route dependency
-      return this.$route.params.module
-    },
+    // module () {
+    //   return this.$route.params.module
+    // },
     // resource () {
     //   return this.$route.params.resource
     // },
     messages () {
-      return this.connector.messages(this.$route.params.module);
+      return this.connector.messages(this.module);
     },
-    id () {
-      return this.$route.params.id
-    },
+    // id () {
+    //   return this.$route.params.id
+    // },
     isnew () {
       return !this.id
     },
@@ -77,43 +78,43 @@ export default {
   },
   methods: {
     fetchData () {
-      var self = this
       if (!this.isnew) {
-        self.connector.service(this.resource,'get',{ id: self.id },
-          function (data) {
-            self.model = data
-          },
-          function () {
-          })
+        this.connector.service(
+          this.resource,
+          'get',
+          { id: this.id },
+          (data) => this.model = data,
+          () => {}
+        )
       }
     },
     saveData (data, callback) {
-      var self = this
-      if (self.isnew) {
-        // add
-        self.connector.service(
-          this.resource,
-          'create',
-          data,
-          callback ? callback : (() => {}),
-          () => {}
-        );
-      } else {
-        // update
-        data.id = self.id
-        self.connector.service(
-          this.resource,
-          'update',
-          data,
-          callback ? callback : (() => {}),
-          () => {}
-        );
-      }
+      if (this.isnew)
+        this.add(data, callback);
+      else
+        this.update(data, callback);
+    },
+    add (data, callback) {
+      this.connector.service(
+        this.resource,
+        'create',
+        data,
+        callback ? callback : (() => {}),
+        () => {}
+      );
+    },
+    update (data, callback) {
+      data.id = this.id
+      this.connector.service(
+        this.resource,
+        'update',
+        data,
+        callback ? callback : (() => {}),
+        () => {}
+      );
     }
   },
   created () {
-    // this.$store.commit('setPageTitle', global.helper.i.titleize(global.helper.i.pluralize(this.resource)))
-    // this.fetchGrid().then(() => { })
     this.fetchData()
   },
   watch: {
