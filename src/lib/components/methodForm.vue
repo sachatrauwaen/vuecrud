@@ -1,12 +1,12 @@
 <template>
-		<oa-form ref="form" :model="model" :schema="schema" :actions="actions" :connector="connector" :resource="resource" :messages="messages" ></oa-form>
+		<oa-form ref="form" :model="model" :schema="schema" :actions="actions" :connector="connector" :messages="messages" ></oa-form>
 </template>
 
 <script>
 export default {
 	name: 'oa-method-form',
 	props: {
-		resource: String,
+		appService: String,
 		module: String,
 		method: String,
 		redirect: Function,
@@ -30,7 +30,7 @@ export default {
 
 						const onValidate = (valid) => {
 							if (!valid) return;
-							
+
 							this.saveData(this.model)
 								.done(onSaveData);
 						};
@@ -52,7 +52,7 @@ export default {
 			return this.connector.messages(this.module);
 		},
 		schema () {
-			return this.connector.schema(this.resource, this.method);
+			return this.connector.schema(this.appService, this.method);
 		},
 		connector: function () {
 			return this.$root.$options.connector;
@@ -60,7 +60,7 @@ export default {
 	},
 	methods: {
 		saveData (data, callback) {
-			return this.connector.pService(this.resource, this.method, data);
+			return this.connector.pService(this.appService, this.method, data);
 		}
 	},
 	created () {
