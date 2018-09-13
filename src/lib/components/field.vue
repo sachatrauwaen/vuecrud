@@ -27,7 +27,6 @@ export default {
       }
     },
     connector: {},
-    resource: {}
   },
 
   computed: {

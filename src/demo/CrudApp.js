@@ -8,13 +8,10 @@ export default {
         Vue.use(VueRouter);
         Vue.use(VueCrud);
 
-        const crudGrid = Vue.component('oa-crud-grid');
-        const crudForm = Vue.component('oa-crud-form');
-        // const crudGrid = Vue.component('OaCrudGrid');
-        // const crudForm = Vue.component('OaCrudForm');
+        const crudGrid = Vue.component('oa-crud-grid-with-router');
+        const crudForm = Vue.component('oa-crud-form-with-router');
 
         const router = new VueRouter({
-            //scrollBehavior: () => ({ y: 0 }),
             routes: [
                 { path: '/:module/:resource', component: crudGrid, name: 'grid' },
                 { path: '/:module/:resource/edit/:id', component: crudForm, name: 'edit' },
@@ -25,15 +22,10 @@ export default {
         new Vue({
             router: router,
             connector: VueCrud.OaConnector,
-            //render: h => h('router-view')
-            //render: h => h(layout, [h('router-view')]),
             render(h) {
                 return h(layout, {
                     scopedSlots: {
-                        default: () => {
-
-                            return h('router-view')
-                        }
+                        default: () => h('router-view')
                     },
                     props: {
                         title: this.pageTitle

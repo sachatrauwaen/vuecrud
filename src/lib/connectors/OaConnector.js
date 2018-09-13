@@ -3,13 +3,13 @@ export default {
     /**
          * Loads JSON schema.
          *
-         * @param {String} resource Resource to be loaded
-         * @param {String} action create | update | get | filter
+         * @param {String} appService App service to be loaded
+         * @param {String} action create | update | get | filter | [non-crud action]
          
          */
-    schema(resource, action) {
+    schema(appService, action) {
         // eslint-disable-next-line
-        const base = abp.schemas.app[resource];
+        const base = abp.schemas.app[appService];
         let data = null;
         if (action == 'create')
             data = base.create.parameters.input;
@@ -25,20 +25,25 @@ export default {
     /**
          * Loads JSON data.
          *
-         * @param {String} resource Resource to be loaded
-         * @param {String} action create | update | getAll | get | enumAction         
+         * @param {String} appService RApp service to be loaded
+         * @param {String} action create | update | getAll | get | enumAction | [non-crud action]       
          * @param {Function} onSuccess onSuccess callback
          * @param {Function} onError onError callback
          */
-    service(resource, action, data, successCallback, errorCallback, alwaysCallback) {
+    service(appService, action, data, successCallback, errorCallback, alwaysCallback) {
         // eslint-disable-next-line
-        abp.services.app[resource][action](data).done(function (data) {
+        abp.services.app[appService][action](data).done(function (data) {
             if (successCallback) successCallback(data);
         }).fail(function (error) {
             if (errorCallback) errorCallback(error);
         }).always(function () {
             if (alwaysCallback) alwaysCallback();
         })
+    },
+    // Service returning a promise
+    pService(appService, action, data) {
+        // eslint-disable-next-line
+        return abp.services.app[appService][action](data);
     },
     messages(module) {
         // eslint-disable-next-line
