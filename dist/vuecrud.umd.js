@@ -4641,10 +4641,10 @@ var crudformvue_type_template_id_e675ce80_staticRenderFns = []
 
 // CONCATENATED MODULE: ./src/vueforms.js
 //import jref from 'json-ref-lite'
-var VueForms = {};
-VueForms.jsonSchema = {};
+var vueforms_VueForms = {};
+vueforms_VueForms.jsonSchema = {};
 
-VueForms.jsonSchema.getNotNull = function (schema) {
+vueforms_VueForms.jsonSchema.getNotNull = function (schema) {
   if (schema.oneOf) {
     var lst = schema.oneOf.filter(function (s) {
       s.type != "null";
@@ -4660,7 +4660,7 @@ VueForms.jsonSchema.getNotNull = function (schema) {
   }
 };
 
-VueForms.isMobile = function () {
+vueforms_VueForms.isMobile = function () {
   return window.matchMedia("only screen and (max-width: 760px)").matches;
 }; // override .resolve function to prevent stack-overflow issue
 //  var _originalResolvefn = jref.resolve;
@@ -4670,11 +4670,11 @@ VueForms.isMobile = function () {
 //  };
 
 
-VueForms.jsonSchema.resolve = function (json) {
+vueforms_VueForms.jsonSchema.resolve = function (json) {
   return json;
 };
 
-/* harmony default export */ var vueforms = (VueForms);
+/* harmony default export */ var vueforms = (vueforms_VueForms);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/components/crudform.vue?vue&type=script&lang=js&
 //
 //
@@ -5108,46 +5108,50 @@ var date_component = normalizeComponent(
 )
 
 /* harmony default export */ var date = (date_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://sacha//vue//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/daterange.vue?vue&type=template&id=e97b25da&
-var daterangevue_type_template_id_e97b25da_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('el-date-picker',{attrs:{"type":"daterange","picker-options":_vm.pickerOptions},model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v},expression:"model"}})}
-var daterangevue_type_template_id_e97b25da_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"C://sacha//vue//vuecrud//node_modules//.cache//vue-loader","cacheIdentifier":"2c4efe34-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/daterange.vue?vue&type=template&id=5a825d29&
+var daterangevue_type_template_id_5a825d29_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(!_vm.isMobile)?_c('el-date-picker',{attrs:{"type":"daterange","format":"dd/MM/yyyy"},model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v},expression:"model"}}):_vm._e(),(_vm.isMobile)?_c('el-date-picker',{attrs:{"type":"date","format":"dd/MM/yyyy","placeholder":"Begin"},model:{value:(_vm.model1),callback:function ($$v) {_vm.model1=$$v},expression:"model1"}}):_vm._e(),(_vm.isMobile)?_c('el-date-picker',{attrs:{"type":"date","format":"dd/MM/yyyy","placeholder":"End"},model:{value:(_vm.model2),callback:function ($$v) {_vm.model2=$$v},expression:"model2"}}):_vm._e()],1)}
+var daterangevue_type_template_id_5a825d29_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/daterange.vue?vue&type=template&id=e97b25da&
+// CONCATENATED MODULE: ./src/components/daterange.vue?vue&type=template&id=5a825d29&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/components/daterange.vue?vue&type=script&lang=js&
 //
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ var daterangevue_type_script_lang_js_ = ({
-  name: 'oa-daterange',
+  name: "oa-daterange",
   data: function data() {
     return {
       pickerOptions: {
         shortcuts: [{
-          text: 'Last week',
+          text: "Last week",
           onClick: function onClick(picker) {
             var end = new Date();
             var start = new Date();
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', [start, end]);
+            picker.$emit("pick", [start, end]);
           }
         }, {
-          text: 'Last month',
+          text: "Last month",
           onClick: function onClick(picker) {
             var end = new Date();
             var start = new Date();
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            picker.$emit('pick', [start, end]);
+            picker.$emit("pick", [start, end]);
           }
         }, {
-          text: 'Last 3 months',
+          text: "Last 3 months",
           onClick: function onClick(picker) {
             var end = new Date();
             var start = new Date();
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            picker.$emit('pick', [start, end]);
+            picker.$emit("pick", [start, end]);
           }
         }]
       }
@@ -5165,8 +5169,27 @@ var daterangevue_type_template_id_e97b25da_staticRenderFns = []
         return this.value;
       },
       set: function set(val) {
-        this.$emit('input', val);
+        this.$emit("input", val);
       }
+    },
+    model1: {
+      get: function get() {
+        return this.value && this.value.length > 0 ? this.value[0] : null;
+      },
+      set: function set(val) {
+        if (this.value && this.value[1].getTime() > val.getTime()) this.model = [val, this.value[1]];else this.model = [val, val];
+      }
+    },
+    model2: {
+      get: function get() {
+        return this.value && this.value.length > 1 ? this.value[1] : null;
+      },
+      set: function set(val) {
+        if (this.value && this.value[0].getTime() < val.getTime()) this.model = [this.value[0], val];else this.model = [val, val];
+      }
+    },
+    isMobile: function isMobile() {
+      return VueForms.isMobile();
     }
   }
 });
@@ -5182,8 +5205,8 @@ var daterangevue_type_template_id_e97b25da_staticRenderFns = []
 
 var daterange_component = normalizeComponent(
   components_daterangevue_type_script_lang_js_,
-  daterangevue_type_template_id_e97b25da_render,
-  daterangevue_type_template_id_e97b25da_staticRenderFns,
+  daterangevue_type_template_id_5a825d29_render,
+  daterangevue_type_template_id_5a825d29_staticRenderFns,
   false,
   null,
   null,
