@@ -123,14 +123,13 @@ export default {
                 return cellValue ? this.messages["Yes"] : this.messages["No"];
             } else if (schema['x-type'] == 'date') {
                 if (!cellValue) return ''
-                return moment(cellValue).locale('fr').format('ll')
+                return moment(cellValue).locale('fr').format('L')
             } else if (schema.format == "date-time") {
                 if (!cellValue) return "";
                 // eslint-disable-next-line
                 return moment(cellValue)
                     .locale("fr")
-                    .format("lll");
-             
+                    .format("lll");             
             } else if (schema.enum) {
                 var i = schema.enum.indexOf(cellValue);
                 return this.messages[schema["x-enumNames"][i]] ?
