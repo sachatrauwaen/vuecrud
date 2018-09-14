@@ -62,6 +62,9 @@ export default {
       } else if (schema.format == 'date-time') {
         if (!cellValue) return ''
         return moment(cellValue).locale('fr').format('lll')
+      } else if (schema['x-type'] == 'date') {
+        if (!cellValue) return ''
+        return moment(cellValue).locale('fr').format('ll')
       } else if (schema.enum) {
         var i = schema.enum.indexOf(cellValue)
         return this.messages[schema['x-enumNames'][i]] ? this.messages[schema['x-enumNames'][i]] : schema['x-enumNames'][i]
