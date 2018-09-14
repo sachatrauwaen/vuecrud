@@ -6,6 +6,7 @@ import CheckboxGroup from './components/checkboxGroup.vue'
 import CrudForm from './components/crudform.vue'
 import CrudGrid from './components/crudgrid.vue'
 import Date from './components/date.vue'
+import Datetime from './components/datetime.vue'
 import Daterange from './components/daterange.vue'
 import DialogForm from './components/dialogform.vue'
 import Field from './components/field.vue'
@@ -31,6 +32,7 @@ const components = [
   CrudForm,
   CrudGrid,
   Date,
+  Datetime,
   Daterange,
   DialogForm,
   Field,
