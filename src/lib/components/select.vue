@@ -26,23 +26,22 @@ export default {
   },
   computed: {
     model: {
-      get: function() {
+      get() {
         return this.value;
       },
-      set: function(val) {
+      set(val) {
         this.$emit("input", val);
       }
     }
   },
   created() {
-    var self = this;
-    var sch =
+    const sch =
       this.schema.oneOf && this.schema.oneOf[0]
         ? this.schema.oneOf[0]
         : this.schema;
     if (sch.enum) {
       for (var i = 0; i < sch.enum.length; i++) {
-        var label = sch["x-enumNames"]
+        let label = sch["x-enumNames"]
           ? sch["x-enumNames"][i]
           : this.prop + "_" + sch.enum[i];
         if (this.messages && this.messages[label]) {
@@ -57,19 +56,17 @@ export default {
       var enumAction = this.schema["x-enum-action"];
       var enumValueField = this.schema["x-enum-valuefield"] || "id";
       var enumTextField = this.schema["x-enum-textfield"] || "fullName";
-      self.connector.service(
+      this.connector.service(
         this.resource,
         enumAction,
         {},
-        function(data) {
-          self.options = data.map(function(p) {
-            return {
-              value: p[enumValueField],
-              label: p[enumTextField]
-            };
-          });
+        (data) => {
+          this.options = data.map(p => ({
+            value: p[enumValueField],
+            label: p[enumTextField]
+          }));
         },
-        function() {}
+        () => {}
       );
     }
     if (sch["x-enum-nonelabel"]) {
