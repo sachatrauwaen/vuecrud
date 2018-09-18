@@ -128,10 +128,12 @@ export default {
                     .locale("fr")
                     .format("lll");
             } else if (schema.enum) {
-                var i = schema.enum.indexOf(cellValue);
-                return this.messages[schema["x-enumNames"][i]] ?
-                    this.messages[schema["x-enumNames"][i]] :
-                    schema["x-enumNames"][i];
+                const enumName = typeof cellValue === 'number'
+                    ? schema['x-enumNames'][schema.enum.indexOf(cellValue)] // Enum format is the identifier as number, so look up the name
+                    : cellValue; // Enum format is provided directly by name
+                return this.messages[enumName]
+                    ? this.messages[enumName]
+                    : enumName;
             }
             return cellValue;
         },

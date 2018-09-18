@@ -56,18 +56,19 @@ export default {
       return this.format(column.property, cellValue);
     },
     format (property, cellValue) {
-      var schema = Utils.jsonSchema.getNotNull(this.schema.properties[property])
+      const schema = Utils.jsonSchema.getNotNull(this.schema.properties[property]);
       if (schema.type == 'boolean') {
-        return cellValue ? this.messages['Yes'] : this.messages['No']
-       } else if (schema['x-type'] == 'date') {
-        if (!cellValue) return ''
-        return moment(cellValue).locale('fr').format('ll')
+        return cellValue ? this.messages['Yes'] : this.messages['No'];
       } else if (schema.format == 'date-time') {
         if (!cellValue) return '';
         return moment(cellValue).locale('fr').format('lll'); // TODO: Refactor: Assumes globally loaded moment // TODO: Assuming 'fr' locale is not ok
       } else if (schema.enum) {
-        var i = schema.enum.indexOf(cellValue)
-        return this.messages[schema['x-enumNames'][i]] ? this.messages[schema['x-enumNames'][i]] : schema['x-enumNames'][i]
+        const enumName = typeof cellValue === 'number'
+            ? schema['x-enumNames'][schema.enum.indexOf(cellValue)] // Enum format is the identifier as number, so look up the name
+            : cellValue; // Enum format is provided directly by name
+        return this.messages[enumName]
+            ? this.messages[enumName]
+            : enumName;
       }
       return cellValue;
     },
