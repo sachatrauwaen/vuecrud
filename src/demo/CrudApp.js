@@ -8,8 +8,8 @@ export default {
         Vue.use(VueRouter);
         Vue.use(VueCrud);
 
-        const crudGrid = Vue.component('oa-crud-grid-with-router');
-        const crudForm = Vue.component('oa-crud-form-with-router');
+        const crudGrid = Vue.component('oa-crud-grid');
+        const crudForm = Vue.component('oa-crud-form');
 
         const router = new VueRouter({
             routes: [
