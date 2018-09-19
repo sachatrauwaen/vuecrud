@@ -49,7 +49,7 @@ export default {
 			return this.connector.schema(this.resource, "get")
 			},
 		messages() {
-			return this.connector.messages(this.$route.params.module);
+			return this.connector.messages(this.module);
 		},
 		gridActions() {
 			return [
