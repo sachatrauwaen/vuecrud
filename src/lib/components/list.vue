@@ -120,6 +120,7 @@ export default {
                 return cellValue ? this.messages["Yes"] : this.messages["No"];
             } else if (schema['x-type'] == 'date') {
                 if (!cellValue) return ''
+                // eslint-disable-next-line
                 return moment(cellValue).locale('fr').format('L')
             } else if (schema.format == "date-time") {
                 if (!cellValue) return "";

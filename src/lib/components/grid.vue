@@ -59,8 +59,13 @@ export default {
       const schema = Utils.jsonSchema.getNotNull(this.schema.properties[property]);
       if (schema.type == 'boolean') {
         return cellValue ? this.messages['Yes'] : this.messages['No'];
+      } else if (schema['x-type'] == 'date') {
+        if (!cellValue) return '';
+        // eslint-disable-next-line
+        return moment(cellValue).locale('fr').format('ll');
       } else if (schema.format == 'date-time') {
         if (!cellValue) return '';
+        // eslint-disable-next-line
         return moment(cellValue).locale('fr').format('lll'); // TODO: Refactor: Assumes globally loaded moment // TODO: Assuming 'fr' locale is not ok
       } else if (schema.enum) {
         const enumName = typeof cellValue === 'number'

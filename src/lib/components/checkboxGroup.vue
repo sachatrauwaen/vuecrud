@@ -6,65 +6,64 @@
 
 <script>
 export default {
-    name: 'oa-checkbox-group',
-    props: {
-        value: {
-            type: Array,
-            default: function () {
-                return []
-            }
-        },
-        schema: {},
-        prop: String
+  name: "oa-checkbox-group",
+  props: {
+    value: {
+      type: Array,
+      default: function() {
+        return [];
+      }
     },
-    data () {
+    schema: {},
+    prop: String,
+    connector: {},
+    resource: String,
+  },
+  data() {
+    return {
+      options: []
+    };
+  },
+  computed: {
+    model: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit("input", val);
+      }
+    }    
+  },
+  created() {
+    var self = this;
+    var enumAction = this.schema["x-enum-action"];
+    if (enumAction) {
+      var enumValueField = this.schema["x-enum-valuefield"];
+      var enumTextField = this.schema["x-enum-textfield"] || this.schema["x-enum-valuefield"];
+      self.connector.service(
+        this.resource,
+        enumAction,
+        {},
+        function(data) {
+          self.options = data.items.map(function(p) {
+            return {
+              value: p[enumValueField],
+              label: p[enumTextField]
+            };
+          });
+        },
+        function() {}
+      );      
+    } else if (this.schema.enum) {
+      this.options = this.schema.enum.map(function(val) {
         return {
-            options: []
-        }
-    },
-    computed: {
-        model: {
-            get () {
-                return this.value
-            },
-            set (val) {
-                this.$emit('input', val)
-            }
-        },
-        resource () {
-            return this.$route.params.resource
-        }
-    },
-    created () {
-        var self = this
-        var enumAction = this.schema['x-enum-action']
-        if (enumAction) {
-            var enumValueField = this.schema['x-enum-valuefield']
-            var enumTextField =
-                this.schema['x-enum-textfield'] || this.schema['x-enum-valuefield']
-            var service = abp.services.app[self.resource][enumAction]
-            service()
-                .done(function (data) {
-                    self.options = data.items.map(function (p) {
-                        return {
-                            value: p[enumValueField],
-                            label: p[enumTextField]
-                        }
-                    })
-                })
-                .always(function () {
-                    // abp.ui.clearBusy(_$app);
-                })
-        } else if (this.schema.enum) {
-            this.options = this.schema.enum.map(function (val) {
-                return {
-                    value: val,
-                    label: val
-                }
-            })
-        } else {
-            return []
-        }
+          value: val,
+          label: val
+        };
+      });
+    } else {
+      return [];
     }
-}
+  }
+};
 </script>
