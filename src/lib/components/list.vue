@@ -68,6 +68,9 @@ export default {
         };
     },
     computed: {
+        locale() {
+            return this.connector.locale();
+        },
         model: {
             get () {
                 return this.value;
@@ -121,7 +124,7 @@ export default {
             } else if (schema['x-type'] == 'date') {
                 if (!cellValue) return ''
                 // eslint-disable-next-line
-                return moment(cellValue).locale('fr').format('L')
+                return moment(cellValue).locale(this.locale).format('L')
             } else if (schema.format == "date-time") {
                 if (!cellValue) return "";
                 // eslint-disable-next-line

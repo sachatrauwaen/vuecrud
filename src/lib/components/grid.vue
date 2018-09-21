@@ -29,7 +29,8 @@ export default {
     schema: {},
     messages: {},
     actions: {},
-    defaultAction: {}
+    defaultAction: {},
+    locale: {} // moment locale (e.g. 'fr', 'en', 'nl', ...)
   },
   computed: {
     columns () {
@@ -62,11 +63,11 @@ export default {
       } else if (schema['x-type'] == 'date') {
         if (!cellValue) return '';
         // eslint-disable-next-line
-        return moment(cellValue).locale('fr').format('ll');
+        return moment(cellValue).locale(this.locale).format('ll');
       } else if (schema.format == 'date-time') {
         if (!cellValue) return '';
         // eslint-disable-next-line
-        return moment(cellValue).locale('fr').format('lll'); // TODO: Refactor: Assumes globally loaded moment // TODO: Assuming 'fr' locale is not ok
+        return moment(cellValue).locale(this.locale).format('lll'); // TODO: Refactor: Assumes globally loaded moment
       } else if (schema.enum) {
         const enumName = typeof cellValue === 'number'
             ? schema['x-enumNames'][schema.enum.indexOf(cellValue)] // Enum format is the identifier as number, so look up the name

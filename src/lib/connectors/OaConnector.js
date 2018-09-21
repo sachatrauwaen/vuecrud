@@ -53,6 +53,10 @@ export default {
     componentsPath() {
         // eslint-disable-next-line
         return abp.appPath + 'lib/vueforms/';
+    },
+    locale() { // Should be moment locale (e.g. 'fr', 'en', 'nl', ...)
+        // eslint-disable-next-line
+        return abp.localization.currentCulture.name;
     }
 
 }

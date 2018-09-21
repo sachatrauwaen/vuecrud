@@ -8,7 +8,7 @@
             <oa-filter-form v-if="hasFilter" ref="filterform" :model="filterModel" :schema="filterSchema" :connector="connector" :actions="filterActions" :messages="messages"></oa-filter-form>
         </el-col>
     </el-row>
-    <oa-grid :model="model" :schema="schema" :messages="messages" :options="options" :actions="gridActions" :default-action="gridActions[0]"></oa-grid><br />
+    <oa-grid :model="model" :schema="schema" :messages="messages" :options="options" :actions="gridActions" :default-action="gridActions[0]" :locale="locale"></oa-grid><br />
     <div style="float:right;margin-bottom:10px;">
         <el-pagination @current-change="currentPageChange" :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="totalCount"></el-pagination>
     </div>
@@ -33,7 +33,7 @@ export default {
 		resource: String,
 		connector: Object,
 		doOnEdit: Function,
-		doOnAdd: Function,
+		doOnAdd: Function
 	},
 	computed: {
 		// module() {
@@ -45,54 +45,57 @@ export default {
 		// connector() {
 		//   return this.$root.$options.connector;
 		// },
+		locale() {
+			return this.connector.locale();
+		},
 		schema() {
-			return this.connector.schema(this.resource, "get")
-			},
+			return this.connector.schema(this.resource, "get");
+		},
 		messages() {
 			return this.connector.messages(this.module);
 		},
 		gridActions() {
 			return [
-		{
-			name: this.translate("Edit"),
-			icon: "el-icon-edit",
-			execute: this.doOnEdit
-		},
-		{
-			name: this.translate("Delete"),
-			icon: "el-icon-delete",
-			execute: (row) => {
-			// eslint-disable-next-line
-			this
-				.$confirm("Confirm delete ?", this.translate("Delete"), {
-					confirmButtonText: "OK",
-					cancelButtonText: "Cancel",
-					type: "warning"
-				})
-				.then(() => {
-					this.deleteData(row, () => {
-						this.$message({
-						type: "success",
-						message: this.translate("Delete completed")
-						});
-					});
-				})
-				.catch(() => {});
-			},
-			visible: (row) => {
-				if (typeof row.canDelete !== "undefined") {
-					return row.canDelete;
-				} else {
-					return true;
+				{
+					name: this.translate("Edit"),
+					icon: "el-icon-edit",
+					execute: this.doOnEdit
+				},
+				{
+					name: this.translate("Delete"),
+					icon: "el-icon-delete",
+					execute: (row) => {
+					// eslint-disable-next-line
+					this
+						.$confirm("Confirm delete ?", this.translate("Delete"), {
+							confirmButtonText: "OK",
+							cancelButtonText: "Cancel",
+							type: "warning"
+						})
+						.then(() => {
+							this.deleteData(row, () => {
+								this.$message({
+								type: "success",
+								message: this.translate("Delete completed")
+								});
+							});
+						})
+						.catch(() => {});
+					},
+					visible: (row) => {
+						if (typeof row.canDelete !== "undefined") {
+							return row.canDelete;
+						} else {
+							return true;
+						}
+					}
 				}
-			}
-		}
-	];
-    },
-    defaultAction() {
+			];
+    	},
+		defaultAction() {
 			return this.gridActions[0];
-    },
-    actions() {
+		},
+    	actions() {
 			return [
 				{
 					icon: "el-icon-plus",
@@ -100,8 +103,8 @@ export default {
 					execute: this.doOnAdd
 				}
 			];
-    },
-    filterSchema() {
+    	},
+    	filterSchema() {
 			var schema = {
 				properties: {}
 			};
@@ -112,11 +115,11 @@ export default {
 				}
 			}
 			return schema;
-    },
-    hasFilter() {
+   		},
+    	hasFilter() {
 			return Object.keys(this.filterSchema.properties).length > 0;
-    },
-    filterActions() {
+    	},
+   		filterActions() {
 			return [
 				{
 					icon: "el-icon-search",
@@ -133,20 +136,20 @@ export default {
 					}
 				}
 			];
-    },
-    options() {
+    	},
+    	options() {
 			return null;
-    },
-    totalPages() {
+    	},
+    	totalPages() {
 			return Math.ceil(
 				this.pagination.totalItems / this.pagination.rowsPerPage
 			);
-    }
-  },
-  methods: {
-    currentPageChange() {
+    	}
+	},
+  	methods: {
+    	currentPageChange() {
 			this.fetchData(); 
-    },
+    	},
 		fetchData(callback) {
 			this.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
 			this.filterModel.maxResultCount = this.pageSize;
@@ -161,8 +164,8 @@ export default {
 				},
 				() => {}
 			);
-    },
-    deleteData(data, callback) {
+    	},
+    	deleteData(data, callback) {
 			this.connector.service(
 				this.resource,
 				"delete",
@@ -170,22 +173,22 @@ export default {
 				() => this.fetchData(callback),
 				() => {}
 			);
-    },
-    translate(text) {
+    	},
+    	translate(text) {
 			if (this.messages && this.messages[text])
 				return this.messages[text];
 			else
 				return text;
-    }
-  },
-  created() {
+    	}
+  	},
+  	created() {
 		this.fetchData();
-  },
-  watch: {
+  	},
+  	watch: {
 		// TODO this seems suboptimal, and won't work when using without router
 		$route: function() {
 			this.fetchData();
 		}
-  }
+  	}
 };
 </script>
