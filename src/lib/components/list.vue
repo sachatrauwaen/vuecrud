@@ -148,17 +148,13 @@ export default {
             }
         },
         addRow () {
-            var row = {};
-            var sch = this.schema.items;
-            for (var key in sch.properties) {
-                row[key] = sch.default;
-            }
-            var model = this.model;
-            if (model === undefined) {
-                model = [];
-            }
-            model.push(row);
-            this.model = model;
+            const { properties, defaultVal } = this.schema.items;
+            const row = properties.reduce((row, property) => ({ ...row, [property]: defaultVal }), {});
+
+            this.model = this.model
+                ? [...this.model, row]
+                : [row];
+
             this.$refs.table.toggleRowExpansion(row, true);
         }
     }
