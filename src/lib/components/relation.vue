@@ -83,7 +83,7 @@ export default {
     value (val) {
       if (val) {
         this.options = [{
-          label: this.value[self.relationTextField],
+          label: this.value[this.relationTextField],
           value: val
         }]
       }
@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     remoteMethod (query) {
-      if (!query && self.value) {
+      if (!query && this.value) {
         const option = {
           label: this.value[this.relationTextField],
           value: this.value
