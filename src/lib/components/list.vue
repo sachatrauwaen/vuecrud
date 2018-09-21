@@ -149,7 +149,9 @@ export default {
         },
         addRow () {
             const { properties, defaultVal } = this.schema.items;
-            const row = properties.reduce((row, property) => ({ ...row, [property]: defaultVal }), {});
+            const row = Object
+                .keys(properties)
+                .reduce((row, property) => ({ ...row, [property]: defaultVal }), {});
 
             this.model = this.model
                 ? [...this.model, row]
