@@ -21,7 +21,7 @@ export default {
     schema: {},
     messages: Object,
     connector: {},
-    resource: {},
+    appService: {},
     prop: String,
     label: String
   },
@@ -100,7 +100,7 @@ export default {
       } else if (query && query !== '' && (!this.value || query != this.value[this.relationTextField])) {
         this.loading = true;        
         this.connector.service(
-          this.resource,
+          this.appService,
           this.relationAction,
           query,
           (data) => {
