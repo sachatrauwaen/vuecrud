@@ -1,5 +1,5 @@
 <template>
-		<oa-form ref="form" :model="model" :schema="schema" :actions="actions" :connector="connector" :resource="resource" :messages="messages" ></oa-form>
+		<oa-form ref="form" :model="model" :schema="schema" :actions="actions" :connector="connector" :appService="resource" :messages="messages" ></oa-form>
 </template>
 
 <script>

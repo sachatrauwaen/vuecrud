@@ -27,6 +27,7 @@ export default {
       }
     },
     connector: {},
+    appService: String
   },
 
   computed: {

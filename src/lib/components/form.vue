@@ -1,6 +1,6 @@
 <template>
 <el-form ref="form" :model="model" :rules="rules" label-width="120px" :label-position="labelPosition">
-    <oa-fields :model="model" :schema="schema" :connector="connector" :messages="messages"></oa-fields>
+    <oa-fields :model="model" :schema="schema" :connector="connector" :messages="messages" :appService="appService"></oa-fields>
     <el-form-item>
         <el-button v-for="action in actions" :key="action.name" size="small" :type="action.type" @click="action.execute()">{{action.name}}</el-button>
     </el-form-item>
@@ -21,6 +21,7 @@ export default {
 
     },
     connector: {},
+    appService: String
   },
   data () {
     return {}
