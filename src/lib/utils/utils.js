@@ -40,6 +40,7 @@ const loadComponent = (opts) => {
     script.async = true;
 
     script.onload = function () {
+        // eslint-disable-next-line
         var component = Vue.component(opts.name);
         if (component)
             opts.onLoad(component);

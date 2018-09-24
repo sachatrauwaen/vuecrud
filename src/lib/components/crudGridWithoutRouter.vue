@@ -1,17 +1,17 @@
 <template>
 <div>
-    <el-row :gutter="10">
-        <el-col :xs="24" :sm="2" :md="2" :lg="2" :xl="2" style="padding-bottom: 20px;">
-            <el-button v-for="action in actions" :key="action.name" :icon="action.icon" size="small" :type="action.type" @click="action.execute()">{{action.name}}</el-button>
-        </el-col>
-        <el-col :xs="24" :sm="22" :md="22" :lg="22" :xl="22">
-            <oa-filter-form v-if="hasFilter" ref="filterform" :model="filterModel" :schema="filterSchema" :connector="connector" :actions="filterActions" :messages="messages"></oa-filter-form>
-        </el-col>
-    </el-row>
-    <oa-grid :model="model" :schema="schema" :messages="messages" :options="options" :actions="gridActions" :default-action="gridActions[0]" :locale="locale"></oa-grid><br />
-    <div style="float:right;margin-bottom:10px;">
-        <el-pagination @current-change="currentPageChange" :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="totalCount"></el-pagination>
-    </div>
+<el-row :gutter="10">
+<el-col :xs="24" :sm="2" :md="2" :lg="2" :xl="2" style="padding-bottom: 20px;">
+<el-button v-for="action in actions" :key="action.name" :icon="action.icon" size="small" :type="action.type" @click="action.execute()">{{action.name}}</el-button>
+</el-col>
+<el-col :xs="24" :sm="22" :md="22" :lg="22" :xl="22">
+<oa-filter-form v-if="hasFilter" ref="filterform" :model="filterModel" :schema="filterSchema" :connector="connector" :actions="filterActions" :messages="messages"></oa-filter-form>
+</el-col>
+</el-row>
+<oa-grid :model="model" :schema="schema" :messages="messages" :options="options" :actions="gridActions" :default-action="gridActions[0]" :locale="locale"></oa-grid><br />
+<div style="float:right;margin-bottom:10px;">
+<el-pagination @current-change="currentPageChange" :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="totalCount"></el-pagination>
+</div>
 </div>
 </template>
 
@@ -91,11 +91,11 @@ export default {
 					}
 				}
 			];
-    	},
+		},
 		defaultAction() {
 			return this.gridActions[0];
 		},
-    	actions() {
+		actions() {
 			return [
 				{
 					icon: "el-icon-plus",
@@ -103,8 +103,8 @@ export default {
 					execute: this.doOnAdd
 				}
 			];
-    	},
-    	filterSchema() {
+		},
+		filterSchema() {
 			var schema = {
 				properties: {}
 			};
@@ -115,11 +115,11 @@ export default {
 				}
 			}
 			return schema;
-   		},
-    	hasFilter() {
+		},
+		hasFilter() {
 			return Object.keys(this.filterSchema.properties).length > 0;
-    	},
-   		filterActions() {
+		},
+		filterActions() {
 			return [
 				{
 					icon: "el-icon-search",
@@ -136,20 +136,20 @@ export default {
 					}
 				}
 			];
-    	},
-    	options() {
+		},
+		options() {
 			return null;
-    	},
-    	totalPages() {
+		},
+		totalPages() {
 			return Math.ceil(
 				this.pagination.totalItems / this.pagination.rowsPerPage
 			);
-    	}
+		}
 	},
-  	methods: {
-    	currentPageChange() {
+	methods: {
+		currentPageChange() {
 			this.fetchData(); 
-    	},
+		},
 		fetchData(callback) {
 			this.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
 			this.filterModel.maxResultCount = this.pageSize;
@@ -164,8 +164,8 @@ export default {
 				},
 				() => {}
 			);
-    	},
-    	deleteData(data, callback) {
+		},
+		deleteData(data, callback) {
 			this.connector.service(
 				this.resource,
 				"delete",
@@ -173,22 +173,22 @@ export default {
 				() => this.fetchData(callback),
 				() => {}
 			);
-    	},
-    	translate(text) {
+		},
+		translate(text) {
 			if (this.messages && this.messages[text])
 				return this.messages[text];
 			else
 				return text;
-    	}
-  	},
-  	created() {
+		}
+	},
+	created() {
 		this.fetchData();
-  	},
-  	watch: {
+	},
+	watch: {
 		// TODO this seems suboptimal, and won't work when using without router
 		$route: function() {
 			this.fetchData();
 		}
-  	}
+	}
 };
 </script>

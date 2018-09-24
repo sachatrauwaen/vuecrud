@@ -70,6 +70,7 @@ export default {
         version: '3',
         loadGoogleApi: true
       },
+      // eslint-disable-next-line
       function (xgoogle) {
         const options = {}
         if (self.types) {
@@ -80,6 +81,7 @@ export default {
             country: self.country
           }
         }
+        // eslint-disable-next-line
         self.autocomplete = new google.maps.places.Autocomplete(
           document.getElementById(self.id),
           options
@@ -188,6 +190,7 @@ export default {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             }
+            // eslint-disable-next-line
             var circle = new google.maps.Circle({
               center: geolocation,
               radius: position.coords.accuracy
@@ -268,8 +271,10 @@ window.loadGoogleMapsAPI = function (options, callback) {
   }
 
   if (window[CALLBACK_NAME]) {
+    // eslint-disable-next-line
     oldCallBack = window[CALLBACK_NAME]
     window[CALLBACK_NAME] = function () {
+      // eslint-disable-next-line
       oldCallBack()
       if (callback) callback(window.google.maps)
     }

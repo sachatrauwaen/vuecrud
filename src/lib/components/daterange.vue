@@ -81,6 +81,7 @@ export default {
       }
     },
     isMobile: function() {
+      // eslint-disable-next-line
       return VueForms.isMobile();
     }
   }
