@@ -1,18 +1,18 @@
 <template>
-<div>
-<el-row :gutter="10">
-<el-col :xs="24" :sm="2" :md="2" :lg="2" :xl="2" style="padding-bottom: 20px;">
-<el-button v-for="action in actions" :key="action.name" :icon="action.icon" size="small" :type="action.type" @click="action.execute()">{{action.name}}</el-button>
-</el-col>
-<el-col :xs="24" :sm="22" :md="22" :lg="22" :xl="22">
-<oa-filter-form v-if="hasFilter" ref="filterform" :model="filterModel" :schema="filterSchema" :connector="connector" :actions="filterActions" :messages="messages"></oa-filter-form>
-</el-col>
-</el-row>
-<oa-grid :model="model" :schema="schema" :messages="messages" :options="options" :actions="gridActions" :default-action="gridActions[0]" :locale="locale"></oa-grid><br />
-<div style="float:right;margin-bottom:10px;">
-<el-pagination @current-change="currentPageChange" :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="totalCount"></el-pagination>
-</div>
-</div>
+	<div class="oa-crud-grid">
+		<el-row :gutter="10">
+			<el-col :xs="24" :sm="2" :md="2" :lg="2" :xl="2" style="padding-bottom: 20px;">
+				<el-button v-for="action in actions" :key="action.name" :icon="action.icon" size="small" :type="action.type" @click="action.execute()">{{action.name}}</el-button>
+			</el-col>
+			<el-col :xs="24" :sm="22" :md="22" :lg="22" :xl="22">
+				<oa-filter-form v-if="hasFilter" ref="filterform" :model="filterModel" :schema="filterSchema" :connector="connector" :actions="filterActions" :messages="messages"></oa-filter-form>
+			</el-col>
+		</el-row>
+		<oa-grid :model="model" :schema="schema" :messages="messages" :options="options" :actions="gridActions" :default-action="gridActions[0]" :locale="locale"></oa-grid><br />
+		<div style="float:right;margin-bottom:10px;">
+			<el-pagination @current-change="currentPageChange" :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="totalCount"></el-pagination>
+		</div>
+	</div>
 </template>
 
 <script>
