@@ -5,6 +5,12 @@ var data = [];
 
 const abp = abp || {};
 
+abp.localization = {
+    currentCulture: {
+        name: 'fr'
+    }
+};
+
 var demoajax = function(data)  {
         this.lst = data;
         this.done = (callback) => {
