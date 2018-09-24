@@ -661,8 +661,9 @@ abp.localization.values = {}
 abp.localization.values['app'] = {
 
     Surname:"prénom",
-    UserName:"Nom d'utilisateur"
-
+    UserName:"Nom d'utilisateur",
+    Yes: "Jae",
+    No: "Neej"
 };
 
 
