@@ -1,7 +1,7 @@
 <template>
 <div>
     <oa-crud-grid-without-router
-        :module="resource"
+        :module="module"
         :resource="resource"
         :connector="connector"
         :doOnEdit="onEdit"
