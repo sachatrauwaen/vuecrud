@@ -1,7 +1,19 @@
 /************************** data ****************************/
 
-var data = [];
-
+var data = [
+    {
+        userName: "jannesiera",
+        emailAddress: "janne.siera@gmail.com",
+        isActive: false,
+        fullName: "Janne Siera",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    }
+];
 
 const abp = abp || {};
 
