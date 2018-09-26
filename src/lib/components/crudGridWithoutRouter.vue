@@ -33,7 +33,8 @@ export default {
 			filterModel: {},
 			totalCount: 0,
 			currentPage: 1,
-			pageSize: 10
+			pageSize: 10,
+			debouncedFetchData: debounce(this.fetchData, 300)
 		};
 	},
 	props: {
@@ -154,7 +155,7 @@ export default {
 	},
 	methods: {
 		filterEager() {
-			debounce(this.fetchData, 300);
+			this.debouncedFetchData();
 		},
 		currentPageChange() {
 			this.fetchData(); 

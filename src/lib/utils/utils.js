@@ -13,7 +13,7 @@ export const debounce = (fn, time) => {
 
     return (...args) => {
         clearTimeout(timeout);
-        timeout = setTimeout(() => fn(args), time);
+        timeout = setTimeout(() => fn(...args), time);
     }
 }
 
