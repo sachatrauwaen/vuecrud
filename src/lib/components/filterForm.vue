@@ -1,6 +1,6 @@
 <template>
 <el-form ref="form" :model="model" :rules="rules" :label-width="labelwidth" :inline="!isMobile" :label-position="labelPosition" >
-    <oa-field v-for="(value, key) in fields" :key="key" :prop="key" :schema="properties[key]" v-model="model[key]" :messages="messages" :connector="connector" @propChange="propChange"></oa-field>
+    <oa-field v-for="(value, key) in fields" :key="key" :prop="key" :schema="properties[key]" v-model="model[key]" :messages="messages" :connector="connector" @propChange="propChange" @input="v => propChange(key, v)"></oa-field>
     <el-form-item>
         <el-button v-for="action in actions" :key="action.name" size="small" :icon="action.icon" :type="action.type" @click="action.execute()">{{action.name}}</el-button>
     </el-form-item>
@@ -87,7 +87,11 @@ export default {
         return name
     },
     propChange (key, value) {
-      this.$set(this.model, key, value)
+		this.$set(this.model, key, value);
+
+		// If eager, emit change event
+		if(this.schema.properties[key]['x-ui-filter-eager'] === true)
+			this.$emit('filterEager', this.model);
     }
   }
 }

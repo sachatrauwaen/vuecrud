@@ -1,4 +1,4 @@
-const jsonSchema = {
+export const jsonSchema = {
     getNotNull: function (schema) {
         if (schema.oneOf) {
             var list = schema.oneOf.filter(s => s.type != "null");
@@ -8,9 +8,18 @@ const jsonSchema = {
     }
 }
 
-const capitalize = (value) => value.charAt(0).toUpperCase() + value.slice(1);
+export const debounce = (fn, time) => {
+    let timeout;
 
-const groupBy = (arr) => (keyFunction) => {
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => fn(args), time);
+    }
+}
+
+export const capitalize = (value) => value.charAt(0).toUpperCase() + value.slice(1);
+
+export const groupBy = (arr) => (keyFunction) => {
   let groups = {};
   arr.forEach(el => {
       const key = keyFunction(el);
@@ -29,8 +38,8 @@ const groupBy = (arr) => (keyFunction) => {
 
 /* TODO : Might want to move these to a 'domUtils' file. They are mostly effectfull or tightly coupled to the DOM. */
 
-const isMobile = (window) => window.matchMedia("only screen and (max-width: 760px)").matches; 
-const loadComponent = (opts) => {
+export const isMobile = (window) => window.matchMedia("only screen and (max-width: 760px)").matches; 
+export const loadComponent = (opts) => {
     var script = document.createElement('script');
 
     opts.onLoad = opts.onLoad || function () { };
@@ -58,5 +67,6 @@ const loadComponent = (opts) => {
     isMobile,
     capitalize,
     groupBy,
-    loadComponent
+    loadComponent,
+    debounce
  };

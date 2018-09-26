@@ -5,7 +5,15 @@
 				<el-button v-for="action in actions" :key="action.name" :icon="action.icon" size="small" :type="action.type" @click="action.execute()">{{action.name}}</el-button>
 			</el-col>
 			<el-col :xs="24" :sm="22" :md="22" :lg="22" :xl="22">
-				<oa-filter-form v-if="hasFilter" ref="filterform" :model="filterModel" :schema="filterSchema" :connector="connector" :actions="filterActions" :messages="messages"></oa-filter-form>
+				<oa-filter-form
+					v-if="hasFilter"
+					ref="filterform"
+					:model="filterModel"
+					:schema="filterSchema"
+					:connector="connector"
+					:actions="filterActions"
+					:messages="messages"
+					@filterEager="filterEager"></oa-filter-form>
 			</el-col>
 		</el-row>
 		<oa-grid :model="model" :schema="schema" :messages="messages" :options="options" :actions="gridActions" :default-action="gridActions[0]" :locale="locale"></oa-grid><br />
@@ -16,7 +24,7 @@
 </template>
 
 <script>
-
+import { debounce } from '../utils/utils'
 export default {
 	name: "oa-crud-grid-without-router",
 	data() {
@@ -145,6 +153,9 @@ export default {
 		}
 	},
 	methods: {
+		filterEager() {
+			debounce(this.fetchData(), 250);
+		},
 		currentPageChange() {
 			this.fetchData(); 
 		},
