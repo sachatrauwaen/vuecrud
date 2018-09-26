@@ -154,7 +154,7 @@ export default {
 	},
 	methods: {
 		filterEager() {
-			debounce(this.fetchData(), 250);
+			debounce(this.fetchData(), 750);
 		},
 		currentPageChange() {
 			this.fetchData(); 
