@@ -31,13 +31,13 @@ export default {
       if (this.options) {
         return this.options.fields
       } else {
-        var fields = {}
+        let fields = {}
         for (var key in this.schema.properties) {
           if (
-            key != 'id' &&
-                        !this.schema.properties[key].readonly &&
-                        !this.schema.properties[key]['x-rel-app'] &&
-                        !this.schema.properties[key]['x-rel-to-many-app']
+                key != 'id'
+            && !this.schema.properties[key].readonly
+            && !this.schema.properties[key]['x-rel-app']
+            && !this.schema.properties[key]['x-rel-to-many-app']
           ) {
             fields[key] = this.schema.properties[key]
           }
@@ -65,10 +65,8 @@ export default {
     }
   },
   methods: {
-    validate (callback) {
-      this.$refs.form.validate(function (valid) {
-        if (callback) callback(valid)
-      })
+    validate (callback = (() => {})) {
+      this.$refs.form.validate(callback)
     },
     submitForm () {
       this.$refs.form.validate(function (valid) {
@@ -83,8 +81,10 @@ export default {
       this.$refs.form.resetFields()
     },
     label (name) {
-      if (this.messages && this.messages[name]) return this.messages[name]
-      else return name
+      if (this.messages && this.messages[name])
+        return this.messages[name]
+      else
+        return name
     },
     propChange (key, value) {
       this.$set(this.model, key, value)

@@ -65,29 +65,27 @@ export default {
 					name: this.translate("Delete"),
 					icon: "el-icon-delete",
 					execute: (row) => {
-					// eslint-disable-next-line
-					this
-						.$confirm("Confirm delete ?", this.translate("Delete"), {
-							confirmButtonText: "OK",
-							cancelButtonText: "Cancel",
-							type: "warning"
-						})
-						.then(() => {
-							this.deleteData(row, () => {
-								this.$message({
-								type: "success",
-								message: this.translate("Delete completed")
+						// eslint-disable-next-line
+						this
+							.$confirm("Confirm delete ?", this.translate("Delete"), {
+								confirmButtonText: "OK",
+								cancelButtonText: "Cancel",
+								type: "warning"
+							})
+							.then(() => {
+								this.deleteData(row, () => {
+									this.$message({
+										type: "success",
+										message: this.translate("Delete completed")
+									});
 								});
-							});
-						})
-						.catch(() => {});
+							})
+							.catch(() => {});
 					},
 					visible: (row) => {
-						if (typeof row.canDelete !== "undefined") {
-							return row.canDelete;
-						} else {
-							return true;
-						}
+						return typeof row.canDelete !== "undefined"
+							? row.canDelete
+							: true;
 					}
 				}
 			];
@@ -125,14 +123,14 @@ export default {
 					icon: "el-icon-search",
 					type: "primary",
 					execute: () => {
-					this.fetchData();
+						this.fetchData();
 					}
 				},
 				{
 					icon: "el-icon-close",
 					execute: () => {
-					this.$refs.filterform.resetForm();
-					this.fetchData();
+						this.$refs.filterform.resetForm();
+						this.fetchData();
 					}
 				}
 			];
