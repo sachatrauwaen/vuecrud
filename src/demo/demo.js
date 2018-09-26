@@ -98,7 +98,7 @@ abp.services.app.user['delete'] = function (input, ajaxParams) {
 // action 'get'
 // eslint-disable-next-line
 abp.services.app.user.get = function (input, ajaxParams) {
-    let lst = data.filter((val) => {
+    const lst = data.filter((val) => {
         return val.id == input.id;
     });
     if (lst.length == 1) {
@@ -114,9 +114,14 @@ abp.services.app.user.get = function (input, ajaxParams) {
 // action 'getAll'
 // eslint-disable-next-line
 abp.services.app.user.getAll = function (input, ajaxParams) {
+    const filterStringData = (dto, dtoProp, itemProp) => item => dto[dtoProp] === undefined || item[itemProp].includes(dto[dtoProp]);
+    const list = data
+        .filter(filterStringData(input, 'userName', 'userName'))
+        .filter(filterStringData(input, 'email', 'emailAddress'))
+
     var res = {
-        items : data,
-        totalCount : data.length
+        items : list,
+        totalCount : list.length
     }
     return new demoajax(res);
     /* return abp.ajax($.extend(true, {
@@ -645,7 +650,9 @@ abp.schemas.app.user.getAll.parameters = {
         "type": "object",
         "properties": {
             "userName": {
-                "type": "string"
+                "type": "string",
+                "maxLength": 55,
+                "x-ui-filter-eager": true
             },
             "email": {
                 "type": "string"
