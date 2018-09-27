@@ -17,7 +17,7 @@ export default {
   name: "oa-relation-to-many",
 
   props: {
-    value: {},
+    value: Array,
     schema: {},
     messages: Object,
     connector: {},
@@ -63,7 +63,7 @@ export default {
     // },
     model: {
       get() {
-        return this.value;
+        return this.value || [];
       },
       set(val) {
         this.$emit("input", val);
