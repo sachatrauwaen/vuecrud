@@ -21,6 +21,7 @@ export default {
     schema: {},
     messages: Object,
     connector: {},
+    appService: String,
     prop: String,
     label: String
   },
@@ -115,29 +116,25 @@ export default {
   },
   methods: {
     remoteMethod(query) {
-      var self = this;
+      const itemToOption = (item) => ({
+        label: item[this.relationTextField],
+        value: item
+      });
+
+      const onSuccess = (data) => {
+        this.options = data.items.map(itemToOption);
+        this.loading = false;
+      }
+
       if (!query && self.value) {
         this.options = null;
-      } else if (
-        query &&
-        query !== "" &&
-        (!self.value || query != self.value[self.relationTextField])
-      ) {
-        self.loading = true;
-        self.service(
-          self.relationResource ? self.relationResource : self.resource,
-          self.relationAction,
+      } else if (query && query !== "" && (!this.value || query != this.value[this.relationTextField])) {
+        this.loading = true;
+        this.connector.service(
+          this.relationResource ? this.relationResource : this.appService,
+          this.relationAction,
           query,
-          function(data) {
-            self.options = data.items.map(function(t) {
-              // return { label: t.firstname + " " + t.lastname, value: t.id };
-              return {
-                label: t[self.relationTextField],
-                value: t
-              };
-            });
-            self.loading = false;
-          },
+          onSuccess,
           () => {}
         );
       } else if (query == "") {
