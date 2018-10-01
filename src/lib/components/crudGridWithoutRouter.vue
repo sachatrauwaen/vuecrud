@@ -33,7 +33,6 @@ export default {
 			filterModel: {},
 			totalCount: 0,
 			currentPage: 1,
-			pageSize: 10,
 			debouncedFetchData: debounce(this.fetchData, 300)
 		};
 	},
@@ -54,6 +53,9 @@ export default {
 		// connector() {
 		//   return this.$root.$options.connector;
 		// },
+		pageSize() {
+			return this.connector.settings().pageSize || 10;
+		},
 		locale() {
 			return this.connector.locale();
 		},

@@ -57,6 +57,12 @@ export default {
     locale() { // Should be moment locale (e.g. 'fr', 'en', 'nl', ...)
         // eslint-disable-next-line
         return abp.localization.currentCulture.name;
+    },
+    settings() {
+        return { 
+            // eslint-disable-next-line
+            pageSize: abp.setting.values['App.Ui.PageSize']
+        };
     }
 
 }
