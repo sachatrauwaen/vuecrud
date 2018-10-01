@@ -17,7 +17,7 @@ export default {
     schema: {},
     prop: String,
     connector: {},
-    resource: String,
+    appService: String,
   },
   data() {
     return {
@@ -41,7 +41,7 @@ export default {
       var enumValueField = this.schema["x-enum-valuefield"];
       var enumTextField = this.schema["x-enum-textfield"] || this.schema["x-enum-valuefield"];
       self.connector.service(
-        this.resource,
+        this.appService,
         enumAction,
         {},
         function(data) {
