@@ -1,7 +1,7 @@
 <template>
 <div>
-    <el-table v-if="!isMobile" :data="model" @row-click="rowClick" style="width: 100%" :row-style="{cursor: 'pointer'}">
-        <el-table-column v-for="(value, key) in columns" :key="key" :prop="key" :label="label(key)" :formatter="formatter" class-name="crudcell"></el-table-column>
+    <el-table v-if="!isMobile" :data="model" @row-click="rowClick" style="width: 100%" :row-style="{cursor: 'pointer'}" @sort-change="onSort">
+        <el-table-column v-for="(value, key) in columns" :key="key" :prop="key" :label="label(key)" :formatter="formatter" class-name="crudcell" :sortable="isSortable(key)"></el-table-column>
         <el-table-column align="right">
             <template slot-scope="scope">
                 <el-button v-for="action in actions" :key="action.name" :icon="action.icon" size="small" v-show="actionVisible(action, scope.row, scope.$index)" @click="action.execute(scope.row, scope.$index)"></el-button>
@@ -30,7 +30,8 @@ export default {
     messages: {},
     actions: {},
     defaultAction: {},
-    locale: {} // moment locale (e.g. 'fr', 'en', 'nl', ...)
+    locale: {}, // moment locale (e.g. 'fr', 'en', 'nl', ...)
+    onSort: {}
   },
   computed: {
     columns () {
@@ -49,6 +50,12 @@ export default {
     }
   },
   methods: {
+    isSortable (prop) {
+      const sortable = this.schema.properties[prop]["x-ui-grid-sortable"];
+      return sortable === undefined
+        ? false
+        : "custom";
+    },
     label (prop) {
       var name = this.schema.properties[prop].title ? this.schema.properties[prop].title : Utils.capitalize(prop)
       if (this.messages && this.messages[name]) { return this.messages[name] } else { return name }

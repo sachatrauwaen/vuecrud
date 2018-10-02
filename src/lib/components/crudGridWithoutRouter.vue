@@ -16,7 +16,7 @@
 					@filterEager="filterEager"></oa-filter-form>
 			</el-col>
 		</el-row>
-		<oa-grid :model="model" :schema="schema" :messages="messages" :options="options" :actions="gridActions" :default-action="gridActions[0]" :locale="locale"></oa-grid><br />
+		<oa-grid :model="model" :schema="schema" :messages="messages" :options="options" :actions="gridActions" :default-action="gridActions[0]" :locale="locale" :onSort="onSort"></oa-grid><br />
 		<div style="float:right;margin-bottom:10px;">
 			<el-pagination @current-change="currentPageChange" :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="totalCount"></el-pagination>
 		</div>
@@ -156,13 +156,20 @@ export default {
 		}
 	},
 	methods: {
+		// eslint-disable-next-line
+		onSort({ column, prop, order }) {
+			const parsedOrder = order === "descending" ? " DESC" : "";
+			const sorting = prop + parsedOrder;
+			this.fetchData(undefined, sorting);
+		},
 		filterEager() {
 			this.debouncedFetchData();
 		},
 		currentPageChange() {
 			this.fetchData(); 
 		},
-		fetchData(callback) {
+		fetchData(callback, sorting = undefined) {
+			this.filterModel.sorting = sorting;
 			this.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
 			this.filterModel.maxResultCount = this.pageSize;
 			this.connector.service(

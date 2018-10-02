@@ -23,6 +23,15 @@ abp.localization = {
     }
 };
 
+abp.setting = {
+    getInt: (setting) =>  {
+        if(setting === "App.Ui.PageSize")
+            return 25;
+        else
+            return undefined;
+    }
+}
+
 var demoajax = function(data)  {
         this.lst = data;
         this.done = (callback) => {
