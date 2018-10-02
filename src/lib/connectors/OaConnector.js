@@ -61,7 +61,7 @@ export default {
     settings() {
         return { 
             // eslint-disable-next-line
-            pageSize: abp.setting.values['App.Ui.PageSize']
+            pageSize: abp.setting.getInt("App.Ui.PageSize")
         };
     }
 
