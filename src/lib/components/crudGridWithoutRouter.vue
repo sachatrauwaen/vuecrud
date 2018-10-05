@@ -34,7 +34,7 @@ export default {
 			totalCount: 0,
 			currentPage: 1,
 			debouncedFetchData: debounce(this.fetchData, 300),
-			fetchId: 0 // Keep track of fetch requests
+			fetchDataId: 0 // Keeps track of the requests of the fetchData method, to track race conditions
 		};
 	},
 	props: {
@@ -184,12 +184,12 @@ export default {
 			// 	},
 			// 	() => {}
 			// );
-			const requestId = ++this.fetchId;
+			const requestId = ++this.fetchDataId;
 			return this.connector
 				.pService(this.resource, 'getAll', this.filterModel)
 				.done(data => {
 					if(requestId !== this.fetchId)
-						return; // This is not a response to the latest fetch request, do nothing
+						return; // This is not a response to the latest fetch data request, do nothing
 						
 					this.model = data.items;
 					this.totalCount = data.totalCount;
