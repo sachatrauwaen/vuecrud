@@ -33,7 +33,7 @@ export default {
 			filterModel: {},
 			totalCount: 0,
 			currentPage: 1,
-			debouncedFetchData: debounce(this.fetchData, 300),
+			debouncedFetchData: debounce(this.fetchData, 500),
 			fetchDataId: 0 // Keeps track of the requests of the fetchData method, to track race conditions
 		};
 	},
@@ -198,7 +198,7 @@ export default {
 		deleteData(data, callback) {
 			this.connector
 				.pService(this.resource, "delete", { id: data.id })
-				.done(_ => this
+				.done(() => this
 					.fetchData()
 					.done(callback)
 				);
