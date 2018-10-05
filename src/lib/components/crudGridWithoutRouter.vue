@@ -33,7 +33,8 @@ export default {
 			filterModel: {},
 			totalCount: 0,
 			currentPage: 1,
-			debouncedFetchData: debounce(this.fetchData, 300)
+			debouncedFetchData: debounce(this.fetchData, 300),
+			fetchId: 0 // Keep track of fetch requests
 		};
 	},
 	props: {
@@ -172,26 +173,35 @@ export default {
 			this.filterModel.sorting = sorting;
 			this.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
 			this.filterModel.maxResultCount = this.pageSize;
-			this.connector.service(
-				this.resource,
-				"getAll",
-				this.filterModel,
-				(data) => {
+			// this.connector.service(
+			// 	this.resource,
+			// 	"getAll",
+			// 	this.filterModel,
+			// 	(data) => {
+			// 		this.model = data.items;
+			// 		this.totalCount = data.totalCount;
+			// 		if (callback) callback();
+			// 	},
+			// 	() => {}
+			// );
+			const requestId = ++this.fetchId;
+			return this.connector
+				.pService(this.resource, 'getAll', this.filterModel)
+				.done(data => {
+					if(requestId !== this.fetchId)
+						return; // This is not a response to the latest fetch request, do nothing
+						
 					this.model = data.items;
 					this.totalCount = data.totalCount;
-					if (callback) callback();
-				},
-				() => {}
-			);
+				});
 		},
 		deleteData(data, callback) {
-			this.connector.service(
-				this.resource,
-				"delete",
-				{ id: data.id },
-				() => this.fetchData(callback),
-				() => {}
-			);
+			this.connector
+				.pService(this.resource, "delete", { id: data.id })
+				.done(_ => this
+					.fetchData()
+					.done(callback)
+				);
 		},
 		translate(text) {
 			if (this.messages && this.messages[text])
