@@ -188,7 +188,7 @@ export default {
 			return this.connector
 				.pService(this.resource, 'getAll', this.filterModel)
 				.done(data => {
-					if(requestId !== this.fetchId)
+					if(requestId !== this.fetchDataId)
 						return; // This is not a response to the latest fetch data request, do nothing
 						
 					this.model = data.items;
