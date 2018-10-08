@@ -61,7 +61,16 @@ export default {
     settings() {
         return { 
             // eslint-disable-next-line
-            pageSize: abp.setting.getInt("App.Ui.PageSize")
+            defaultPageSize: abp.setting.getInt("App.Ui.DefaultPageSize"),
+            // eslint-disable-next-line
+            pageSizeOptions: abp.setting.values["App.Ui.PageSizeOptions"]
+            // eslint-disable-next-line
+                ? abp.setting.values["App.Ui.PageSizeOptions"]
+                    .replace(/\s/g, "") // remove all whitespace
+                    .split(",") // expect comma separated value, parse to array
+                    .map(value => parseInt(value)) // parse to number, use lambda to prevent triggering wrong parseInt overload
+                    .filter(value => isNaN(value) === false)
+                : null // default to null
         };
     }
 

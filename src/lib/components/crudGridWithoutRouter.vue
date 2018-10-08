@@ -20,6 +20,16 @@
 		<div style="float:right;margin-bottom:10px;">
 			<el-pagination @current-change="currentPageChange" :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="totalCount"></el-pagination>
 		</div>
+		<div style="float:right;margin-bottom:10px;width: 80px; margin-left: 20px; margin-right: 20px;">
+			<el-select :value="pageSize" @input="onChangePageSize" placeholder="Select" size="mini">
+				<el-option
+					v-for="item in pageSizeOptions"
+					:key="item"
+					:label="item"
+					:value="item">
+				</el-option>
+			</el-select>
+		</div>
 	</div>
 </template>
 
@@ -34,7 +44,8 @@ export default {
 			totalCount: 0,
 			currentPage: 1,
 			debouncedFetchData: debounce(this.fetchData, 500),
-			fetchDataId: 0 // Keeps track of the requests of the fetchData method, to track race conditions
+			fetchDataId: 0, // Keeps track of the requests of the fetchData method, to track race conditions
+			pageSize: 10
 		};
 	},
 	props: {
@@ -54,9 +65,9 @@ export default {
 		// connector() {
 		//   return this.$root.$options.connector;
 		// },
-		pageSize() {
-			return this.connector.settings().pageSize || 10;
-		},
+		// pageSize() {
+		// 	return this.connector.settings().defaultPageSize || 10;
+		// },
 		locale() {
 			return this.connector.locale();
 		},
@@ -154,9 +165,16 @@ export default {
 			return Math.ceil(
 				this.pagination.totalItems / this.pagination.rowsPerPage
 			);
+		},
+		pageSizeOptions() {
+			return this.connector.settings().pageSizeOptions || [10, 25, 50, 100, 500];
 		}
 	},
 	methods: {
+		onChangePageSize(value) {
+			this.pageSize = value;
+			this.fetchData();
+		},
 		// eslint-disable-next-line
 		onSort({ column, prop, order }) {
 			const parsedOrder = order === "descending" ? " DESC" : "";
@@ -211,6 +229,9 @@ export default {
 		}
 	},
 	created() {
+		if(this.connector.settings().defaultPageSize)
+			this.pageSize = this.connector.settings().defaultPageSize;
+
 		this.fetchData();
 	},
 	watch: {
