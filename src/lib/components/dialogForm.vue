@@ -1,0 +1,131 @@
+<template>
+<oa-form ref="form" :model="model" :schema="schema" :actions="actions" :messages="messages" :connector="connector" :appService="appService">
+</oa-form>
+</template>
+
+<script>
+export default {
+  name: "oa-dialog-form",
+
+  props: {
+    appService: {},
+    value: {},
+    connector: Object
+  },
+  data() {
+    var self = this;
+    return {
+      model: {},
+      actions: [
+        {
+          name: "Save",
+          type: "primary",
+          execute: function() {
+            self.$refs.form.validate(function(valid) {
+              if (valid) {
+                self.saveData(self.model, function() {
+                  self.$message({
+                    type: "success",
+                    message: "Save completed"
+                  });
+                  self.$emit("close", self.model);
+                });
+              } else {
+                return false;
+              }
+            });
+          }
+        },
+        {
+          name: "Cancel",
+          execute: function() {
+            self.$emit("close");
+          }
+        }
+      ]
+    };
+  },
+  computed: {
+    id() {
+      return this.value ? this.value[this.relationValueField] : null;
+    },
+    isnew() {
+      return !this.value;
+    },
+    relationValueField() {
+      return this.schema["x-rel-valuefield"] || "id";
+    },
+    schema() {
+      if (this.isnew)
+        return this.connector.schemas(this.appService, "create")
+      else
+        return this.connector.schemas(this.appService, "update")
+    },
+    messages() {
+      return this.connector.messages();
+    }
+  },
+  methods: {
+    fetchData() {
+      var self = this;
+      self.$refs.form.resetForm();
+      if (!this.isnew) {
+        self.connector(
+          self.appService,
+          "get",
+          {
+            id: self.id
+          },
+          function(data) {
+            self.model = data;
+            // this.pagination.totalItems = data.total;
+          },
+          function() {
+            // abp.ui.clearBusy(_$app);
+          }
+        );
+      } else {
+        self.model = {};
+      }
+    },
+    saveData(data, callback) {
+      var self = this;
+      if (self.isnew) {
+        // add
+        self.connector(
+          self.appService,
+          "create",
+          data,
+          function(newdata) {
+            self.model = newdata;
+            self.$emit("input", newdata[this.relationValueField]);
+            if (callback) callback();
+          },
+          function() {
+            // abp.ui.clearBusy(_$app);
+          }
+        );
+      } else {
+        // update
+        data.id = self.id;
+        self.connector(
+          self.appService,
+          "update",
+          data,
+          function(newdata) {
+            self.model = newdata;
+            self.$emit("input", newdata.id);
+            if (callback) callback();
+          },
+          function() {
+            // abp.ui.clearBusy(_$app);
+          }
+        );
+      }
+    }
+  },
+  mounted() {
+    this.fetchData();
+  }
+};
+</script>
