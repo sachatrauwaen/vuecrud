@@ -131,7 +131,7 @@ export default {
 			};
 			var action = this.connector.schema(this.resource, "filter").properties;
 			for (var key in action) {
-				if (key != "skipCount" && key != "maxResultCount") {
+				if (key != "skipCount" && key != "maxResultCount" && key != "sorting") {
 					schema.properties[key] = action[key];
 				}
 			}
