@@ -16,7 +16,8 @@
 					@filterEager="filterEager"></oa-filter-form>
 			</el-col>
 		</el-row>
-		<oa-grid :model="model" :schema="schema" :messages="messages" :options="options" :actions="gridActions" :default-action="gridActions[0]" :locale="locale" :onSort="onSort"></oa-grid><br />
+		<oa-grid :model="model" :schema="schema" :messages="messages" :options="options" :actions="gridActions" :default-action="gridActions[0]" :locale="locale" :doOnSort="doOnSort"></oa-grid>
+		<br />
 		<div style="float:right;margin-bottom:10px;">
 			<el-pagination @current-change="currentPageChange" :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="totalCount"></el-pagination>
 		</div>
@@ -176,7 +177,7 @@ export default {
 			this.fetchData();
 		},
 		// eslint-disable-next-line
-		onSort({ column, prop, order }) {
+		doOnSort({ column, prop, order }) {
 			const parsedOrder = order === "descending" ? " DESC" : "";
 			const sorting = prop + parsedOrder;
 			this.fetchData(undefined, sorting);
@@ -214,7 +215,7 @@ export default {
 				});
 		},
 		deleteData(data, callback) {
-			this.connector
+			return this.connector
 				.pService(this.resource, "delete", { id: data.id })
 				.done(() => this
 					.fetchData()

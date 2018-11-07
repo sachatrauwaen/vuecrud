@@ -1,6 +1,6 @@
 <template>
 <div>
-    <el-table v-if="!isMobile" :data="model" @row-click="rowClick" style="width: 100%" :row-style="{cursor: 'pointer'}" @sort-change="onSort">
+    <el-table v-if="!isMobile" :data="model" @row-click="rowClick" style="width: 100%" :row-style="{cursor: 'pointer'}" @sort-change="doOnSort">
         <el-table-column v-for="(value, key) in columns" :key="key" :prop="key" :label="label(key)" :formatter="formatter" class-name="crudcell" :sortable="isSortable(key)"></el-table-column>
         <el-table-column align="right">
             <template slot-scope="scope">
@@ -31,7 +31,7 @@ export default {
     actions: {},
     defaultAction: {},
     locale: {}, // moment locale (e.g. 'fr', 'en', 'nl', ...)
-    onSort: {}
+    doOnSort: {}
   },
   computed: {
     columns () {
