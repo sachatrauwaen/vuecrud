@@ -64,6 +64,8 @@ export default {
         type = "address";
       } else if (type == "array") {  
         type = "list";
+      } else if (type == "object") {  
+        type = "fields";
       } else {
         type = "input";
       }
