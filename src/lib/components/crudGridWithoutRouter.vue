@@ -16,7 +16,7 @@
 					@filterEager="filterEager"></oa-filter-form>
 			</el-col>
 		</el-row>
-		<oa-grid :model="model" :schema="schema" :messages="messages" :options="options" :actions="gridActions" :default-action="gridActions[0]" :locale="locale" :doOnSort="doOnSort"></oa-grid>
+		<oa-grid :model="model" :schema="schema" :messages="messages" :actions="gridActions" :default-action="gridActions[0]" :locale="locale" :doOnSort="doOnSort"></oa-grid>
 		<br />
 		<div style="float:right;margin-bottom:10px;">
 			<el-pagination @current-change="currentPageChange" :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="totalCount"></el-pagination>
@@ -113,9 +113,6 @@ export default {
 					}
 				}
 			];
-		},
-		defaultAction() {
-			return this.gridActions[0];
 		},
 		actions() {
 			return [
