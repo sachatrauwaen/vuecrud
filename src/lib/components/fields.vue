@@ -25,7 +25,12 @@ import { default as Utils } from '../utils/utils'
 export default {
   name: "oa-fields",
   props: {
-    model: {},
+    model: {
+      type:Object,
+      default:function () {
+        return {};
+      }
+    },
     schema: {},
     options: {},
     messages: {},
