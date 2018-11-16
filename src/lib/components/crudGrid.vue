@@ -52,28 +52,6 @@ export default {
 </script>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const onEdit = (row) => {
   this.$router.push({
     name: "edit",
