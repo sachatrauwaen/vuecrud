@@ -9,7 +9,7 @@ export default {
 		resource: String,
 		module: String,
 		redirect: Function,
-		id: String
+		id: [String, Number]
 	},
 	data () {
 		return {
