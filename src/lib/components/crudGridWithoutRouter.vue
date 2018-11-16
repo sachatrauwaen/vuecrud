@@ -203,7 +203,7 @@ export default {
 			const requestId = ++this.fetchDataId;
 			return this.connector
 				.pService(this.resource, 'getAll', this.filterModel)
-				.done(data => {
+				.then(data => {
 					if(requestId !== this.fetchDataId)
 						return; // This is not a response to the latest fetch data request, do nothing
 						
@@ -214,9 +214,9 @@ export default {
 		deleteData(data, callback) {
 			return this.connector
 				.pService(this.resource, "delete", { id: data.id })
-				.done(() => this
+				.then(() => this
 					.fetchData()
-					.done(callback)
+					.then(callback)
 				);
 		},
 		translate(text) {

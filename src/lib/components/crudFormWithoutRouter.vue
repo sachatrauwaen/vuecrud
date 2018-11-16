@@ -34,7 +34,7 @@ export default {
 						const onValidate = (valid) => {
 							if (valid)
 								this.saveData(this.model)
-									.done(onSaveData);
+									.then(onSaveData);
 							else
 								return false;
 						};
@@ -84,7 +84,7 @@ export default {
 
 			this.connector
 				.pService(this.resource, 'get', { id: this.id })
-				.done(data => this.model = data);
+				.then(data => this.model = data);
 		},
 		saveData (data) {
 			if (this.isnew)

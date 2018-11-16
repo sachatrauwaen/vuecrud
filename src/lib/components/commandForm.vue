@@ -33,7 +33,7 @@ export default {
 							if (!valid) return;
 
 							this.saveData(this.model)
-								.done(onSaveData);
+								.then(onSaveData);
 						};
 
 						this.$refs.form.validate(onValidate);
