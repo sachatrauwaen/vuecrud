@@ -23,12 +23,15 @@ export default {
         return data;
     },
     /**
+         * @deprecated Use pService instead.
+         * 
          * Loads JSON data.
          *
          * @param {String} appService RApp service to be loaded
          * @param {String} action create | update | getAll | get | enumAction | [non-crud action]       
          * @param {Function} onSuccess onSuccess callback
          * @param {Function} onError onError callback
+         * @return {Object} JSON data
          */
     service(appService, action, data, successCallback, errorCallback, alwaysCallback) {
         // eslint-disable-next-line
@@ -40,10 +43,17 @@ export default {
             if (alwaysCallback) alwaysCallback();
         })
     },
-    // Service returning a promise
+        /**
+         * 
+         * Loads JSON data.
+         *
+         * @param {String} appService RApp service to be loaded
+         * @param {String} action create | update | getAll | get | enumAction | [non-crud action]       
+         * @return {Promise<any>} A promise (ES6 standard) of the JSON data. (cfr. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises, )
+         */
     pService(appService, action, data) {
         // eslint-disable-next-line
-        return abp.services.app[appService][action](data);
+        return abp.services.app[appService][action](data); // Abp returns a JQuery promise, but they adhere to the ES6 standard Promise interface (using .then and .catch) as a sort of 'downcast'
     },
     messages(module) {
         // eslint-disable-next-line
