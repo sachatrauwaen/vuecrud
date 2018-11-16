@@ -130,13 +130,12 @@ export default {
         this.options = null;
       } else if (query && query !== "" && (!this.value || query != this.value[this.relationTextField])) {
         this.loading = true;
-        this.connector.service(
-          this.relationResource ? this.relationResource : this.appService,
-          this.relationAction,
-          query,
-          onSuccess,
-          () => {}
-        );
+        this.connector
+          .pService(
+            this.relationResource ? this.relationResource : this.appService,
+            this.relationAction,
+            query)
+          .then(onSuccess);
       } else if (query == "") {
         this.options = null;
       }

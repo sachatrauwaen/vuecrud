@@ -189,17 +189,6 @@ export default {
 			this.filterModel.sorting = sorting;
 			this.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
 			this.filterModel.maxResultCount = this.pageSize;
-			// this.connector.service(
-			// 	this.resource,
-			// 	"getAll",
-			// 	this.filterModel,
-			// 	(data) => {
-			// 		this.model = data.items;
-			// 		this.totalCount = data.totalCount;
-			// 		if (callback) callback();
-			// 	},
-			// 	() => {}
-			// );
 			const requestId = ++this.fetchDataId;
 			return this.connector
 				.pService(this.resource, 'getAll', this.filterModel)

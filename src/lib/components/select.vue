@@ -56,18 +56,14 @@ export default {
       var enumAction = this.schema["x-enum-action"];
       var enumValueField = this.schema["x-enum-valuefield"] || "id";
       var enumTextField = this.schema["x-enum-textfield"] || "fullName";
-      this.connector.service(
-        this.appService,
-        enumAction,
-        {},
-        (data) => {
+      this.connector
+        .pService(this.appService, enumAction, {})
+        .then(data => {
           this.options = data.map(p => ({
             value: p[enumValueField],
             label: p[enumTextField]
           }));
-        },
-        () => {}
-      );
+        });
     }
     if (sch["x-enum-nonelabel"]) {
       this.noneLabel = sch["x-enum-nonelabel"];

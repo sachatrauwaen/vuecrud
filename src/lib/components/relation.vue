@@ -98,12 +98,10 @@ export default {
         };
         this.options.push(option);
       } else if (query && query !== '' && (!this.value || query != this.value[this.relationTextField])) {
-        this.loading = true;        
-        this.connector.service(
-          this.appService,
-          this.relationAction,
-          query,
-          (data) => {
+        this.loading = true;   
+        this.connector
+          .pService(this.appService, this.relationAction, query)
+          .then(data => {
             this.options = data.items.map(t => {
               return {
                 label: t[this.relationTextField],
@@ -111,9 +109,7 @@ export default {
               }
             })
             this.loading = false
-          },
-          () => {}
-        );
+          });
       } else if (query == '') {
         this.options = []
       }
