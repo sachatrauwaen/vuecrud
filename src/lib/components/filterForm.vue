@@ -36,8 +36,8 @@ export default {
           if (
                 key != 'id'
             && !this.schema.properties[key].readonly
-            && !this.schema.properties[key]['x-rel-app']
-            && !this.schema.properties[key]['x-rel-to-many-app']
+            /*&& !this.schema.properties[key]['x-rel-app']
+            && !this.schema.properties[key]['x-rel-to-many-app']*/
           ) {
             fields[key] = this.schema.properties[key]
           }

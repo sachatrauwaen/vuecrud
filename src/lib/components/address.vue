@@ -224,8 +224,9 @@ export default {
         } else {
           if (
             key != 'id' &&
-            !this.schema.properties[key].readonly &&
-            !this.schema.properties[key]['x-rel-app']
+            !this.schema.properties[key].readonly /*&&
+            !this.schema.properties[key]['x-rel-app'] &&
+            !this.schema.properties[key]['x-rel-many-app']*/
           ) {
             fields[key] = this.schema.properties[key]
           }
