@@ -12,7 +12,7 @@ export default {
     value: {},
     schema: {},
     messages: Object,
-    appService: String,
+    resource: String,
     prop: String,
     connector: {}
   },
@@ -57,7 +57,7 @@ export default {
       var enumValueField = this.schema["x-enum-valuefield"] || "id";
       var enumTextField = this.schema["x-enum-textfield"] || "fullName";
       this.connector.service(
-        this.appService,
+        this.resource,
         enumAction,
         {},
         (data) => {

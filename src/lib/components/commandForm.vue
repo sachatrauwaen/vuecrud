@@ -7,7 +7,7 @@
 export default {
 	name: 'oa-command-form',
 	props: {
-		appService: String,
+		resource: String,
 		module: String,
 		command: String,
 		redirect: Function,
@@ -53,7 +53,7 @@ export default {
 			return this.connector.messages(this.module);
 		},
 		schema () {
-			return this.connector.schema(this.appService, this.method);
+			return this.connector.schema(this.resource, this.method);
 		},
 		connector: function () {
 			return this.$root.$options.connector;
@@ -61,7 +61,7 @@ export default {
 	},
 	methods: {
 		saveData (data) {
-			return this.connector.pService(this.appService, this.method, data);
+			return this.connector.pService(this.resource, this.method, data);
 		}
 	},
 	created () {

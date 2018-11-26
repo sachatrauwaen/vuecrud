@@ -1,5 +1,5 @@
 <template>
-<oa-form ref="form" :model="model" :schema="schema" :actions="actions" :messages="messages" :connector="connector" :appService="appService">
+<oa-form ref="form" :model="model" :schema="schema" :actions="actions" :messages="messages" :connector="connector" :resource="resource">
 </oa-form>
 </template>
 
@@ -8,7 +8,7 @@ export default {
   name: "oa-dialog-form",
 
   props: {
-    appService: {},
+    resource: {},
     value: {},
     connector: Object
   },
@@ -57,9 +57,9 @@ export default {
     },
     schema() {
       if (this.isnew)
-        return this.connector.schemas(this.appService, "create")
+        return this.connector.schemas(this.resource, "create")
       else
-        return this.connector.schemas(this.appService, "update")
+        return this.connector.schemas(this.resource, "update")
     },
     messages() {
       return this.connector.messages();
@@ -71,7 +71,7 @@ export default {
       self.$refs.form.resetForm();
       if (!this.isnew) {
         self.connector(
-          self.appService,
+          self.resource,
           "get",
           {
             id: self.id
@@ -93,7 +93,7 @@ export default {
       if (self.isnew) {
         // add
         self.connector(
-          self.appService,
+          self.resource,
           "create",
           data,
           function(newdata) {
@@ -109,7 +109,7 @@ export default {
         // update
         data.id = self.id;
         self.connector(
-          self.appService,
+          self.resource,
           "update",
           data,
           function(newdata) {

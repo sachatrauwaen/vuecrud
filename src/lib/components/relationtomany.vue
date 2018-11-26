@@ -6,7 +6,7 @@
     <el-button v-if="relationResource" :icon="buttonIcon" v-on:click="edit"></el-button>
     <slot name="footer"></slot>
     <el-dialog v-if="relationResource" ref="customerDialog" title="Client" :visible.sync="dialogVisible" :fullscreen="fullscreen" :before-close="handleClose" :append-to-body="true" @open="openDialog" @close="closeDialog">
-        <oa-dialog-form ref="form" :appService="relationResource" v-model="model" v-on:close="close"></oa-dialog-form>
+        <oa-dialog-form ref="form" :resource="relationResource" v-model="model" v-on:close="close"></oa-dialog-form>
     </el-dialog>
 </div>
 </template>
@@ -21,7 +21,7 @@ export default {
     schema: {},
     messages: Object,
     connector: {},
-    appService: String,
+    resource: String,
     prop: String,
     label: String
   },
@@ -131,7 +131,7 @@ export default {
       } else if (query && query !== "" && (!this.value || query != this.value[this.relationTextField])) {
         this.loading = true;
         this.connector.service(
-          this.relationResource ? this.relationResource : this.appService,
+          this.relationResource ? this.relationResource : this.resource,
           this.relationAction,
           query,
           onSuccess,
