@@ -7,6 +7,9 @@
 </template>
 
 <script>
+
+import { default as Utils } from '../utils/utils'
+
 export default {
   name: 'oa-daterange',
 
@@ -82,7 +85,8 @@ export default {
     },
     isMobile: function() {
       // eslint-disable-next-line
-      return VueForms.isMobile();
+      
+      return Utils.isMobile(window);
     }
   }
 }
