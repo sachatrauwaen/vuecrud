@@ -30,7 +30,7 @@ export default {
     messages: {},
     actions: {},
     defaultAction: {},
-    locale: '' // moment locale (e.g. 'fr', 'en', 'nl', ...)
+    locale: {} // moment locale (e.g. 'fr', 'en', 'nl', ...)
   },
   computed: {
     columns () {
