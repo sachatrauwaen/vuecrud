@@ -98,7 +98,7 @@ export default {
           data,
           function(newdata) {
             self.model = newdata;
-            self.$emit("input", newdata[this.relationValueField]);
+            self.$emit("input", newdata[self.relationValueField]);
             if (callback) callback();
           },
           function() {
