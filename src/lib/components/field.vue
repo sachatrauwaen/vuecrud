@@ -75,7 +75,7 @@ export default {
         comp = (resolve, reject) => {
           Utils.loadComponent({
             name: compName,
-            path: this.connector.componentsPath + type + ".js",
+            path: this.connector.componentsPath() + type + ".js",
             onLoad: resolve,
             onError: reject
           });
