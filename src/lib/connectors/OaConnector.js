@@ -62,7 +62,7 @@ export default {
     },
     componentsPath() {
         // eslint-disable-next-line
-        return abp.appPath + 'dist/';
+        return abp.appPath + 'lib/vuecrud/';
     },
     locale() { // Should be moment locale (e.g. 'fr', 'en', 'nl', ...)
         // eslint-disable-next-line
