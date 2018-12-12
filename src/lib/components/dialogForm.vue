@@ -57,9 +57,9 @@ export default {
     },
     schema() {
       if (this.isnew)
-        return this.connector.schemas(this.resource, "create")
+        return this.connector.schema(this.resource, "create")
       else
-        return this.connector.schemas(this.resource, "update")
+        return this.connector.schema(this.resource, "update")
     },
     messages() {
       return this.connector.messages();
@@ -70,7 +70,7 @@ export default {
       var self = this;
       self.$refs.form.resetForm();
       if (!this.isnew) {
-        self.connector(
+        self.connector.service(
           self.resource,
           "get",
           {
@@ -92,13 +92,13 @@ export default {
       var self = this;
       if (self.isnew) {
         // add
-        self.connector(
+        self.connector.service(
           self.resource,
           "create",
           data,
           function(newdata) {
             self.model = newdata;
-            self.$emit("input", newdata[this.relationValueField]);
+            self.$emit("input", newdata[self.relationValueField]);
             if (callback) callback();
           },
           function() {
@@ -108,7 +108,7 @@ export default {
       } else {
         // update
         data.id = self.id;
-        self.connector(
+        self.connector.service(
           self.resource,
           "update",
           data,

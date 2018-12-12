@@ -6,7 +6,7 @@
     <el-button v-if="relationResource" :icon="buttonIcon" v-on:click="edit"></el-button>
     <slot name="footer"></slot>
     <el-dialog v-if="relationResource" ref="customerDialog" title="Client" :visible.sync="dialogVisible" :fullscreen="fullscreen" :before-close="handleClose" :append-to-body="true" @open="openDialog" @close="closeDialog">
-        <oa-dialog-form ref="form" :resource="relationResource" :connector="connector" v-model="model" v-on:close="close"></oa-dialog-form>
+        <oa-dialog-form ref="form" :resource="relationResource" v-model="model" v-on:close="close" :connector="connector"></oa-dialog-form>
     </el-dialog>
 </div>
 </template>
@@ -98,10 +98,12 @@ export default {
         };
         this.options.push(option);
       } else if (query && query !== '' && (!this.value || query != this.value[this.relationTextField])) {
-        this.loading = true;   
-        this.connector
-          .pService(this.resource, this.relationAction, query)
-          .then(data => {
+        this.loading = true;        
+        this.connector.service(
+          this.resource,
+          this.relationAction,
+          query,
+          (data) => {
             this.options = data.items.map(t => {
               return {
                 label: t[this.relationTextField],
@@ -109,7 +111,9 @@ export default {
               }
             })
             this.loading = false
-          });
+          },
+          () => {}
+        );
       } else if (query == '') {
         this.options = []
       }

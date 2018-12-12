@@ -77,7 +77,7 @@ export default {
         comp = (resolve, reject) => {
           Utils.loadComponent({
             name: compName,
-            path: this.connector.componentsPath + type + ".js",
+            path: this.connector.componentsPath() + type + ".js",
             onLoad: resolve,
             onError: reject
           });
@@ -106,7 +106,7 @@ export default {
       return this.schema["x-ui-hideLabel"];
     },
     labelWidth: function() {
-      return this.hideLabel ? "0px" : "120px";
+      return this.hideLabel ? "0px" : undefined;
     }
   },
   methods: {
