@@ -74,6 +74,7 @@ export default {
       var comp = Vue.component(compName);
 
       if (!comp) {
+        // try to find the requested component in the dist/ folder, and load dynamicly
         comp = (resolve, reject) => {
           Utils.loadComponent({
             name: compName,
