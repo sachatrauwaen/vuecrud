@@ -5,8 +5,9 @@
 </template>
 
 <script>
-import Vue from "vue";
+//import Vue from "vue";
 import { default as Utils } from '../utils/utils'
+import { components } from '../utils/install'
 
 export default {
   name: "oa-field",
@@ -38,52 +39,92 @@ export default {
         ? sch.type[0] == "null" ? sch.type[1] : sch.type[0]
         : sch.type;
 
-      if (sch["x-type"]) {
-        type = sch["x-type"];
-      } else if (sch["x-rel-action"]) {
-        type = "relation";
-      } else if (sch["x-rel-to-many-action"]) {
-        type = "relation-to-many";
-      } else if (sch.enum || sch["x-enum-action"]) {
-        if (type == "array") {
-          type = "checkbox-group";
-        } else {
-          type = "select";
+      var comp = 
+          sch["x-type"]
+            ? null // Special case, we will resolve async
+        : sch["x-rel-action"]
+            ? components.Relation
+        : sch["x-rel-to-many-action"]
+            ? components.RelationToMany
+        : sch.enum || sch["x-enum-action"]
+            ? (type == "array" ? components.CheckboxGroup : components.Select)
+        : type == "boolean"
+            ? components.Switch
+        : type == "integer" || type == "number"
+            ? components.Inputnumber
+        : type == "array" && this.schema.items.format == "date-time"
+            ? components.Daterange
+        : sch.format == "date-time"
+            ? components.Datetime
+        : sch["x-ui-multiline"]
+            ? components.Textarea
+        : type == "address"
+            ? components.Address
+        : type == "object"
+            ? components.Fields
+            : components.Input; // Default to input
+
+        // Special case
+        if(sch["x-type"]) {
+          // X-type should only be used for unknown components, and thus resolved async
+          type = sch["x-type"];
+          var compName = "oa-" + type;
+          comp = (resolve, reject) => {
+            Utils.loadComponent({
+              name: compName,
+              path: this.connector.componentsPath() + type + ".js",
+              onLoad: resolve,
+              onError: reject
+            });
+          };
         }
-      } else if (type == "boolean") {
-        type = "switch";
-      } else if (type == "integer" || type == "number") {
-        type = "inputnumber";
-      } else if (type == "array" && this.schema.items.format == "date-time") {
-        type = "daterange";
-      } else if (sch.format == "date-time") {
-        type = "datetime";
-      } else if (sch["x-ui-multiline"]) {
-        type = "textarea";
-      } else if (type == "address") {
-        type = "address";
-      } else if (type == "array") {  
-        type = "list";
-      } else if (type == "object") {  
-        type = "fields";
-      } else {
-        type = "input";
-      }
 
-      var compName = "oa-" + type;
-      var comp = Vue.component(compName);
+      // if (sch["x-type"]) {
+      //   type = sch["x-type"];
+      // } else if (sch["x-rel-action"]) {
+      //   type = "relation";
+      // } else if (sch["x-rel-to-many-action"]) {
+      //   type = "relation-to-many";
+      // } else if (sch.enum || sch["x-enum-action"]) {
+      //   if (type == "array") {
+      //     type = "checkbox-group";
+      //   } else {
+      //     type = "select";
+      //   }
+      // } else if (type == "boolean") {
+      //   type = "switch";
+      // } else if (type == "integer" || type == "number") {
+      //   type = "inputnumber";
+      // } else if (type == "array" && this.schema.items.format == "date-time") {
+      //   type = "daterange";
+      // } else if (sch.format == "date-time") {
+      //   type = "datetime";
+      // } else if (sch["x-ui-multiline"]) {
+      //   type = "textarea";
+      // } else if (type == "address") {
+      //   type = "address";
+      // } else if (type == "array") {  
+      //   type = "list";
+      // } else if (type == "object") {  
+      //   type = "fields";
+      // } else {
+      //   type = "input";
+      // }
 
-      if (!comp) {
-        // try to find the requested component in the dist/ folder, and load dynamicly
-        comp = (resolve, reject) => {
-          Utils.loadComponent({
-            name: compName,
-            path: this.connector.componentsPath() + type + ".js",
-            onLoad: resolve,
-            onError: reject
-          });
-        };
-      }
+      // var compName = "oa-" + type;
+      // var comp = Vue.component(compName);
+
+      // if (!comp) {
+      //   // try to find the requested component in the dist/ folder, and load dynamicly
+      //   comp = (resolve, reject) => {
+      //     Utils.loadComponent({
+      //       name: compName,
+      //       path: this.connector.componentsPath() + type + ".js",
+      //       onLoad: resolve,
+      //       onError: reject
+      //     });
+      //   };
+      // }
 
       return comp;
     },

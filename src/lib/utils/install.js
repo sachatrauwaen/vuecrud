@@ -6,6 +6,7 @@ import CrudGrid from '../components/crudGrid.vue'
 import CrudGridWithoutRouter from '../components/crudGridWithoutRouter.vue'
 import Date from '../components/date.vue'
 import Daterange from '../components/daterange.vue'
+import Datetime from '../components/datetime.vue'
 import DialogForm from '../components/dialogForm.vue'
 import Field from '../components/field.vue'
 import Fields from '../components/fields.vue'
@@ -32,6 +33,7 @@ export const components = {
   CrudGrid,
   Date,
   Daterange,
+  Datetime,
   DialogForm,
   Field,
   Fields,

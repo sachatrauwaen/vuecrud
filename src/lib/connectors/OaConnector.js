@@ -35,13 +35,16 @@ export default {
          */
     service(appService, action, data, successCallback, errorCallback, alwaysCallback) {
         // eslint-disable-next-line
-        abp.services.app[appService][action](data).then(function (data) {
-            if (successCallback) successCallback(data);
-        }).fail(function (error) {
-            if (errorCallback) errorCallback(error);
-        }).always(function () {
-            if (alwaysCallback) alwaysCallback();
-        })
+        abp.services.app[appService][action](data)
+            .then(function (data) {
+                if (successCallback) successCallback(data);
+            })
+            .fail(function (error) {
+                if (errorCallback) errorCallback(error);
+            })
+            .always(function () {
+                if (alwaysCallback) alwaysCallback();
+            })
     },
         /**
          * 

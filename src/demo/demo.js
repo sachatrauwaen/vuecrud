@@ -175,11 +175,11 @@ abp.setting = {
 
 var demoajax = function(data)  {
         this.lst = data;
-        this.done = (callback) => {
+        this.then = (callback) => {
             if (callback) callback(this.lst);
             return this;
         };
-        this.fail = () => {
+        this.catch = () => {
             
             return this;
         };
