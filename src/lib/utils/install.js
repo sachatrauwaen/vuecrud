@@ -1,3 +1,4 @@
+
 import Address from '../components/address.vue'
 import CheckboxGroup from '../components/checkboxGroup.vue'
 import CrudForm from '../components/crudForm.vue'
@@ -52,5 +53,6 @@ export const components = {
   CrudFormWithoutRouter,
   CommandForm
 };
+
 
 export const install = (Vue) => Object.keys(components).forEach(key => Vue.component(components[key].name, components[key]));
