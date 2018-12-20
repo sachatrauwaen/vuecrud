@@ -1,5 +1,5 @@
 ﻿<template>
-        <el-date-picker v-model="model" type="date" format="dd/MM/yyyy" :firstDayOfWeek="1" ></el-date-picker>
+        <el-date-picker v-model="model" type="date" format="dd/MM/yyyy" :first-day-of-week="1" ></el-date-picker>
 </template>
 <script>
 export default {

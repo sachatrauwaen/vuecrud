@@ -1,8 +1,8 @@
 <template>
 <div>
-  <el-date-picker v-if="!isMobile" v-model="model"  type="daterange" format="dd/MM/yyyy" :firstDayOfWeek="1" ></el-date-picker>
-  <el-date-picker v-if="isMobile" v-model="model1"  type="date" format="dd/MM/yyyy" placeholder="Begin" :firstDayOfWeek="1" ></el-date-picker>
-  <el-date-picker v-if="isMobile" v-model="model2"  type="date" format="dd/MM/yyyy" placeholder="End" :firstDayOfWeek="1" ></el-date-picker>
+  <el-date-picker v-if="!isMobile" v-model="model"  type="daterange" format="dd/MM/yyyy" :first-day-of-week="1" ></el-date-picker>
+  <el-date-picker v-if="isMobile" v-model="model1"  type="date" format="dd/MM/yyyy" placeholder="Begin" :first-day-of-week="1" ></el-date-picker>
+  <el-date-picker v-if="isMobile" v-model="model2"  type="date" format="dd/MM/yyyy" placeholder="End" :first-day-of-week="1" ></el-date-picker>
 </div>
 </template>
 
