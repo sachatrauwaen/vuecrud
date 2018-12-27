@@ -2,10 +2,26 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueCrud from '../lib/index'
 import { default as Utils } from "../lib/utils/utils";
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import localeEN from 'element-ui/lib/locale/lang/en'
+import localeFR from 'element-ui/lib/locale/lang/fr'
+import localeNL from 'element-ui/lib/locale/lang/nl'
 
 export default {
     create(id, layout) {
         Vue.use(VueRouter);
+
+        let locale = localeEN;
+        const loc = VueCrud.OaConnector.locale();
+        if (loc == 'fr') {
+            locale = localeFR;
+        } else if (loc == 'nl') {
+            locale = localeNL;
+        }
+        
+        Vue.use(ElementUI, { locale });
+
         Vue.use(VueCrud);
 
         const crudGrid = Vue.component('oa-crud-grid');

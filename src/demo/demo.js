@@ -834,6 +834,10 @@ abp.localization.values['app'] = {
     No: "Neej"
 };
 
+abp.setting = abp.setting || {};
+abp.setting.getInt = function(){
+    return 10;
+}
 
 window.abp = abp;
 
