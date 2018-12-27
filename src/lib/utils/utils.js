@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export const jsonSchema = {
     getNotNull: function (schema) {
         if (schema.oneOf) {
