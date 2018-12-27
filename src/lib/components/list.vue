@@ -13,7 +13,7 @@
             </template>
         </el-table-column>
         <template slot="append">
-            <el-button icon="el-icon-plus" size="small" @click="addRow()" style="margin:10px auto;display:block"></el-button>
+            <el-button icon="el-icon-plus" type="primary" size="small" @click="addRow()" style="margin:10px auto;display:block"></el-button>
         </template>
     </el-table>
     <template v-else>
@@ -24,7 +24,7 @@
             </div>
         </el-card>
         <div style="padding-top:10px;">
-            <el-button icon="el-icon-plus" size="small" @click="addRow()" style="margin:10px auto;display:block"></el-button>
+            <el-button icon="el-icon-plus" type="primary" size="small" @click="addRow()" style="margin:10px auto;display:block"></el-button>
         </div>
     </template>
 </div>
