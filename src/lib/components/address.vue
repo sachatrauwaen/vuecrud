@@ -65,7 +65,7 @@ export default {
     ensureGoogleMaps(
       {
         libraries: ['places'],
-        key: $root.googleKey,
+        key: self.$root.googleKey,
         client: '',
         version: '3',
         loadGoogleApi: true
