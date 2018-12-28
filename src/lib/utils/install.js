@@ -11,6 +11,7 @@ import DialogForm from '../components/dialogForm.vue'
 import Field from '../components/field.vue'
 import Fields from '../components/fields.vue'
 import FilterForm from '../components/filterForm.vue'
+import AdvFilterForm from '../components/advfilterForm.vue'
 import Form from '../components/form.vue'
 import FormItem from '../components/formItem.vue'
 import Grid from '../components/grid.vue'
@@ -37,6 +38,7 @@ export const components = {
   Field,
   Fields,
   FilterForm,
+  AdvFilterForm,
   Form,
   FormItem,
   Grid,

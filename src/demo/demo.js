@@ -118,6 +118,7 @@ abp.services.app.user.getAll = function (input, ajaxParams) {
     const list = data
         .filter(filterStringData(input, 'userName', 'userName'))
         .filter(filterStringData(input, 'email', 'emailAddress'))
+        .filter(filterStringData(input, 'search', 'userName'))
 
     var res = {
         items : list,
@@ -649,6 +650,9 @@ abp.schemas.app.user.getAll.parameters = {
         "title": "UsersResultRequestDto",
         "type": "object",
         "properties": {
+            "search": {
+                "type": "string"
+            },
             "userName": {
                 "type": "string",
                 "maxLength": 55,

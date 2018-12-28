@@ -1,6 +1,6 @@
 {
     "name": "vuecrud",
-    "version": "0.1.25",
+    "version": "0.1.26",
     "private": true,
     "main": "dist/vuecrud.umd.js",
     "scripts": {
@@ -12,7 +12,7 @@
         "build-major": "vue-cli-service build --target lib --name vuecrud src/lib/index.js --env.major"
     },
     "dependencies": {
-        "element-ui": "^2.4.5",
+        "element-ui": "^2.4.11",
         "json-ref-lite": "^1.1.0",
         "vue": "^2.5.16",
         "vue-router": "^3.0.1"

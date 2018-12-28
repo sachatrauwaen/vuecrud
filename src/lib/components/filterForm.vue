@@ -35,6 +35,7 @@ export default {
         for (var key in this.schema.properties) {
           if (
                 key != 'id'
+            &&  key != 'search'
             && !this.schema.properties[key].readonly
             && !this.schema.properties[key]['x-rel-app']
             && !this.schema.properties[key]['x-rel-to-many-app']
@@ -87,12 +88,13 @@ export default {
         return name
     },
     propChange (key, value) {
-		this.$set(this.model, key, value);
+      this.$set(this.model, key, value);
 
-		// If eager, emit change event
-		if(this.schema.properties[key]['x-ui-filter-eager'] === true)
-			this.$emit('filterEager', this.model);
+      // If eager, emit change event
+      if(this.schema.properties[key]['x-ui-filter-eager'] === true)
+        this.$emit('filterEager', this.model);
     }
   }
 }
+
 </script>
