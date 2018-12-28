@@ -1,18 +1,32 @@
 <template>
 	<div class="oa-crud-grid">
 		<el-row :gutter="10">
-			<el-col :xs="24" :sm="2" :md="2" :lg="2" :xl="2" style="padding-bottom: 20px;">
-				<el-button v-for="action in actions" :key="action.name" :icon="action.icon" size="small" :type="action.type" @click="action.execute()">{{action.name}}</el-button>
+			<el-col :xs="4" :sm="4" :md="2" :lg="2" :xl="2" style="padding-bottom: 20px;">
+				<el-button v-for="action in actions" :key="action.name" :icon="action.icon" size="medium" :type="action.type" @click="action.execute()">{{action.name}}</el-button>
 			</el-col>
-			<el-col :xs="24" :sm="22" :md="22" :lg="22" :xl="22">
-				<oa-filter-form
-					v-if="hasFilter"
+			<el-col :xs="20" :sm="20" :md="12" :lg="6" :xl="6" v-if="hasAdvFilter">		
+
+				<oa-advfilter-form					
+					ref="advfilterform"
+					:model="filterModel"
+					:schema="filterSchema"
+					:connector="connector"
+					:actions="filterActions"
+					:messages="messages"
+					:resource="resource"
+					@filterEager="filterEager"></oa-advfilter-form>
+
+				
+			</el-col>
+			<el-col :xs="24" :sm="22" :md="22" :lg="22" :xl="22" v-else-if="hasFilter">
+				<oa-filter-form					
 					ref="filterform"
 					:model="filterModel"
 					:schema="filterSchema"
 					:connector="connector"
 					:actions="filterActions"
 					:messages="messages"
+					:resource="resource"
 					@filterEager="filterEager"></oa-filter-form>
 			</el-col>
 		</el-row>
@@ -35,7 +49,7 @@
 </template>
 
 <script>
-import { debounce } from '../utils/utils'
+import { debounce } from "../utils/utils";
 export default {
 	name: "oa-crud-grid-without-router",
 	data() {
@@ -88,10 +102,9 @@ export default {
 				{
 					name: this.translate("Delete"),
 					icon: "el-icon-delete",
-					execute: (row) => {
+          execute: row => {
 						// eslint-disable-next-line
-						this
-							.$confirm("Confirm delete ?", this.translate("Delete"), {
+						this.$confirm("Confirm delete ?", this.translate("Delete"), {
 								confirmButtonText: "OK",
 								cancelButtonText: "Cancel",
 								type: "warning"
@@ -106,10 +119,8 @@ export default {
 							})
 							.catch(() => {});
 					},
-					visible: (row) => {
-						return typeof row.canDelete !== "undefined"
-							? row.canDelete
-							: true;
+          visible: row => {
+            return typeof row.canDelete !== "undefined" ? row.canDelete : true;
 					}
 				}
 			];
@@ -136,7 +147,10 @@ export default {
 			return schema;
 		},
 		hasFilter() {
-			return Object.keys(this.filterSchema.properties).length > 0;
+      return Object.keys(this.filterSchema.properties).filter((val)=>{return val != "search"}).length > 0;
+    },
+	hasAdvFilter() {
+      return Object.keys(this.filterSchema.properties).indexOf("search") > -1;
 		},
 		filterActions() {
 			return [
@@ -144,13 +158,19 @@ export default {
 					icon: "el-icon-search",
 					type: "primary",
 					execute: () => {
+			if (this.$refs.advfilterform) {			
+				this.$refs.advfilterform.hideForm();
+			}
 						this.fetchData();
 					}
 				},
 				{
 					icon: "el-icon-close",
 					execute: () => {
-						this.$refs.filterform.resetForm();
+			if (this.$refs.filterform) this.$refs.filterform.resetForm();
+			if (this.$refs.advfilterform) {
+				this.$refs.advfilterform.resetForm();				
+			}
 						this.fetchData();
 					}
 				}
@@ -209,10 +229,8 @@ export default {
 				);
 		},
 		translate(text) {
-			if (this.messages && this.messages[text])
-				return this.messages[text];
-			else
-				return text;
+      if (this.messages && this.messages[text]) return this.messages[text];
+      else return text;
 		}
 	},
 	created() {
