@@ -9,7 +9,7 @@ import localeFR from 'element-ui/lib/locale/lang/fr'
 import localeNL from 'element-ui/lib/locale/lang/nl'
 
 export default {
-    create(id, layout) {
+    create(id, layout, data) {
         Vue.use(VueRouter);
 
         let locale = localeEN;
@@ -37,6 +37,7 @@ export default {
 
         new Vue({
             router: router,
+            data : data || {},
             connector: VueCrud.OaConnector,
             render(h) {
                 return h(layout, {
