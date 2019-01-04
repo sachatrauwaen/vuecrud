@@ -13,6 +13,7 @@
 					:connector="connector"
 					:actions="filterActions"
 					:messages="messages"
+          :resource="resource"
 					@filterEager="filterEager"></oa-advfilter-form>
 
 				
@@ -25,6 +26,7 @@
 					:connector="connector"
 					:actions="filterActions"
 					:messages="messages"
+          :resource="resource"
 					@filterEager="filterEager"></oa-filter-form>
 			</el-col>
 		</el-row>

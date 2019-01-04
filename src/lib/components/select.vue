@@ -60,7 +60,7 @@ export default {
         this.resource,
         enumAction,
         {},
-        (data) => {
+        (data) => {          
           this.options = data.map(p => ({
             value: p[enumValueField],
             label: p[enumTextField]
