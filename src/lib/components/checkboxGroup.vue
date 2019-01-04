@@ -45,7 +45,8 @@ export default {
         enumAction,
         {},
         function(data) {
-          self.options = data.items.map(function(p) {
+          if(data.items) data = data.items;
+          self.options = data.map(function(p) {
             return {
               value: p[enumValueField],
               label: p[enumTextField]
