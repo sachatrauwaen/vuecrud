@@ -11,6 +11,7 @@
       :connector="connector"
       :actions="actions"
       :messages="messages"
+       :resource="resource"
       @filterEager="filterEager"></oa-filter-form>						
   </el-popover>
 </div>          
@@ -27,7 +28,8 @@ export default {
     options: {},
     messages: {},
     actions: {},
-    columns: {}
+    columns: {},
+    resource: String
   },
   data() {
     return {
