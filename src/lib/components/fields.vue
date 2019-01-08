@@ -21,89 +21,96 @@
 </template>
 
 <script>
-import { default as Utils } from '../utils/utils'
+import { default as Utils } from "../utils/utils";
 export default {
-  name: "oa-fields",
-  props: {
-    model: {},
-    schema: {},
-    options: {},
-    messages: {},
-    actions: {},
-    connector: {},
-    resource: String
-  },
-  data() {
-    return {};
-  },
-  computed: {
-    properties() {
-      return this.schema.properties;
+    name: "oa-fields",
+    props: {
+        model: {
+            type: Object,
+            default: function() {
+                return {};
+            }
+        },
+        schema: {},
+        options: {},
+        messages: {},
+        actions: {},
+        connector: {},
+        resource: String
     },
-    fields() {
-      if (this.options) {
-        return this.options.fields;
-      } else {
-        let fields = {};
-        for (let key in this.schema.properties) {
-          if (
-            key !== "id" &&
-            !this.schema.properties[key].readonly &&
+    data() {
+        return {};
+    },
+    computed: {
+        properties() {
+            return this.schema.properties;
+        },
+        fields() {
+            if (this.options) {
+                return this.options.fields;
+            } else {
+                let fields = {};
+                for (let key in this.schema.properties) {
+                    if (
+                        key !== "id" &&
+                        !this.schema.properties[key]
+                            .readonly /*&&
             !this.schema.properties[key]["x-rel-app"] &&
-            !this.schema.properties[key]["x-rel-to-many-app"]
-          ) {
-            fields[key] = this.schema.properties[key];
-          }
+            !this.schema.properties[key]["x-rel-to-many-app"]*/
+                    ) {
+                        fields[key] = this.schema.properties[key];
+                    }
+                }
+                return fields;
+            }
+        },
+        tabs() {
+            let groups = {};
+            for (let key in this.fields) {
+                let el = this.fields[key];
+                const group = el["x-ui-group"];
+                if (group in groups == false) {
+                    groups[group] = {};
+                }
+                groups[group][key] = el;
+            }
+            for (let key in groups) {
+                let el = groups[key];
+                el.columns = this.generateColumns(el);
+            }
+            return groups;
+        },
+        columns() {
+            return this.generateColumns(this.fields);
+        },
+        isMobile() {
+            return Utils.isMobile(window);
+        },
+        labelPosition() {
+            return this.isMobile ? "top" : "right";
         }
-        return fields;
-      }
     },
-    tabs() {
-      let groups = {};
-      for (let key in this.fields) {
-        let el = this.fields[key];
-        const group = el["x-ui-group"];
-        if (group in groups == false) {
-          groups[group] = {};
+    methods: {
+        label(name) {
+            if (this.messages && this.messages[name])
+                return this.messages[name];
+            else return name;
+        },
+        propChange(key, value) {
+            this.$set(this.model, key, value);
+        },
+        generateColumns(fields) {
+            var columns = {};
+            for (var key in fields) {
+                var el = this.fields[key];
+                var column = el["x-ui-column"];
+                if (column in columns == false) {
+                    columns[column] = {};
+                }
+                columns[column][key] = el;
+            }
+            return columns;
         }
-        groups[group][key] = el;
-      }
-      for (let key in groups) {
-        let el = groups[key];
-        el.columns = this.generateColumns(el);
-      }
-      return groups;
-    },
-    columns() {
-      return this.generateColumns(this.fields);
-    },
-    isMobile() {
-      return Utils.isMobile(window);
-    },
-    labelPosition() {
-      return this.isMobile ? "top" : "right";
     }
-  },
-  methods: {
-    label(name) {
-      if (this.messages && this.messages[name]) return this.messages[name];
-      else return name;
-    },
-    propChange(key, value) {
-      this.$set(this.model, key, value);
-    },
-    generateColumns(fields) {
-      var columns = {};
-      for (var key in fields) {
-        var el = this.fields[key];
-        var column = el["x-ui-column"];
-        if (column in columns == false) {
-          columns[column] = {};
-        }
-        columns[column][key] = el;
-      }
-      return columns;
-    }
-  }
 };
 </script>

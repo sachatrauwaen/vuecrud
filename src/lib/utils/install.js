@@ -1,4 +1,3 @@
-
 import Address from '../components/address.vue'
 import CheckboxGroup from '../components/checkboxGroup.vue'
 import CrudForm from '../components/crudForm.vue'
@@ -7,6 +6,7 @@ import CrudGrid from '../components/crudGrid.vue'
 import CrudGridWithoutRouter from '../components/crudGridWithoutRouter.vue'
 import Date from '../components/date.vue'
 import Daterange from '../components/daterange.vue'
+import Datetime from '../components/datetime.vue'
 import DialogForm from '../components/dialogForm.vue'
 import Field from '../components/field.vue'
 import Fields from '../components/fields.vue'
@@ -28,33 +28,33 @@ import CommandForm from '../components/commandForm.vue'
 
 
 export const components = {
-  Address,
-  CheckboxGroup,
-  CrudForm,
-  CrudGrid,
-  Date,
-  Daterange,
-  DialogForm,
-  Field,
-  Fields,
-  FilterForm,
-  AdvFilterForm,
-  Form,
-  FormItem,
-  Grid,
-  List,
-  Input,
-  Inputnumber,
-  RelationToMany,
-  Relation,
-  Select,
-  Switch,
-  Textarea,
-  Time,
-  CrudGridWithoutRouter,
-  CrudFormWithoutRouter,
-  CommandForm
+    Address,
+    CheckboxGroup,
+    CrudForm,
+    CrudGrid,
+    Date,
+    Daterange,
+    Datetime,
+    DialogForm,
+    Field,
+    Fields,
+    FilterForm,
+    AdvFilterForm,
+    Form,
+    FormItem,
+    Grid,
+    List,
+    Input,
+    Inputnumber,
+    RelationToMany,
+    Relation,
+    Select,
+    Switch,
+    Textarea,
+    Time,
+    CrudGridWithoutRouter,
+    CrudFormWithoutRouter,
+    CommandForm
 };
-
 
 export const install = (Vue) => Object.keys(components).forEach(key => Vue.component(components[key].name, components[key]));

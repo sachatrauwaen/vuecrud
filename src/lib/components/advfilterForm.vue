@@ -20,41 +20,45 @@
 <script>
 import { default as Utils } from "../utils/utils";
 export default {
-  name: "oa-advfilter-form",
-  props: {
-    model: {},
-    schema: {},
-    connector: {},
-    options: {},
-    messages: {},
-    actions: {},
-    columns: {},
-    resource: String
-  },
-  data() {
-    return {
-      advsearch:false      
-    };
-  },
-  computed: {
-    isMobile() {
-      return Utils.isMobile(window);
-    },    
-  },
-  methods: {
-    resetForm () {
-      this.$refs.filterform.resetForm()
-      this.advsearch=false;
+    name: "oa-advfilter-form",
+    props: {
+        model: {},
+        schema: {},
+        connector: {},
+        options: {},
+        messages: {},
+        actions: {},
+        columns: {},
+        resource: String
     },
-    hideForm () {      
-      this.advsearch=false;
+    data() {
+        return {
+            advsearch: false
+        };
     },
-    filterEager(){
-      this.$emit('filterEager', this.model);
+    computed: {
+        isMobile() {
+            return Utils.isMobile(window);
+        }
     },
-    hasFilter() {
-      return Object.keys(this.schema.properties).filter((val)=>{return val != "search"}).length > 0;
-    },
-  }
+    methods: {
+        resetForm() {
+            this.$refs.filterform.resetForm();
+            this.advsearch = false;
+        },
+        hideForm() {
+            this.advsearch = false;
+        },
+        filterEager() {
+            this.$emit("filterEager", this.model);
+        },
+        hasFilter() {
+            return (
+                Object.keys(this.schema.properties).filter(val => {
+                    return val != "search";
+                }).length > 0
+            );
+        }
+    }
 };
 </script>

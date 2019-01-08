@@ -1,34 +1,33 @@
 <template>
-  <el-date-picker v-model="model" type="datetime" 
-              format="dd/MM/yyyy HH:mm" 
-              
-              :picker-options="{firstDayOfWeek: 1}" ></el-date-picker>
+    <el-date-picker
+        v-model="model"
+        type="datetime"
+        format="dd/MM/yyyy HH:mm"
+        :picker-options="{firstDayOfWeek: 1}"
+    ></el-date-picker>
 </template>
 
 <script>
-import Vue from 'vue'
+//import Vue from 'vue'
 
 export default {
-  name: 'oa-datetime',
+    name: "oa-datetime",
 
-  props: {
-    value: {},
-    schema: {},
-    prop: String,
-    options: {
-
+    props: {
+        value: {},
+        schema: {},
+        prop: String,
+        options: {}
+    },
+    computed: {
+        model: {
+            get() {
+                return this.value;
+            },
+            set(val) {
+                this.$emit("input", val);
+            }
+        }
     }
-  },
-  computed: {
-    model: {
-      get () {
-        return this.value
-      },
-      set (val) {
-        this.$emit('input', val)
-      }
-    }
-  }
-}
-
+};
 </script>

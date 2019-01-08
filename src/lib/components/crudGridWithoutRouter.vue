@@ -40,184 +40,201 @@
 <script>
 import { debounce } from "../utils/utils";
 export default {
-  name: "oa-crud-grid-without-router",
-  data() {
-    return {
-      model: [],
-      filterModel: {},
-      totalCount: 0,
-	    currentPage: 1	  
-    };
-  },
-  props: {
-    module: String,
-    resource: String,
-    connector: Object,
-    doOnEdit: Function,
-    doOnAdd: Function
-  },
-  computed: {
-    // module() {
-    //   return this.$route.params.module;
-    // },
-    // resource() {
-    //   return this.$route.params.resource;
-    // },
-    // connector() {
-    //   return this.$root.$options.connector;
-    // },
-    pageSize() {
-      return this.connector.settings().pageSize || 10;
+    name: "oa-crud-grid-without-router",
+    data() {
+        return {
+            model: [],
+            filterModel: {},
+            totalCount: 0,
+            currentPage: 1
+        };
     },
-    locale() {
-      return this.connector.locale();
+    props: {
+        module: String,
+        resource: String,
+        connector: Object,
+        doOnEdit: Function,
+        doOnAdd: Function
     },
-    schema() {
-      return this.connector.schema(this.resource, "get");
-    },
-    messages() {
-      return this.connector.messages(this.module);
-    },
-    gridActions() {
-      return [
-        {
-          name: this.translate("Edit"),
-          icon: "el-icon-edit",
-          execute: this.doOnEdit
+    computed: {
+        // module() {
+        //   return this.$route.params.module;
+        // },
+        // resource() {
+        //   return this.$route.params.resource;
+        // },
+        // connector() {
+        //   return this.$root.$options.connector;
+        // },
+        pageSize() {
+            return this.connector.settings().pageSize || 10;
         },
-        {
-          name: this.translate("Delete"),
-          icon: "el-icon-delete",
-          execute: row => {
-            // eslint-disable-next-line
-            this.$confirm("Confirm delete ?", this.translate("Delete"), {
-              confirmButtonText: "OK",
-              cancelButtonText: "Cancel",
-              type: "warning"
-            })
-              .then(() => {
-                this.deleteData(row, () => {
-                  this.$message({
-                    type: "success",
-                    message: this.translate("Delete completed")
-                  });
-                });
-              })
-              .catch(() => {});
-          },
-          visible: row => {
-            return typeof row.canDelete !== "undefined" ? row.canDelete : true;
-          }
+        locale() {
+            return this.connector.locale();
+        },
+        schema() {
+            return this.connector.schema(this.resource, "get");
+        },
+        messages() {
+            return this.connector.messages(this.module);
+        },
+        gridActions() {
+            return [
+                {
+                    name: this.translate("Edit"),
+                    icon: "el-icon-edit",
+                    execute: this.doOnEdit
+                },
+                {
+                    name: this.translate("Delete"),
+                    icon: "el-icon-delete",
+                    execute: row => {
+                        // eslint-disable-next-line
+                        this.$confirm(
+                            "Confirm delete ?",
+                            this.translate("Delete"),
+                            {
+                                confirmButtonText: "OK",
+                                cancelButtonText: "Cancel",
+                                type: "warning"
+                            }
+                        )
+                            .then(() => {
+                                this.deleteData(row, () => {
+                                    this.$message({
+                                        type: "success",
+                                        message: this.translate(
+                                            "Delete completed"
+                                        )
+                                    });
+                                });
+                            })
+                            .catch(() => {});
+                    },
+                    visible: row => {
+                        return typeof row.canDelete !== "undefined"
+                            ? row.canDelete
+                            : true;
+                    }
+                }
+            ];
+        },
+        defaultAction() {
+            return this.gridActions[0];
+        },
+        actions() {
+            return [
+                {
+                    icon: "el-icon-plus",
+                    type: "primary",
+                    execute: this.doOnAdd
+                }
+            ];
+        },
+        filterSchema() {
+            var schema = {
+                properties: {}
+            };
+            var action = this.connector.schema(this.resource, "filter")
+                .properties;
+            for (var key in action) {
+                if (key != "skipCount" && key != "maxResultCount") {
+                    schema.properties[key] = action[key];
+                }
+            }
+            return schema;
+        },
+        hasFilter() {
+            return (
+                Object.keys(this.filterSchema.properties).filter(val => {
+                    return val != "search";
+                }).length > 0
+            );
+        },
+        hasAdvFilter() {
+            return (
+                Object.keys(this.filterSchema.properties).indexOf("search") > -1
+            );
+        },
+        filterActions() {
+            return [
+                {
+                    icon: "el-icon-search",
+                    type: "primary",
+                    execute: () => {
+                        if (this.$refs.advfilterform) {
+                            this.$refs.advfilterform.hideForm();
+                        }
+                        this.fetchData();
+                    }
+                },
+                {
+                    icon: "el-icon-close",
+                    execute: () => {
+                        if (this.$refs.filterform)
+                            this.$refs.filterform.resetForm();
+                        if (this.$refs.advfilterform) {
+                            this.$refs.advfilterform.resetForm();
+                        }
+                        this.fetchData();
+                    }
+                }
+            ];
+        },
+        options() {
+            return null;
+        },
+        totalPages() {
+            return Math.ceil(
+                this.pagination.totalItems / this.pagination.rowsPerPage
+            );
         }
-      ];
     },
-    defaultAction() {
-      return this.gridActions[0];
-    },
-    actions() {
-      return [
-        {
-          icon: "el-icon-plus",
-          type: "primary",
-          execute: this.doOnAdd
-        }
-      ];
-    },
-    filterSchema() {
-      var schema = {
-        properties: {}
-      };
-      var action = this.connector.schema(this.resource, "filter").properties;
-      for (var key in action) {
-        if (key != "skipCount" && key != "maxResultCount") {
-          schema.properties[key] = action[key];
-        }
-      }
-      return schema;
-    },
-    hasFilter() {
-      return Object.keys(this.filterSchema.properties).filter((val)=>{return val != "search"}).length > 0;
-    },
-	hasAdvFilter() {
-      return Object.keys(this.filterSchema.properties).indexOf("search") > -1;
-    },
-    filterActions() {
-      return [
-        {
-          icon: "el-icon-search",
-          type: "primary",
-          execute: () => {
-			if (this.$refs.advfilterform) {			
-				this.$refs.advfilterform.hideForm();
-			}
+    methods: {
+        filterEager() {
+            debounce(this.fetchData, 300)();
+        },
+        currentPageChange() {
             this.fetchData();
-          }
         },
-        {
-          icon: "el-icon-close",
-          execute: () => {
-			if (this.$refs.filterform) this.$refs.filterform.resetForm();
-			if (this.$refs.advfilterform) {
-				this.$refs.advfilterform.resetForm();				
-			}
-            this.fetchData();
-          }
+        fetchData(callback) {
+            this.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
+            this.filterModel.maxResultCount = this.pageSize;
+            this.connector.service(
+                this.resource,
+                "getAll",
+                this.filterModel,
+                data => {
+                    this.model = data.items;
+                    this.totalCount = data.totalCount;
+                    if (callback) callback();
+                },
+                () => {}
+            );
+        },
+        deleteData(data, callback) {
+            this.connector.service(
+                this.resource,
+                "delete",
+                { id: data.id },
+                () => this.fetchData(callback),
+                () => {}
+            );
+        },
+        translate(text) {
+            if (this.messages && this.messages[text])
+                return this.messages[text];
+            else return text;
         }
-      ];
     },
-    options() {
-      return null;
+    created() {
+        this.fetchData();
     },
-    totalPages() {
-      return Math.ceil(
-        this.pagination.totalItems / this.pagination.rowsPerPage
-      );
+    watch: {
+        // TODO this seems suboptimal, and won't work when using without router
+        $route: function() {
+            this.fetchData();
+        }
     }
-  },
-  methods: {
-    filterEager() {	  
-	  debounce(this.fetchData, 300)();
-    },
-    currentPageChange() {
-      this.fetchData();
-    },
-    fetchData(callback) {
-      this.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
-      this.filterModel.maxResultCount = this.pageSize;
-      this.connector.service(
-        this.resource,
-        "getAll",
-        this.filterModel,
-        data => {
-          this.model = data.items;
-          this.totalCount = data.totalCount;
-          if (callback) callback();
-        },
-        () => {}
-      );
-    },
-    deleteData(data, callback) {
-      this.connector.service(
-        this.resource,
-        "delete",
-        { id: data.id },
-        () => this.fetchData(callback),
-        () => {}
-      );
-    },
-    translate(text) {
-      if (this.messages && this.messages[text]) return this.messages[text];
-      else return text;
-    }
-  },
-  created() {
-    this.fetchData();
-  },
-  watch: {
-    // TODO this seems suboptimal, and won't work when using without router
-    $route: function() {
-      this.fetchData();
-    }
-  }
 };
 </script>

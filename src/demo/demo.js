@@ -12,6 +12,144 @@ var data = [
         emailAddress: "mickey.mouse@cheesebox.com",
         isActive: true,
         fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
+    },
+    {
+        userName: "mickey",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
     }
 ];
 
@@ -23,13 +161,25 @@ abp.localization = {
     }
 };
 
+abp.setting = {
+    getInt: (setting) =>  {
+        if(setting === "App.Ui.DefaultPageSize")
+            return 25;
+        else
+            return undefined;
+    },
+    values: {
+        "App.Ui.PageSizeOptions": "10, 25, 50, 100, 500"
+    }
+}
+
 var demoajax = function(data)  {
         this.lst = data;
-        this.done = (callback) => {
+        this.then = (callback) => {
             if (callback) callback(this.lst);
             return this;
         };
-        this.fail = () => {
+        this.catch = () => {
             
             return this;
         };
@@ -121,7 +271,7 @@ abp.services.app.user.getAll = function (input, ajaxParams) {
         .filter(filterStringData(input, 'search', 'userName'))
 
     var res = {
-        items : list,
+        items : list.slice(input.skipCount, input.skipCount + input.maxResultCount),
         totalCount : list.length
     }
     return new demoajax(res);
@@ -687,7 +837,6 @@ abp.localization.values['app'] = {
     UserName:"Nom d'utilisateur",
     Yes: "Jae",
     No: "Neej"
-
 };
 
 abp.setting = abp.setting || {};

@@ -12,155 +12,166 @@
 </template>
 
 <script>
-import { default as Utils } from '../utils/utils'
+import { default as Utils } from "../utils/utils";
 export default {
-  name: 'oa-relation',
+    name: "oa-relation",
 
-  props: {
-    value: {},
-    schema: {},
-    messages: Object,
-    connector: {},
-    resource: {},
-    prop: String,
-    label: String
-  },
-  data () {
-    return {
-      form: {},
-      loading: false,
-      dialogVisible: false,
-      options: []
-    }
-  },
-  computed: {
-    sch () {
-      return this.schema.oneOf && this.schema.oneOf[0] ? this.schema.oneOf[0] : this.schema
+    props: {
+        value: {},
+        schema: {},
+        messages: Object,
+        connector: {},
+        resource: {},
+        prop: String,
+        label: String
     },
-    relationResource () {
-      return this.sch['x-rel-app']
-    },
-    relationAction () {
-      return this.sch['x-rel-action'] || 'get' + Utils.capitalize(this.prop) + 's'
-    },
-    relationValueField () {
-      return this.sch['x-rel-valuefield'] || 'id'
-    },
-    relationTextField () {
-      return this.sch['x-rel-textfield'] || 'fullName'
-    },
-    id () {
-      return this.value ? this.value[this.relationValueField] : null
-    },
-    isnew () {
-      return !this.value
-    },
-    // schema: function() {
-    //    if (this.isnew)
-    //        return jref.resolve(abp.schemas.app[this.resource].create.input).properties[this.prop];
-    //    else
-    //        return jref.resolve(abp.schemas.app[this.resource].update.input).properties[this.prop];
-    // },
-    model: {
-      get () {
-        return this.value
-      },
-      set (val) {
-        this.$emit('input', val)
-      }
-    },
-    isMobile () {
-      return Utils.isMobile(window);
-    },
-    fullscreen () {
-      return this.isMobile
-    },
-    buttonIcon () {
-      return this.isnew ? 'el-icon-plus' : 'el-icon-edit'
-    }
-  },
-  watch: {
-    value (val) {
-      if (val) {
-        this.options = [{
-          label: this.value[this.relationTextField],
-          value: val
-        }]
-      }
-    }
-  },
-  methods: {
-    remoteMethod (query) {
-      if (!query && this.value) {
-        const option = {
-          label: this.value[this.relationTextField],
-          value: this.value
+    data() {
+        return {
+            form: {},
+            loading: false,
+            dialogVisible: false,
+            options: []
         };
-        this.options.push(option);
-      } else if (query && query !== '' && (!this.value || query != this.value[this.relationTextField])) {
-        this.loading = true;        
-        this.connector.service(
-          this.resource,
-          this.relationAction,
-          query,
-          (data) => {
-            this.options = data.items.map(t => {
-              return {
-                label: t[this.relationTextField],
-                value: t
-              }
-            })
-            this.loading = false
-          },
-          () => {}
-        );
-      } else if (query == '') {
-        this.options = []
-      }
     },
-    clear () {
-      this.model = null;
-    },
-    edit () {
-      this.dialogVisible = true
-      if (this.$refs.form) this.$refs.form.fetchData()
-    },
-    handleClose (done) {
-      done()
-    },
-    close (model) {
-      this.dialogVisible = false
-      if (model) {
-        this.model = model
-        this.options = [
-          {
-            label: model[this.relationTextField],
-            value: model
-          }
-        ]
-      }
-    },
-    openDialog () {
-      if (this.fullscreen) {
-        document.body.classList.add('dialog-open')
-      }
-    },
-    closeDialog () {
-      if (this.fullscreen) {
-        // document.body.style.position = ''; // for ios cursor bug
-        document.body.classList.remove('dialog-open')
-      }
-    }
-  },
-  created () {
-    if (this.value) {
-      this.options = [
-        {
-          label: this.value[this.relationTextField],
-          value: this.value
+    computed: {
+        sch() {
+            return this.schema.oneOf && this.schema.oneOf[0]
+                ? this.schema.oneOf[0]
+                : this.schema;
+        },
+        relationResource() {
+            return this.sch["x-rel-app"];
+        },
+        relationAction() {
+            return (
+                this.sch["x-rel-action"] ||
+                "get" + Utils.capitalize(this.prop) + "s"
+            );
+        },
+        relationValueField() {
+            return this.sch["x-rel-valuefield"] || "id";
+        },
+        relationTextField() {
+            return this.sch["x-rel-textfield"] || "fullName";
+        },
+        id() {
+            return this.value ? this.value[this.relationValueField] : null;
+        },
+        isnew() {
+            return !this.value;
+        },
+        // schema: function() {
+        //    if (this.isnew)
+        //        return jref.resolve(abp.schemas.app[this.resource].create.input).properties[this.prop];
+        //    else
+        //        return jref.resolve(abp.schemas.app[this.resource].update.input).properties[this.prop];
+        // },
+        model: {
+            get() {
+                return this.value;
+            },
+            set(val) {
+                this.$emit("input", val);
+            }
+        },
+        isMobile() {
+            return Utils.isMobile(window);
+        },
+        fullscreen() {
+            return this.isMobile;
+        },
+        buttonIcon() {
+            return this.isnew ? "el-icon-plus" : "el-icon-edit";
         }
-      ]
+    },
+    watch: {
+        value(val) {
+            if (val) {
+                this.options = [
+                    {
+                        label: this.value[this.relationTextField],
+                        value: val
+                    }
+                ];
+            }
+        }
+    },
+    methods: {
+        remoteMethod(query) {
+            if (!query && this.value) {
+                const option = {
+                    label: this.value[this.relationTextField],
+                    value: this.value
+                };
+                this.options.push(option);
+            } else if (
+                query &&
+                query !== "" &&
+                (!this.value || query != this.value[this.relationTextField])
+            ) {
+                this.loading = true;
+                this.connector.service(
+                    this.resource,
+                    this.relationAction,
+                    query,
+                    data => {
+                        this.options = data.items.map(t => {
+                            return {
+                                label: t[this.relationTextField],
+                                value: t
+                            };
+                        });
+                        this.loading = false;
+                    },
+                    () => {}
+                );
+            } else if (query == "") {
+                this.options = [];
+            }
+        },
+        clear() {
+            this.model = null;
+        },
+        edit() {
+            this.dialogVisible = true;
+            if (this.$refs.form) this.$refs.form.fetchData();
+        },
+        handleClose(done) {
+            done();
+        },
+        close(model) {
+            this.dialogVisible = false;
+            if (model) {
+                this.model = model;
+                this.options = [
+                    {
+                        label: model[this.relationTextField],
+                        value: model
+                    }
+                ];
+            }
+        },
+        openDialog() {
+            if (this.fullscreen) {
+                document.body.classList.add("dialog-open");
+            }
+        },
+        closeDialog() {
+            if (this.fullscreen) {
+                // document.body.style.position = ''; // for ios cursor bug
+                document.body.classList.remove("dialog-open");
+            }
+        }
+    },
+    created() {
+        if (this.value) {
+            this.options = [
+                {
+                    label: this.value[this.relationTextField],
+                    value: this.value
+                }
+            ];
+        }
     }
-  }
-}
+};
 </script>
