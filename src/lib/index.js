@@ -4,9 +4,9 @@ import { install, components } from './utils/install'
 
 /* Library public API */
 export default {
-  version: '2.0.0',
-  install,
-  OaConnector,
-  createApp: CrudApp.create,
-  components
+    version: '2.0.0',
+    install,
+    OaConnector,
+    createApp: CrudApp.create,
+    components
 };

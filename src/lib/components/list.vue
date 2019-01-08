@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { default as Utils } from '../utils/utils'
+import { default as Utils } from "../utils/utils";
 
 export default {
     name: "oa-list",
@@ -42,29 +42,31 @@ export default {
         prop: String,
         connector: {}
     },
-    data () {
+    data() {
         return {
-            actions: [{
-                name: this.translate("Delete"),
-                icon: "el-icon-delete",
-                execute: (row) => {
-                    var index = this.model.indexOf(row);
-                    if (index > -1) {
-                        this.model.splice(index, 1);
+            actions: [
+                {
+                    name: this.translate("Delete"),
+                    icon: "el-icon-delete",
+                    execute: row => {
+                        var index = this.model.indexOf(row);
+                        if (index > -1) {
+                            this.model.splice(index, 1);
+                        }
                     }
-                }
-            },
-            {
-                name: this.translate("Duplicate"),
-                icon: "el-icon-plus",
-                execute: (row) => {
-                        var clone = JSON.parse(JSON.stringify(row))
-                        if (clone.hasOwnProperty('id')){
-                            delete(clone.id);
+                },
+                {
+                    name: this.translate("Duplicate"),
+                    icon: "el-icon-plus",
+                    execute: row => {
+                        var clone = JSON.parse(JSON.stringify(row));
+                        if (clone.hasOwnProperty("id")) {
+                            delete clone.id;
                         }
                         this.model.push(clone);
+                    }
                 }
-            }]
+            ]
         };
     },
     computed: {
@@ -72,17 +74,17 @@ export default {
             return this.connector.locale();
         },
         model: {
-            get () {
+            get() {
                 return this.value;
             },
-            set (val) {
+            set(val) {
                 this.$emit("input", val);
             }
         },
-        rowSchema () {
+        rowSchema() {
             return this.schema.items;
         },
-        columns () {
+        columns() {
             var fields = {};
             var sch = this.schema.items;
             for (var key in sch.properties) {
@@ -97,34 +99,38 @@ export default {
             }
             return fields;
         },
-        isMobile () {
+        isMobile() {
             return Utils.isMobile(window);
         }
     },
-    created () {},
+    created() {},
     methods: {
-        translate (text) {
-            if (this.messages && this.messages[text]) return this.messages[text];
+        translate(text) {
+            if (this.messages && this.messages[text])
+                return this.messages[text];
             else return text;
         },
-        label (prop) {
+        label(prop) {
             var sch = this.schema.items;
-            var name = sch.properties[prop].title ?
-                sch.properties[prop].title :
-                Utils.capitalize(prop);
-            if (this.messages && this.messages[name]) return this.messages[name];
+            var name = sch.properties[prop].title
+                ? sch.properties[prop].title
+                : Utils.capitalize(prop);
+            if (this.messages && this.messages[name])
+                return this.messages[name];
             else return name;
         },
-        formatter (row, column, cellValue) {
+        formatter(row, column, cellValue) {
             var schema = Utils.jsonSchema.getNotNull(
                 this.schema.items.properties[column.property]
             );
             if (schema.type == "boolean") {
                 return cellValue ? this.messages["Yes"] : this.messages["No"];
-            } else if (schema['x-type'] == 'date') {
-                if (!cellValue) return ''
+            } else if (schema["x-type"] == "date") {
+                if (!cellValue) return "";
                 // eslint-disable-next-line
-                return moment(cellValue).locale(this.locale).format('L')
+                return moment(cellValue)
+                    .locale(this.locale)
+                    .format("L");
             } else if (schema.format == "date-time") {
                 if (!cellValue) return "";
                 // eslint-disable-next-line
@@ -132,30 +138,30 @@ export default {
                     .locale("fr")
                     .format("lll");
             } else if (schema.enum) {
-                const enumName = typeof cellValue === 'number'
-                    ? schema['x-enumNames'][schema.enum.indexOf(cellValue)] // Enum format is the identifier as number, so look up the name
-                    : cellValue; // Enum format is provided directly by name
+                const enumName =
+                    typeof cellValue === "number"
+                        ? schema["x-enumNames"][schema.enum.indexOf(cellValue)] // Enum format is the identifier as number, so look up the name
+                        : cellValue; // Enum format is provided directly by name
                 return this.messages[enumName]
                     ? this.messages[enumName]
                     : enumName;
             }
             return cellValue;
         },
-        rowClick (row, event, column) {
+        rowClick(row, event, column) {
             if (column.label) {
                 //this.defaultAction.execute(row, event, column);
                 this.$refs.table.toggleRowExpansion(row, true);
             }
         },
-        addRow () {
+        addRow() {
             const { properties, defaultVal } = this.schema.items;
-            const row = Object
-                .keys(properties)
-                .reduce((row, property) => ({ ...row, [property]: defaultVal }), {});
+            const row = Object.keys(properties).reduce(
+                (row, property) => ({ ...row, [property]: defaultVal }),
+                {}
+            );
 
-            this.model = this.model
-                ? [...this.model, row]
-                : [row];
+            this.model = this.model ? [...this.model, row] : [row];
 
             this.$refs.table.toggleRowExpansion(row, true);
         }

@@ -1,29 +1,26 @@
 <template>
-  <el-input v-model="model"></el-input>
+    <el-input v-model="model"></el-input>
 </template>
 
 <script>
 export default {
-  name: 'oa-input',
+    name: "oa-input",
 
-  props: {
-    value: String,
-    schema: {},
-    prop: String,
-    options: {
-
+    props: {
+        value: String,
+        schema: {},
+        prop: String,
+        options: {}
+    },
+    computed: {
+        model: {
+            get() {
+                return this.value;
+            },
+            set(val) {
+                this.$emit("input", val);
+            }
+        }
     }
-  },
-  computed: {
-    model: {
-      get () {
-        return this.value
-      },
-      set (val) {
-        this.$emit('input', val)
-      }
-    }
-  }
-}
-
+};
 </script>

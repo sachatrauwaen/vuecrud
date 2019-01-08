@@ -1,29 +1,26 @@
 <template>
-  <el-input-number v-model="model" ></el-input-number>
+    <el-input-number v-model="model"></el-input-number>
 </template>
 
 <script>
 export default {
-  name: 'oa-inputnumber',
+    name: "oa-inputnumber",
 
-  props: {
-    value: Number,
-    schema: {},
-    prop: String,
-    options: {
-
+    props: {
+        value: Number,
+        schema: {},
+        prop: String,
+        options: {}
+    },
+    computed: {
+        model: {
+            get() {
+                return this.value;
+            },
+            set(val) {
+                this.$emit("input", val);
+            }
+        }
     }
-  },
-  computed: {
-    model: {
-      get () {
-        return this.value
-      },
-      set (val) {
-        this.$emit('input', val)
-      }
-    }
-  }
-}
-
+};
 </script>

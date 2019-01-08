@@ -46,14 +46,14 @@ export default {
                 if (alwaysCallback) alwaysCallback();
             })
     },
-        /**
-         * 
-         * Loads JSON data.
-         *
-         * @param {String} appService RApp service to be loaded
-         * @param {String} action create | update | getAll | get | enumAction | [non-crud action]       
-         * @return {Promise<any>} A promise (ES6 standard) of the JSON data. (cfr. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises, )
-         */
+    /**
+     * 
+     * Loads JSON data.
+     *
+     * @param {String} appService RApp service to be loaded
+     * @param {String} action create | update | getAll | get | enumAction | [non-crud action]       
+     * @return {Promise<any>} A promise (ES6 standard) of the JSON data. (cfr. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises, )
+     */
     pService(appService, action, data) {
         // eslint-disable-next-line
         return abp.services.app[appService][action](data); // Abp returns a JQuery promise, but they adhere to the ES6 standard Promise interface (using .then and .catch) as a sort of 'downcast'
@@ -66,19 +66,19 @@ export default {
     componentsPath() {
         // eslint-disable-next-line
         return abp.appPath + 'dist/';
-    },        
+    },
 
     locale() { // Should be moment locale (e.g. 'fr', 'en', 'nl', ...)
         // eslint-disable-next-line
         return abp.localization.currentCulture.name;
     },
     settings() {
-        return { 
+        return {
             // eslint-disable-next-line
             defaultPageSize: abp.setting.getInt("App.Ui.DefaultPageSize"),
             // eslint-disable-next-line
             pageSizeOptions: abp.setting.values["App.Ui.PageSizeOptions"]
-            // eslint-disable-next-line
+                // eslint-disable-next-line
                 ? abp.setting.values["App.Ui.PageSizeOptions"]
                     .replace(/\s/g, "") // remove all whitespace
                     .split(",") // expect comma separated value, parse to array
