@@ -35,18 +35,26 @@ export default {
     }    
   },
   created() {
+    var self = this;
     var enumAction = this.schema["x-enum-action"];
     if (enumAction) {
       var enumValueField = this.schema["x-enum-valuefield"];
       var enumTextField = this.schema["x-enum-textfield"] || this.schema["x-enum-valuefield"];
-      this.connector
-        .pService(this.resource, enumAction, {})
-        .then(data => {
-          this.options = data.items.map(p => ({
+      self.connector.service(
+        this.resource,
+        enumAction,
+        {},
+        function(data) {
+          if(data.items) data = data.items;
+          self.options = data.map(function(p) {
+            return {
               value: p[enumValueField],
               label: p[enumTextField]
-          }))
-        });     
+            };
+          });
+        },
+        function() {}
+      );      
     } else if (this.schema.enum) {
       this.options = this.schema.enum.map(function(val) {
         return {
