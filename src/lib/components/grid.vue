@@ -31,7 +31,7 @@ export default {
         actions: {},
         defaultAction: {},
         locale: {}, // moment locale (e.g. 'fr', 'en', 'nl', ...)
-        doOnSort: {}
+        
     },
     computed: {
         columns() {
@@ -110,6 +110,9 @@ export default {
             } else {
                 return true;
             }
+        },
+        doOnSort(){
+            
         }
     }
 };
