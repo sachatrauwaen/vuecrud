@@ -39,6 +39,7 @@ export default {
         value: {},
         schema: {},
         messages: Object,
+        resource: String,
         prop: String,
         connector: {}
     },
