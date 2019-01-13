@@ -5,7 +5,7 @@
 </template>
 
 <script>
-//import Vue from "vue";
+import Vue from "vue";
 import { default as Utils } from "../utils/utils";
 import { components } from "../utils/install";
 
@@ -41,9 +41,23 @@ export default {
                     : sch.type[0]
                 : sch.type;
 
-            var comp = sch["x-type"]
-                ? null // Special case, we will resolve async
-                : sch["x-rel-action"]
+            if (sch["x-type"]){            
+                type = sch["x-type"];
+                var compName = "oa-" + type;                
+                var comp = Vue.component(compName);
+                if (!comp) {
+                    comp = (resolve, reject) => {
+                        Utils.loadComponent({
+                            name: compName,
+                            path: this.connector.componentsPath() + type + ".js",
+                            onLoad: resolve,
+                            onError: reject
+                        });
+                    };    
+                }
+                return comp;        
+            } else {
+                var comp = sch["x-rel-action"]
                 ? components.Relation
                 : sch["x-rel-to-many-action"]
                 ? components.RelationToMany
@@ -66,21 +80,10 @@ export default {
                 : type == "object"
                 ? components.Fields
                 : components.Input; // Default to input
-
-            // Special case
-            if (sch["x-type"]) {
-                // X-type should only be used for unknown components, and thus resolved async
-                type = sch["x-type"];
-                var compName = "oa-" + type;
-                comp = (resolve, reject) => {
-                    Utils.loadComponent({
-                        name: compName,
-                        path: this.connector.componentsPath() + type + ".js",
-                        onLoad: resolve,
-                        onError: reject
-                    });
-                };
+                return comp;
             }
+
+            
 
             // if (sch["x-type"]) {
             //   type = sch["x-type"];
@@ -129,7 +132,7 @@ export default {
             //   };
             // }
 
-            return comp;
+           
         },
 
         model: {
