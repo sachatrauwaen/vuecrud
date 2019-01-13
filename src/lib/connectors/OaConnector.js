@@ -34,6 +34,8 @@ export default {
          * @return {Object} JSON data
          */
     service(appService, action, data, successCallback, errorCallback, alwaysCallback) {
+
+        this.checkService(appService, action);
         // eslint-disable-next-line
         abp.services.app[appService][action](data)
             .then(function (data) {
@@ -55,7 +57,8 @@ export default {
      * @return {Promise<any>} A promise (ES6 standard) of the JSON data. (cfr. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises, )
      */
     pService(appService, action, data) {
-        // eslint-disable-next-line
+        this.checkService(appService, action);
+        // eslint-disable-next-line        
         return abp.services.app[appService][action](data); // Abp returns a JQuery promise, but they adhere to the ES6 standard Promise interface (using .then and .catch) as a sort of 'downcast'
     },
     messages(module) {
@@ -86,6 +89,26 @@ export default {
                     .filter(value => isNaN(value) === false)
                 : null // default to null
         };
+    },
+    checkService(appService, action){
+        // eslint-disable-next-line        
+        if (abp.services.app == undefined){
+            // eslint-disable-next-line        
+            console.log('abp.services.app not exist');
+            return;
+        }
+        // eslint-disable-next-line        
+        if (abp.services.app[appService] == undefined){
+            // eslint-disable-next-line        
+            console.log('application service '+appService+' not exist');
+            return;
+        }
+        // eslint-disable-next-line        
+        if (abp.services.app[appService][action] == undefined){
+            // eslint-disable-next-line        
+            console.log('method '+action+' on application service '+appService+' not exist');
+            return;
+        }
     }
 
 }

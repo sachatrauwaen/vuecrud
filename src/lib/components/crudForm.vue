@@ -31,6 +31,8 @@ export default {
         }
     },
     created() {},
-    watch: {}
+    watch: {
+        //todo '$route': 'fetchData'
+    }
 };
 </script>
