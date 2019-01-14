@@ -265,10 +265,22 @@ abp.services.app.user.get = function (input, ajaxParams) {
 // eslint-disable-next-line
 abp.services.app.user.getAll = function (input, ajaxParams) {
     const filterStringData = (dto, dtoProp, itemProp) => item => dto[dtoProp] === undefined || item[itemProp].includes(dto[dtoProp]);
+    console.log(input);
+
     const list = data
         .filter(filterStringData(input, 'userName', 'userName'))
         .filter(filterStringData(input, 'email', 'emailAddress'))
         .filter(filterStringData(input, 'search', 'userName'))
+
+        if(input.sorting) {
+            const [sortField, sortOrder] = input.sorting.split(' ');
+    
+            if(sortField == 'userName') {
+                const isDesc = sortOrder == 'DESC';
+                
+                // TODO sort the list on userName (and possibly reverse order, if isDesc)
+            }
+        }
 
     var res = {
         items : list.slice(input.skipCount, input.skipCount + input.maxResultCount),
@@ -320,7 +332,8 @@ abp.schemas.app.user.create.returnValue = {
         "userName": {
             "type": "string",
             "maxLength": 32,
-            "minLength": 0
+            "minLength": 0,
+            "x-ui-grid-sortable": true
         },
         "name": {
             "type": "string",
@@ -392,7 +405,8 @@ abp.schemas.app.user.create.parameters = {
             "userName": {
                 "type": "string",
                 "maxLength": 32,
-                "minLength": 0
+                "minLength": 0,
+                "x-ui-grid-sortable": true
             },
             "name": {
                 "type": "string",
@@ -495,7 +509,8 @@ abp.schemas.app.user.update.returnValue = {
         "userName": {
             "type": "string",
             "maxLength": 32,
-            "minLength": 0
+            "minLength": 0,
+            "x-ui-grid-sortable": true
         },
         "name": {
             "type": "string",
@@ -566,7 +581,8 @@ abp.schemas.app.user.update.parameters = {
             "userName": {
                 "type": "string",
                 "maxLength": 32,
-                "minLength": 0
+                "minLength": 0,
+                "x-ui-grid-sortable": true
             },
             "name": {
                 "type": "string",
@@ -641,7 +657,8 @@ abp.schemas.app.user.get.returnValue = {
         "userName": {
             "type": "string",
             "maxLength": 32,
-            "minLength": 0
+            "minLength": 0,
+            "x-ui-grid-sortable": true
         },
         "name": {
             "type": "string",
@@ -735,7 +752,8 @@ abp.schemas.app.user.getAll.returnValue = {
                     "userName": {
                         "type": "string",
                         "maxLength": 32,
-                        "minLength": 0
+                        "minLength": 0,
+                        "x-ui-grid-sortable": true
                     },
                     "name": {
                         "type": "string",
@@ -806,7 +824,8 @@ abp.schemas.app.user.getAll.parameters = {
             "userName": {
                 "type": "string",
                 "maxLength": 55,
-                "x-ui-filter-eager": true
+                "x-ui-filter-eager": true,
+                "x-ui-grid-sortable": true
             },
             "email": {
                 "type": "string"

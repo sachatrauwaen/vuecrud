@@ -1,8 +1,8 @@
 <template>
 	<div class="oa-crud-grid">
 		<el-row :gutter="10">
-			<el-col :xs="4" :sm="4" :md="2" :lg="2" :xl="2" style="padding-bottom: 20px;">
-				<el-button v-for="action in actions" :key="action.name" :icon="action.icon" size="medium" :type="action.type" @click="action.execute()">{{action.name}}</el-button>
+			<el-col :xs="24" :sm="2" :md="2" :lg="2" :xl="2" style="padding-bottom: 20px;">
+				<el-button v-for="action in actions" :key="action.name" :icon="action.icon" size="small" :type="action.type" @click="action.execute()">{{action.name}}</el-button>
 			</el-col>
 			<el-col :xs="20" :sm="20" :md="12" :lg="6" :xl="6" v-if="hasAdvFilter">		
 
@@ -20,19 +20,30 @@
 			</el-col>
 			<el-col :xs="24" :sm="22" :md="22" :lg="22" :xl="22" v-else-if="hasFilter">
 				<oa-filter-form					
+					v-if="hasFilter"
 					ref="filterform"
 					:model="filterModel"
 					:schema="filterSchema"
 					:connector="connector"
 					:actions="filterActions"
 					:messages="messages"
-          :resource="resource"
 					@filterEager="filterEager"></oa-filter-form>
 			</el-col>
 		</el-row>
-		<oa-grid :model="model" :schema="schema" :messages="messages" :options="options" :actions="gridActions" :default-action="gridActions[0]" :locale="locale"></oa-grid><br />
+		<oa-grid :model="model" :schema="schema" :messages="messages" :actions="gridActions" :default-action="gridActions[0]" :locale="locale" :doOnSort="doOnSort"></oa-grid>
+		<br />
 		<div style="float:right;margin-bottom:10px;">
 			<el-pagination @current-change="currentPageChange" :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="totalCount"></el-pagination>
+		</div>
+		<div style="float:right;margin-bottom:10px;width: 80px; margin-left: 20px; margin-right: 20px;">
+			<el-select :value="pageSize" @input="onChangePageSize" placeholder="Select" size="mini">
+				<el-option
+					v-for="item in pageSizeOptions"
+					:key="item"
+					:label="item"
+					:value="item">
+				</el-option>
+			</el-select>
 		</div>
 	</div>
 </template>
@@ -46,7 +57,10 @@ export default {
             model: [],
             filterModel: {},
             totalCount: 0,
-            currentPage: 1
+			currentPage: 1,
+			debouncedFetchData: debounce(this.fetchData, 500),
+			fetchDataId: 0, // Keeps track of the requests of the fetchData method, to track race conditions
+			pageSize: 10
         };
     },
     props: {
@@ -66,9 +80,9 @@ export default {
         // connector() {
         //   return this.$root.$options.connector;
         // },
-        pageSize() {
-            return this.connector.settings().pageSize || 10;
-        },
+		// pageSize() {
+		// 	return this.connector.settings().defaultPageSize || 10;
+		// },
         locale() {
             return this.connector.locale();
         },
@@ -119,9 +133,6 @@ export default {
                 }
             ];
         },
-        defaultAction() {
-            return this.gridActions[0];
-        },
         actions() {
             return [
                 {
@@ -135,21 +146,16 @@ export default {
             var schema = {
                 properties: {}
             };
-            var action = this.connector.schema(this.resource, "filter")
-                .properties;
+			var action = this.connector.schema(this.resource, "filter").properties;
             for (var key in action) {
-                if (key != "skipCount" && key != "maxResultCount") {
+				if (key != "skipCount" && key != "maxResultCount" && key != "sorting") {
                     schema.properties[key] = action[key];
                 }
             }
             return schema;
         },
         hasFilter() {
-            return (
-                Object.keys(this.filterSchema.properties).filter(val => {
-                    return val != "search";
-                }).length > 0
-            );
+			return Object.keys(this.filterSchema.properties).length > 0;
         },
         hasAdvFilter() {
             return (
@@ -188,37 +194,49 @@ export default {
             return Math.ceil(
                 this.pagination.totalItems / this.pagination.rowsPerPage
             );
+		},
+		pageSizeOptions() {
+			return this.connector.settings().pageSizeOptions || [10, 25, 50, 100, 500];
         }
     },
     methods: {
+		onChangePageSize(value) {
+			this.pageSize = value;
+			this.fetchData();
+		},
+		// eslint-disable-next-line
+		doOnSort({ column, prop, order }) {
+			const parsedOrder = order === "descending" ? " DESC" : "";
+			const sorting = prop + parsedOrder;
+			this.fetchData(undefined, sorting);
+		},
         filterEager() {
-            debounce(this.fetchData, 300)();
+			this.debouncedFetchData();
         },
         currentPageChange() {
             this.fetchData();
         },
-        fetchData(callback) {
-            this.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
-            this.filterModel.maxResultCount = this.pageSize;
-            this.connector.service(
-                this.resource,
-                "getAll",
-                this.filterModel,
-                data => {
-                    this.model = data.items;
-                    this.totalCount = data.totalCount;
-                    if (callback) callback();
-                },
-                () => {}
-            );
-        },
-        deleteData(data, callback) {
-            this.connector.service(
-                this.resource,
-                "delete",
-                { id: data.id },
-                () => this.fetchData(callback),
-                () => {}
+		fetchData(callback, sorting = undefined) {
+			this.filterModel.sorting = sorting;
+			this.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
+			this.filterModel.maxResultCount = this.pageSize;
+			const requestId = ++this.fetchDataId;
+			return this.connector
+				.pService(this.resource, 'getAll', this.filterModel)
+				.then(data => {
+					if(requestId !== this.fetchDataId)
+						return; // This is not a response to the latest fetch data request, do nothing
+						
+					this.model = data.items;
+					this.totalCount = data.totalCount;
+				});
+		},
+		deleteData(data, callback) {
+			return this.connector
+				.pService(this.resource, "delete", { id: data.id })
+				.then(() => this
+					.fetchData()
+					.then(callback)
             );
         },
         translate(text) {
@@ -228,6 +246,8 @@ export default {
         }
     },
     created() {
+		if(this.connector.settings().defaultPageSize)
+			this.pageSize = this.connector.settings().defaultPageSize;
         this.fetchData();
     },
     watch: {

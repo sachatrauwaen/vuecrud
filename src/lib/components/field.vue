@@ -41,10 +41,11 @@ export default {
                     : sch.type[0]
                 : sch.type;
 
+            let comp = null;
             if (sch["x-type"]){            
                 type = sch["x-type"];
                 var compName = "oa-" + type;                
-                var comp = Vue.component(compName);
+                comp = Vue.component(compName);
                 if (!comp) {
                     comp = (resolve, reject) => {
                         Utils.loadComponent({
@@ -57,7 +58,7 @@ export default {
                 }
                 return comp;        
             } else {
-                var comp = sch["x-rel-action"]
+                comp = sch["x-rel-action"]
                 ? components.Relation
                 : sch["x-rel-to-many-action"]
                 ? components.RelationToMany
