@@ -13,20 +13,20 @@
 					:connector="connector"
 					:actions="filterActions"
 					:messages="messages"
-          :resource="resource"
+                    :resource="resource"
 					@filterEager="filterEager"></oa-advfilter-form>
 
 				
 			</el-col>
 			<el-col :xs="24" :sm="22" :md="22" :lg="22" :xl="22" v-else-if="hasFilter">
 				<oa-filter-form					
-					v-if="hasFilter"
 					ref="filterform"
 					:model="filterModel"
 					:schema="filterSchema"
 					:connector="connector"
 					:actions="filterActions"
 					:messages="messages"
+                    :resource="resource"
 					@filterEager="filterEager"></oa-filter-form>
 			</el-col>
 		</el-row>
@@ -155,7 +155,11 @@ export default {
             return schema;
         },
         hasFilter() {
-			return Object.keys(this.filterSchema.properties).length > 0;
+            return (
+                Object.keys(this.filterSchema.properties).filter(val => {
+                    return val != "search";
+              }).length > 0
+            );			
         },
         hasAdvFilter() {
             return (
