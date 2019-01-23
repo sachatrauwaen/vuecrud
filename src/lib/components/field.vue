@@ -58,29 +58,29 @@ export default {
                 }
                 return comp;        
             } else {
-                comp = sch["x-rel-action"]
-                ? components.Relation
-                : sch["x-rel-to-many-action"]
-                ? components.RelationToMany
-                : sch.enum || sch["x-enum-action"]
-                ? type == "array"
-                    ? components.CheckboxGroup
-                    : components.Select
-                : type == "boolean"
-                ? components.Switch
-                : type == "integer" || type == "number"
-                ? components.Inputnumber
-                : type == "array" && this.schema.items.format == "date-time"
-                ? components.Daterange
-                : sch.format == "date-time"
-                ? components.Datetime
-                : sch["x-ui-multiline"]
-                ? components.Textarea
-                : type == "address"
-                ? components.Address
-                : type == "object"
-                ? components.Fields
-                : components.Input; // Default to input
+                comp = 
+                    sch["x-rel-action"]
+                        ? components.Relation
+                    : sch["x-rel-to-many-action"]
+                        ? components.RelationToMany
+                    : sch.enum || sch["x-enum-action"]
+                        ? (type == "array" ? components.CheckboxGroup : components.Select)
+                    : type == "boolean"
+                        ? components.Switch
+                    : type == "integer" || type == "number"
+                        ? components.Inputnumber
+                    : type == "array" && this.schema.items.format == "date-time"
+                        ? components.Daterange
+                    : sch.format == "date-time"
+                        ? components.Datetime
+                    : sch["x-ui-multiline"]
+                        ? components.Textarea
+                    : type == "address"
+                        ? components.Address
+                    : type == "object"
+                        ? components.Fields
+                        : components.Input; // Default to input
+                        
                 return comp;
             }
 
