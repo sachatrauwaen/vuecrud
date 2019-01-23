@@ -146,6 +146,9 @@ export default {
                 return this.messages[enumName]
                     ? this.messages[enumName]
                     : enumName;
+            } else if(schema["x-rel-textfield"] && typeof cellValue === 'object' ){
+                const key = schema["x-rel-textfield"];
+                return  cellValue[key];
             }
             return cellValue;
         },
