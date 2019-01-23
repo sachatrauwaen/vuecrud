@@ -77,10 +77,12 @@ export default {
                         ? components.Textarea
                     : type == "address"
                         ? components.Address
+                    : type == "array"
+                        ? components.List
                     : type == "object"
                         ? components.Fields
                         : components.Input; // Default to input
-                        
+
                 return comp;
             }
 
