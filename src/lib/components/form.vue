@@ -19,7 +19,8 @@ export default {
         actions: {},
         columns: {},
         connector: {},
-        resource: String
+        resource: String,
+        customLabelPosition: String // Optional
     },
     data() {
         return {};
@@ -101,6 +102,9 @@ export default {
             return Utils.isMobile(window);
         },
         labelPosition() {
+            if(this.customLabelPosition != null && this.customLabelPosition != '')
+                return this.customLabelPosition;
+                
             return this.isMobile ? "top" : "right";
         }
     },
