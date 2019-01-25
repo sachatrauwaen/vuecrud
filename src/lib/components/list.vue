@@ -160,9 +160,9 @@ export default {
             }
         },
         addRow() {
-            const { properties, defaultVal } = this.schema.items;
+            const properties = this.schema.items;
             const row = Object.keys(properties).reduce(
-                (row, property) => ({ ...row, [property]: defaultVal }),
+                (row, property) => ({ ...row, [property]: properties[property].default }),
                 {}
             );
 
