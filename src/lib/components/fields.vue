@@ -11,7 +11,7 @@
     </el-tabs>
     <el-row v-else :gutter="10">
         <el-col v-for="(cvalue, ckey) in columns" :key="ckey" :xs="24/Object.keys(columns).length" :sm="24/Object.keys(columns).length" :md="24/Object.keys(columns).length" :lg="24/Object.keys(columns).length" :xl="24/Object.keys(columns).length">
-            <oa-field v-for="(value, key) in cvalue" :key="key" :prop="key" :schema="properties[key]" v-model="model[key]" :messages="messages" @propChange="propChange" :connector="connector" :resource="resource"></oa-field>
+            <oa-field v-for="(value, key) in cvalue" v-if="visible(value)" :key="key" :prop="key" :schema="properties[key]" v-model="model[key]" :messages="messages" @propChange="propChange" :connector="connector" :resource="resource"></oa-field>
         </el-col>
     </el-row>
     <el-form-item>
@@ -110,6 +110,15 @@ export default {
                 columns[column][key] = el;
             }
             return columns;
+        },
+        visible(field) {            
+            let dependencyField = field["x-ui-dependency-field"];
+            let dependencyValue = field["x-ui-dependency-value"];
+            if (dependencyField){
+                return this.model[dependencyField] == dependencyValue;
+            } else {
+                return true;
+            }
         }
     }
 };

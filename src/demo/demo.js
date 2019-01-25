@@ -183,7 +183,10 @@ var demoajax = function(data)  {
             
             return this;
         };
-
+        this.fail = () => {
+            
+            return this;
+        };
         this.always= (callback) => {
             if (callback) callback();
             return this;
@@ -422,7 +425,10 @@ abp.schemas.app.user.create.parameters = {
                 "type": "string",
                 "format": "email",
                 "maxLength": 256,
-                "minLength": 0
+                "minLength": 0,
+                "x-ui-dependency-field": 'isActive',
+                "x-ui-dependency-value": true
+    
             },
             "isActive": {
                 "type": "boolean"
@@ -676,7 +682,9 @@ abp.schemas.app.user.get.returnValue = {
             "type": "string",
             "format": "email",
             "maxLength": 256,
-            "minLength": 0
+            "minLength": 0,
+            "x-ui-dependency-field": 'isActive',
+            "x-ui-dependency-value": true
         },
         "isActive": {
             "type": "boolean"
@@ -771,7 +779,10 @@ abp.schemas.app.user.getAll.returnValue = {
                         "type": "string",
                         "format": "email",
                         "maxLength": 256,
-                        "minLength": 0
+                        "minLength": 0,
+                        "x-ui-dependency-field": 'isActive',
+                        "x-ui-dependency-value": true
+            
                     },
                     "isActive": {
                         "type": "boolean"

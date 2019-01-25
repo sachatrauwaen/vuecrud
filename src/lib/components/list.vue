@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import { default as Utils } from "../utils/utils";
 
 export default {
@@ -166,8 +167,11 @@ export default {
             );
 
             this.model = this.model ? [...this.model, row] : [row];
-
-            this.$refs.table.toggleRowExpansion(row, true);
+            let self=this;
+            Vue.nextTick().then(function () {
+                self.$refs.table.toggleRowExpansion(row, true);
+            })
+            
         }
     }
 };
