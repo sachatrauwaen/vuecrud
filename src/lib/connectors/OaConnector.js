@@ -75,6 +75,9 @@ export default {
         // eslint-disable-next-line
         return abp.localization.currentCulture.name;
     },
+    canActivate() {        
+        return abp.abp.auth.grantedPermissions.canActivate;
+    },
     settings() {
         return {
             // eslint-disable-next-line
