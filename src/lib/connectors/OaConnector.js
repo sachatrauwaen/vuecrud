@@ -77,7 +77,7 @@ export default {
     },
     canActivate() {        
         // eslint-disable-next-line
-        return abp.auth.grantedPermissions.canActivate;
+        return abp.auth.grantedPermissions.CanActivate;
     },
     settings() {
         return {
