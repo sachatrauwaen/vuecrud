@@ -253,7 +253,7 @@ export default {
 		if(this.connector.settings().defaultPageSize)
             this.pageSize = this.connector.settings().defaultPageSize;
             
-        for (var key in this.filterSchema) {
+        for (var key in this.filterSchema.properties) {
             if (this.filterSchema.properties[key]["default"]) {
                 this.filterModel[key] = this.schema["default"];
             }
