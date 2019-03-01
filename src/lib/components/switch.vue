@@ -21,6 +21,11 @@ export default {
                 this.$emit("input", val);
             }
         }
+    }, 
+    created(){
+        if (this.schema["default"]) {
+            this.model = this.schema["default"];
+        }
     }
 };
 </script>
