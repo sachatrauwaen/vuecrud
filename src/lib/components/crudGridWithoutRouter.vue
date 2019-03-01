@@ -251,7 +251,13 @@ export default {
     },
     created() {
 		if(this.connector.settings().defaultPageSize)
-			this.pageSize = this.connector.settings().defaultPageSize;
+            this.pageSize = this.connector.settings().defaultPageSize;
+            
+        for (var key in this.filterSchema) {
+            if (this.filterSchema.properties[key]["default"]) {
+                this.filterModel[key] = this.schema["default"];
+            }
+        }
         this.fetchData();
     },
     watch: {
