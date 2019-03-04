@@ -37,6 +37,7 @@ export default {
                     if (
                         key != "id" &&
                         key != "search" &&
+                        (this.connector.canActivate() || key != 'isActive') &&
                         !this.schema.properties[key].readonly
                         /*&& !this.schema.properties[key]['x-rel-app']
             && !this.schema.properties[key]['x-rel-to-many-app']*/
