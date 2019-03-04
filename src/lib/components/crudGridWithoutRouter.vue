@@ -255,7 +255,8 @@ export default {
             
         for (var key in this.filterSchema.properties) {
             if (this.filterSchema.properties[key]["default"]) {
-                this.filterModel[key] = this.filterSchema.properties[key]["default"];
+                //this.filterModel[key] = this.filterSchema.properties[key]["default"];
+                this.$set( this.filterModel, key, this.filterSchema.properties[key]["default"]);
             }
         }
         this.fetchData();
