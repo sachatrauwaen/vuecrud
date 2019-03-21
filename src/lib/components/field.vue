@@ -1,6 +1,6 @@
 <template>
     <el-form-item :label="label" :prop="prop" :label-width="labelWidth">
-        <component v-bind:is="currentView" v-model="model" v-bind="$props" @propChange="propChange" :resource="resource"></component>
+        <component v-bind:is="currentView" v-model="model" :model="model" v-bind="$props" @propChange="propChange" :resource="resource"></component>
     </el-form-item>
 </template>
 
