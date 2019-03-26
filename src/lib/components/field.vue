@@ -1,6 +1,6 @@
 <template>
     <el-form-item :label="label" :prop="prop" :label-width="labelWidth">
-        <component v-bind:is="currentView" v-model="model" :model="value" v-bind="$props" @propChange="propChange" :resource="resource"></component>
+        <component v-bind:is="currentView" v-model="model" :model="value" v-bind="$props" @propChange="propChange" :resource="resource" :parent-model="parentModel"></component>
     </el-form-item>
 </template>
 
@@ -28,7 +28,8 @@ export default {
             }
         },
         connector: {},
-        resource: String
+        resource: String,
+        parentModel:{}
     },
 
     computed: {
