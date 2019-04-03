@@ -115,12 +115,13 @@ export default {
                     this.relationAction,
                     query,
                     data => {
-                        this.options = data.items.map(t => {
+                        let items = data.items || data;                        
+                        this.options = items.map(t => {
                             return {
                                 label: t[this.relationTextField],
                                 value: t
                             };
-                        });
+                        });                    
                         this.loading = false;
                     },
                     () => {}

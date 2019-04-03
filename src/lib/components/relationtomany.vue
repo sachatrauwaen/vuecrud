@@ -126,7 +126,8 @@ export default {
       });
 
       const onSuccess = data => {
-        this.options = data.items.map(itemToOption);
+        let items = data.items || data;        
+        this.options = items.map(itemToOption);        
         this.loading = false;
       };
 
