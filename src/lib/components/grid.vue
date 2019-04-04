@@ -1,8 +1,8 @@
 <template>
 <div>
-    <el-table v-if="!isMobile" :data="model" @row-click="rowClick" style="width: 100%" :row-style="{cursor: 'pointer'}" @sort-change="sortChange">
+    <el-table v-if="!isMobile" :data="model" @row-click="rowClick" style="width: 100%" :row-style="{cursor: 'pointer'}" @sort-change="sortChange" stripe>
         <el-table-column v-for="(value, key) in columns" :key="key" :prop="key" :label="label(key)" :formatter="formatter" class-name="crudcell" :sortable="isSortable(key)"></el-table-column>
-        <el-table-column align="right">
+        <el-table-column align="right" v-if="actions && actions.length">
             <template slot-scope="scope">
                 <el-button v-for="action in actions" :key="action.name" :icon="action.icon" size="small" v-show="actionVisible(action, scope.row, scope.$index)" @click="action.execute(scope.row, scope.$index)">{{action.text || ''}}</el-button>
             </template>
