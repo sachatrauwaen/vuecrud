@@ -71,7 +71,7 @@ export default {
             }
         },
         width(prop) {
-            var name = this.schema.properties[prop]['x-ui-width'] || '';            
+            return this.schema.properties[prop]['x-ui-width'] || '';            
         },
         formatter(row, column, cellValue) {
             return this.format(column.property, cellValue);
