@@ -44,7 +44,7 @@ export default {
           name: this.translate("Add"),
           icon: "el-icon-plus",
           execute: row => {
-            this.addRow;
+            this.addRow();
           }
         },
         /*
