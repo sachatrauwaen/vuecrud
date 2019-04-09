@@ -98,10 +98,8 @@ export default {
         {}
       );
       this.model = this.model ? [...this.model, row] : [row];
-      let self = this;
-      Vue.nextTick().then(function() {
-        self.$refs.table.toggleRowExpansion(row, true);
-      });
+      
+      
     }
   }
 };

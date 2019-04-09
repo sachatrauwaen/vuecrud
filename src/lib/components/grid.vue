@@ -1,7 +1,7 @@
 <template>
 <div>
     <el-table v-if="!isMobile" :data="model" @row-click="rowClick" style="width: 100%" :row-style="{cursor: 'pointer'}" @sort-change="sortChange" stripe>
-        <el-table-column v-for="(value, key) in columns" :key="key" :prop="key" :label="label(key)" :formatter="formatter" class-name="crudcell" :sortable="isSortable(key)"></el-table-column>
+        <el-table-column v-for="(value, key) in columns" :key="key" :prop="key" :label="label(key)" :width="width(key)" :formatter="formatter" class-name="crudcell" :sortable="isSortable(key)"></el-table-column>
         <el-table-column align="right" v-if="actions && actions.length">
             <template slot-scope="scope">
                 <el-button v-for="action in actions" :key="action.name" :icon="action.icon" size="small" v-show="actionVisible(action, scope.row, scope.$index)" @click="action.execute(scope.row, scope.$index)">{{action.text || ''}}</el-button>
@@ -69,6 +69,9 @@ export default {
             } else {
                 return name;
             }
+        },
+        width(prop) {
+            var name = this.schema.properties[prop]['x-ui-width'] || '';            
         },
         formatter(row, column, cellValue) {
             return this.format(column.property, cellValue);
