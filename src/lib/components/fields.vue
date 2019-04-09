@@ -4,14 +4,14 @@
         <el-tab-pane v-for="(gvalue, gkey) in tabs" :key="gkey" :label="label(gkey)" :name="gkey">
             <el-row :gutter="10">
                 <el-col v-for="(cvalue, ckey) in gvalue.columns" :key="ckey" :xs="24/Object.keys(gvalue.columns).length" :sm="24/Object.keys(gvalue.columns).length" :md="24/Object.keys(gvalue.columns).length" :lg="24/Object.keys(gvalue.columns).length" :xl="24/Object.keys(gvalue.columns).length">
-                    <oa-field v-for="(value, key) in cvalue" :key="key" :prop="key" :schema="properties[key]" v-model="model[key]" :messages="messages" @propChange="propChange" :connector="connector" :resource="resource" :parent-model="model"></oa-field>
+                    <oa-field v-for="(value, key) in cvalue" :key="key" :prop="key" :schema="properties[key]" v-model="model[key]" :messages="messages" @propChange="propChange" :connector="connector" :resource="resource" :parent-model="cascadeModel"></oa-field>
                 </el-col>
             </el-row>
         </el-tab-pane>
     </el-tabs>
     <el-row v-else :gutter="10">
         <el-col v-for="(cvalue, ckey) in columns" :key="ckey" :xs="24/Object.keys(columns).length" :sm="24/Object.keys(columns).length" :md="24/Object.keys(columns).length" :lg="24/Object.keys(columns).length" :xl="24/Object.keys(columns).length">
-            <oa-field v-for="(value, key) in cvalue" v-if="visible(value)" :key="key" :prop="key" :schema="properties[key]" v-model="model[key]" :messages="messages" @propChange="propChange" :connector="connector" :resource="resource" :parent-model="model"></oa-field>
+            <oa-field v-for="(value, key) in cvalue" v-if="visible(value)" :key="key" :prop="key" :schema="properties[key]" v-model="model[key]" :messages="messages" @propChange="propChange" :connector="connector" :resource="resource" :parent-model="cascadeModel"></oa-field>
         </el-col>
     </el-row>
     <el-form-item>
@@ -36,7 +36,8 @@ export default {
         messages: {},
         actions: {},
         connector: {},
-        resource: String
+        resource: String?
+        parentModel:{}
     },
     data() {
         return {};
@@ -89,6 +90,12 @@ export default {
         },
         labelPosition() {
             return this.isMobile ? "top" : "right";
+        },
+        cascadeModel(){
+            return {
+                model:this.model,
+                parent:this.parentModel
+            };
         }
     },
     methods: {

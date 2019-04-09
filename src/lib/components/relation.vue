@@ -23,7 +23,8 @@ export default {
         connector: {},
         resource: {},
         prop: String,
-        label: String
+        label: String,
+        parentModel:{}
     },
     data() {
         return {
@@ -117,7 +118,10 @@ export default {
                     let req = {
                         query: query
                     };
-                    req= Object.assign(req, this.parentModel);                    
+                    req = Object.assign(req, this.parentModel.model);
+                    if (this.parentModel.model){
+                        req.parent=this.parentModel.parent;
+                    }
                     this.connector.service(
                         this.relationResource ? this.relationResource : this.resource,
                         this.relationAction,
