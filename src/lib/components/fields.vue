@@ -36,7 +36,7 @@ export default {
         messages: {},
         actions: {},
         connector: {},
-        resource: String?
+        resource: String,
         parentModel:{}
     },
     data() {
