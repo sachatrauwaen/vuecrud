@@ -54,6 +54,9 @@ export default {
         relationTextField() {
             return this.sch["x-rel-textfield"] || "fullName";
         },
+        relationCascade() {
+            return this.schema["x-rel-cascade"];
+        },
         id() {
             return this.value ? this.value[this.relationValueField] : null;
         },
@@ -110,22 +113,45 @@ export default {
                 (!this.value || query != this.value[this.relationTextField])
             ) {
                 this.loading = true;
-                this.connector.service(
-                    this.resource,
-                    this.relationAction,
-                    query,
-                    data => {
-                        let items = data.items || data;                        
-                        this.options = items.map(t => {
-                            return {
-                                label: t[this.relationTextField],
-                                value: t
-                            };
-                        });                    
-                        this.loading = false;
-                    },
-                    () => {}
-                );
+                if (this.relationCascade) {
+                    let req = {
+                        query: query
+                    };
+                    req= Object.assign(req, this.parentModel);                    
+                    this.connector.service(
+                        this.relationResource ? this.relationResource : this.resource,
+                        this.relationAction,
+                        req,
+                        data => {
+                            let items = data.items || data;                        
+                            this.options = items.map(t => {
+                                return {
+                                    label: t[this.relationTextField],
+                                    value: t
+                                };
+                            });                    
+                            this.loading = false;
+                        },
+                        () => {}
+                    );
+                } else {
+                    this.connector.service(
+                        this.resource,
+                        this.relationAction,
+                        query,
+                        data => {
+                            let items = data.items || data;                        
+                            this.options = items.map(t => {
+                                return {
+                                    label: t[this.relationTextField],
+                                    value: t
+                                };
+                            });                    
+                            this.loading = false;
+                        },
+                        () => {}
+                    );
+                }
             } else if (query == "") {
                 this.options = [];
             }

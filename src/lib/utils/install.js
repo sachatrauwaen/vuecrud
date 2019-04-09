@@ -1,4 +1,5 @@
 import Address from '../components/address.vue'
+import Cards from '../components/cards.vue'
 import CheckboxGroup from '../components/checkboxGroup.vue'
 import CrudForm from '../components/crudForm.vue'
 import CrudFormWithoutRouter from '../components/crudFormWithoutRouter.vue'
@@ -29,6 +30,7 @@ import CommandForm from '../components/commandForm.vue'
 
 export const components = {
     Address,
+    Cards,
     CheckboxGroup,
     CrudForm,
     CrudGrid,
