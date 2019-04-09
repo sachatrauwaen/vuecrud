@@ -1,7 +1,7 @@
 ﻿<template>
     <div>    
         <el-card  style="margin-bottom:10px;" v-for="row in model" :key="row.id">
-            <oa-fields :model="row" :schema="rowSchema" :connector="connector" :messages="messages" :resource="resource" :parent-model="model"></oa-fields>
+            <oa-fields :model="row" :schema="rowSchema" :connector="connector" :messages="messages" :resource="resource" :parent-model="parentModel"></oa-fields>
             <div style="padding-top:10px;">
                 <el-button v-for="action in actions" :key="action.name" :icon="action.icon" size="small" @click="action.execute(row)"></el-button>
             </div>
@@ -24,7 +24,8 @@ export default {
     messages: Object,
     resource: String,
     prop: String,
-    connector: {}
+    connector: {},
+    parentModel:{}
   },
   data() {
     return {
