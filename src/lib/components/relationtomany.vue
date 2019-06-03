@@ -143,7 +143,7 @@ export default {
             let req = {
                 query: query
             };
-            req= Object.assign(req, this.parentModel);
+            req= Object.assign(req, this.parentModel.model);
             this.connector
                 .pService(
                 this.relationResource ? this.relationResource : this.resource,
