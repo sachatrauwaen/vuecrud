@@ -1,7 +1,7 @@
 <template>
 <el-form ref="form" :model="model" :rules="rules" label-width="120px" :label-position="labelPosition">
     <oa-fields :model="model" :schema="schema" :connector="connector" :messages="messages" :resource="resource" ></oa-fields>
-    <el-form-item>
+    <el-form-item v-if="actions && actions.length">
         <el-button v-for="action in actions" :key="action.name" size="small" :type="action.type" @click="action.execute(validate)">{{action.name}}</el-button>
     </el-form-item>
 </el-form>

@@ -14,9 +14,6 @@
             <oa-field v-for="(value, key) in cvalue" v-if="visible(value)" :key="key" :prop="key" :schema="properties[key]" v-model="model[key]" :messages="messages" @propChange="propChange" :connector="connector" :resource="resource" :parent-model="cascadeModel"></oa-field>
         </el-col>
     </el-row>
-    <el-form-item>
-        <el-button v-for="action in actions" :key="action.name" size="small" :type="action.type" @click="action.execute()">{{action.name}}</el-button>
-    </el-form-item>
 </div>
 </template>
 
@@ -34,7 +31,6 @@ export default {
         schema: {},
         options: {},
         messages: {},
-        actions: {},
         connector: {},
         resource: String,
         parentModel:{}
