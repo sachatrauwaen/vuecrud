@@ -251,8 +251,8 @@ export default {
         },
         getCustomActions(row, index) { // as vue Components
             if (row.customActions){
-                return row.customActions.map((compName)=>{
-                    //var compName = "oa-" + type;                
+                return row.customActions.map((type)=>{
+                    var compName = "oa-" + type;                
                     comp = Vue.component(compName);
                     if (!comp) {
                         comp = (resolve, reject) => {
