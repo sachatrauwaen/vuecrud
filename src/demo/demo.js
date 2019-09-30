@@ -6,6 +6,7 @@ var data = [
         emailAddress: "janne.siera@gmail.com",
         isActive: false,
         fullName: "Janne Siera",
+        customActions: ["oa-user-custom-component"]
     },
     {
         userName: "mickey",
@@ -154,6 +155,13 @@ var data = [
 ];
 
 const abp = abp || {};
+
+abp.auth = {
+    grantedPermissions: {
+        CanActivate :false
+    }
+};
+
 
 abp.localization = {
     currentCulture: {
