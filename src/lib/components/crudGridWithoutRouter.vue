@@ -254,7 +254,7 @@ export default {
             if (row.customActions){
                 return row.customActions.map((type)=>{
                     var compName = "oa-" + type;                
-                    comp = Vue.component(compName);
+                    var comp = Vue.component(compName);
                     if (!comp) {
                         comp = (resolve, reject) => {
                             Utils.loadComponent({
