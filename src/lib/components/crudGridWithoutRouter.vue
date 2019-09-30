@@ -30,7 +30,7 @@
 					@filterEager="filterEager"></oa-filter-form>
 			</el-col>
 		</el-row>
-		<oa-grid :model="model" :schema="schema" :messages="messages" :actions="gridActions" :default-action="gridActions[0]" :locale="locale" :doOnSort="doOnSort"></oa-grid>
+		<oa-grid :model="model" :schema="schema" :messages="messages" :actions="gridActions" :default-action="gridActions[0]" :locale="locale" :doOnSort="doOnSort" :getCustomActions="getCustomActions"></oa-grid>
 		<br />
 		<div style="float:right;margin-bottom:10px;">
 			<el-pagination @current-change="currentPageChange" :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="totalCount"></el-pagination>
@@ -49,7 +49,8 @@
 </template>
 
 <script>
-import { debounce } from "../utils/utils";
+//import { debounce } from "../utils/utils";
+import { default as Utils } from "../utils/utils";
 export default {
     name: "oa-crud-grid-without-router",
     data() {
@@ -58,7 +59,7 @@ export default {
             filterModel: {},
             totalCount: 0,
 			currentPage: 1,
-			debouncedFetchData: debounce(this.fetchData, 500),
+			debouncedFetchData: Utils.debounce(this.fetchData, 500),
 			fetchDataId: 0, // Keeps track of the requests of the fetchData method, to track race conditions
 			pageSize: 10
         };
@@ -247,6 +248,28 @@ export default {
             if (this.messages && this.messages[text])
                 return this.messages[text];
             else return text;
+        },
+        getCustomActions(row, index) { // as vue Components
+            if (row.customActions){
+                return row.customActions.map((compName)=>{
+                    //var compName = "oa-" + type;                
+                    comp = Vue.component(compName);
+                    if (!comp) {
+                        comp = (resolve, reject) => {
+                            Utils.loadComponent({
+                                name: compName,
+                                path: this.connector.componentsPath() + type + ".js",
+                                onLoad: resolve,
+                                onError: reject
+                            });
+                        };    
+                    }
+                    return comp;  
+
+                });
+            } else{
+                return [];
+            }
         }
     },
     created() {

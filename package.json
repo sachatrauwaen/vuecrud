@@ -1,6 +1,6 @@
 {
     "name": "vuecrud",
-    "version": "0.2.104",
+    "version": "0.2.107",
     "private": true,
     "main": "dist/vuecrud.umd.js",
     "scripts": {
@@ -22,7 +22,7 @@
         "@vue/cli-plugin-eslint": "^3.0.0-rc.6",
         "@vue/cli-service": "^3.0.0-rc.6",
         "@vue/eslint-config-standard": "^3.0.0-rc.5",
-        "vue-template-compiler": "^2.5.16",
+        "vue-template-compiler": "2.6.10",
         "webpack-auto-inject-version": "^1.1.0"
     },
     "eslintConfig": {
