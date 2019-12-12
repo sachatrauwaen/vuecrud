@@ -207,7 +207,7 @@ export default {
                     url = url + key + "=" + this.filterModel[key] + "&";      
                 }              
             });
-            windows.location = url.substring(0,url.length-2);
+            window.location = url.substring(0,url.length-2);
           }
         });
       }
