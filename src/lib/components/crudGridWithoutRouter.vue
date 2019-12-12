@@ -202,12 +202,12 @@ export default {
           icon: "el-icon-download",
           execute: () => {
             let url = this.exportUrl + "?";
-            Object.keys(this.filterModel).forEach(function(key, index) {
+            Object.keys(this.filterModel).forEach((key, index) => {
                 if (key != "skipCount" && key != "maxResultCount" && key != "sorting") {
                     url = url + key + "=" + this.filterModel[key] + "&";      
                 }              
             });
-            window.location = url.substring(0,url.length-2);
+            window.location = url.substring(0,url.length-1);
           }
         });
       }
