@@ -1,6 +1,6 @@
 {
     "name": "vuecrud",
-    "version": "0.2.111",
+    "version": "0.2.112",
     "private": true,
     "main": "dist/vuecrud.umd.js",
     "scripts": {

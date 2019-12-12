@@ -225,7 +225,8 @@ export default {
       );
     },
     exportUrl() {
-      return this.filterSchema && this.filterSchema["x-export-url"];
+        let filterSchema = this.connector.schema(this.resource, "filter");
+        return filterSchema && filterSchema["x-export-url"];
     }
   },
   methods: {
