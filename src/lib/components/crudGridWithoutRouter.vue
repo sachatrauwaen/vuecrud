@@ -202,8 +202,10 @@ export default {
           icon: "el-icon-download",
           execute: () => {
             let url = this.exportUrl + "?";
-            Object.keys(this.filterform).forEach(function(key, index) {
-              url = url + key + "=" + this.filterform[key] + "&";
+            Object.keys(this.filterModel).forEach(function(key, index) {
+                if (key != "skipCount" && key != "maxResultCount" && key != "sorting") {
+                    url = url + key + "=" + this.filterModel[key] + "&";      
+                }              
             });
             windows.location = url.substring(0,url.length-2);
           }
