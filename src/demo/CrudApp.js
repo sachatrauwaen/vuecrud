@@ -42,7 +42,15 @@ export default {
             render(h) {
                 return h(layout, {
                     scopedSlots: {
-                        default: () => h('router-view')
+                        default: () => h('keep-alive', 
+                        {
+                            props: {
+                                include: 'oa-crud-grid'
+                            }
+                        },
+                        [
+                            h('router-view')
+                        ])
                     },
                     props: {
                         title: this.pageTitle
