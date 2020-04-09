@@ -10,6 +10,16 @@
         @click="action.execute()"
       >{{action.name}}</el-button>
     </template>
+     <template #batchactions>
+      <el-button
+        v-for="action in batchActions"
+        :key="action.name"
+        :icon="action.icon"
+        size="small"
+        :type="action.type"
+        @click="action.execute()"
+      >{{action.name}}</el-button>
+    </template>
     <template #filters>
       <div  v-if="hasAdvFilter">
         <oa-advfilter-form
@@ -239,12 +249,16 @@ export default {
           }
         }
       ];
+      return actions;
+    },
+    batchActions() {
+      let actions = [];
       if (this.exportUrl) {
         actions.push({
           icon: "el-icon-download",
           execute: () => {
             let url = this.exportUrl + "?";
-            Object.keys(this.filterModel).forEach((key, index) => {
+            Object.keys(this.filterModel).forEach((key) => {
               if (
                 key != "skipCount" &&
                 key != "maxResultCount" &&
