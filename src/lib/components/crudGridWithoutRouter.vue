@@ -1,17 +1,17 @@
 <template>
-  <div class="oa-crud-grid">
-    <el-row :gutter="10">
-      <el-col :xs="24" :sm="2" :md="2" :lg="2" :xl="2" style="padding-bottom: 20px;">
-        <el-button
-          v-for="action in actions"
-          :key="action.name"
-          :icon="action.icon"
-          size="small"
-          :type="action.type"
-          @click="action.execute()"
-        >{{action.name}}</el-button>
-      </el-col>
-      <el-col :xs="20" :sm="20" :md="12" :lg="6" :xl="6" v-if="hasAdvFilter">
+  <oa-layout>
+    <template #actions>
+      <el-button
+        v-for="action in actions"
+        :key="action.name"
+        :icon="action.icon"
+        size="small"
+        :type="action.type"
+        @click="action.execute()"
+      >{{action.name}}</el-button>
+    </template>
+    <template #filters>
+      <div  v-if="hasAdvFilter">
         <oa-advfilter-form
           ref="advfilterform"
           :model="filterModel"
@@ -22,8 +22,8 @@
           :resource="resource"
           @filterEager="filterEager"
         ></oa-advfilter-form>
-      </el-col>
-      <el-col :xs="24" :sm="22" :md="22" :lg="22" :xl="22" v-else-if="hasFilter">
+      </div>
+      <div v-else-if="hasFilter">
         <oa-filter-form
           ref="filterform"
           :model="filterModel"
@@ -34,34 +34,76 @@
           :resource="resource"
           @filterEager="filterEager"
         ></oa-filter-form>
-      </el-col>
-    </el-row>
-    <oa-grid
-      :model="model"
-      :schema="schema"
-      :messages="messages"
-      :actions="gridActions"
-      :default-action="gridActions[0]"
-      :locale="locale"
-      :doOnSort="doOnSort"
-      :getCustomActions="getCustomActions"
-    ></oa-grid>
-    <br />
-    <div style="float:right;margin-bottom:10px;">
-      <el-pagination
-        @current-change="currentPageChange"
-        :current-page.sync="currentPage"
-        :page-size="pageSize"
-        layout="total, prev, pager, next"
-        :total="totalCount"
-      ></el-pagination>
+      </div>
+    </template>
+    <div class="oa-crud-grid">
+      <!--
+      <el-row :gutter="10">
+        <el-col :xs="24" :sm="2" :md="2" :lg="2" :xl="2" style="padding-bottom: 20px;">
+          <el-button
+            v-for="action in actions"
+            :key="action.name"
+            :icon="action.icon"
+            size="small"
+            :type="action.type"
+            @click="action.execute()"
+          >{{action.name}}</el-button>
+        </el-col>
+        <el-col :xs="20" :sm="20" :md="12" :lg="6" :xl="6" v-if="hasAdvFilter">
+          <oa-advfilter-form
+            ref="advfilterform"
+            :model="filterModel"
+            :schema="filterSchema"
+            :connector="connector"
+            :actions="filterActions"
+            :messages="messages"
+            :resource="resource"
+            @filterEager="filterEager"
+          ></oa-advfilter-form>
+        </el-col>
+        <el-col :xs="24" :sm="22" :md="22" :lg="22" :xl="22" v-else-if="hasFilter">
+          <oa-filter-form
+            ref="filterform"
+            :model="filterModel"
+            :schema="filterSchema"
+            :connector="connector"
+            :actions="filterActions"
+            :messages="messages"
+            :resource="resource"
+            @filterEager="filterEager"
+          ></oa-filter-form>
+        </el-col>
+      </el-row>
+      -->
+      <oa-grid
+        :model="model"
+        :schema="schema"
+        :messages="messages"
+        :actions="gridActions"
+        :default-action="gridActions[0]"
+        :locale="locale"
+        :doOnSort="doOnSort"
+        :getCustomActions="getCustomActions"
+      ></oa-grid>
+      <br />
+      <div style="float:right;margin-bottom:10px;">
+        <el-pagination
+          @current-change="currentPageChange"
+          :current-page.sync="currentPage"
+          :page-size="pageSize"
+          layout="total, prev, pager, next"
+          :total="totalCount"
+        ></el-pagination>
+      </div>
+      <div
+        style="float:right;margin-bottom:10px;width: 80px; margin-left: 20px; margin-right: 20px;"
+      >
+        <el-select :value="pageSize" @input="onChangePageSize" placeholder="Select" size="mini">
+          <el-option v-for="item in pageSizeOptions" :key="item" :label="item" :value="item"></el-option>
+        </el-select>
+      </div>
     </div>
-    <div style="float:right;margin-bottom:10px;width: 80px; margin-left: 20px; margin-right: 20px;">
-      <el-select :value="pageSize" @input="onChangePageSize" placeholder="Select" size="mini">
-        <el-option v-for="item in pageSizeOptions" :key="item" :label="item" :value="item"></el-option>
-      </el-select>
-    </div>
-  </div>
+  </oa-layout>
 </template>
 
 <script>
@@ -203,11 +245,15 @@ export default {
           execute: () => {
             let url = this.exportUrl + "?";
             Object.keys(this.filterModel).forEach((key, index) => {
-                if (key != "skipCount" && key != "maxResultCount" && key != "sorting") {
-                    url = url + key + "=" + this.filterModel[key] + "&";      
-                }              
+              if (
+                key != "skipCount" &&
+                key != "maxResultCount" &&
+                key != "sorting"
+              ) {
+                url = url + key + "=" + this.filterModel[key] + "&";
+              }
             });
-            window.location = url.substring(0,url.length-1);
+            window.location = url.substring(0, url.length - 1);
           }
         });
       }
@@ -227,8 +273,8 @@ export default {
       );
     },
     exportUrl() {
-        let filterSchema = this.connector.schema(this.resource, "filter");
-        return filterSchema && filterSchema["x-export-url"];
+      let filterSchema = this.connector.schema(this.resource, "filter");
+      return filterSchema && filterSchema["x-export-url"];
     }
   },
   methods: {

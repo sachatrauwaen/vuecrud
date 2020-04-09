@@ -8,8 +8,26 @@ import localeEN from 'element-ui/lib/locale/lang/en'
 import localeFR from 'element-ui/lib/locale/lang/fr'
 import localeNL from 'element-ui/lib/locale/lang/nl'
 
+import GridLayout from './GridLayout.vue'
+import FormLayout from './FormLayout.vue'
+
+
 export default {
-    create(id, layout, data) {
+    create(id, layout, data, gridLayout, formLayout) {
+
+        if (gridLayout){
+            Vue.component('oa-grid-layout',gridLayout );
+        } else {
+            Vue.component('oa-grid-layout',GridLayout );
+        }
+
+        if (formLayout){
+            Vue.component('oa-form-layout',formLayout );
+        } else {
+            Vue.component('oa-form-layout',FormLayout );
+        }
+
+
         Vue.use(VueRouter);
 
         let locale = localeEN;
