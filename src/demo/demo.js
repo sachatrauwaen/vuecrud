@@ -347,7 +347,8 @@ abp.schemas.app.user.create.returnValue = {
             "type": "string",
             "maxLength": 32,
             "minLength": 0,
-            "x-ui-grid-sortable": true
+            "x-ui-grid-sortable": true,
+            "x-ui-card": 'User'
         },
         "name": {
             "type": "string",
@@ -420,7 +421,8 @@ abp.schemas.app.user.create.parameters = {
                 "type": "string",
                 "maxLength": 32,
                 "minLength": 0,
-                "x-ui-grid-sortable": true
+                "x-ui-grid-sortable": true,
+                "x-ui-card": 'User'
             },
             "name": {
                 "type": "string",
