@@ -1,5 +1,5 @@
 <template>
-  <oa-layout>
+  <oa-grid-layout>
     <template #actions>
       <el-button
         v-for="action in actions"
@@ -103,7 +103,7 @@
         </el-select>
       </div>
     </div>
-  </oa-layout>
+  </oa-grid-layout>
 </template>
 
 <script>
