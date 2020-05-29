@@ -200,7 +200,5 @@ export default {
 .oa-fields-card .el-card__header {
   padding: 5px 20px;
   background-color: #f5f7fa;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Helvetica Neue, Arial, sans-serif;
 }
 </style>
