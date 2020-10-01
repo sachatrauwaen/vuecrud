@@ -86,7 +86,7 @@ export default {
     changeLanguage(language) {
       if (this.isnew) return;
       this.connector
-        .pService(this.resource, "get", {
+        .pService(this.resource, "getMultiLingual", {
           id: this.id,
           language: language
         })
