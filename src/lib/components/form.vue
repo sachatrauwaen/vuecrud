@@ -11,6 +11,16 @@
         >{{action.name}}</el-button>
       </div>
     </template>
+    <template #languages>
+      <el-select v-if="multiLanguage" v-model="language" placeholder="Language" @change="changeLanguage" size="small">
+        <el-option
+          v-for="item in languages"
+          :key="item.name"
+          :label="item.displayName"
+          :value="item.name"
+        ></el-option>
+      </el-select>
+    </template>
     <el-form
       ref="form"
       :model="model"
@@ -25,7 +35,7 @@
         :messages="messages"
         :resource="resource"
       ></oa-fields>
-    </el-form>  
+    </el-form>
   </oa-form-layout>
 </template>
 
@@ -42,10 +52,12 @@ export default {
     columns: {},
     connector: {},
     resource: String,
-    customLabelPosition: String // Optional
+    customLabelPosition: String // Optional,
   },
   data() {
-    return {};
+    return {
+      language: ""
+    };
   },
   computed: {
     properties() {
@@ -128,6 +140,12 @@ export default {
         return this.customLabelPosition;
 
       return this.isMobile ? "top" : "right";
+    },
+    languages() {
+      return this.connector.languages();
+    },
+    multiLanguage() {    
+      return this.schema && this.schema["x-multi-language"];
     }
   },
   methods: {
@@ -148,6 +166,9 @@ export default {
     },
     propChange(key, value) {
       this.$set(this.model, key, value);
+    },
+    changeLanguage() {     
+      this.$emit('changeLanguage', this.language);
     }
   }
 };
