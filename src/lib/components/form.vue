@@ -170,12 +170,9 @@ export default {
     propChange(key, value) {
       this.$set(this.model, key, value);
     },
-    changeLanguage() {     
-      this.$emit('changeLanguage', this.language);
+    changeLanguage(language) {     
+      this.$emit('changeLanguage', language);
     }
-  },
-  created(){
-    this.language= this.locale();
   }
 };
 </script>
