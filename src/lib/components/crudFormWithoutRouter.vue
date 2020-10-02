@@ -115,6 +115,9 @@ export default {
       else return this.update(data);
     },
     add(data) {
+      if (this.isMultiLingual) {
+        data.language = this.language;
+      }
       return this.connector.pService(this.resource, "create", data);
     },
     update(data) {
