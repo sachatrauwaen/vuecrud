@@ -317,7 +317,6 @@ abp.services.app.user.get = function (input, ajaxParams) {
 // eslint-disable-next-line
 abp.services.app.user.getAll = function (input, ajaxParams) {
     const filterStringData = (dto, dtoProp, itemProp) => item => dto[dtoProp] === undefined || item[itemProp].includes(dto[dtoProp]);
-    console.log(input);
 
     const list = data
         .filter(filterStringData(input, 'userName', 'userName'))
@@ -328,7 +327,7 @@ abp.services.app.user.getAll = function (input, ajaxParams) {
         const [sortField, sortOrder] = input.sorting.split(' ');
 
         if (sortField == 'userName') {
-            const isDesc = sortOrder == 'DESC';
+            //const isDesc = sortOrder == 'DESC';
 
             // TODO sort the list on userName (and possibly reverse order, if isDesc)
         }
