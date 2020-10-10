@@ -33,7 +33,7 @@ export default {
         defaultAction: {},
         locale: {}, // moment locale (e.g. 'fr', 'en', 'nl', ...)
         doOnSort: {},
-        getCustomActions: {}
+        getCustomActions: {} // expects a callback function that will return that custom grid-row actions. in other words a GridRowActionFactory function.
     },
     computed: {
         columns() {

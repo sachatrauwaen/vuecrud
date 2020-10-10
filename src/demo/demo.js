@@ -2,14 +2,7 @@
 
 var data = [
     {
-        userName: "jannesiera",
-        emailAddress: "janne.siera@gmail.com",
-        isActive: false,
-        fullName: "Janne Siera",
-        //customActions: ["oa-user-custom-component"]
-    },
-    {
-        userName: "mickey",
+        userName: "mickey1",
         emailAddress: "mickey.mouse@cheesebox.com",
         isActive: true,
         fullName: "Mickey Garcia Mouse",
@@ -165,7 +158,6 @@ abp.auth = {
     }
 };
 
-
 abp.localization = {
     currentCulture: {
         name: 'fr'
@@ -185,23 +177,21 @@ abp.setting = {
 }
 
 var demoajax = function(data)  {
-        this.lst = data;
-        this.then = (callback) => {
-            if (callback) callback(this.lst);
-            return this;
-        };
-        this.catch = () => {
-            
-            return this;
-        };
-        this.fail = () => {
-            
-            return this;
-        };
-        this.always= (callback) => {
-            if (callback) callback();
-            return this;
-        }
+    this.lst = data;
+    this.then = (callback) => {
+        if (callback) callback(this.lst);
+        return this;
+    };
+    this.catch = () => {
+        return this;
+    };
+    this.fail = () => {
+        return this;
+    };
+    this.always= (callback) => {
+        if (callback) callback();
+        return this;
+    }
 }
 
 /*************************************** services****************/

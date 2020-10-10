@@ -1,7 +1,8 @@
 export default {
 
     /**
-         * Loads JSON schema.
+         * Loads JSON schema 
+         *   from code created with Satrabel.OpenApp.ProxyScripting.JsonSchemaProxyScriptGenerator
          *
          * @param {String} appService App service to be loaded
          * @param {String} action create | update | get | filter | [non-crud action]
@@ -114,5 +115,4 @@ export default {
             return;
         }
     }
-
 }

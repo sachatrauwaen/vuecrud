@@ -10,7 +10,7 @@
         @click="action.execute()"
       >{{action.name}}</el-button>
     </template>
-     <template #batchactions>
+    <template #batchactions>
       <el-button
         v-for="action in batchActions"
         :key="action.name"
@@ -21,7 +21,7 @@
       >{{action.name}}</el-button>
     </template>
     <template #filters>
-      <div  v-if="hasAdvFilter">
+      <div v-if="hasAdvFilter">
         <oa-advfilter-form
           ref="advfilterform"
           :model="filterModel"
@@ -46,7 +46,7 @@
         ></oa-filter-form>
       </div>
     </template>
-    <div class="oa-crud-grid">
+    <div class="oa-crud-grid">      
       <!--
       <el-row :gutter="10">
         <el-col :xs="24" :sm="2" :md="2" :lg="2" :xl="2" style="padding-bottom: 20px;">
@@ -332,7 +332,7 @@ export default {
       else return text;
     },
     getCustomActions(row, index) {
-      // as vue Components
+      // better name would have been getCustomComponents, vue Components
       if (row.customActions) {
         return row.customActions.map(type => {
           var compName = "oa-" + type;
