@@ -154,6 +154,7 @@ export default {
             }
             return cellValue;
         },
+        // eslint-disable-next-line no-unused-vars
         rowClick(row, column, event) {
             if (column.label) {
                 //this.defaultAction.execute(row, event, column);

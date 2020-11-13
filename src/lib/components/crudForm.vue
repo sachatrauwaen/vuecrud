@@ -4,6 +4,7 @@
         :redirect="redirect"
         :module="module"
         :id="id"
+        :language="language"
     ></oa-crud-form-without-router>
 </template>
 
@@ -23,6 +24,9 @@ export default {
         },
         id() {
             return this.$route.params.id;
+        },
+        language() {
+            return this.$route.params.lang;
         }
     },
     methods: {
