@@ -43,8 +43,10 @@ export default {
       let req = {};
 
       if (newParentModel && newParentModel.model) {
-        req = newParentModel.model;
-        req.parent = newParentModel.parent;
+        req = Object.assign(req, this.parentModel.model);
+        if (this.parentModel.model) {
+          req.parent = this.parentModel.parent;
+        }
       }
 
       const sch =
@@ -90,7 +92,7 @@ export default {
         });
       }
     } else if (sch["x-enum-action"]) {
-      this.generateOptions();
+      this.generateOptions(this.parentModel);
     }
     if (sch["x-enum-nonelabel"]) {
       this.noneLabel = sch["x-enum-nonelabel"];
