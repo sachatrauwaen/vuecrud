@@ -160,7 +160,7 @@ export default {
       return this.schema && this.schema["x-multi-language"];
     },
     labelWidthCalculated(){
-      return this.labelWidth ? this.labelWidth : defaults.labelWidth;
+      return defaults.labelWidth;
     }
   },
   methods: {

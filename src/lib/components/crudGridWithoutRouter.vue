@@ -331,6 +331,7 @@ export default {
       if (this.messages && this.messages[text]) return this.messages[text];
       else return text;
     },
+    // eslint-disable-next-line no-unused-vars
     getCustomActions(row, index) {
       // as vue Components
       if (row.customActions) {
