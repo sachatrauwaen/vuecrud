@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-select v-if="relationSmall" v-model="model" :value-key="relationValueField">
+    <el-select v-if="relationSmall" v-model="model" :value-key="relationValueField" filterable >
       <el-option
         v-for="item in options"
         :key="item.value.id"

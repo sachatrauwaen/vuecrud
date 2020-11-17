@@ -8,11 +8,18 @@
           size="small"
           :type="action.type"
           @click="action.execute(validate)"
-        >{{action.name}}</el-button>
+          >{{ action.name }}</el-button
+        >
       </div>
     </template>
     <template #languages>
-      <el-select v-if="isMultiLingual" :value="language" placeholder="Language" @change="changeLanguage" size="small">
+      <el-select
+        v-if="isMultiLingual"
+        :value="language"
+        placeholder="Language"
+        @change="changeLanguage"
+        size="small"
+      >
         <el-option
           v-for="item in languages"
           :key="item.name"
@@ -25,7 +32,7 @@
       ref="form"
       :model="model"
       :rules="rules"
-      label-width="120px"
+      :label-width="labelWidthCalculated"
       :label-position="labelPosition"
     >
       <oa-fields
@@ -41,6 +48,8 @@
 
 <script>
 import { default as Utils } from "../utils/utils";
+import defaults from '../utils/defaults'
+
 export default {
   name: "oa-form",
   props: {
@@ -53,11 +62,11 @@ export default {
     connector: {},
     resource: String,
     customLabelPosition: String, // Optional,
-    language:String
+    language: String,
+    labelWidth: String
   },
   data() {
-    return {      
-    };
+    return {};
   },
   computed: {
     properties() {
@@ -95,7 +104,7 @@ export default {
         if (prop.required && prop.type != "object") {
           itemRules.push({
             required: true,
-            message: "Please input a value"
+            message: "Please input a value",
           });
           rules[key] = itemRules;
         }
@@ -114,7 +123,7 @@ export default {
           }
           itemRules.push({
             required: true,
-            message: "Please input a value"
+            message: "Please input a value",
           });
         }
       }
@@ -147,13 +156,16 @@ export default {
     languages() {
       return this.connector.languages();
     },
-    isMultiLingual() {    
+    isMultiLingual() {
       return this.schema && this.schema["x-multi-language"];
+    },
+    labelWidthCalculated(){
+      return this.labelWidth ? labelWidth : defaults.labelWidth;
     }
   },
   methods: {
     validate(callback) {
-      this.$refs.form.validate(function(valid) {
+      this.$refs.form.validate(function (valid) {
         if (callback) callback(valid);
       });
     },
@@ -170,9 +182,9 @@ export default {
     propChange(key, value) {
       this.$set(this.model, key, value);
     },
-    changeLanguage(language) {     
-      this.$emit('changeLanguage', language);
-    }
-  }
+    changeLanguage(language) {
+      this.$emit("changeLanguage", language);
+    },
+  },
 };
 </script>
