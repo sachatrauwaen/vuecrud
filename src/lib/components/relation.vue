@@ -180,7 +180,7 @@ export default {
           );
         } else {
           this.connector.service(
-            this.resource,
+            this.relationResource ? this.relationResource : this.resource,
             this.relationAction,
             query,
             data => {
