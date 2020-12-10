@@ -1,6 +1,6 @@
 {
     "name": "vuecrud",
-    "version": "0.2.148",
+    "version": "0.2.150",
     "private": true,
     "main": "dist/vuecrud.umd.js",
     "scripts": {
@@ -13,17 +13,17 @@
     },
     "dependencies": {
         "element-ui": "2.12.0",
-        "json-ref-lite": "^1.1.0",
+        "json-ref-lite": "1.1.0",
         "vue": "2.6.11",
         "vue-router": "3.3.4"
     },
     "devDependencies": {
-        "@vue/cli-plugin-babel": "^3.0.0-rc.5",
-        "@vue/cli-plugin-eslint": "^3.0.0-rc.6",
-        "@vue/cli-service": "^3.0.0-rc.6",
-        "@vue/eslint-config-standard": "^3.0.0-rc.5",
+        "@vue/cli-plugin-babel": "3.0.0-rc.5",
+        "@vue/cli-plugin-eslint": "3.0.0-rc.6",
+        "@vue/cli-service": "3.0.0-rc.6",
+        "@vue/eslint-config-standard": "3.0.0-rc.5",
         "vue-template-compiler": "2.6.11",
-        "webpack-auto-inject-version": "^1.1.0"
+        "webpack-auto-inject-version": "1.1.0"
     },
     "eslintConfig": {
         "root": true,
