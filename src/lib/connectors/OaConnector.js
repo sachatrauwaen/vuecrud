@@ -71,10 +71,16 @@ export default {
         // eslint-disable-next-line
         return abp.appPath + 'dist/';
     },
-
     locale() { // Should be moment locale (e.g. 'fr', 'en', 'nl', ...)
         // eslint-disable-next-line
         return abp.localization.currentCulture.name;
+    },
+    languages() {
+        // eslint-disable-next-line        
+        return abp.localization.languages.filter(l => {
+            return !l.isDisabled;
+        });
+        //return abp.localization.languages;
     },
     canActivate() {        
         // eslint-disable-next-line

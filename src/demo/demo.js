@@ -2,10 +2,22 @@
 
 var data = [
     {
+        id: 1,
         userName: "mickey1",
         emailAddress: "mickey.mouse@cheesebox.com",
         isActive: true,
         fullName: "Mickey Garcia Mouse",
+        //customActions: ["oa-user-custom-component"]
+        translations: [
+            {
+                language: 'nl',
+                id: 1,
+                userName: "mickey1 nl",
+                emailAddress: "mickey.mouse@cheesebox.com",
+                isActive: false,
+                fullName: "Mickey Garcia Mouse",
+            }
+        ]
     },
     {
         userName: "mickey",
@@ -151,22 +163,28 @@ const abp = abp || {};
 
 abp.auth = {
     allPermissions: {
-        CanActivate:false
+        CanActivate: false
     },
     grantedPermissions: {
-        CanActivate :false
+        CanActivate: false
     }
 };
 
 abp.localization = {
     currentCulture: {
         name: 'fr'
-    }
+    },
+    languages: [
+        { "name": "en", "displayName": "English", "icon": "famfamfam-flags gb", "isDisabled": false, "isDefault": false },
+        { "name": "fr", "displayName": "Français", "icon": "famfamfam-flags fr", "isDisabled": false, "isDefault": true },
+        { "name": "de", "displayName": "German", "icon": "famfamfam-flags de", "isDisabled": false, "isDefault": false },
+        { "name": "nl", "displayName": "Nederlands", "icon": "famfamfam-flags nl", "isDisabled": false, "isDefault": false }
+    ]
 };
 
 abp.setting = {
-    getInt: (setting) =>  {
-        if(setting === "App.Ui.DefaultPageSize")
+    getInt: (setting) => {
+        if (setting === "App.Ui.DefaultPageSize")
             return 25;
         else
             return undefined;
@@ -176,7 +194,7 @@ abp.setting = {
     }
 }
 
-var demoajax = function(data)  {
+var demoajax = function (data) {
     this.lst = data;
     this.then = (callback) => {
         if (callback) callback(this.lst);
@@ -188,7 +206,7 @@ var demoajax = function(data)  {
     this.fail = () => {
         return this;
     };
-    this.always= (callback) => {
+    this.always = (callback) => {
         if (callback) callback();
         return this;
     }
@@ -222,7 +240,16 @@ abp.services.app.user.update = function (input, ajaxParams) {
         return val.id == input.id;
     });
     if (lst.length == 1) {
-        Object.assign(lst[0], input);
+        var item = lst[0];
+        if (input.language) {
+            const trans = item.translations.filter((val) => {
+                return val.language == input.language;
+            });
+            if (trans.length == 1) {
+                item = trans[0];
+            }
+        }
+        Object.assign(item, input);
     }
     return new demoajax(input);
 
@@ -252,13 +279,23 @@ abp.services.app.user['delete'] = function (input, ajaxParams) {
 // action 'get'
 // eslint-disable-next-line
 abp.services.app.user.get = function (input, ajaxParams) {
+    var item = {};
     const lst = data.filter((val) => {
         return val.id == input.id;
     });
     if (lst.length == 1) {
-        return new demoajax(lst[0]);
+        item = lst[0];
+
+        if (input.language) {
+            const trans = item.translations.filter((val) => {
+                return val.language == input.language;
+            });
+            if (trans.length == 1) {
+                item = trans[0];
+            }
+        }
     }
-    return new demoajax({});
+    return new demoajax(item);
     /* return abp.ajax($.extend(true, {
       url: abp.appPath + 'api/services/app/User/Get' + abp.utils.buildQueryString([{ name: 'id', value: input.id }]) + '',
       type: 'GET'
@@ -269,26 +306,25 @@ abp.services.app.user.get = function (input, ajaxParams) {
 // eslint-disable-next-line
 abp.services.app.user.getAll = function (input, ajaxParams) {
     const filterStringData = (dto, dtoProp, itemProp) => item => dto[dtoProp] === undefined || item[itemProp].includes(dto[dtoProp]);
-    console.log(input);
 
     const list = data
         .filter(filterStringData(input, 'userName', 'userName'))
         .filter(filterStringData(input, 'email', 'emailAddress'))
         .filter(filterStringData(input, 'search', 'userName'))
 
-        if(input.sorting) {
-            const [sortField, sortOrder] = input.sorting.split(' ');
-    
-            if(sortField == 'userName') {
-                const isDesc = sortOrder == 'DESC';
-                
-                // TODO sort the list on userName (and possibly reverse order, if isDesc)
-            }
+    if (input.sorting) {
+        const [sortField, sortOrder] = input.sorting.split(' ');
+
+        if (sortField == 'userName') {
+            //const isDesc = sortOrder == 'DESC';
+
+            // TODO sort the list on userName (and possibly reverse order, if isDesc)
         }
+    }
 
     var res = {
-        items : list.slice(input.skipCount, input.skipCount + input.maxResultCount),
-        totalCount : list.length
+        items: list.slice(input.skipCount, input.skipCount + input.maxResultCount),
+        totalCount: list.length
     }
     return new demoajax(res);
     /* return abp.ajax($.extend(true, {
@@ -299,18 +335,18 @@ abp.services.app.user.getAll = function (input, ajaxParams) {
 
 // action 'getRoles'
 // eslint-disable-next-line
-abp.services.app.user.getRoles = function(ajaxParams) {
+abp.services.app.user.getRoles = function (ajaxParams) {
     var res = {
-        items : [{normalizedName:"admin", displayName:"admin"}],
-        totalCount : data.length
+        items: [{ normalizedName: "admin", displayName: "admin" }],
+        totalCount: data.length
     }
     return new demoajax(res);
-    
+
     // return abp.ajax($.extend(true, {
     //   url: abp.appPath + 'api/services/app/User/GetRoles',
     //   type: 'GET'
     // }, ajaxParams));;
-  };
+};
 
 /****************************** schema *******************************/
 
@@ -431,7 +467,7 @@ abp.schemas.app.user.create.parameters = {
                 "minLength": 0,
                 "x-ui-dependency-field": 'isActive',
                 "x-ui-dependency-value": true
-    
+
             },
             "isActive": {
                 "type": "boolean"
@@ -454,49 +490,49 @@ abp.schemas.app.user.create.parameters = {
             "times": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "required": [
-                    "dayOfWeek",
-                    "startTime",
-                    "endTime"
-                  ],
-                  "properties": {
-                    "dayOfWeek": {
-                      "type": "integer",
-                      "minLength": 1,
-                      "default":1,
-                      "x-enumNames": [
-                        "Sunday",
-                        "Monday",
-                        "Tuesday",
-                        "Wednesday",
-                        "Thursday",
-                        "Friday",
-                        "Saturday"
-                      ],
-                      "enum": [
-                        0,
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6
-                      ]
-                    },
-                    "startTime": {
-                      "type": "string",
-                      "minLength": 1
-                    },
-                    "endTime": {
-                      "type": "string",
-                      "minLength": 1
-                    },
-                    "id": {
-                      "type": "integer",
-                      "format": "int32"
+                    "type": "object",
+                    "required": [
+                        "dayOfWeek",
+                        "startTime",
+                        "endTime"
+                    ],
+                    "properties": {
+                        "dayOfWeek": {
+                            "type": "integer",
+                            "minLength": 1,
+                            "default": 1,
+                            "x-enumNames": [
+                                "Sunday",
+                                "Monday",
+                                "Tuesday",
+                                "Wednesday",
+                                "Thursday",
+                                "Friday",
+                                "Saturday"
+                            ],
+                            "enum": [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4,
+                                5,
+                                6
+                            ]
+                        },
+                        "startTime": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "endTime": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "id": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
                     }
-                  }
                 }
             }
         }
@@ -580,6 +616,7 @@ abp.schemas.app.user.update.parameters = {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "title": "UpdateUserDto",
         "type": "object",
+        "x-multi-language": true,
         "required": [
             "userName",
             "name",
@@ -785,7 +822,7 @@ abp.schemas.app.user.getAll.returnValue = {
                         "minLength": 0,
                         "x-ui-dependency-field": 'isActive',
                         "x-ui-dependency-value": true
-            
+
                     },
                     "isActive": {
                         "type": "boolean"
@@ -866,14 +903,14 @@ abp.localization = abp.localization || {};
 abp.localization.values = {}
 abp.localization.values['app'] = {
 
-    Surname:"prénom",
-    UserName:"Nom d'utilisateur",
+    Surname: "prénom",
+    UserName: "Nom d'utilisateur",
     Yes: "Jae",
     No: "Neej"
 };
 
 abp.setting = abp.setting || {};
-abp.setting.getInt = function(){
+abp.setting.getInt = function () {
     return 10;
 }
 

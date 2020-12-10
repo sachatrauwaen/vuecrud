@@ -1,6 +1,7 @@
 import CrudApp from '../demo/CrudApp'
 import OaConnector from './connectors/OaConnector'
 import { install, components } from './utils/install'
+import defaults from './utils/defaults'
 
 /* Library public API */
 export default {
@@ -8,5 +9,6 @@ export default {
     install,
     OaConnector,
     createApp: CrudApp.create,
-    components
+    components,
+    defaults:defaults
 };

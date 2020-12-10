@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Vue from "vue";
+
 import { default as Utils } from "../utils/utils";
 
 export default {

@@ -8,14 +8,31 @@
           size="small"
           :type="action.type"
           @click="action.execute(validate)"
-        >{{action.name}}</el-button>
+          >{{ action.name }}</el-button
+        >
       </div>
+    </template>
+    <template #languages>
+      <el-select
+        v-if="isMultiLingual"
+        :value="language"
+        placeholder="Language"
+        @change="changeLanguage"
+        size="small"
+      >
+        <el-option
+          v-for="item in languages"
+          :key="item.name"
+          :label="item.displayName"
+          :value="item.name"
+        ></el-option>
+      </el-select>
     </template>
     <el-form
       ref="form"
       :model="model"
       :rules="rules"
-      label-width="120px"
+      :label-width="labelWidthCalculated"
       :label-position="labelPosition"
     >
       <oa-fields
@@ -25,12 +42,14 @@
         :messages="messages"
         :resource="resource"
       ></oa-fields>
-    </el-form>  
+    </el-form>
   </oa-form-layout>
 </template>
 
 <script>
 import { default as Utils } from "../utils/utils";
+import defaults from '../utils/defaults'
+
 export default {
   name: "oa-form",
   props: {
@@ -42,7 +61,9 @@ export default {
     columns: {},
     connector: {},
     resource: String,
-    customLabelPosition: String // Optional
+    customLabelPosition: String, // Optional,
+    language: String,
+    labelWidth: String
   },
   data() {
     return {};
@@ -83,7 +104,7 @@ export default {
         if (prop.required && prop.type != "object") {
           itemRules.push({
             required: true,
-            message: "Please input a value"
+            message: "Please input a value",
           });
           rules[key] = itemRules;
         }
@@ -102,7 +123,7 @@ export default {
           }
           itemRules.push({
             required: true,
-            message: "Please input a value"
+            message: "Please input a value",
           });
         }
       }
@@ -128,11 +149,23 @@ export default {
         return this.customLabelPosition;
 
       return this.isMobile ? "top" : "right";
+    },
+    locale() {
+      return this.connector.locale();
+    },
+    languages() {
+      return this.connector.languages();
+    },
+    isMultiLingual() {
+      return this.schema && this.schema["x-multi-language"];
+    },
+    labelWidthCalculated(){
+      return defaults.labelWidth;
     }
   },
   methods: {
     validate(callback) {
-      this.$refs.form.validate(function(valid) {
+      this.$refs.form.validate(function (valid) {
         if (callback) callback(valid);
       });
     },
@@ -148,7 +181,10 @@ export default {
     },
     propChange(key, value) {
       this.$set(this.model, key, value);
-    }
-  }
+    },
+    changeLanguage(language) {
+      this.$emit("changeLanguage", language);
+    },
+  },
 };
 </script>

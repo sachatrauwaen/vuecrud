@@ -8,6 +8,7 @@
 import Vue from "vue";
 import { default as Utils } from "../utils/utils";
 import { components } from "../utils/install";
+import defaults from '../utils/defaults'
 
 export default {
     name: "oa-field",
@@ -161,7 +162,7 @@ export default {
             return this.schema["x-ui-hideLabel"];
         },
         labelWidth: function() {
-            return this.hideLabel ? "0px" : undefined;
+            return this.hideLabel ? "0px" : defaults.labelWidth;
         }
     },
     methods: {
