@@ -8,8 +8,7 @@
           size="small"
           :type="action.type"
           @click="action.execute(validate)"
-          >{{ action.name }}</el-button
-        >
+        >{{action.name}}</el-button>
       </div>
     </template>
     <template #languages>
