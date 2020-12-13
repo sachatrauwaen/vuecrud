@@ -13,7 +13,7 @@ import FormLayout from './FormLayout.vue'
 
 
 export default {
-    create(id, layout, data, gridLayout, formLayout) {
+    create(id, layout, data, gridLayout, formLayout, connector) {
 
         if (gridLayout){
             Vue.component('oa-grid-layout',gridLayout );
@@ -30,8 +30,10 @@ export default {
 
         Vue.use(VueRouter);
 
+        connector = connector || VueCrud.OaConnector;
+
         let locale = localeEN;
-        const loc = VueCrud.OaConnector.locale();
+        const loc = connector.locale();
         if (loc == 'fr') {
             locale = localeFR;
         } else if (loc == 'nl') {
@@ -56,7 +58,7 @@ export default {
         new Vue({
             router: router,
             data : data || {},
-            connector: VueCrud.OaConnector,
+            connector: connector,
             render(h) {
                 return h(layout, {
                     scopedSlots: {
@@ -77,7 +79,7 @@ export default {
             },
             computed: {
                 messages() {
-                    return VueCrud.OaConnector.messages(this.$route.params.module);
+                    return connector.messages(this.$route.params.module);
                 },
                 pageTitle: function () {
                     if (this.$route.params.resource) {
@@ -91,5 +93,8 @@ export default {
                 }
             }
         }).$mount(id)
+    },
+    createAbp(id, layout, data, gridLayout, formLayout) {
+        this.create(id,layout, data, gridLayout, formLayout, VueCrud.AbpConnector)
     }
 }

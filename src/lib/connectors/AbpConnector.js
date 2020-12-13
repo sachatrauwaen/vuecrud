@@ -34,7 +34,8 @@ export default {
          * @return {Object} JSON data
          */
     service(appService, action, data, successCallback, errorCallback, alwaysCallback) {
-
+        action = this.transFormAction(action);
+        data = this.transFormData(action, data);
         this.checkService(appService, action);
         // eslint-disable-next-line
         abp.services.app[appService][action](data)
@@ -134,3 +135,4 @@ export default {
         else
             return data;
     }
+}
