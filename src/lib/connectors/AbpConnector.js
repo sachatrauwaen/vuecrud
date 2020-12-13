@@ -34,8 +34,8 @@ export default {
          * @return {Object} JSON data
          */
     service(appService, action, data, successCallback, errorCallback, alwaysCallback) {
-        action = this.transFormAction(action);
-        data = this.transFormData(action, data);
+        action = this.transformAction(action);
+        data = this.transformData(action, data);
         this.checkService(appService, action);
         // eslint-disable-next-line
         abp.services.app[appService][action](data)
@@ -58,8 +58,8 @@ export default {
      * @return {Promise<any>} A promise (ES6 standard) of the JSON data. (cfr. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises, )
      */
     pService(appService, action, data) {
-        action = this.transFormAction(action);
-        data = this.transFormData(action, data);
+        action = this.transformAction(action);
+        data = this.transformData(action, data);
         this.checkService(appService, action);
         // eslint-disable-next-line        
         return abp.services.app[appService][action](data); // Abp returns a JQuery promise, but they adhere to the ES6 standard Promise interface (using .then and .catch) as a sort of 'downcast'
