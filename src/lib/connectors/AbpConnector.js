@@ -18,7 +18,7 @@ export default {
         else if (action == 'get')
             data = base.get.returnValue;
         else if (action == 'filter')
-            data = base.getAll.parameters.input;
+            data = base.getList.parameters.input;
 
         return data;
     },
@@ -100,7 +100,7 @@ export default {
     },
     canActivate() {
         // eslint-disable-next-line
-        return !abp.auth.allPermissions.CanActivate || abp.auth.grantedPermissions.CanActivate;
+        return !abp.auth.policies.CanActivate || abp.auth.grantedPolicies.CanActivate;
     },
     settings() {
         return {
@@ -138,13 +138,13 @@ export default {
         }
     },
     transformAction(action) {
-        if (action == "getall")
+        if (action == "getAll")
             return "getList";
         else
             return action;
     },
     transformData(action, data) {
-        if (action == "get")
+        if (action == "get" || action=="delete")
             return data.id;
         else
             return data;
