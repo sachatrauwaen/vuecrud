@@ -37,8 +37,16 @@ export default {
         action = this.transformAction(action);
         data = this.transformData(action, data);
         this.checkService(appService, action);
-        // eslint-disable-next-line
-        abp.services.app[appService][action](data)
+
+        var res = null;
+        if (action == 'update')
+            // eslint-disable-next-line
+            res = abp.services.app[appService][action](data.id, data);
+        else
+            // eslint-disable-next-line
+            res = abp.services.app[appService][action](data);
+
+        res
             .then(function (data) {
                 if (successCallback) successCallback(data);
             })
@@ -62,7 +70,13 @@ export default {
         data = this.transformData(action, data);
         this.checkService(appService, action);
         // eslint-disable-next-line        
-        return abp.services.app[appService][action](data); // Abp returns a JQuery promise, but they adhere to the ES6 standard Promise interface (using .then and .catch) as a sort of 'downcast'
+        if (action == "update")
+            // eslint-disable-next-line        
+            return abp.services.app[appService][action](data.id, data);
+        else
+            // eslint-disable-next-line        
+            return abp.services.app[appService][action](data);
+        // Abp returns a JQuery promise, but they adhere to the ES6 standard Promise interface (using .then and .catch) as a sort of 'downcast'
     },
     messages(module) {
         // eslint-disable-next-line
