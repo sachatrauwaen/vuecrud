@@ -1,24 +1,57 @@
+function capitalize(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+function validateAction(appService, action)
+{
+    // determine AppService Method
+    var method = "";
+    if (action == 'create') 
+        method = 'create';
+    else if (action == 'update')
+        method = 'update';
+    else if (action == 'get')
+        method = 'get';
+    else if (action == 'filter')
+        method = 'getAll';
+
+    if(method === "")
+        return "";
+
+    // Check existance of the AppService Method
+    if (abp.schemas.app[appService][method] === undefined)
+        throw "Your '" + capitalize(appService) + "AppService' is missing an implementation for " + capitalize(method) + "().";
+    else
+        return action;
+}
+
 export default {
 
     /**
-         * Loads JSON schema.
+         * Loads JSON schema 
+         *   from code created with Satrabel.OpenApp.ProxyScripting.JsonSchemaProxyScriptGenerator
          *
          * @param {String} appService App service to be loaded
          * @param {String} action create | update | get | filter | [non-crud action]
          
          */
     schema(appService, action) {
-        // eslint-disable-next-line
+        // validate appService
+        if (abp.schemas.app[appService] === undefined)
+        {
+            throw "The specified '" + capitalize(appService) + "AppService' is missing.";
+        }
+
         const base = abp.schemas.app[appService];
         let data = null;
-        if (action == 'create')
-            data = base.create.parameters.input;
-        else if (action == 'update')
-            data = base.update.parameters.input;
-        else if (action == 'get')
+        if (validateAction(appService, action) == 'create')
+            data = base.create.parameters[Object.keys(base.create.parameters)[0]];
+        else if (validateAction(appService, action) == 'update')
+            data = base.update.parameters[Object.keys(base.update.parameters)[0]];
+        else if (validateAction(appService, action) == 'get')
             data = base.get.returnValue;
-        else if (action == 'filter')
-            data = base.getAll.parameters.input;
+        else if (validateAction(appService, action) == 'filter')
+            data = base.getAll.parameters[Object.keys(base.getAll.parameters)[0]];
 
         return data;
     },
@@ -104,21 +137,20 @@ export default {
         // eslint-disable-next-line        
         if (abp.services.app == undefined){
             // eslint-disable-next-line        
-            console.log('abp.services.app not exist');
+            console.log('%c ERROR: abp.services.app not exist', 'background: #222; color: #bada55');
             return;
         }
         // eslint-disable-next-line        
         if (abp.services.app[appService] == undefined){
             // eslint-disable-next-line        
-            console.log('application service '+appService+' not exist');
+            console.log('%c ERROR: application service '+capitalize(appService)+' not exist', 'background: #222; color: #bada55');
             return;
         }
         // eslint-disable-next-line        
         if (abp.services.app[appService][action] == undefined){
             // eslint-disable-next-line        
-            console.log('method '+action+' on application service '+appService+' not exist');
+            console.log('%c ERROR: method '+capitalize(action)+' on application service '+capitalize(appService)+' not exist', 'background: #222; color: #bada55');
             return;
         }
     }
-
 }

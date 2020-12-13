@@ -67,7 +67,7 @@ export default {
     methods: {
         fetchData() {
             var self = this;
-            self.$refs.form.resetForm();
+            if (self.$refs.filterform) self.$refs.form.resetForm();
             if (!this.isnew) {
                 self.connector.service(
                     self.resource,

@@ -3,27 +3,21 @@
 var data = [
     {
         id: 1,
-        userName: "jannesiera",
-        emailAddress: "janne.siera@gmail.com",
-        isActive: false,
-        fullName: "Janne Siera",
+        userName: "mickey1",
+        emailAddress: "mickey.mouse@cheesebox.com",
+        isActive: true,
+        fullName: "Mickey Garcia Mouse",
         //customActions: ["oa-user-custom-component"]
         translations: [
             {
                 language: 'nl',
                 id: 1,
-                userName: "jannesiera nl",
-                emailAddress: "janne.siera@gmail.com",
+                userName: "mickey1 nl",
+                emailAddress: "mickey.mouse@cheesebox.com",
                 isActive: false,
-                fullName: "Janne Siera",
+                fullName: "Mickey Garcia Mouse",
             }
         ]
-    },
-    {
-        userName: "mickey",
-        emailAddress: "mickey.mouse@cheesebox.com",
-        isActive: true,
-        fullName: "Mickey Garcia Mouse",
     },
     {
         userName: "mickey",
@@ -176,7 +170,6 @@ abp.auth = {
     }
 };
 
-
 abp.localization = {
     currentCulture: {
         name: 'fr'
@@ -208,11 +201,9 @@ var demoajax = function (data) {
         return this;
     };
     this.catch = () => {
-
         return this;
     };
     this.fail = () => {
-
         return this;
     };
     this.always = (callback) => {
@@ -311,8 +302,6 @@ abp.services.app.user.get = function (input, ajaxParams) {
     }, ajaxParams));; */
 };
 
-
-
 // action 'getAll'
 // eslint-disable-next-line
 abp.services.app.user.getAll = function (input, ajaxParams) {
@@ -351,7 +340,6 @@ abp.services.app.user.getRoles = function (ajaxParams) {
         items: [{ normalizedName: "admin", displayName: "admin" }],
         totalCount: data.length
     }
-    //res = [{ normalizedName: "admin", displayName: "admin" }];
     return new demoajax(res);
 
     // return abp.ajax($.extend(true, {
@@ -650,11 +638,7 @@ abp.schemas.app.user.update.parameters = {
             "surname": {
                 "type": "string",
                 "maxLength": 32,
-                "minLength": 0,
-                //"x-enum-cascade": true,
-                //"x-enum-action": "getRoles",
-                //"x-enum-valuefield": "normalizedName",
-                //"x-enum-textfield": "displayName"
+                "minLength": 0
             },
             "emailAddress": {
                 "type": "string",
