@@ -95,6 +95,6 @@ export default {
         }).$mount(id)
     },
     createAbp(id, layout, data, gridLayout, formLayout) {
-        VueCrud.create(id,layout, data, gridLayout, formLayout, VueCrud.AbpConnector)
+        VueCrud.createApp(id,layout, data, gridLayout, formLayout, VueCrud.AbpConnector)
     }
 }
