@@ -34,17 +34,18 @@ export default {
          * @return {Object} JSON data
          */
     service(appService, action, data, successCallback, errorCallback, alwaysCallback) {
-        action = this.transformAction(action);
-        data = this.transformData(action, data);
+        //action = this.transformAction(action);
+        //data = this.transformData(action, data);
         this.checkService(appService, action);
-
+        /*
         var res = null;
         if (action == 'update')
             // eslint-disable-next-line
             res = abp.services.app[appService][action](data.id, data);
         else
-            // eslint-disable-next-line
-            res = abp.services.app[appService][action](data);
+        */
+        // eslint-disable-next-line
+        var res = abp.services.app[appService][action](data);
 
         res
             .then(function (data) {
@@ -66,16 +67,18 @@ export default {
      * @return {Promise<any>} A promise (ES6 standard) of the JSON data. (cfr. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises, )
      */
     pService(appService, action, data) {
-        action = this.transformAction(action);
-        data = this.transformData(action, data);
+        //action = this.transformAction(action);
+        //data = this.transformData(action, data);
         this.checkService(appService, action);
+        /*
         // eslint-disable-next-line        
         if (action == "update")
             // eslint-disable-next-line        
             return abp.services.app[appService][action](data.id, data);
         else
-            // eslint-disable-next-line        
-            return abp.services.app[appService][action](data);
+        */
+        // eslint-disable-next-line        
+        return abp.services.app[appService][action](data);
         // Abp returns a JQuery promise, but they adhere to the ES6 standard Promise interface (using .then and .catch) as a sort of 'downcast'
     },
     messages(module) {
@@ -144,7 +147,7 @@ export default {
             return action;
     },
     transformData(action, data) {
-        if (action == "get" || action=="delete")
+        if (action == "get" || action == "delete")
             return data.id;
         else
             return data;
