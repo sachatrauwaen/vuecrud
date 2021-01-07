@@ -18,7 +18,7 @@ export default {
         else if (action == 'get')
             data = base.get.returnValue;
         else if (action == 'filter')
-            data = base.getList.parameters.input;
+            data = base.getAll.parameters.input;
 
         return data;
     },
