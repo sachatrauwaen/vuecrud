@@ -136,6 +136,7 @@ export default {
           if (
             key !== "id" &&
             !this.schema.properties[key].readonly &&
+            (!this.schema.properties[key].hasOwnProperty("x-ui-form") || this.schema.properties[key]["x-ui-form"]) &&
             (this.connector.canActivate() || key != "isActive")
             /*&&
                                 !this.schema.properties[key]["x-rel-app"] &&
