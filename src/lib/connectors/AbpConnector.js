@@ -95,6 +95,11 @@ export default {
         // eslint-disable-next-line        
         return abp.localization.languages.filter(l => {
             return !l.isDisabled;
+        }).map(l=>{
+            return {
+                name : l.cultureName,
+                displayName: l.displayName
+            }
         });
         //return abp.localization.languages;
     },
