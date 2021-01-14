@@ -76,7 +76,7 @@ export default {
       }
     },
     rowSchema() {
-      return this.schema.items;
+      return Utils.jsonSchema.simplify(this.schema).items;
     },
     isMobile() {
       return Utils.isMobile(window);
@@ -84,12 +84,15 @@ export default {
   },
   created() {},
   methods: {
+    property(key){
+      return Utils.jsonSchema.simplify(this.rowSchema.properties[key]);
+    },
     translate(text) {
       if (this.messages && this.messages[text]) return this.messages[text];
       else return text;
     },
     addRow() {
-      const properties = this.schema.items.properties;
+      const properties = this.rowSchema.properties;
       const row = Object.keys(properties).reduce(
         (row, property) => ({
           ...row,
@@ -98,8 +101,6 @@ export default {
         {}
       );
       this.model = this.model ? [...this.model, row] : [row];
-      
-      
     }
   }
 };

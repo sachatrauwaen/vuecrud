@@ -85,19 +85,19 @@ export default {
             }
         },
         rowSchema() {
-            return this.schema.items;
+            return Utils.jsonSchema.simplify(this.schema).items;
         },
         columns() {
             var fields = {};
-            var sch = this.schema.items;
+            var sch = this.rowSchema;
             for (var key in sch.properties) {
                 if (
                     key != "id" &&
-                    sch.properties[key].type != "array" &&
-                    (!sch.properties[key].hasOwnProperty("x-ui-grid") ||
-                        sch.properties[key]["x-ui-grid"])
+                    this.property(key).type != "array" &&
+                    (!this.property(key).hasOwnProperty("x-ui-grid") ||
+                        this.property(key)["x-ui-grid"])
                 ) {
-                    fields[key] = sch.properties[key];
+                    fields[key] = this.property(key);
                 }
             }
             return fields;
@@ -108,13 +108,16 @@ export default {
     },
     created() {},
     methods: {
+        property(key){
+            return Utils.jsonSchema.simplify(this.rowSchema.properties[key]);
+        },
         translate(text) {
             if (this.messages && this.messages[text])
                 return this.messages[text];
             else return text;
         },
         label(prop) {
-            var sch = this.schema.items;
+            var sch = this.rowSchema;
             var name = sch.properties[prop].title
                 ? sch.properties[prop].title
                 : Utils.capitalize(prop);
@@ -124,7 +127,7 @@ export default {
         },
         formatter(row, column, cellValue) {
             var schema = Utils.jsonSchema.getNotNull(
-                this.schema.items.properties[column.property]
+                this.property(column.property)
             );
             if (schema.type == "boolean") {
                 return cellValue ? this.messages["Yes"] : this.messages["No"];
@@ -162,7 +165,7 @@ export default {
             }
         },
         addRow() {
-            const properties = this.schema.items.properties;
+            const properties = this.rowSchema.properties;
             const row = Object.keys(properties).reduce(
                 (row, property) => ({ ...row, [property]: properties[property].default }),
                 {}
@@ -172,8 +175,7 @@ export default {
             let self=this;
             Vue.nextTick().then(function () {
                 self.$refs.table.toggleRowExpansion(row, true);
-            })
-            
+            })            
         }
     }
 };

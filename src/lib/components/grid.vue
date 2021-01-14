@@ -36,16 +36,19 @@ export default {
         getCustomActions: {} // expects a callback function that will return that custom grid-row actions. in other words a GridRowActionFactory function.
     },
     computed: {
+        properties() {
+            return Utils.jsonSchema.simplify(this.schema).properties;
+        },
         columns() {
             var fields = {};
-            for (var key in this.schema.properties) {
+            for (var key in this.properties) {
                 if (
                     key != "id" &&
-                    this.schema.properties[key].type != "array" &&
-                    (!this.schema.properties[key].hasOwnProperty("x-ui-grid") ||
-                        this.schema.properties[key]["x-ui-grid"])
+                    this.property(key).type != "array" &&
+                    (!this.property(key).hasOwnProperty("x-ui-grid") ||
+                        this.property(key)["x-ui-grid"])
                 ) {
-                    fields[key] = this.schema.properties[key];
+                    fields[key] = this.property(key);
                 }
             }
             return fields;
@@ -55,16 +58,19 @@ export default {
         }
     },
     methods: {
+        property(key){
+            return Utils.jsonSchema.simplify(this.properties[key]);
+        },
         isSortable(prop) {
-            const sortable = this.schema.properties[prop]["x-ui-grid-sortable"];
+            const sortable = this.property(prop)["x-ui-grid-sortable"];
             return sortable === undefined ? false : "custom";
         },
         sortChange({ column, prop, order }){
             if (this.doOnSort) this.doOnSort({ column, prop, order });
         },
         label(prop) {
-            var name = this.schema.properties[prop].title
-                ? this.schema.properties[prop].title
+            var name = this.property(prop).title
+                ? this.property(prop).title
                 : Utils.capitalize(prop);
             if (this.messages && this.messages[name]) {
                 return this.messages[name];
@@ -73,14 +79,14 @@ export default {
             }
         },
         width(prop) {
-            return this.schema.properties[prop]['x-ui-width'] || '';            
+            return this.property(prop)['x-ui-width'] || '';            
         },
         formatter(row, column, cellValue) {
             return this.format(column.property, cellValue);
         },
         format(property, cellValue) {
             const schema = Utils.jsonSchema.getNotNull(
-                this.schema.properties[property]
+                this.property(property)
             );
             if (schema.type == "boolean") {
                 return cellValue ? this.messages["Yes"] : this.messages["No"];
@@ -118,8 +124,7 @@ export default {
             } else {
                 return true;
             }
-        }
-        
+        }        
     }
 };
 </script>

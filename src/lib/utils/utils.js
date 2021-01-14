@@ -7,6 +7,12 @@ export const jsonSchema = {
             if (list.length > 0) return list[0];
         }
         return schema;
+    },
+    simplify: function (schema) {
+        if (schema.allOf && schema.allOf.length) {
+            return Object.assign({}, schema, schema.allOf[0]);
+        }
+        return schema;
     }
 }
 

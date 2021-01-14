@@ -19,7 +19,7 @@
                   v-if="visible(value)"
                   :key="key"
                   :prop="key"
-                  :schema="properties[key]"
+                  :schema="property(key)"
                   v-model="model[key]"
                   :messages="messages"
                   @propChange="propChange"
@@ -36,7 +36,7 @@
                   v-for="(value, key) in pvalue"
                   :key="key"
                   :prop="key"
-                  :schema="properties[key]"
+                  :schema="property(key)"
                   v-model="model[key]"
                   :messages="messages"
                   @propChange="propChange"
@@ -67,7 +67,7 @@
               v-if="visible(value)"
               :key="key"
               :prop="key"
-              :schema="properties[key]"
+              :schema="property(key)"
               v-model="model[key]"
               :messages="messages"
               @propChange="propChange"
@@ -87,7 +87,7 @@
               v-if="visible(value)"
               :key="key"
               :prop="key"
-              :schema="properties[key]"
+              :schema="property(key)"
               v-model="model[key]"
               :messages="messages"
               @propChange="propChange"
@@ -125,24 +125,25 @@ export default {
   },
   computed: {
     properties() {
-      return this.schema.properties;
+      //return this.schema.properties;
+      return Utils.jsonSchema.simplify(this.schema).properties;
     },
     fields() {
       if (this.options) {
         return this.options.fields;
       } else {
         let fields = {};
-        for (let key in this.schema.properties) {
+        for (let key in this.properties) {
           if (
             key !== "id" &&
-            !this.schema.properties[key].readonly &&
-            (!this.schema.properties[key].hasOwnProperty("x-ui-form") || this.schema.properties[key]["x-ui-form"]) &&
+            !this.property(key).readonly &&
+            (!this.property(key).hasOwnProperty("x-ui-form") || this.property(key)["x-ui-form"]) &&
             (this.connector.canActivate() || key != "isActive")
             /*&&
                                 !this.schema.properties[key]["x-rel-app"] &&
                                 !this.schema.properties[key]["x-rel-to-many-app"]*/
           ) {
-            fields[key] = this.schema.properties[key];
+            fields[key] = this.property(key);
           }
         }
         return fields;
@@ -181,6 +182,9 @@ export default {
     }
   },
   methods: {
+    property(key){
+      return Utils.jsonSchema.simplify(this.properties[key]);
+    },
     label(name) {
       if (this.messages && this.messages[name]) return this.messages[name];
       else return name;
