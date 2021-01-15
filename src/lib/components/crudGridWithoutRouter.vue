@@ -19,6 +19,7 @@
         :type="action.type"
         @click="action.execute()"
       >{{action.name}}</el-button>
+      <component v-for="(comp, index) in customBatchComponents" :key="index" :is="comp" ></component>
     </template>
     <template #filters>
       <div v-if="hasAdvFilter">
@@ -251,6 +252,29 @@ export default {
     exportUrl() {
       let filterSchema = this.connector.schema(this.resource, "filter");
       return filterSchema && filterSchema["x-export-url"];
+    },
+    customBatchComponents() {
+      let filterSchema = this.connector.schema(this.resource, "filter");
+      let comps = filterSchema && filterSchema["x-ui-components"];
+      if (comps) {
+        return this.customBatchComponents.split(',').map(type => {
+          var compName = "oa-" + type;
+          var comp = Vue.component(compName);
+          if (!comp) {
+            comp = (resolve, reject) => {
+              Utils.loadComponent({
+                name: compName,
+                path: this.connector.componentsPath() + type + ".js",
+                onLoad: resolve,
+                onError: reject
+              });
+            };
+          }
+          return comp;
+        });
+      } else {
+        return [];
+      }
     }
   },
   methods: {
