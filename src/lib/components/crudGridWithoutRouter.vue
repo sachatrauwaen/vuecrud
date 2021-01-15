@@ -257,7 +257,7 @@ export default {
       let filterSchema = this.connector.schema(this.resource, "filter");
       let comps = filterSchema && filterSchema["x-ui-components"];
       if (comps) {
-        return this.comps.split(',').map(type => {
+        return comps.split(',').map(type => {
           var compName = "oa-" + type;
           var comp = Vue.component(compName);
           if (!comp) {
