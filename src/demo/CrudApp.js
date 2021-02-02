@@ -13,7 +13,7 @@ import FormLayout from './FormLayout.vue'
 
 
 export default {
-    create(id, layout, data, gridLayout, formLayout, connector) {
+    create(id, layout, data, gridLayout, formLayout, connector, entityType) {
 
         if (gridLayout){
             Vue.component('oa-grid-layout',gridLayout );
@@ -59,6 +59,7 @@ export default {
             router: router,
             data : data || {},
             connector: connector,
+            entityType: entityType,
             render(h) {
                 return h(layout, {
                     scopedSlots: {
@@ -94,7 +95,7 @@ export default {
             }
         }).$mount(id)
     },
-    createAbp(id, layout, data, gridLayout, formLayout) {
-        VueCrud.createApp(id,layout, data, gridLayout, formLayout, VueCrud.AbpConnector)
+    createAbp(id, layout, data, gridLayout, formLayout, entityType) {
+        VueCrud.createApp(id,layout, data, gridLayout, formLayout, VueCrud.AbpConnector, entityType)
     }
 }

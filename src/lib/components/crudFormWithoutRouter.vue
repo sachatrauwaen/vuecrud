@@ -83,6 +83,9 @@ export default {
     connector: function() {
       return this.$root.$options.connector;
     },
+    entityType: function() {
+      return this.$root.$options.entityType;
+    },
     locale() {
       return this.connector.locale();
     },
@@ -117,6 +120,9 @@ export default {
     add(data) {
       if (this.isMultiLingual) {
         data.language = this.language;  
+      }
+      if (this.entityType) {
+        data.entityType = this.entityType;  
       }
       return this.connector.pService(this.resource, "create", data);
     },

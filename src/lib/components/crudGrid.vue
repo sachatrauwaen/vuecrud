@@ -4,6 +4,7 @@
             :module="module"
             :resource="resource"
             :connector="connector"
+            :entityType="entityType"
             :doOnEdit="onEdit"
             :doOnAdd="onAdd"
         ></oa-crud-grid-without-router>
@@ -25,6 +26,9 @@ export default {
         },
         connector() {
             return this.$root.$options.connector;
+        },
+        entityType() {
+            return this.$root.$options.entityType;
         }
     },
     methods: {

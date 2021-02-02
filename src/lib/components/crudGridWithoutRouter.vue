@@ -100,6 +100,7 @@ export default {
     module: String,
     resource: String,
     connector: Object,
+    entityType:{},
     doOnEdit: Function,
     doOnAdd: Function
   },
@@ -173,7 +174,7 @@ export default {
       };
       var action = this.connector.schema(this.resource, "filter").properties;
       for (var key in action) {
-        if (key != "skipCount" && key != "maxResultCount" && key != "sorting") {
+        if (key != "skipCount" && key != "maxResultCount" && key != "sorting" && key != "entityType") {
           schema.properties[key] = action[key];
         }
       }
@@ -298,6 +299,7 @@ export default {
       this.filterModel.sorting = sorting;
       this.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
       this.filterModel.maxResultCount = this.pageSize;
+      if (this.entityType)this.filterModel.entityType=this.entityType;
       const requestId = ++this.fetchDataId;
       return this.connector
         .pService(this.resource, "getAll", this.filterModel)
