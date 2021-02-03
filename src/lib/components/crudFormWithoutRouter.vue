@@ -19,7 +19,7 @@ export default {
     resource: String,
     module: String,
     redirect: Function,
-    id: [String, Number]
+    id: [String, Number],
   },
   data() {
     return {
@@ -32,7 +32,7 @@ export default {
             const onSaveData = () => {
               this.$message({
                 type: "success",
-                message: "Save completed"
+                message: "Save completed",
               });
               this.redirect();
               //this.$router.go(-1); // go back
@@ -41,23 +41,23 @@ export default {
               this.fetchData();
             };
 
-            const onValidate = valid => {
+            const onValidate = (valid) => {
               if (valid) this.saveData(this.model).then(onSaveData);
               else return false;
             };
 
             this.$refs.form.validate(onValidate);
-          }
+          },
         },
         {
           name: "Cancel",
           execute: () => {
             this.redirect();
             //this.$router.go(-1); // go back
-          }
-        }
+          },
+        },
       ],
-      language: ""
+      language: "",
     };
   },
   computed: {
@@ -80,10 +80,10 @@ export default {
       if (this.isnew) return this.connector.schema(this.resource, "create");
       else return this.connector.schema(this.resource, "update");
     },
-    connector: function() {
+    connector: function () {
       return this.$root.$options.connector;
     },
-    entityType: function() {
+    entityType: function () {
       return this.$root.$options.entityType;
     },
     locale() {
@@ -91,7 +91,7 @@ export default {
     },
     isMultiLingual() {
       return this.schema && this.schema["x-multi-language"];
-    }
+    },
   },
   methods: {
     changeLanguage(language) {
@@ -99,18 +99,23 @@ export default {
       this.fetchData();
     },
     fetchData() {
-      if (this.isnew) return;
-      if (this.isMultiLingual) {
+      if (this.isnew) {
         this.connector
-          .pService(this.resource, "get", {
-            id: this.id,
-            language: this.language
-          })
-          .then(data => (this.model = data));
+            .pService(this.resource, "init", { entityType: this.entityType })
+            .then((data) => (this.model = data));
       } else {
-        this.connector
-          .pService(this.resource, "get", { id: this.id })
-          .then(data => (this.model = data));
+        if (this.isMultiLingual) {
+          this.connector
+            .pService(this.resource, "get", {
+              id: this.id,
+              language: this.language,
+            })
+            .then((data) => (this.model = data));
+        } else {
+          this.connector
+            .pService(this.resource, "get", { id: this.id })
+            .then((data) => (this.model = data));
+        }
       }
     },
     saveData(data) {
@@ -119,21 +124,21 @@ export default {
     },
     add(data) {
       if (this.isMultiLingual) {
-        data.language = this.language;  
+        data.language = this.language;
       }
       if (this.entityType) {
-        data.entityType = this.entityType;  
+        data.entityType = this.entityType;
       }
       return this.connector.pService(this.resource, "create", data);
     },
     update(data) {
       data.id = this.id; // TODO is this line necessary?
       return this.connector.pService(this.resource, "update", data);
-    }
+    },
   },
   created() {
     this.language = this.locale;
     this.fetchData();
-  }
+  },
 };
 </script>

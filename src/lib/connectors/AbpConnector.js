@@ -39,7 +39,11 @@ export default {
         this.checkService(appService, action);
 
         var res = null;
-        if (action == 'update')
+        // eslint-disable-next-line
+        if (abp.services.app[appService][action] == undefined) {
+            // eslint-disable-next-line        
+            res= $.when({});        
+        } else if (action == 'update')
             // eslint-disable-next-line
             res = abp.services.app[appService][action](data.id, data);
         else
@@ -70,7 +74,10 @@ export default {
         data = this.transformData(action, data);
         this.checkService(appService, action);
         // eslint-disable-next-line        
-        if (action == "update")
+        if (abp.services.app[appService][action] == undefined) {
+            // eslint-disable-next-line        
+            return $.when({});        
+        } else if (action == "update")
             // eslint-disable-next-line        
             return abp.services.app[appService][action](data.id, data);
         else
