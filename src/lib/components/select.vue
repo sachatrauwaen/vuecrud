@@ -1,5 +1,5 @@
 <template>
-  <el-select v-model="model" placeholder="Select">
+  <el-select v-model="model" placeholder="Select" :filterable="filterable" >
     <el-option v-if="!hideNone" :label="noneLabel" :value="noneValue"></el-option>
     <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
   </el-select>
@@ -36,7 +36,11 @@ export default {
     },
     enumCascade() {
       return this.schema["x-enum-cascade"];
+    },
+    filterable() {
+      return this.schema["x-enum-filterable"];
     }
+
   },
   methods: {
     generateOptions(newParentModel) {
