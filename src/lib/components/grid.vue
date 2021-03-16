@@ -5,7 +5,9 @@
         <el-table-column align="right" v-if="actions && actions.length">
             <template slot-scope="scope">
                 <el-button v-for="action in actions" :key="action.name" :icon="action.icon" size="small" v-show="actionVisible(action, scope.row, scope.$index)" @click="action.execute(scope.row, scope.$index)">{{action.text || ''}}</el-button>
+                <template v-if="getCustomActions">
                 <component v-for="(comp, index) in getCustomActions(scope.row, scope.$index)" :key="index" :is="comp" v-bind="scope.row" ></component>
+                </template>
             </template>
         </el-table-column>
     </el-table>
