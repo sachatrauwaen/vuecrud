@@ -19,6 +19,7 @@ function validateAction(appService, action)
         return "";
 
     // Check existance of the AppService Method
+    // eslint-disable-next-line no-undef
     if (abp.schemas.app[appService][method] === undefined)
         throw "Your '" + capitalize(appService) + "AppService' is missing an implementation for " + capitalize(method) + "().";
     else
@@ -37,11 +38,13 @@ export default {
          */
     schema(appService, action) {
         // validate appService
+        // eslint-disable-next-line no-undef
         if (abp.schemas.app[appService] === undefined)
         {
             throw "The specified '" + capitalize(appService) + "AppService' is missing.";
         }
 
+        // eslint-disable-next-line no-undef
         const base = abp.schemas.app[appService];
         let data = null;
         if (validateAction(appService, action) == 'create')
