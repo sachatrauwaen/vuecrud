@@ -115,7 +115,7 @@ export default {
             }
             return cellValue;
         },
-        rowClick(row, column, event) {
+        rowClick(row, event, column) {
             if (column.label) {
                 this.defaultAction.execute(row, event, column);
             }
