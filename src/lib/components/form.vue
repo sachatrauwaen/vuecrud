@@ -1,5 +1,5 @@
 <template>
-  <oa-form-layout>
+  <component :is="formLayout">
     <template #actions>
       <div v-if="actions && actions.length">
         <el-button
@@ -42,12 +42,14 @@
         :resource="resource"
       ></oa-fields>
     </el-form>
-  </oa-form-layout>
+  </component>
 </template>
 
 <script>
+import Vue from 'vue';
 import { default as Utils } from "../utils/utils";
-import defaults from '../utils/defaults'
+import defaults from '../utils/defaults';
+import FormLayout from '../../demo/FormLayout.vue';
 
 export default {
   name: "oa-form",
@@ -68,6 +70,13 @@ export default {
     return {};
   },
   computed: {
+    formLayout(){
+      var comp = Vue.component('oa-form-layout');
+      if (comp)
+        return comp;
+      else 
+        return FormLayout;
+    },
     properties() {
       return this.schema.properties;
     },
