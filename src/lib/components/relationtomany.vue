@@ -57,7 +57,7 @@ export default {
       return this.schema["x-rel-to-many-cascade"];
     },
      relationSmall() {
-      return this.schema["x-rel-small"];
+      return this.schema["x-rel-to-many-small"];
     },
     id() {
       return this.value ? this.value[this.relationValueField] : null;
