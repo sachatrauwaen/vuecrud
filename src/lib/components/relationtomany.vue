@@ -1,6 +1,9 @@
 <template>
 <div>
-    <el-select multiple @input="updateModel" :value="model" :value-key="relationValueField" filterable clearable v-on:clear="clear" remote :remote-method="remoteMethod" :loading="loading">
+     <el-select  v-if="relationSmall" multiple @input="updateModel" :value="model" :value-key="relationValueField" filterable >
+        <el-option v-for="item in computedOptions" :key="item.value.id" :label="item.label" :value="item.value"></el-option>
+    </el-select>
+    <el-select v-else multiple @input="updateModel" :value="model" :value-key="relationValueField" filterable clearable v-on:clear="clear" remote :remote-method="remoteMethod" :loading="loading">
         <el-option v-for="item in computedOptions" :key="item.value.id" :label="item.label" :value="item.value"></el-option>
     </el-select>
     <el-button v-if="relationResource" :icon="buttonIcon" v-on:click="edit"></el-button>
@@ -52,6 +55,9 @@ export default {
     },
     relationCascade() {
       return this.schema["x-rel-to-many-cascade"];
+    },
+     relationSmall() {
+      return this.schema["x-rel-small"];
     },
     id() {
       return this.value ? this.value[this.relationValueField] : null;
@@ -164,6 +170,32 @@ export default {
         this.options = null;
       }
     },
+    generateOptions(newParentModel) {
+      let req = {};
+      if (newParentModel && newParentModel.model) {
+        req = Object.assign(req, this.parentModel.model);
+        if (this.parentModel.model) {
+          req.parent = this.parentModel.parent;
+        }
+      }
+      if (this.relationAction) {
+        this.connector.service(
+          this.resource,
+          this.relationAction,
+          req,
+          data => {
+            let items = data.items || data;
+            this.options = items.map(t => {
+              return {
+                label: t[this.relationTextField],
+                value: t
+              };
+            });
+          },
+          () => {}
+        );
+      }
+    },
     clear() {
       this.model = null;
     },
@@ -194,6 +226,22 @@ export default {
         document.body.classList.remove("dialog-open");
       }
     }
+  },
+  created() {
+    if (this.relationSmall) {
+      this.generateOptions(this.parentModel);
+      if (this.relationCascade) {
+        this.$watch(
+          "parentModel",
+          function(newVal) {
+            this.generateOptions(newVal);
+          },
+          {
+            deep: true
+          }
+        );
+      }
+    } 
   }
 };
 </script>
