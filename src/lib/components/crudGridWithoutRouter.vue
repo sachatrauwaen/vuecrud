@@ -156,6 +156,30 @@ export default {
           visible: row => {
             return typeof row.canDelete !== "undefined" ? row.canDelete : true;
           }
+        },
+        {
+          name: this.translate("Duplicate"),
+          icon: "el-icon-document-copy",
+          execute: row => {
+            // eslint-disable-next-line
+            this.$confirm("Confirm duplicate ?", this.translate("Duplicate"), {
+              confirmButtonText: "OK",
+              cancelButtonText: "Cancel",
+              type: "warning"
+            })
+              .then(() => {
+                this.duplicateData(row, () => {
+                  this.$message({
+                    type: "success",
+                    message: this.translate("Duplicate completed")
+                  });
+                });
+              })
+              .catch(() => {});
+          },
+          visible: row => {
+            return row.canDuplicate;
+          }
         }
       ];
     },
@@ -313,6 +337,11 @@ export default {
     deleteData(data, callback) {
       return this.connector
         .pService(this.resource, "delete", { id: data.id })
+        .then(() => this.fetchData().then(callback));
+    },
+    duplicateData(data, callback) {
+      return this.connector
+        .pService(this.resource, "duplicate", { id: data.id })
         .then(() => this.fetchData().then(callback));
     },
     translate(text) {
