@@ -34,6 +34,7 @@
                 </div>
                 <oa-field
                   v-for="(value, key) in pvalue"
+                  v-if="visible(value)"
                   :key="key"
                   :prop="key"
                   :schema="property(key)"

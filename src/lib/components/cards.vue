@@ -43,6 +43,7 @@ export default {
         {
           name: this.translate("Add"),
           icon: "el-icon-plus",
+          // eslint-disable-next-line
           execute: row => {
             this.addRow();
           }
