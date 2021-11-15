@@ -21,3 +21,4 @@ yarn-error.log*
 *.sw*
 /.vs/vuecrud/config/applicationhost.config
 /.vs/slnx.sqlite
+/.vs
