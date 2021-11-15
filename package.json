@@ -2,12 +2,12 @@
   "name": "vuecrud",
   "version": "0.1.1",
   "private": true,
-  "main": "dist/vuecrud.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name vuecrud src/index.js",
     "lint": "vue-cli-service lint"
   },
+  "main": "dist/vuecrud.umd.js",
   "dependencies": {
     "element-ui": "^2.4.5",
     "json-ref-lite": "^1.1.0",
@@ -15,9 +15,9 @@
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.0-rc.5",
-    "@vue/cli-plugin-eslint": "^3.0.0-rc.6",
-    "@vue/cli-service": "^3.0.0-rc.6",
+    "@vue/cli-plugin-babel": "^4.5.15",
+    "@vue/cli-plugin-eslint": "^4.5.15",
+    "@vue/cli-service": "^4.5.15",
     "@vue/eslint-config-standard": "^3.0.0-rc.5",
     "vue-template-compiler": "^2.5.16"
   },
