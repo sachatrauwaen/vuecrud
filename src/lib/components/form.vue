@@ -12,7 +12,7 @@
         >
       </div>
       <div v-if="customComponents && customComponents.length">
-        <component v-for="(comp, index) in customComponents" :key="index" :is="comp" ></component>
+        <component v-for="(comp, index) in customComponents" :key="index" :is="comp" :model="model" ></component>
       </div>
     </template>
     <template #languages>
