@@ -1,5 +1,5 @@
 <template>
-    <el-input-number v-model="model" v-bind="inputProps"></el-input-number>
+    <el-input-number v-model="model" v-bind="inputProps" :disabled="disabled"></el-input-number>
 </template>
 
 <script>
@@ -36,6 +36,9 @@ export default {
                 p.step = this.schema["x-ui-step"];
             }
             return p;
+        },
+        disabled(){
+             return this.schema["x-ui-disabled"];
         }
     }
 };

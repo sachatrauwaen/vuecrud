@@ -1,17 +1,69 @@
 <template>
-<div>
-     <el-select  v-if="relationSmall" multiple @input="updateModel" :value="model" :value-key="relationValueField" filterable >
-        <el-option v-for="item in computedOptions" :key="item.value.id" :label="item.label" :value="item.value"></el-option>
+  <div>
+    <el-select
+      v-if="relationSmall"
+      multiple
+      @input="updateModel"
+      :value="model"
+      :value-key="relationValueField"
+      filterable
+      :disabled="disabled"
+    >
+      <el-option
+        v-for="item in computedOptions"
+        :key="item.value.id"
+        :label="item.label"
+        :value="item.value"
+      ></el-option>
     </el-select>
-    <el-select v-else multiple @input="updateModel" :value="model" :value-key="relationValueField" filterable clearable v-on:clear="clear" remote :remote-method="remoteMethod" :loading="loading">
-        <el-option v-for="item in computedOptions" :key="item.value.id" :label="item.label" :value="item.value"></el-option>
+    <el-select
+      v-else
+      multiple
+      @input="updateModel"
+      :value="model"
+      :value-key="relationValueField"
+      filterable
+      clearable
+      v-on:clear="clear"
+      remote
+      :remote-method="remoteMethod"
+      :loading="loading"
+      :disabled="disabled"
+    >
+      <el-option
+        v-for="item in computedOptions"
+        :key="item.value.id"
+        :label="item.label"
+        :value="item.value"
+      ></el-option>
     </el-select>
-    <el-button v-if="relationResource" :icon="buttonIcon" v-on:click="edit"></el-button>
+    <el-button
+      v-if="relationResource"
+      :icon="buttonIcon"
+      v-on:click="edit"
+      :disabled="disabled"
+    ></el-button>
     <slot name="footer"></slot>
-    <el-dialog v-if="relationResource" ref="customerDialog" title="Client" :visible.sync="dialogVisible" :fullscreen="fullscreen" :before-close="handleClose" :append-to-body="true" @open="openDialog" @close="closeDialog">
-        <oa-dialog-form ref="form" :resource="relationResource" :connector="connector" v-model="model" v-on:close="close"></oa-dialog-form>
+    <el-dialog
+      v-if="relationResource"
+      ref="customerDialog"
+      title="Client"
+      :visible.sync="dialogVisible"
+      :fullscreen="fullscreen"
+      :before-close="handleClose"
+      :append-to-body="true"
+      @open="openDialog"
+      @close="closeDialog"
+    >
+      <oa-dialog-form
+        ref="form"
+        :resource="relationResource"
+        :connector="connector"
+        v-model="model"
+        v-on:close="close"
+      ></oa-dialog-form>
     </el-dialog>
-</div>
+  </div>
 </template>
 
 <script>
@@ -27,14 +79,14 @@ export default {
     resource: String,
     prop: String,
     label: String,
-    parentModel:{}
+    parentModel: {},
   },
-  data: function() {
+  data: function () {
     return {
       form: {},
       loading: false,
       dialogVisible: false,
-      options: null
+      options: null,
     };
   },
   computed: {
@@ -56,7 +108,7 @@ export default {
     relationCascade() {
       return this.schema["x-rel-to-many-cascade"];
     },
-     relationSmall() {
+    relationSmall() {
       return this.schema["x-rel-to-many-small"];
     },
     id() {
@@ -77,7 +129,7 @@ export default {
       },
       set(val) {
         this.$emit("input", val);
-      }
+      },
     },
     isMobile() {
       return Utils.isMobile(window);
@@ -93,10 +145,10 @@ export default {
 
       if (this.value) {
         baseOptions = this.value.map(
-          function(t) {
+          function (t) {
             return {
               label: t[this.relationTextField],
-              value: t
+              value: t,
             };
           }.bind(this)
         );
@@ -105,9 +157,9 @@ export default {
         var retval = baseOptions.concat(this.options);
         // Remove duplicates
         retval = retval.filter(
-          function(item, index, arr) {
+          function (item, index, arr) {
             var firstIndex = arr.findIndex(
-              function(element) {
+              function (element) {
                 return (
                   element.value[this.relationValueField] ==
                   item.value[this.relationValueField]
@@ -122,18 +174,21 @@ export default {
 
       if (baseOptions.length <= 0) return null;
       return baseOptions;
-    }
+    },
+    disabled() {
+      return this.schema["x-ui-disabled"];
+    },
   },
   methods: {
     remoteMethod(query) {
-      const itemToOption = item => ({
+      const itemToOption = (item) => ({
         label: item[this.relationTextField],
-        value: item
+        value: item,
       });
 
-      const onSuccess = data => {
-        let items = data.items || data;        
-        this.options = items.map(itemToOption);        
+      const onSuccess = (data) => {
+        let items = data.items || data;
+        this.options = items.map(itemToOption);
         this.loading = false;
       };
 
@@ -146,17 +201,17 @@ export default {
       ) {
         this.loading = true;
         if (this.relationCascade) {
-            let req = {
-                query: query
-            };
-            req= Object.assign(req, this.parentModel.model);
-            this.connector
-                .pService(
-                this.relationResource ? this.relationResource : this.resource,
-                this.relationAction,
-                req
-                )
-                .then(onSuccess);
+          let req = {
+            query: query,
+          };
+          req = Object.assign(req, this.parentModel.model);
+          this.connector
+            .pService(
+              this.relationResource ? this.relationResource : this.resource,
+              this.relationAction,
+              req
+            )
+            .then(onSuccess);
         } else {
           this.connector
             .pService(
@@ -183,12 +238,12 @@ export default {
           this.resource,
           this.relationAction,
           req,
-          data => {
+          (data) => {
             let items = data.items || data;
-            this.options = items.map(t => {
+            this.options = items.map((t) => {
               return {
                 label: t[this.relationTextField],
-                value: t
+                value: t,
               };
             });
           },
@@ -225,7 +280,7 @@ export default {
       if (this.fullscreen) {
         document.body.classList.remove("dialog-open");
       }
-    }
+    },
   },
   created() {
     if (this.relationSmall) {
@@ -233,15 +288,15 @@ export default {
       if (this.relationCascade) {
         this.$watch(
           "parentModel",
-          function(newVal) {
+          function (newVal) {
             this.generateOptions(newVal);
           },
           {
-            deep: true
+            deep: true,
           }
         );
       }
-    } 
-  }
+    }
+  },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-select v-if="relationSmall" v-model="model" :value-key="relationValueField" filterable >
+    <el-select v-if="relationSmall" v-model="model" :value-key="relationValueField" filterable :disabled="disabled">
       <el-option
         v-for="item in options"
         :key="item.value.id"
@@ -18,6 +18,7 @@
       remote
       :remote-method="remoteMethod"
       :loading="loading"
+      :disabled="disabled"
     >
       <el-option
         v-for="item in options"
@@ -26,7 +27,7 @@
         :value="item.value"
       ></el-option>
     </el-select>
-    <el-button v-if="relationResource" :icon="buttonIcon" v-on:click="edit"></el-button>
+    <el-button v-if="relationResource" :icon="buttonIcon" v-on:click="edit" :disabled="disabled"></el-button>
     <slot name="footer"></slot>
     <el-dialog
       v-if="relationResource"
@@ -104,6 +105,9 @@ export default {
     isnew() {
       return !this.value;
     },
+    disabled(){
+             return this.schema["x-ui-disabled"];
+        },
     // schema: function() {
     //    if (this.isnew)
     //        return jref.resolve(abp.schemas.app[this.resource].create.input).properties[this.prop];

@@ -4,6 +4,7 @@
         type="datetime"
         format="dd/MM/yyyy HH:mm"
         :picker-options="{firstDayOfWeek: 1}"
+        :disabled="disabled"
     ></el-date-picker>
 </template>
 
@@ -27,6 +28,9 @@ export default {
             set(val) {
                 this.$emit("input", val);
             }
+        },
+        disabled(){
+             return this.schema["x-ui-disabled"];
         }
     }
 };

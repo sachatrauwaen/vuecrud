@@ -1,5 +1,5 @@
 <template>
-    <el-time-select v-model="model" :picker-options="{start: start, step: step, end: end }"></el-time-select>
+    <el-time-select v-model="model" :picker-options="{start: start, step: step, end: end }" :disabled="disabled"></el-time-select>
 </template>
 
 <script>
@@ -33,6 +33,9 @@ export default {
         },
         end() {
             return this.schema["x-ui-end"] ? this.schema["x-ui-end"] : "23:30";
+        },
+        disabled(){
+             return this.schema["x-ui-disabled"];
         }
     }
 };

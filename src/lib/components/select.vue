@@ -1,7 +1,21 @@
 <template>
-  <el-select v-model="model" placeholder="Select" :filterable="filterable" >
-    <el-option v-if="!hideNone" :label="noneLabel" :value="noneValue"></el-option>
-    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+  <el-select
+    v-model="model"
+    placeholder="Select"
+    :filterable="filterable"
+    :disabled="disabled"
+  >
+    <el-option
+      v-if="!hideNone"
+      :label="noneLabel"
+      :value="noneValue"
+    ></el-option>
+    <el-option
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value"
+    ></el-option>
   </el-select>
 </template>
 
@@ -15,14 +29,14 @@ export default {
     resource: String,
     prop: String,
     connector: {},
-    parentModel: {}
+    parentModel: {},
   },
   data() {
     return {
       options: [],
       hideNone: false,
       noneLabel: "None",
-      noneValue: undefined
+      noneValue: undefined,
     };
   },
   computed: {
@@ -32,15 +46,17 @@ export default {
       },
       set(val) {
         this.$emit("input", val);
-      }
+      },
     },
     enumCascade() {
       return this.schema["x-enum-cascade"];
     },
     filterable() {
       return this.schema["x-enum-filterable"];
-    }
-
+    },
+    disabled() {
+      return this.schema["x-ui-disabled"];
+    },
   },
   methods: {
     generateOptions(newParentModel) {
@@ -66,16 +82,16 @@ export default {
           this.resource,
           enumAction,
           req,
-          data => {
-            this.options = data.map(p => ({
+          (data) => {
+            this.options = data.map((p) => ({
               value: p[enumValueField],
-              label: p[enumTextField]
+              label: p[enumTextField],
             }));
           },
           () => {}
         );
       }
-    }
+    },
   },
   created() {
     const sch =
@@ -92,7 +108,7 @@ export default {
         }
         this.options.push({
           value: sch.enum[i],
-          label: label
+          label: label,
         });
       }
     } else if (sch["x-enum-action"]) {
@@ -113,14 +129,14 @@ export default {
     if (this.enumCascade) {
       this.$watch(
         "parentModel",
-        function(newVal) {
+        function (newVal) {
           this.generateOptions(newVal);
         },
         {
-          deep: true
+          deep: true,
         }
       );
     }
-  }
+  },
 };
 </script>

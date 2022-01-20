@@ -1,5 +1,5 @@
 <template>
-    <el-switch v-model="model" on-text off-text></el-switch>
+    <el-switch v-model="model" on-text off-text :disabled="disabled"></el-switch>
 </template>
 
 <script>
@@ -20,6 +20,9 @@ export default {
             set(val) {
                 this.$emit("input", val);
             }
+        },
+        disabled(){
+             return this.schema["x-ui-disabled"];
         }
     }, 
     created(){

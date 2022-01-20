@@ -1,5 +1,5 @@
 <template>
-    <el-checkbox-group v-model="model">
+    <el-checkbox-group v-model="model" :disabled="disabled">
         <el-checkbox v-for="item in options" :label="item.value" :key="item.value">{{item.label}}</el-checkbox>
     </el-checkbox-group>
 </template>
@@ -32,6 +32,9 @@ export default {
             set(val) {
                 this.$emit("input", val);
             }
+        },
+        disabled(){
+             return this.schema["x-ui-disabled"];
         }
     },
     created() {
