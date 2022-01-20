@@ -116,17 +116,17 @@ export default {
           label: label,
         });
       }
-    } else if (this.sch["x-enum-action"]) {
+    } else if (this.schema["x-enum-action"]) {
       this.generateOptions(this.parentModel);
     }
-    if (this.sch["x-enum-nonelabel"]) {
-      this.noneLabel = this.sch["x-enum-nonelabel"];
+    if (this.schema["x-enum-nonelabel"]) {
+      this.noneLabel = this.schema["x-enum-nonelabel"];
       if (this.messages && this.messages[this.noneLabel]) {
         this.noneLabel = this.messages[this.noneLabel];
       }
     }
-    if (this.sch["x-enum-hideNone"]) {
-      this.hideNone = this.sch["x-enum-hideNone"];
+    if (this.schema["x-enum-hideNone"]) {
+      this.hideNone = this.schema["x-enum-hideNone"];
     }
     if (this.sch["default"]) {
       this.model = this.sch["default"];
