@@ -5,6 +5,8 @@ export const jsonSchema = {
         if (schema.oneOf) {
             var list = schema.oneOf.filter(s => s.type != "null");
             if (list.length > 0) return list[0];
+        } else if (schema.allOf && schema.oneOf.length) {
+             return schema.allOf[0];
         }
         return schema;
     },
