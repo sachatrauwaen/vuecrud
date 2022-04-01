@@ -140,5 +140,11 @@ export default {
     this.language = this.locale;
     this.fetchData();
   },
+  watch: {
+    // TODO this seems suboptimal, and won't work when using without router
+    $route: function() {
+      this.fetchData();
+    }
+  }
 };
 </script>
