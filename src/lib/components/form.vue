@@ -143,6 +143,13 @@ export default {
           });
           rules[key] = itemRules;
         }
+        if (prop.format == 'email' ) {
+          itemRules.push({
+            type:'email',
+            message: "Please input a email",
+          });
+          rules[key] = itemRules;
+        }
       }
       if (this.schema.required) {
         for (var i = 0; i < this.schema.required.length; i++) {

@@ -629,7 +629,7 @@ abp.schemas.app.user.update.parameters = {
         "properties": {
             "userName": {
                 "type": "string",
-                "maxLength": 32,
+                "maxLength": 10,
                 "minLength": 0,
                 "x-ui-grid-sortable": true
             },

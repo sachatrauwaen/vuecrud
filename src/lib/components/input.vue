@@ -1,5 +1,5 @@
 <template>
-    <el-input v-model="model" :disabled="disabled"></el-input>
+    <el-input v-model="model" :disabled="disabled" :maxlength="maxlength"></el-input>
 </template>
 
 <script>
@@ -22,6 +22,9 @@ export default {
         },
         disabled(){
              return this.schema["x-ui-disabled"];
+        },
+        maxlength(){
+            return this.schema["maxLength"];
         }
     }
 };
