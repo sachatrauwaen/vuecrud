@@ -26,7 +26,7 @@ import Switch from '../components/switch.vue'
 import Textarea from '../components/textarea.vue'
 import Time from '../components/time.vue'
 import CommandForm from '../components/commandForm.vue'
-
+import SettingsForm from '../components/settingsForm.vue'
 
 export const components = {
     Address,
@@ -56,7 +56,8 @@ export const components = {
     Time,
     CrudGridWithoutRouter,
     CrudFormWithoutRouter,
-    CommandForm
+    CommandForm,
+    SettingsForm
 };
 
 export const install = (Vue) => Object.keys(components).forEach(key => Vue.component(components[key].name, components[key]));

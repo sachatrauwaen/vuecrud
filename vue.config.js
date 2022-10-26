@@ -5,6 +5,14 @@
 // vue.config.js
 module.exports = {
     configureWebpack: {
+
+        devServer: {
+            overlay: {
+                warnings: true,
+                errors: false
+            }
+        },
+
       plugins: [
         //new WebpackAutoInject({
         //    components: {

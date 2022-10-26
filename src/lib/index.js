@@ -12,6 +12,7 @@ export default {
     AbpConnector,
     createApp: CrudApp.create,
     createAbp: CrudApp.createAbp,
+    createSettings: CrudApp.createSettings,
     components,
     defaults:defaults
 };

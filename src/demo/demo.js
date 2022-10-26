@@ -570,7 +570,7 @@ abp.schemas.app.user.update.returnValue = {
             "minLength": 0,
             "x-ui-grid": false,
             
-                "x-ui-disabled": true,
+            /*"x-ui-disabled": true,*/
         },
         "emailAddress": {
             "type": "string",
@@ -642,7 +642,7 @@ abp.schemas.app.user.update.parameters = {
                 "type": "string",
                 "maxLength": 32,
                 "minLength": 0,                
-                "x-ui-disabled": true,
+                /*"x-ui-disabled": true,*/
             },
             "emailAddress": {
                 "type": "string",

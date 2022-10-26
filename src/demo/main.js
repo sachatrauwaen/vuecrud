@@ -17,3 +17,5 @@ import Layout from './layout'
 Vue.component("oa-user-custom-component", UserCustomComponent)
 
 VueCrud.createApp('#app', Layout);
+
+VueCrud.createSettings('#settings', Layout);

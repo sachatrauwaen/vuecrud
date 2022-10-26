@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div>
     <el-tabs v-if="Object.keys(tabs).length > 1" :value="Object.keys(tabs)[0]">
       <el-tab-pane v-for="(gvalue, gkey) in tabs" :key="gkey" :label="label(gkey)" :name="gkey">
@@ -15,8 +15,8 @@
             <div v-for="(pvalue, pkey) in cvalue" :key="pkey" class="oa-fields-card">
               <div v-if="pkey == 'undefined'">
                 <oa-field
-                  v-for="(value, key) in pvalue"
-                  v-if="visible(value)"
+                  v-for="(value, key) in filterFields(pvalue)"
+                  
                   :key="key"
                   :prop="key"
                   :schema="property(key)"
@@ -33,8 +33,7 @@
                   <span>{{pkey}}</span>
                 </div>
                 <oa-field
-                  v-for="(value, key) in pvalue"
-                  v-if="visible(value)"
+                  v-for="(value, key) in filterFields(pvalue)"                  
                   :key="key"
                   :prop="key"
                   :schema="property(key)"
@@ -64,8 +63,7 @@
         <div v-for="(pvalue, pkey) in cvalue" :key="pkey" class="oa-fields-card">
           <div v-if="pkey == 'undefined'">
             <oa-field
-              v-for="(value, key) in pvalue"
-              v-if="visible(value)"
+              v-for="(value, key) in filterFields(pvalue)"              
               :key="key"
               :prop="key"
               :schema="property(key)"
@@ -84,8 +82,7 @@
             </div>
 
             <oa-field
-              v-for="(value, key) in pvalue"
-              v-if="visible(value)"
+              v-for="(value, key) in filterFields(pvalue)"              
               :key="key"
               :prop="key"
               :schema="property(key)"
@@ -138,7 +135,7 @@ export default {
           if (
             key !== "id" &&
             !this.property(key).readonly &&
-            (!this.property(key).hasOwnProperty("x-ui-form") || this.property(key)["x-ui-form"]) &&
+              (!Object.prototype.hasOwnProperty.call(this.property(key),"x-ui-form") || this.property(key)["x-ui-form"]) &&
             (this.connector.canActivate() || key != "isActive")
             /*&&
                                 !this.schema.properties[key]["x-rel-app"] &&
@@ -183,6 +180,9 @@ export default {
     }
   },
   methods: {
+    filterFields(fields) {
+      return fields.filter(f => { return this.visible(f) })
+    },
     property(key){
       return Utils.jsonSchema.simplify(this.properties[key]);
     },

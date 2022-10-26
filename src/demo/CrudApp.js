@@ -95,7 +95,78 @@ export default {
             }
         }).$mount(id)
     },
+
     createAbp(id, layout, data, gridLayout, formLayout, entityType) {
         VueCrud.createApp(id,layout, data, gridLayout, formLayout, VueCrud.AbpConnector, entityType)
-    }
+    },
+
+    createSettings(id, layout, data, formLayout, connector, entityType) {
+
+        if (formLayout) {
+            Vue.component('oa-form-layout', formLayout);
+        } else {
+            Vue.component('oa-form-layout', FormLayout);
+        }
+
+        Vue.use(VueRouter);
+
+        connector = connector || VueCrud.OaConnector;
+
+        let locale = localeEN;
+        const loc = connector.locale();
+        if (loc == 'fr') {
+            locale = localeFR;
+        } else if (loc == 'nl') {
+            locale = localeNL;
+        }
+        Vue.use(ElementUI, { locale });
+        Vue.use(VueCrud);
+        const settingsForm = Vue.component('oa-settings-form');
+
+        const router = new VueRouter({
+            routes: [
+                { path: '/:module/:resource', component: settingsForm, name: 'setting' },
+            ]
+        });
+
+        new Vue({
+            router: router,
+            data: data || {},
+            connector: connector,
+            entityType: entityType,
+            render(h) {
+                return h(layout, {
+                    scopedSlots: {
+                        default: () => h('keep-alive',
+                            {
+                                props: {
+                                    
+                                }
+                            },
+                            [
+                                h('router-view')
+                            ])
+                    },
+                    props: {
+                        title: this.pageTitle
+                    }
+                })
+            },
+            computed: {
+                messages() {
+                    return connector.messages(this.$route.params.module);
+                },
+                pageTitle: function () {
+                    if (this.$route.params.resource) {
+                        let key = Utils.capitalize(this.$route.params.resource) + 's';
+                        let title = this.messages[[key]]
+                        return title ? title : key;
+                    }
+                    else {
+                        return 'Settings';
+                    }
+                }
+            }
+        }).$mount(id)
+    },
 }

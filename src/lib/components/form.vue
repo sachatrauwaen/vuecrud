@@ -119,7 +119,7 @@ export default {
             if (
               key != "id" &&
               !this.property(key).readonly &&
-              (!this.property(key).hasOwnProperty("x-ui-form") ||
+                (!Object.prototype.hasOwnProperty.call(this.property(key),"x-ui-form") ||
                 this.property(key)["x-ui-form"])
               /*&& !this.schema.properties[key]['x-rel-app']
               && !this.schema.properties[key]['x-rel-to-many-app']*/
