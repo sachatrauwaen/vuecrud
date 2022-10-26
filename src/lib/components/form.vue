@@ -8,7 +8,11 @@
           size="small"
           :type="action.type"
           @click="action.execute(validate)"
-        >{{action.name}}</el-button>
+          >{{ action.name }}</el-button
+        >
+      </div>
+      <div v-if="customComponents && customComponents.length">
+        <component v-for="(comp, index) in customComponents" :key="index" :is="comp" :model="model" ></component>
       </div>
     </template>
     <template #languages>
@@ -46,10 +50,10 @@
 </template>
 
 <script>
-import Vue from 'vue';
+import Vue from "vue";
 import { default as Utils } from "../utils/utils";
-import defaults from '../utils/defaults';
-import FormLayout from '../../demo/FormLayout.vue';
+import defaults from "../utils/defaults";
+import FormLayout from "../../demo/FormLayout.vue";
 
 export default {
   name: "oa-form",
@@ -64,18 +68,39 @@ export default {
     resource: String,
     customLabelPosition: String, // Optional,
     language: String,
-    labelWidth: String
+    labelWidth: String,
   },
   data() {
     return {};
   },
   computed: {
-    formLayout(){
-      var comp = Vue.component('oa-form-layout');
-      if (comp)
-        return comp;
-      else 
-        return FormLayout;
+    customComponents() {
+      
+      let comps = this.schema && this.schema["x-ui-components"];
+      if (comps) {
+        return comps.split(",").map((type) => {
+          var compName = "oa-" + type;
+          var comp = Vue.component(compName);
+          if (!comp) {
+            comp = (resolve, reject) => {
+              Utils.loadComponent({
+                name: compName,
+                path: this.connector.componentsPath() + type + ".js",
+                onLoad: resolve,
+                onError: reject,
+              });
+            };
+          }
+          return comp;
+        });
+      } else {
+        return [];
+      }
+    },
+    formLayout() {
+      var comp = Vue.component("oa-form-layout");
+      if (comp) return comp;
+      else return FormLayout;
     },
     properties() {
       return this.schema.properties;
@@ -94,8 +119,8 @@ export default {
             if (
               key != "id" &&
               !this.property(key).readonly &&
-                (!Object.prototype.hasOwnProperty.call(this.property(key),"x-ui-form") ||
-                        this.property(key)["x-ui-form"])
+              (!this.property(key).hasOwnProperty("x-ui-form") ||
+                this.property(key)["x-ui-form"])
               /*&& !this.schema.properties[key]['x-rel-app']
               && !this.schema.properties[key]['x-rel-to-many-app']*/
             ) {
@@ -115,6 +140,13 @@ export default {
           itemRules.push({
             required: true,
             message: "Please input a value",
+          });
+          rules[key] = itemRules;
+        }
+        if (prop.format == 'email' ) {
+          itemRules.push({
+            type:'email',
+            message: "Please input a email",
           });
           rules[key] = itemRules;
         }
@@ -169,12 +201,12 @@ export default {
     isMultiLingual() {
       return this.schema && this.schema["x-multi-language"];
     },
-    labelWidthCalculated(){
+    labelWidthCalculated() {
       return defaults.labelWidth;
-    }
+    },
   },
   methods: {
-    property(key){
+    property(key) {
       return Utils.jsonSchema.simplify(this.properties[key]);
     },
     validate(callback) {

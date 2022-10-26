@@ -458,7 +458,8 @@ abp.schemas.app.user.create.parameters = {
             "surname": {
                 "type": "string",
                 "maxLength": 32,
-                "minLength": 0
+                "minLength": 0,
+                "x-ui-disabled": true,
             },
             "emailAddress": {
                 "type": "string",
@@ -567,7 +568,9 @@ abp.schemas.app.user.update.returnValue = {
             "type": "string",
             "maxLength": 32,
             "minLength": 0,
-            "x-ui-grid": false
+            "x-ui-grid": false,
+            
+                "x-ui-disabled": true,
         },
         "emailAddress": {
             "type": "string",
@@ -626,7 +629,7 @@ abp.schemas.app.user.update.parameters = {
         "properties": {
             "userName": {
                 "type": "string",
-                "maxLength": 32,
+                "maxLength": 10,
                 "minLength": 0,
                 "x-ui-grid-sortable": true
             },
@@ -638,7 +641,8 @@ abp.schemas.app.user.update.parameters = {
             "surname": {
                 "type": "string",
                 "maxLength": 32,
-                "minLength": 0
+                "minLength": 0,                
+                "x-ui-disabled": true,
             },
             "emailAddress": {
                 "type": "string",
@@ -647,7 +651,8 @@ abp.schemas.app.user.update.parameters = {
                 "minLength": 0
             },
             "isActive": {
-                "type": "boolean"
+                "type": "boolean",
+                "x-ui-disabled": true,
             },
             "roleNames": {
                 "title": "Roles",

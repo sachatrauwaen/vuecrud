@@ -1,11 +1,27 @@
 <template>
-  <el-select v-model="model" placeholder="Select" :filterable="filterable" >
-    <el-option v-if="!hideNone" :label="noneLabel" :value="noneValue"></el-option>
-    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+  <el-select
+    v-model="model"
+    placeholder="Select"
+    :filterable="filterable"
+    :disabled="disabled"
+  >
+    <el-option
+      v-if="!hideNone"
+      :label="noneLabel"
+      :value="noneValue"
+    ></el-option>
+    <el-option
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value"
+    ></el-option>
   </el-select>
 </template>
 
 <script>
+import { default as Utils } from "../utils/utils";
+
 export default {
   name: "oa-select",
   props: {
@@ -15,14 +31,14 @@ export default {
     resource: String,
     prop: String,
     connector: {},
-    parentModel: {}
+    parentModel: {},
   },
   data() {
     return {
       options: [],
       hideNone: false,
       noneLabel: "None",
-      noneValue: undefined
+      noneValue: undefined,
     };
   },
   computed: {
@@ -32,15 +48,20 @@ export default {
       },
       set(val) {
         this.$emit("input", val);
-      }
+      },
     },
     enumCascade() {
-      return this.schema["x-enum-cascade"];
+      return this.sch["x-enum-cascade"];
     },
     filterable() {
-      return this.schema["x-enum-filterable"];
+      return this.sch["x-enum-filterable"];
+    },
+    disabled() {
+      return this.sch["x-ui-disabled"];
+    },
+    sch(){
+      return Utils.jsonSchema.getNotNull(this.schema);
     }
-
   },
   methods: {
     generateOptions(newParentModel) {
@@ -52,75 +73,75 @@ export default {
           req.parent = this.parentModel.parent;
         }
       }
+      
+      // const sch =
+      //   this.schema.oneOf && this.schema.oneOf[0]
+      //     ? this.schema.oneOf[0]
+      //     : this.schema;
 
-      const sch =
-        this.schema.oneOf && this.schema.oneOf[0]
-          ? this.schema.oneOf[0]
-          : this.schema;
-
-      if (sch["x-enum-action"]) {
-        var enumAction = this.schema["x-enum-action"];
-        var enumValueField = this.schema["x-enum-valuefield"] || "id";
-        var enumTextField = this.schema["x-enum-textfield"] || "fullName";
+      if (this.sch["x-enum-action"]) {
+        var enumAction = this.sch["x-enum-action"];
+        var enumValueField = this.sch["x-enum-valuefield"] || "id";
+        var enumTextField = this.sch["x-enum-textfield"] || "fullName";
         this.connector.service(
           this.resource,
           enumAction,
           req,
-          data => {
-            this.options = data.map(p => ({
+          (data) => {
+            this.options = data.map((p) => ({
               value: p[enumValueField],
-              label: p[enumTextField]
+              label: p[enumTextField],
             }));
           },
           () => {}
         );
       }
-    }
+    },
   },
   created() {
-    const sch =
-      this.schema.oneOf && this.schema.oneOf[0]
-        ? this.schema.oneOf[0]
-        : this.schema;
-    if (sch.enum) {
-      for (var i = 0; i < sch.enum.length; i++) {
-        let label = sch["x-enumNames"]
-          ? sch["x-enumNames"][i]
-          : this.prop + "_" + sch.enum[i];
+    // const sch =
+    //   this.schema.oneOf && this.schema.oneOf[0]
+    //     ? this.schema.oneOf[0]
+    //     : this.schema;
+    if (this.sch.enum) {
+      for (var i = 0; i < this.sch.enum.length; i++) {
+        let label = this.sch["x-enumNames"]
+          ? this.sch["x-enumNames"][i]
+          : this.prop + "_" + this.sch.enum[i];
         if (this.messages && this.messages[label]) {
           label = this.messages[label];
         }
         this.options.push({
-          value: sch.enum[i],
-          label: label
+          value: this.sch.enum[i],
+          label: label,
         });
       }
-    } else if (sch["x-enum-action"]) {
+    } else if (this.schema["x-enum-action"]) {
       this.generateOptions(this.parentModel);
     }
-    if (sch["x-enum-nonelabel"]) {
-      this.noneLabel = sch["x-enum-nonelabel"];
+    if (this.schema["x-enum-nonelabel"]) {
+      this.noneLabel = this.schema["x-enum-nonelabel"];
       if (this.messages && this.messages[this.noneLabel]) {
         this.noneLabel = this.messages[this.noneLabel];
       }
     }
-    if (sch["x-enum-hideNone"]) {
-      this.hideNone = sch["x-enum-hideNone"];
+    if (this.schema["x-enum-hideNone"]) {
+      this.hideNone = this.schema["x-enum-hideNone"];
     }
-    if (sch["default"]) {
-      this.model = sch["default"];
+    if (this.sch["default"]) {
+      this.model = this.sch["default"];
     }
     if (this.enumCascade) {
       this.$watch(
         "parentModel",
-        function(newVal) {
+        function (newVal) {
           this.generateOptions(newVal);
         },
         {
-          deep: true
+          deep: true,
         }
       );
     }
-  }
+  },
 };
 </script>

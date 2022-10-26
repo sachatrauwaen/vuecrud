@@ -1,5 +1,7 @@
 ﻿<template>
-        <el-date-picker v-model="model" type="date" format="dd/MM/yyyy" value-format="yyyy-MM-dd" :picker-options="{firstDayOfWeek: 1}" ></el-date-picker>
+        <el-date-picker v-model="model" type="date" 
+        format="dd/MM/yyyy" value-format="yyyy-MM-dd" 
+        :picker-options="{firstDayOfWeek: 1}" :disabled="disabled" ></el-date-picker>
 </template>
 <script>
 export default {
@@ -18,6 +20,9 @@ export default {
             set(val) {
                 this.$emit("input", val);
             }
+        },
+        disabled(){
+             return this.schema["x-ui-disabled"];
         }
     }
 };
