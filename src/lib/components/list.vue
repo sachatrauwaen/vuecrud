@@ -1,4 +1,4 @@
-﻿<template>
+<template>
 <div>
     <el-table ref="table" v-if="!isMobile" :data="model" @row-click="rowClick" style="width: 100%" :row-style="{cursor: 'pointer'}">
         <el-table-column type="expand">
@@ -63,7 +63,7 @@ export default {
                     icon: "el-icon-plus",
                     execute: row => {
                         var clone = JSON.parse(JSON.stringify(row));
-                        if (clone.hasOwnProperty("id")) {
+                        if (Object.prototype.hasOwnProperty.call(clone,"id")) {
                             delete clone.id;
                         }
                         this.model.push(clone);
@@ -94,7 +94,7 @@ export default {
                 if (
                     key != "id" &&
                     this.property(key).type != "array" &&
-                    (!this.property(key).hasOwnProperty("x-ui-grid") ||
+                    (!Object.prototype.hasOwnProperty.call(this.property(key),"x-ui-grid") ||
                         this.property(key)["x-ui-grid"])
                 ) {
                     fields[key] = this.property(key);
