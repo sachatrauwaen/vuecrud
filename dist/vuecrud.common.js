@@ -73733,16 +73733,14 @@ var field_component = normalizeComponent(
 )
 
 /* harmony default export */ var field = (field_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6cf353da-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/fields.vue?vue&type=template&id=04ed43eb&
-var fieldsvue_type_template_id_04ed43eb_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(Object.keys(_vm.tabs).length > 1)?_c('el-tabs',{attrs:{"value":Object.keys(_vm.tabs)[0]}},_vm._l((_vm.tabs),function(gvalue,gkey){return _c('el-tab-pane',{key:gkey,attrs:{"label":_vm.label(gkey),"name":gkey}},[_c('el-row',{attrs:{"gutter":10}},_vm._l((gvalue.columns),function(cvalue,ckey){return _c('el-col',{key:ckey,attrs:{"xs":24/Object.keys(gvalue.columns).length,"sm":24/Object.keys(gvalue.columns).length,"md":24/Object.keys(gvalue.columns).length,"lg":24/Object.keys(gvalue.columns).length,"xl":24/Object.keys(gvalue.columns).length}},_vm._l((cvalue),function(pvalue,pkey){return _c('div',{key:pkey,staticClass:"oa-fields-card"},[(pkey == 'undefined')?_c('div',_vm._l((_vm.filterFields(pvalue)),function(value,key){return _c('oa-field',{key:key,attrs:{"prop":key,"schema":_vm.property(key),"messages":_vm.messages,"connector":_vm.connector,"resource":_vm.resource,"parent-model":_vm.cascadeModel},on:{"propChange":_vm.propChange},model:{value:(_vm.model[key]),callback:function ($$v) {_vm.$set(_vm.model, key, $$v)},expression:"model[key]"}})}),1):_c('el-card',[(pkey != 'undefined')?_c('div',{attrs:{"slot":"header"},slot:"header"},[_c('span',[_vm._v(_vm._s(pkey))])]):_vm._e(),_vm._l((_vm.filterFields(pvalue)),function(value,key){return _c('oa-field',{key:key,attrs:{"prop":key,"schema":_vm.property(key),"messages":_vm.messages,"connector":_vm.connector,"resource":_vm.resource,"parent-model":_vm.cascadeModel},on:{"propChange":_vm.propChange},model:{value:(_vm.model[key]),callback:function ($$v) {_vm.$set(_vm.model, key, $$v)},expression:"model[key]"}})})],2)],1)}),0)}),1)],1)}),1):_c('el-row',{attrs:{"gutter":10}},_vm._l((_vm.columns),function(cvalue,ckey){return _c('el-col',{key:ckey,attrs:{"xs":24/Object.keys(_vm.columns).length,"sm":24/Object.keys(_vm.columns).length,"md":24/Object.keys(_vm.columns).length,"lg":24/Object.keys(_vm.columns).length,"xl":24/Object.keys(_vm.columns).length}},_vm._l((cvalue),function(pvalue,pkey){return _c('div',{key:pkey,staticClass:"oa-fields-card"},[(pkey == 'undefined')?_c('div',_vm._l((_vm.filterFields(pvalue)),function(value,key){return _c('oa-field',{key:key,attrs:{"prop":key,"schema":_vm.property(key),"messages":_vm.messages,"connector":_vm.connector,"resource":_vm.resource,"parent-model":_vm.cascadeModel},on:{"propChange":_vm.propChange},model:{value:(_vm.model[key]),callback:function ($$v) {_vm.$set(_vm.model, key, $$v)},expression:"model[key]"}})}),1):_c('el-card',[(pkey != 'undefined')?_c('div',{attrs:{"slot":"header"},slot:"header"},[_c('span',[_vm._v(_vm._s(pkey))])]):_vm._e(),_vm._l((_vm.filterFields(pvalue)),function(value,key){return _c('oa-field',{key:key,attrs:{"prop":key,"schema":_vm.property(key),"messages":_vm.messages,"connector":_vm.connector,"resource":_vm.resource,"parent-model":_vm.cascadeModel},on:{"propChange":_vm.propChange},model:{value:(_vm.model[key]),callback:function ($$v) {_vm.$set(_vm.model, key, $$v)},expression:"model[key]"}})})],2)],1)}),0)}),1)],1)}
-var fieldsvue_type_template_id_04ed43eb_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6cf353da-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/fields.vue?vue&type=template&id=2db5a19d&
+var fieldsvue_type_template_id_2db5a19d_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(Object.keys(_vm.tabs).length > 1)?_c('el-tabs',{attrs:{"value":Object.keys(_vm.tabs)[0]}},_vm._l((_vm.tabs),function(gvalue,gkey){return _c('el-tab-pane',{key:gkey,attrs:{"label":_vm.label(gkey),"name":gkey}},[_c('el-row',{attrs:{"gutter":10}},_vm._l((gvalue.columns),function(cvalue,ckey){return _c('el-col',{key:ckey,attrs:{"xs":24/Object.keys(gvalue.columns).length,"sm":24/Object.keys(gvalue.columns).length,"md":24/Object.keys(gvalue.columns).length,"lg":24/Object.keys(gvalue.columns).length,"xl":24/Object.keys(gvalue.columns).length}},_vm._l((cvalue),function(pvalue,pkey){return _c('div',{key:pkey,staticClass:"oa-fields-card"},[(pkey == 'undefined')?_c('div',_vm._l((_vm.filterFields(pvalue)),function(value,key){return _c('oa-field',{key:key,attrs:{"prop":key,"schema":_vm.property(key),"messages":_vm.messages,"connector":_vm.connector,"resource":_vm.resource,"parent-model":_vm.cascadeModel},on:{"propChange":_vm.propChange},model:{value:(_vm.model[key]),callback:function ($$v) {_vm.$set(_vm.model, key, $$v)},expression:"model[key]"}})}),1):_c('el-card',[(pkey != 'undefined')?_c('div',{attrs:{"slot":"header"},slot:"header"},[_c('span',[_vm._v(_vm._s(pkey))])]):_vm._e(),_vm._l((_vm.filterFields(pvalue)),function(value,key){return _c('oa-field',{key:key,attrs:{"prop":key,"schema":_vm.property(key),"messages":_vm.messages,"connector":_vm.connector,"resource":_vm.resource,"parent-model":_vm.cascadeModel},on:{"propChange":_vm.propChange},model:{value:(_vm.model[key]),callback:function ($$v) {_vm.$set(_vm.model, key, $$v)},expression:"model[key]"}})})],2)],1)}),0)}),1)],1)}),1):_c('el-row',{attrs:{"gutter":10}},_vm._l((_vm.columns),function(cvalue,ckey){return _c('el-col',{key:ckey,attrs:{"xs":24/Object.keys(_vm.columns).length,"sm":24/Object.keys(_vm.columns).length,"md":24/Object.keys(_vm.columns).length,"lg":24/Object.keys(_vm.columns).length,"xl":24/Object.keys(_vm.columns).length}},_vm._l((cvalue),function(pvalue,pkey){return _c('div',{key:pkey,staticClass:"oa-fields-card"},[(pkey == 'undefined')?_c('div',_vm._l((_vm.filterFields(pvalue)),function(value,key){return _c('oa-field',{key:key,attrs:{"prop":key,"schema":_vm.property(key),"messages":_vm.messages,"connector":_vm.connector,"resource":_vm.resource,"parent-model":_vm.cascadeModel},on:{"propChange":_vm.propChange},model:{value:(_vm.model[key]),callback:function ($$v) {_vm.$set(_vm.model, key, $$v)},expression:"model[key]"}})}),1):_c('el-card',[(pkey != 'undefined')?_c('div',{attrs:{"slot":"header"},slot:"header"},[_c('span',[_vm._v(_vm._s(pkey))])]):_vm._e(),_vm._l((_vm.filterFields(pvalue)),function(value,key){return _c('oa-field',{key:key,attrs:{"prop":key,"schema":_vm.property(key),"messages":_vm.messages,"connector":_vm.connector,"resource":_vm.resource,"parent-model":_vm.cascadeModel},on:{"propChange":_vm.propChange},model:{value:(_vm.model[key]),callback:function ($$v) {_vm.$set(_vm.model, key, $$v)},expression:"model[key]"}})})],2)],1)}),0)}),1)],1)}
+var fieldsvue_type_template_id_2db5a19d_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/lib/components/fields.vue?vue&type=template&id=04ed43eb&
+// CONCATENATED MODULE: ./src/lib/components/fields.vue?vue&type=template&id=2db5a19d&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/fields.vue?vue&type=script&lang=js&
-
-
 //
 //
 //
@@ -73928,11 +73926,17 @@ var fieldsvue_type_template_id_04ed43eb_staticRenderFns = []
   },
   methods: {
     filterFields: function filterFields(fields) {
-      var _this = this;
+      var fs = {};
 
-      return fields.filter(function (f) {
-        return _this.visible(f);
-      });
+      for (var i in fields) {
+        var f = fields[i];
+
+        if (this.visible(f)) {
+          fs[i] = f;
+        }
+      }
+
+      return fs;
     },
     property: function property(key) {
       return utils.jsonSchema.simplify(this.properties[key]);
@@ -74009,8 +74013,8 @@ var fieldsvue_type_style_index_0_lang_css_ = __webpack_require__("e852");
 
 var fields_component = normalizeComponent(
   components_fieldsvue_type_script_lang_js_,
-  fieldsvue_type_template_id_04ed43eb_render,
-  fieldsvue_type_template_id_04ed43eb_staticRenderFns,
+  fieldsvue_type_template_id_2db5a19d_render,
+  fieldsvue_type_template_id_2db5a19d_staticRenderFns,
   false,
   null,
   null,

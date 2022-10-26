@@ -181,7 +181,14 @@ export default {
   },
   methods: {
     filterFields(fields) {
-      return fields.filter(f => { return this.visible(f) })
+          let fs = {};
+          for (var i in fields) {
+              let f = fields[i];
+              if (this.visible(f)) {
+                  fs[i] = f;
+              }
+          }
+          return fs;
     },
     property(key){
       return Utils.jsonSchema.simplify(this.properties[key]);
