@@ -241,7 +241,7 @@ export default {
     },
     batchActions() {
       let actions = [];
-      if (this.exportUrl && this.hasExportPermisssion) {
+      if (this.exportUrl && this.hasExportPermission) {
         actions.push({
           icon: "el-icon-download",
           execute: () => {
@@ -282,8 +282,8 @@ export default {
         let filterSchema = this.connector.schema(this.resource, "filter");
         return filterSchema && filterSchema["x-export-permission"];
     },
-    hasExportPermisssion() {
-      return !this.exportPermisssion || this.connector.hasPermisssion(this.exportPermisssion);
+    hasExportPermission() {
+      return !this.exportPermisssion || this.connector.hasPermission(this.exportPermisssion);
     },
     customBatchComponents() {
       let filterSchema = this.connector.schema(this.resource, "filter");
