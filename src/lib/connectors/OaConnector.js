@@ -121,6 +121,10 @@ export default {
         // eslint-disable-next-line
         return !abp.auth.allPermissions.CanActivate || abp.auth.grantedPermissions.CanActivate;
     },
+    hasPermission(permission) {
+        // eslint-disable-next-line
+        return abp.auth.grantedPermissions[permission];
+    },
     settings() {
         return {
             // eslint-disable-next-line
