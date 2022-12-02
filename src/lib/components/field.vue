@@ -173,8 +173,11 @@ export default {
         hideLabel() {
             return this.schema["x-ui-hideLabel"];
         },
+        labelWidth() {
+            return this.schema["x-ui-labelWidth"];
+        },
         labelWidth: function() {
-            return this.hideLabel ? "0px" : defaults.labelWidth;
+            return this.hideLabel ? "0px" : (this.labelWidth ? this.labelWidth : defaults.labelWidth);
         }
     },
     methods: {
