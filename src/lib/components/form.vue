@@ -217,6 +217,9 @@ export default {
     resetForm() {
       this.$refs.form.resetFields();
     },
+    clearValidate() {
+      this.$refs.form.clearValidate();
+    },
     label(name) {
       if (this.messages && this.messages[name]) {
         return this.messages[name];
