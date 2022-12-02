@@ -2,7 +2,7 @@
     <el-form-item :label="label" :prop="prop" :label-width="labelWidth">
         <span slot="label">
             {{label}}
-            <el-tooltip v-if="tooltip" placement="bottom" :content="tooltip" >                
+            <el-tooltip v-if="tooltip" :content="tooltip" >                
                 <i class="el-icon-info"></i>
             </el-tooltip>
         </span>
