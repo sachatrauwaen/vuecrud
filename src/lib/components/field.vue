@@ -2,7 +2,7 @@
     <el-form-item :label="label" :prop="prop" :label-width="labelWidth">
         <span slot="label">
             {{label}}
-            <el-tooltip v-if="tooltip" placement="right" :content="tooltip" >                
+            <el-tooltip v-if="tooltip" placement="bottom" :content="tooltip" >                
                 <i class="el-icon-info"></i>
             </el-tooltip>
         </span>
@@ -173,11 +173,11 @@ export default {
         hideLabel() {
             return this.schema["x-ui-hideLabel"];
         },
-        labelWidth() {
+        lw() {
             return this.schema["x-ui-labelWidth"];
         },
         labelWidth: function() {
-            return this.hideLabel ? "0px" : (this.labelWidth ? this.labelWidth : defaults.labelWidth);
+            return this.hideLabel ? "0px" : (this.lw ? this.lw : defaults.labelWidth);
         }
     },
     methods: {
