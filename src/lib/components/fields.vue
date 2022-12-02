@@ -232,7 +232,18 @@ export default {
       let dependencyField = field["x-ui-dependency-field"];
       let dependencyValue = field["x-ui-dependency-value"];
       if (dependencyField) {
-        return this.model[dependencyField] == dependencyValue;
+          if (Array.isArray(this.model[dependencyField])) {
+              if (Array.isArray(dependencyValue)) {
+                  for (var i = 0; i < dependencyValue.length; i++) {
+                      if (this.model[dependencyField].includes(dependencyValue[i])) return true;
+                  }
+                  return false;
+              } else {
+                  return this.model[dependencyField].includes(dependencyValue);
+              }
+          } else {
+              return this.model[dependencyField] == dependencyValue;
+          }
       } else {
         return true;
       }

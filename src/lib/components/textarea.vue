@@ -1,5 +1,5 @@
 <template>
-    <el-input type="textarea" autosize v-model="model" :disabled="disabled"></el-input>
+    <el-input type="textarea" autosize v-model="model" :disabled="disabled" :rows="3"></el-input>
 </template>
 
 <script>

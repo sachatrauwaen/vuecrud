@@ -1,5 +1,11 @@
 <template>
     <el-form-item :label="label" :prop="prop" :label-width="labelWidth">
+        <span slot="label">
+            {{label}}
+            <el-tooltip v-if="tooltip" placement="right" content="tooltip" >                
+                <i class="el-icon-info"></i>
+            </el-tooltip>
+        </span>
         <component v-bind:is="currentView" v-model="model" :model="value" v-bind="$props" @propChange="propChange" :resource="resource" :parent-model="parentModel"></component>
     </el-form-item>
 </template>
@@ -157,6 +163,12 @@ export default {
             if (this.messages && this.messages[name])
                 return this.messages[name];
             else return this.schema.title ? this.schema.title : name;
+        },
+        tooltip() {
+            if (this.hideLabel) return "";            
+            if (this.messages && this.messages[this.schema.description])
+                return this.messages[this.schema.description];
+            else return this.schema.description;
         },
         hideLabel() {
             return this.schema["x-ui-hideLabel"];
