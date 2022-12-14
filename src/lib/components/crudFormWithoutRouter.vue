@@ -102,7 +102,10 @@ export default {
       if (this.isnew) {
         this.connector
             .pService(this.resource, "init", { entityType: this.entityType })
-            .then((data) => (this.model = data));
+            .then((data) => {
+                this.model = data;
+                this.$refs.form.clearValidate();
+            });
       } else {
         if (this.isMultiLingual) {
           this.connector

@@ -313,6 +313,7 @@ abp.services.app.user.getAll = function (input, ajaxParams) {
         .filter(filterStringData(input, 'search', 'userName'))
 
     if (input.sorting) {
+        // eslint-disable-next-line
         const [sortField, sortOrder] = input.sorting.split(' ');
 
         if (sortField == 'userName') {
