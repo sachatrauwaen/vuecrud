@@ -104,7 +104,10 @@ export default {
             .pService(this.resource, "init", { entityType: this.entityType })
             .then((data) => {
                 this.model = data;
-                this.$refs.form.clearValidate();
+                this.$nextTick(() => {
+                    this.$refs.form.clearValidate();
+                });
+                
             });
       } else {
         if (this.isMultiLingual) {
