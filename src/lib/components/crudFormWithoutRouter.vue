@@ -35,6 +35,7 @@ export default {
               return [                  
                   {
                       name: "Close",
+                      type: "primary",
                       execute: () => {
                           this.redirect();
                           //this.$router.go(-1); // go back
