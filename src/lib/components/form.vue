@@ -44,6 +44,7 @@
         :connector="connector"
         :messages="messages"
         :resource="resource"
+        :readOnly="readOnly"
       ></oa-fields>
     </el-form>
   </component>
@@ -69,6 +70,7 @@ export default {
     customLabelPosition: String, // Optional,
     language: String,
     labelWidth: String,
+    readOnly: Boolean
   },
   data() {
     return {};

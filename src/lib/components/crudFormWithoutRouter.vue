@@ -9,6 +9,7 @@
     :messages="messages"
     :language="language"
     @changeLanguage="changeLanguage"
+    :readOnly="readOnly"
   ></oa-form>
 </template>
 
@@ -24,43 +25,59 @@ export default {
   data() {
     return {
       model: {},
-      actions: [
-        {
-          name: "Save",
-          type: "primary",
-          execute: () => {
-            const onSaveData = () => {
-              this.$message({
-                type: "success",
-                message: "Save completed",
-              });
-              this.redirect();
-              //this.$router.go(-1); // go back
-
-              // Refresh data
-              this.fetchData();
-            };
-
-            const onValidate = (valid) => {
-              if (valid) this.saveData(this.model).then(onSaveData);
-              else return false;
-            };
-
-            this.$refs.form.validate(onValidate);
-          },
-        },
-        {
-          name: "Cancel",
-          execute: () => {
-            this.redirect();
-            //this.$router.go(-1); // go back
-          },
-        },
-      ],
+      
       language: "",
     };
   },
   computed: {
+      actions() {
+          if (this.readOnly) {
+              return [                  
+                  {
+                      name: "Close",
+                      execute: () => {
+                          this.redirect();
+                          //this.$router.go(-1); // go back
+                      },
+                  },
+              ];
+          } else {
+              return [
+                  {
+                      name: "Save",
+                      type: "primary",
+                      execute: () => {
+                          const onSaveData = () => {
+                              this.$message({
+                                  type: "success",
+                                  message: "Save completed",
+                              });
+                              this.redirect();
+                              //this.$router.go(-1); // go back
+
+                              // Refresh data
+                              this.fetchData();
+                          };
+
+                          const onValidate = (valid) => {
+                              if (valid) this.saveData(this.model).then(onSaveData);
+                              else return false;
+                          };
+
+                          this.$refs.form.validate(onValidate);
+                      },
+                  },
+                  {
+                      name: "Cancel",
+                      execute: () => {
+                          this.redirect();
+                          //this.$router.go(-1); // go back
+                      },
+                  },
+              ];
+          }
+
+      },
     // module () {
     //   return this.$route.params.module
     // },
@@ -77,7 +94,8 @@ export default {
       return !this.id;
     },
     schema() {
-      if (this.isnew) return this.connector.schema(this.resource, "create");
+      if (this.readOnly) return this.connector.schema(this.resource, "get");
+      else if (this.isnew) return this.connector.schema(this.resource, "create");
       else return this.connector.schema(this.resource, "update");
     },
     connector: function () {
@@ -91,6 +109,10 @@ export default {
     },
     isMultiLingual() {
       return this.schema && this.schema["x-multi-language"];
+    },
+    readOnly() {
+      let filterSchema = this.connector.schema(this.resource, "filter");
+      return filterSchema && filterSchema["x-ui-readonly"];
     },
   },
   methods: {

@@ -26,6 +26,7 @@
                   :connector="connector"
                   :resource="resource"
                   :parent-model="cascadeModel"
+                  :readOnly="readOnly"
                 ></oa-field>
               </div>
               <el-card v-else>
@@ -43,6 +44,7 @@
                   :connector="connector"
                   :resource="resource"
                   :parent-model="cascadeModel"
+                  :readOnly="readOnly"
                 ></oa-field>
               </el-card>
             </div>
@@ -73,6 +75,7 @@
               :connector="connector"
               :resource="resource"
               :parent-model="cascadeModel"
+              :readOnly="readOnly"
             ></oa-field>
           </div>
 
@@ -92,6 +95,7 @@
               :connector="connector"
               :resource="resource"
               :parent-model="cascadeModel"
+              :readOnly="readOnly"
             ></oa-field>
           </el-card>
         </div>
@@ -116,7 +120,8 @@ export default {
     messages: {},
     connector: {},
     resource: String,
-    parentModel: {}
+    parentModel: {},
+    readOnly: Boolean
   },
   data() {
     return {};

@@ -46,11 +46,13 @@ export default {
 
         const crudGrid = Vue.component('oa-crud-grid');
         const crudForm = Vue.component('oa-crud-form');
+        //const viewForm = Vue.component('oa-view-form');
 
         const router = new VueRouter({
             routes: [
                 { path: '/:module/:resource', component: crudGrid, name: 'grid' },
                 { path: '/:module/:resource/edit/:id', component: crudForm, name: 'edit' },
+                { path: '/:module/:resource/view/:id', component: crudForm, name: 'view' },
                 { path: '/:module/:resource/add', component: crudForm, name: 'add' }
             ]
         });

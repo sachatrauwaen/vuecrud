@@ -1,13 +1,14 @@
-﻿<template>
+<template>
     <div>    
         <el-card  style="margin-bottom:10px;" v-for="row in model" :key="row.id">
-            <oa-fields :model="row" :schema="rowSchema" :connector="connector" :messages="messages" :resource="resource" :parent-model="parentModel"></oa-fields>
+            <oa-fields :model="row" :schema="rowSchema" :connector="connector" :messages="messages"
+                       :resource="resource" :parent-model="parentModel" :readOnly="readOnly"></oa-fields>
             <div style="padding-top:10px;">
                 <el-button v-for="action in actions" :key="action.name" :icon="action.icon" size="small" @click="action.execute(row)"></el-button>
             </div>
         </el-card>
         <div style="padding-top:10px;" v-if="!model || !model.length">
-            <el-button icon="el-icon-plus" type="primary" size="small" @click="addRow()" style="margin:10px auto;display:block"></el-button>
+            <el-button v-if="!readOnly" icon="el-icon-plus" type="primary" size="small" @click="addRow()" style="margin:10px auto;display:block"></el-button>
         </div>    
     </div>
 </template>
@@ -25,7 +26,8 @@ export default {
     resource: String,
     prop: String,
     connector: {},
-    parentModel:{}
+    parentModel: {},
+    readOnly:Boolean
   },
   data() {
     return {

@@ -100,7 +100,8 @@ export default {
     module: String,
     resource: String,
     connector: Object,
-    entityType:{},
+    entityType: {},
+    doOnView: Function,
     doOnEdit: Function,
     doOnAdd: Function
   },
@@ -127,70 +128,84 @@ export default {
       return this.connector.messages(this.module);
     },
     gridActions() {
-      return [
-        {
-          name: this.translate("Edit"),
-          icon: "el-icon-edit",
-          execute: this.doOnEdit
-        },
-        {
-          name: this.translate("Delete"),
-          icon: "el-icon-delete",
-          execute: row => {
-            // eslint-disable-next-line
-            this.$confirm("Confirm delete ?", this.translate("Delete"), {
-              confirmButtonText: "OK",
-              cancelButtonText: "Cancel",
-              type: "warning"
-            })
-              .then(() => {
-                this.deleteData(row, () => {
-                  this.$message({
-                    type: "success",
-                    message: this.translate("Delete completed")
-                  });
-                });
-              })
-              .catch(() => {});
-          },
-          visible: row => {
-            return typeof row.canDelete !== "undefined" ? row.canDelete : true;
-          }
-        },
-        {
-          name: this.translate("Duplicate"),
-          icon: "el-icon-document-copy",
-          execute: row => {
-            // eslint-disable-next-line
-            this.$confirm("Confirm duplicate ?", this.translate("Duplicate"), {
-              confirmButtonText: "OK",
-              cancelButtonText: "Cancel",
-              type: "warning"
-            })
-              .then(() => {
-                this.duplicateData(row, () => {
-                  this.$message({
-                    type: "success",
-                    message: this.translate("Duplicate completed")
-                  });
-                });
-              })
-              .catch(() => {});
-          },
-          visible: row => {
-            return row.canDuplicate;
-          }
+        if (this.readOnly) {
+            return [
+                {
+                    name: this.translate("View"),
+                    icon: "el-icon-view",
+                    execute: this.doOnView
+                }
+                ];
+        } else {
+            return [
+                {
+                    name: this.translate("Edit"),
+                    icon: "el-icon-edit",
+                    execute: this.doOnEdit
+                },
+                {
+                    name: this.translate("Delete"),
+                    icon: "el-icon-delete",
+                    execute: row => {
+                        // eslint-disable-next-line
+                        this.$confirm("Confirm delete ?", this.translate("Delete"), {
+                            confirmButtonText: "OK",
+                            cancelButtonText: "Cancel",
+                            type: "warning"
+                        })
+                            .then(() => {
+                                this.deleteData(row, () => {
+                                    this.$message({
+                                        type: "success",
+                                        message: this.translate("Delete completed")
+                                    });
+                                });
+                            })
+                            .catch(() => { });
+                    },
+                    visible: row => {
+                        return typeof row.canDelete !== "undefined" ? row.canDelete : true;
+                    }
+                },
+                {
+                    name: this.translate("Duplicate"),
+                    icon: "el-icon-document-copy",
+                    execute: row => {
+                        // eslint-disable-next-line
+                        this.$confirm("Confirm duplicate ?", this.translate("Duplicate"), {
+                            confirmButtonText: "OK",
+                            cancelButtonText: "Cancel",
+                            type: "warning"
+                        })
+                            .then(() => {
+                                this.duplicateData(row, () => {
+                                    this.$message({
+                                        type: "success",
+                                        message: this.translate("Duplicate completed")
+                                    });
+                                });
+                            })
+                            .catch(() => { });
+                    },
+                    visible: row => {
+                        return row.canDuplicate;
+                    }
+                }
+            ];
         }
-      ];
     },
     actions() {
-      return [
-        {
-          icon: "el-icon-plus",
-          type: "primary",
-          execute: this.doOnAdd
+        if (this.readOnly) {
+            return [];
+        } else {
+              return [
+                  {
+                      icon: "el-icon-plus",
+                      type: "primary",
+                      execute: this.doOnAdd
+                  }
+              ];
         }
-      ];
     },
     filterSchema() {
       var schema = {
@@ -278,10 +293,14 @@ export default {
       let filterSchema = this.connector.schema(this.resource, "filter");
       return filterSchema && filterSchema["x-export-url"];
     },
-    exportPermisssion() {
-        let filterSchema = this.connector.schema(this.resource, "filter");
-        return filterSchema && filterSchema["x-export-permission"];
+    readOnly() {
+      let filterSchema = this.connector.schema(this.resource, "filter");
+      return filterSchema && filterSchema["x-ui-readonly"];
     },
+    exportPermisssion() {
+      let filterSchema = this.connector.schema(this.resource, "filter");
+      return filterSchema && filterSchema["x-export-permission"];
+    },    
     hasExportPermission() {
       return !this.exportPermisssion || this.connector.hasPermission(this.exportPermisssion);
     },

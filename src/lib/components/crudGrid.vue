@@ -5,6 +5,7 @@
             :resource="resource"
             :connector="connector"
             :entityType="entityType"
+            :doOnView="onView"
             :doOnEdit="onEdit"
             :doOnAdd="onAdd"
         ></oa-crud-grid-without-router>
@@ -32,6 +33,15 @@ export default {
         }
     },
     methods: {
+        onView(row) {
+            this.$router.push({
+                name: "view",
+                params: {
+                    resource: this.resource,
+                    id: row.id
+                }
+            });
+        },
         onEdit(row) {
             this.$router.push({
                 name: "edit",

@@ -26,7 +26,7 @@ export default {
             type: String,
             default: function() {
                 return "";
-            }
+            }            
         },
         messages: {
             type: Object,
@@ -36,7 +36,8 @@ export default {
         },
         connector: {},
         resource: String,
-        parentModel:{}
+        parentModel: {},
+        readOnly: Boolean
     },
 
     computed: {
@@ -64,7 +65,28 @@ export default {
                         });
                     };    
                 }
-                return comp;        
+                return comp;
+            } else if (this.readOnly) {
+                comp = 
+                    sch.enum
+                    ? components.ViewEnum // (type == "array" ? components.ViewEnumArray : components.ViewEnum)
+                    : type == "boolean"
+                        ? components.ViewBoolean
+                    //: type == "integer" || type == "number"
+                    //    ? components.ViewNumber
+                    //: type == "array" && this.schema.items.format == "date-time"
+                    //    ? components.Daterange
+                    //: sch.format == "date-time"
+                    //    ? components.ViewDatetime
+                    //: sch["x-ui-multiline"]
+                    //    ? components.ViewTextarea
+                    : type == "array"
+                        ? components.List
+                    : type == "object"
+                        ? components.Fields
+                        : components.ViewText; 
+
+                return comp;
             } else {
                 comp = 
                     sch["x-rel-action"]

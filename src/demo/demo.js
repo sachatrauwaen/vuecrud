@@ -874,6 +874,7 @@ abp.schemas.app.user.getAll.parameters = {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "title": "UsersResultRequestDto",
         "type": "object",
+        "x-ui-readonly": true,
         "properties": {
             "search": {
                 "type": "string"

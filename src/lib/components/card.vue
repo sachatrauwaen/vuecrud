@@ -1,7 +1,9 @@
-﻿<template>
+<template>
     <div>    
         <el-card  style="margin-bottom:10px;" >
-            <oa-fields :model="model" :schema="schema" :connector="connector" :messages="messages" :resource="resource" :parent-model="parentModel"></oa-fields>
+            <oa-fields :model="model" :schema="schema"
+                       :connector="connector" :messages="messages" :resource="resource"
+                       :parent-model="parentModel" :readOnly="readOnly"></oa-fields>
         </el-card>
     </div>
 </template>
@@ -18,7 +20,8 @@ export default {
     resource: String,
     prop: String,
     connector: {},
-    parentModel:{}
+      parentModel: {},
+      readOnly: Boolean
   },
   data() {
     return {

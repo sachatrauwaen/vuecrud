@@ -28,6 +28,10 @@ import Time from '../components/time.vue'
 import CommandForm from '../components/commandForm.vue'
 import SettingsForm from '../components/settingsForm.vue'
 
+import ViewText from '../components/view/viewtext.vue'
+import ViewEnum from '../components/view/viewenum.vue'
+import ViewBoolean from '../components/view/viewboolean.vue'
+
 export const components = {
     Address,
     Cards,
@@ -57,7 +61,10 @@ export const components = {
     CrudGridWithoutRouter,
     CrudFormWithoutRouter,
     CommandForm,
-    SettingsForm
+    SettingsForm,
+    ViewText,
+    ViewEnum,
+    ViewBoolean
 };
 
 export const install = (Vue) => Object.keys(components).forEach(key => Vue.component(components[key].name, components[key]));
