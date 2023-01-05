@@ -29,13 +29,11 @@
 <style>
     .NormalData {
         line-height: 40px;
-        vertical-align: middle;
-        font-weight: bold;
+        vertical-align: middle;        
     }
 
     .BoldData {
-        line-height: 40px;
-        vertical-align: middle;
+        
         font-weight: bold;
     }
 </style>

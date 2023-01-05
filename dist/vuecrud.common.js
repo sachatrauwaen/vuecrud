@@ -76553,12 +76553,12 @@ var settingsForm_component = normalizeComponent(
 )
 
 /* harmony default export */ var components_settingsForm = (settingsForm_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6cf353da-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/view/viewtext.vue?vue&type=template&id=e8dee1f6&
-var viewtextvue_type_template_id_e8dee1f6_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.schema.type=='boolean')?_c('div',{class:{NormalData:true,BoldData:!_vm.hideLabel}},[_vm._v(_vm._s(_vm.model ? 'Ja': 'Nee'))]):_vm._e(),_c('div',{class:{NormalData:true,BoldData:!_vm.hideLabel},domProps:{"innerHTML":_vm._s(_vm.model)}})])}
-var viewtextvue_type_template_id_e8dee1f6_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6cf353da-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/view/viewtext.vue?vue&type=template&id=2b922c08&
+var viewtextvue_type_template_id_2b922c08_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.schema.type=='boolean')?_c('div',{class:{NormalData:true,BoldData:!_vm.hideLabel}},[_vm._v(_vm._s(_vm.model ? 'Ja': 'Nee'))]):_vm._e(),_c('div',{class:{NormalData:true,BoldData:!_vm.hideLabel},domProps:{"innerHTML":_vm._s(_vm.model)}})])}
+var viewtextvue_type_template_id_2b922c08_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/lib/components/view/viewtext.vue?vue&type=template&id=e8dee1f6&
+// CONCATENATED MODULE: ./src/lib/components/view/viewtext.vue?vue&type=template&id=2b922c08&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/view/viewtext.vue?vue&type=script&lang=js&
 
@@ -76604,8 +76604,8 @@ var viewtextvue_type_style_index_0_lang_css_ = __webpack_require__("13f2");
 
 var viewtext_component = normalizeComponent(
   view_viewtextvue_type_script_lang_js_,
-  viewtextvue_type_template_id_e8dee1f6_render,
-  viewtextvue_type_template_id_e8dee1f6_staticRenderFns,
+  viewtextvue_type_template_id_2b922c08_render,
+  viewtextvue_type_template_id_2b922c08_staticRenderFns,
   false,
   null,
   null,
