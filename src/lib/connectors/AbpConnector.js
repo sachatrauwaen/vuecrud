@@ -112,7 +112,7 @@ export default {
     },
     canActivate() {
         // eslint-disable-next-line
-        return !abp.auth.policies.CanActivate || abp.auth.grantedPolicies.CanActivate;
+        return !abp.auth.grantedPolicies.CanActivate || abp.auth.grantedPolicies.CanActivate;
     },
     settings() {
         return {

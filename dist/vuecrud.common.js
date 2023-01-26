@@ -71757,7 +71757,7 @@ function validateAction(appService, action) {
   },
   canActivate: function canActivate() {
     // eslint-disable-next-line
-    return !abp.auth.policies.CanActivate || abp.auth.grantedPolicies.CanActivate;
+    return !abp.auth.grantedPolicies.CanActivate || abp.auth.grantedPolicies.CanActivate;
   },
   settings: function settings() {
     return {
