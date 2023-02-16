@@ -7,7 +7,7 @@
 </template>
 <script>
 export default {
-        name: "oa-displayboolean",
+        name: "oa-viewboolean",
 
         props: {
             value: {},

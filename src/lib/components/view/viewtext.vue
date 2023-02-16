@@ -7,7 +7,7 @@
 </template>
 <script>
     export default {
-        name: "oa-display",
+        name: "oa-viewtext",
 
         props: {
             value: {},
