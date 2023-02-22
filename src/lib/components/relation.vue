@@ -133,8 +133,8 @@ export default {
     }
   },
   watch: {
-    value(val) {
-      if (val) {
+    value(val) {          
+      if (val && !this.relationSmall) {
         this.options = [
           {
             label: this.value[this.relationTextField],
