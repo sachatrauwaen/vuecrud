@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-select v-if="relationSmall" v-model="model" :value-key="relationValueField" filterable :disabled="disabled">
+    <el-select v-if="relationSmall" v-model="model" :value-key="relationValueField" filterable :disabled="disabled" @change="change">
       <el-option
         v-for="item in options"
         :key="item.value.id"
@@ -107,7 +107,7 @@ export default {
     },
     disabled(){
              return this.schema["x-ui-disabled"];
-        },
+    },
     // schema: function() {
     //    if (this.isnew)
     //        return jref.resolve(abp.schemas.app[this.resource].create.input).properties[this.prop];
@@ -145,6 +145,9 @@ export default {
     }
   },
   methods: {
+    change(val) {
+      this.$emit("propChange", this.prop, val);
+    },
     remoteMethod(query) {
       if (!query && this.value) {
         const option = {

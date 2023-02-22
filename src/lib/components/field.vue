@@ -167,7 +167,6 @@ export default {
 
            
         },
-
         model: {
             get() {
                 return this.value;
