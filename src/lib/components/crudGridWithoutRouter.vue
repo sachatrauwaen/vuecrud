@@ -1,5 +1,5 @@
 <template>
-  <oa-grid-layout>
+  <oa-grid-layout v-loading="loading">
     <template #actions>
       <el-button
         v-for="action in actions"
@@ -93,7 +93,8 @@ export default {
       currentPage: 1,
       debouncedFetchData: Utils.debounce(this.fetchData, 500),
       fetchDataId: 0, // Keeps track of the requests of the fetchData method, to track race conditions
-      pageSize: 10
+      pageSize: 10,
+      loading: true,
     };
   },
   props: {
@@ -346,6 +347,7 @@ export default {
       this.fetchData();
     },
     fetchData(callback, sorting = undefined) {
+      this.loading = true;
       this.filterModel.sorting = sorting;
       this.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
       this.filterModel.maxResultCount = this.pageSize;
@@ -358,14 +360,17 @@ export default {
 
           this.model = data.items;
           this.totalCount = data.totalCount;
+          this.loading = false;
         });
     },
     deleteData(data, callback) {
+      this.loading = true;
       return this.connector
         .pService(this.resource, "delete", { id: data.id })
         .then(() => this.fetchData().then(callback));
     },
     duplicateData(data, callback) {
+      this.loading = true;
       return this.connector
         .pService(this.resource, "duplicate", { id: data.id })
         .then(() => this.fetchData().then(callback));

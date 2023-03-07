@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-select v-if="relationSmall" v-model="model" :value-key="relationValueField" filterable :disabled="disabled" @change="change">
+    <el-select v-if="relationSmall" v-model="model" :value-key="relationValueField" filterable :disabled="disabled" >
       <el-option
         v-for="item in options"
         :key="item.value.id"
@@ -145,9 +145,6 @@ export default {
     }
   },
   methods: {
-    change(val) {
-      this.$emit("propChange", this.prop, val);
-    },
     remoteMethod(query) {
       if (!query && this.value) {
         const option = {

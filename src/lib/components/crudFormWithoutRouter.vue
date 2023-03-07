@@ -1,6 +1,7 @@
 <template>
   <oa-form
     ref="form"
+    v-loading="loading"
     :model="model"
     :schema="schema"
     :actions="actions"
@@ -25,7 +26,7 @@ export default {
   data() {
     return {
       model: {},
-      
+      loading: true,
       language: "",
     };
   },
@@ -122,6 +123,7 @@ export default {
       this.fetchData();
     },
     fetchData() {
+      this.loading = true;
       if (this.isnew) {
         this.connector
             .pService(this.resource, "init", { entityType: this.entityType })
@@ -130,7 +132,7 @@ export default {
                 this.$nextTick(() => {
                     this.$refs.form.clearValidate();
                 });
-                
+                this.loading = false;
             });
       } else {
         if (this.isMultiLingual) {
@@ -139,11 +141,17 @@ export default {
               id: this.id,
               language: this.language,
             })
-            .then((data) => (this.model = data));
+              .then((data) => {
+                  this.model = data;
+                  this.loading = false;
+              });
         } else {
           this.connector
             .pService(this.resource, "get", { id: this.id })
-            .then((data) => (this.model = data));
+              .then((data) => {
+                  this.model = data;
+                  this.loading = false;
+              });
         }
       }
     },
@@ -158,11 +166,17 @@ export default {
       if (this.entityType) {
         data.entityType = this.entityType;
       }
-      return this.connector.pService(this.resource, "create", data);
+      this.loading = true;
+      return this.connector.pService(this.resource, "create", data).then(() => {
+        this.loading = false;
+      });
     },
     update(data) {
+      this.loading = true;
       data.id = this.id; // TODO is this line necessary?
-      return this.connector.pService(this.resource, "update", data);
+        return this.connector.pService(this.resource, "update", data).then(() => {            
+            this.loading = false;
+        });
     },
   },
   created() {
