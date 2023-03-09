@@ -3,7 +3,7 @@
         <el-table ref="table" v-if="!isMobile" :data="model" @row-click="rowClick" style="width: 100%" :row-style="{cursor: 'pointer'}">
             <el-table-column type="expand">
                 <template slot-scope="props">
-1                    <oa-fields :model="props.row" :schema="rowSchema"
+                    <oa-fields :model="props.row" :schema="rowSchema"
                                 :connector="connector" :messages="messages" :resource="resource"
                                 :parent-model="parentModel" :readOnly="readOnly"></oa-fields>
                 </template>

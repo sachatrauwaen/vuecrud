@@ -94,7 +94,12 @@ export default {
      */
     pService(appService, action, data) {
         this.checkService(appService, action);
-        // eslint-disable-next-line        
+        //if (!abp.services.app[appService][action]) return null; // action dous not exist
+        if (abp.services.app[appService][action] == undefined) {
+            // eslint-disable-next-line        
+            return $.when({});
+        }
+        // eslint-disable-next-line
         return abp.services.app[appService][action](data); // Abp returns a JQuery promise, but they adhere to the ES6 standard Promise interface (using .then and .catch) as a sort of 'downcast'
     },
     messages(module) {
