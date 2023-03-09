@@ -1,5 +1,7 @@
 <template>
-<oa-form ref="form" :model="model" :schema="schema" :actions="actions" :messages="messages" :connector="connector" :resource="resource">
+<oa-form ref="form" :model="model" :schema="schema" :actions="actions"
+         :messages="messages" :connector="connector" :resource="resource"
+         :dialog="true">
 </oa-form>
 </template>
 

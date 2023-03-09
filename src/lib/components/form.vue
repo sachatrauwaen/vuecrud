@@ -70,7 +70,8 @@ export default {
     customLabelPosition: String, // Optional,
     language: String,
     labelWidth: String,
-    readOnly: Boolean
+    readOnly: Boolean,
+    dialog: Boolean
   },
   data() {
     return {};
@@ -100,6 +101,7 @@ export default {
       }
     },
     formLayout() {
+      if (this.dialog) return FormLayout;
       var comp = Vue.component("oa-form-layout");
       if (comp) return comp;
       else return FormLayout;
