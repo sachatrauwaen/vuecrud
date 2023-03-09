@@ -75234,12 +75234,12 @@ var list_component = normalizeComponent(
 )
 
 /* harmony default export */ var list = (list_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6cf353da-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/input.vue?vue&type=template&id=ed1fb8ca&
-var inputvue_type_template_id_ed1fb8ca_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('el-input',{attrs:{"disabled":_vm.disabled,"maxlength":_vm.maxlength},model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v},expression:"model"}})}
-var inputvue_type_template_id_ed1fb8ca_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6cf353da-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/input.vue?vue&type=template&id=4f118810&
+var inputvue_type_template_id_4f118810_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('el-input',{attrs:{"disabled":_vm.disabled,"maxlength":_vm.maxlength},model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v},expression:"model"}})}
+var inputvue_type_template_id_4f118810_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/lib/components/input.vue?vue&type=template&id=ed1fb8ca&
+// CONCATENATED MODULE: ./src/lib/components/input.vue?vue&type=template&id=4f118810&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/input.vue?vue&type=script&lang=js&
 //
@@ -75252,7 +75252,8 @@ var inputvue_type_template_id_ed1fb8ca_staticRenderFns = []
     value: String,
     schema: {},
     prop: String,
-    options: {}
+    options: {},
+    parentModel: {}
   },
   computed: {
     model: {
@@ -75283,8 +75284,8 @@ var inputvue_type_template_id_ed1fb8ca_staticRenderFns = []
 
 var input_component = normalizeComponent(
   components_inputvue_type_script_lang_js_,
-  inputvue_type_template_id_ed1fb8ca_render,
-  inputvue_type_template_id_ed1fb8ca_staticRenderFns,
+  inputvue_type_template_id_4f118810_render,
+  inputvue_type_template_id_4f118810_staticRenderFns,
   false,
   null,
   null,

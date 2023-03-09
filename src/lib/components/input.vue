@@ -9,7 +9,8 @@ export default {
         value: String,
         schema: {},
         prop: String,
-        options: {}
+        options: {},
+        parentModel: {},
     },
     computed: {
         model: {
