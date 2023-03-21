@@ -59,7 +59,7 @@ export default {
             return Utils.isMobile(window);
         },
         actionsWidth() {
-            if (this.getCustomActions && this.width('customActions')) {
+            if (this.getCustomActions && this.schema.properties['customActions'] && this.width('customActions')) {
                 return this.width('customActions');
             } else {
                 return '';
