@@ -71027,7 +71027,7 @@ var jsonSchema = {
     return schema;
   },
   simplify: function simplify(schema) {
-    if (schema.allOf && schema.allOf.length) {
+    if (schema && schema.allOf && schema.allOf.length) {
       return Object.assign({}, schema, schema.allOf[0]);
     }
 
