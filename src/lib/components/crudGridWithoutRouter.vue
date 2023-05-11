@@ -19,7 +19,7 @@
         :type="action.type"
         @click="action.execute()"
       >{{action.name}}</el-button>
-      <component v-for="(comp, index) in customBatchComponents" :key="index" :is="comp" :selections="$refs.grid.selections" ></component>
+      <component v-for="(comp, index) in customBatchComponents" :key="index" :is="comp" :selections="selections" ></component>
     </template>
     <template #filters>
       <div v-if="hasAdvFilter">
@@ -110,6 +110,12 @@ export default {
     doOnAdd: Function
   },
   computed: {
+    selections() {
+          if (this.$refs.grid)
+              return this.$refs.grid.selections
+          else
+              return [];
+    },
     // module() {
     //   return this.$route.params.module;
     // },
