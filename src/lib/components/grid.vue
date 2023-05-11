@@ -148,6 +148,7 @@ export default {
         },
         selectionChange(val) {
             this.selections = val;
+            this.$emit('selectionChange', val)
         }
     }
 };
