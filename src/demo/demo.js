@@ -875,6 +875,7 @@ abp.schemas.app.user.getAll.parameters = {
         "title": "UsersResultRequestDto",
         "type": "object",
         "x-ui-readonly": true,
+        "x-ui-selection": false,
         "properties": {
             "search": {
                 "type": "string"

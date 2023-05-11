@@ -1,6 +1,7 @@
 <template>
 <div>
-    <el-table v-if="!isMobile" :data="model" @row-click="rowClick" style="width: 100%" :row-style="{cursor: 'pointer'}" @sort-change="sortChange" stripe>
+    <el-table v-if="!isMobile" :data="model" @row-click="rowClick" style="width: 100%" :row-style="{cursor: 'pointer'}" @sort-change="sortChange" @selection-change="selectionChange" stripe>
+        <el-table-column v-if="hasSelection" type="selection" width="55"></el-table-column>
         <el-table-column v-for="(value, key) in columns" :key="key" :prop="key" :label="label(key)" :width="width(key)" :formatter="formatter" class-name="crudcell" :sortable="isSortable(key)"></el-table-column>
         <el-table-column align="right" v-if="actions && actions.length" :width="actionsWidth">
             <template slot-scope="scope">
@@ -30,11 +31,14 @@ export default {
     props: {
         model: {},
         schema: {},
+        connector: Object,
+        resource: String,
         messages: {},
         actions: {},
         defaultAction: {},
         locale: {}, // moment locale (e.g. 'fr', 'en', 'nl', ...)
         doOnSort: {},
+        selections: [],
         getCustomActions: {} // expects a callback function that will return that custom grid-row actions. in other words a GridRowActionFactory function.
     },
     computed: {
@@ -64,6 +68,10 @@ export default {
             } else {
                 return '';
             }
+        },
+        hasSelection() {
+            let filterSchema = this.connector.schema(this.resource, "filter");
+            return filterSchema && filterSchema["x-ui-selection"];
         }
     },
     methods: {
@@ -133,7 +141,10 @@ export default {
             } else {
                 return true;
             }
-        }        
+        },
+        selectionChange(val) {
+            this.selections = val;
+        }
     }
 };
 </script>

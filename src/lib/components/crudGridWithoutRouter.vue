@@ -19,7 +19,7 @@
         :type="action.type"
         @click="action.execute()"
       >{{action.name}}</el-button>
-      <component v-for="(comp, index) in customBatchComponents" :key="index" :is="comp" ></component>
+      <component v-for="(comp, index) in customBatchComponents" :key="index" :is="comp" :selections="$refs.grid.selections" ></component>
     </template>
     <template #filters>
       <div v-if="hasAdvFilter">
@@ -49,8 +49,11 @@
     </template>
     <div class="oa-crud-grid">      
       <oa-grid
+        ref="grid"
         :model="model"
         :schema="schema"
+        :connector="connector"
+        :resource="resource"
         :messages="messages"
         :actions="gridActions"
         :default-action="gridActions[0]"
