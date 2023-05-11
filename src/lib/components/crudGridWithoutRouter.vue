@@ -48,8 +48,7 @@
       </div>
     </template>
     <div class="oa-crud-grid">      
-      <oa-grid
-        ref="grid"
+      <oa-grid        
         :model="model"
         :schema="schema"
         :connector="connector"
@@ -60,6 +59,7 @@
         :locale="locale"
         :doOnSort="doOnSort"
         :getCustomActions="getCustomActions"
+        @selectionChange="selectionChange"
       ></oa-grid>
       <br />
       <div style="float:right;margin-bottom:10px;">
@@ -98,6 +98,7 @@ export default {
       fetchDataId: 0, // Keeps track of the requests of the fetchData method, to track race conditions
       pageSize: 10,
       loading: true,
+      selections : []
     };
   },
   props: {
@@ -110,12 +111,6 @@ export default {
     doOnAdd: Function
   },
   computed: {
-    selections() {
-          if (this.$refs.grid)
-              return this.$refs.grid.selections
-          else
-              return [];
-    },
     // module() {
     //   return this.$route.params.module;
     // },
@@ -410,6 +405,9 @@ export default {
       } else {
         return [];
       }
+    },
+    selectionChange(val) {
+        this.selections = val;
     }
   },
   created() {
