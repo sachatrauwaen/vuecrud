@@ -134,7 +134,7 @@ export default {
                 });
               
             })
-            .always(function () {
+            .always(() => {
                 this.loading = false;
             });
       } else {
@@ -147,7 +147,7 @@ export default {
               .then((data) => {
                   this.model = data;
               })
-              .always(function () {
+              .always(() => {
                   this.loading = false;
               });
         } else {
@@ -156,7 +156,7 @@ export default {
               .then((data) => {
                   this.model = data;
               })
-                .always(function () {
+                .always(() => {
                     this.loading = false;
                 });
         }
@@ -177,7 +177,7 @@ export default {
         return this.connector.pService(this.resource, "create", data).then(() => {
         
         })
-        .always(function () {
+        .always(() => {
             this.loading = false;
         });
     },
@@ -187,7 +187,7 @@ export default {
         return this.connector.pService(this.resource, "update", data).then(() => {            
             
         })
-        .always(function () {
+        .always(() => {
             this.loading = false;
         });
     },
