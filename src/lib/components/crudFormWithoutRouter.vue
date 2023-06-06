@@ -132,6 +132,9 @@ export default {
                 this.$nextTick(() => {
                     this.$refs.form.clearValidate();
                 });
+              
+            })
+            .always(function () {
                 this.loading = false;
             });
       } else {
@@ -143,6 +146,8 @@ export default {
             })
               .then((data) => {
                   this.model = data;
+              })
+              .always(function () {
                   this.loading = false;
               });
         } else {
@@ -150,8 +155,10 @@ export default {
             .pService(this.resource, "get", { id: this.id })
               .then((data) => {
                   this.model = data;
-                  this.loading = false;
-              });
+              })
+                .always(function () {
+                    this.loading = false;
+                });
         }
       }
     },

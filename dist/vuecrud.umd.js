@@ -72625,12 +72625,12 @@ var crudForm_component = normalizeComponent(
 )
 
 /* harmony default export */ var components_crudForm = (crudForm_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6cf353da-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudFormWithoutRouter.vue?vue&type=template&id=bf23e2a8&
-var crudFormWithoutRoutervue_type_template_id_bf23e2a8_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('oa-form',{directives:[{name:"loading",rawName:"v-loading",value:(_vm.loading),expression:"loading"}],ref:"form",attrs:{"model":_vm.model,"schema":_vm.schema,"actions":_vm.actions,"connector":_vm.connector,"resource":_vm.resource,"messages":_vm.messages,"language":_vm.language,"readOnly":_vm.readOnly},on:{"changeLanguage":_vm.changeLanguage}})}
-var crudFormWithoutRoutervue_type_template_id_bf23e2a8_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6cf353da-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudFormWithoutRouter.vue?vue&type=template&id=c1d07492&
+var crudFormWithoutRoutervue_type_template_id_c1d07492_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('oa-form',{directives:[{name:"loading",rawName:"v-loading",value:(_vm.loading),expression:"loading"}],ref:"form",attrs:{"model":_vm.model,"schema":_vm.schema,"actions":_vm.actions,"connector":_vm.connector,"resource":_vm.resource,"messages":_vm.messages,"language":_vm.language,"readOnly":_vm.readOnly},on:{"changeLanguage":_vm.changeLanguage}})}
+var crudFormWithoutRoutervue_type_template_id_c1d07492_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/lib/components/crudFormWithoutRouter.vue?vue&type=template&id=bf23e2a8&
+// CONCATENATED MODULE: ./src/lib/components/crudFormWithoutRouter.vue?vue&type=template&id=c1d07492&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
 var es_number_constructor = __webpack_require__("a9e3");
@@ -72768,8 +72768,8 @@ var es_number_constructor = __webpack_require__("a9e3");
           _this2.$nextTick(function () {
             _this2.$refs.form.clearValidate();
           });
-
-          _this2.loading = false;
+        }).always(function () {
+          this.loading = false;
         });
       } else {
         if (this.isMultiLingual) {
@@ -72778,14 +72778,16 @@ var es_number_constructor = __webpack_require__("a9e3");
             language: this.language
           }).then(function (data) {
             _this2.model = data;
-            _this2.loading = false;
+          }).always(function () {
+            this.loading = false;
           });
         } else {
           this.connector.pService(this.resource, "get", {
             id: this.id
           }).then(function (data) {
             _this2.model = data;
-            _this2.loading = false;
+          }).always(function () {
+            this.loading = false;
           });
         }
       }
@@ -72843,8 +72845,8 @@ var es_number_constructor = __webpack_require__("a9e3");
 
 var crudFormWithoutRouter_component = normalizeComponent(
   components_crudFormWithoutRoutervue_type_script_lang_js_,
-  crudFormWithoutRoutervue_type_template_id_bf23e2a8_render,
-  crudFormWithoutRoutervue_type_template_id_bf23e2a8_staticRenderFns,
+  crudFormWithoutRoutervue_type_template_id_c1d07492_render,
+  crudFormWithoutRoutervue_type_template_id_c1d07492_staticRenderFns,
   false,
   null,
   null,
