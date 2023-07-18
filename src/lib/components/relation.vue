@@ -1,13 +1,14 @@
 <template>
   <div>
-    <el-select v-if="relationSmall" v-model="model" :value-key="relationValueField" filterable :disabled="disabled" >
-      <el-option
-        v-for="item in options"
-        :key="item.value.id"
-        :label="item.label"
-        :value="item.value"
-      ></el-option>
-    </el-select>
+      <el-select v-if="relationSmall" v-model="model" :value-key="relationValueField" filterable :disabled="disabled">
+          <el-option v-if="!hideNone"
+                     :label="noneLabel"
+                     :value="noneValue"></el-option>
+          <el-option v-for="item in options"
+                     :key="item.value.id"
+                     :label="item.label"
+                     :value="item.value"></el-option>
+      </el-select>
     <el-select
       v-else
       v-model="model"
@@ -20,9 +21,7 @@
       :loading="loading"
       :disabled="disabled"
     >
-        <el-option v-if="!hideNone"
-                   :label="noneLabel"
-                   :value="noneValue"></el-option>
+        
       <el-option
         v-for="item in options"
         :key="item.value.id"
