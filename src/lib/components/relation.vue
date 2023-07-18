@@ -20,6 +20,9 @@
       :loading="loading"
       :disabled="disabled"
     >
+        <el-option v-if="!hideNone"
+                   :label="noneLabel"
+                   :value="noneValue"></el-option>
       <el-option
         v-for="item in options"
         :key="item.value.id"
@@ -70,7 +73,10 @@ export default {
       form: {},
       loading: false,
       dialogVisible: false,
-      options: []
+      options: [],
+      hideNone: false,
+      noneLabel: "None",
+      noneValue: undefined
     };
   },
   computed: {
@@ -288,6 +294,15 @@ export default {
         ];
       }
     }
+    if (this.schema["x-rel-nonelabel"]) {
+        this.noneLabel = this.schema["x-rel-nonelabel"];
+        if (this.messages && this.messages[this.noneLabel]) {
+            this.noneLabel = this.messages[this.noneLabel];
+        }
+    }
+    if (this.schema["x-rel-hideNone"]) {
+      this.hideNone = this.schema["x-rel-hideNone"];
+    }    
   }
 };
 </script>
