@@ -284,18 +284,21 @@ export default {
   },
   created() {
     if (this.relationSmall) {
-      this.generateOptions(this.parentModel);
-      if (this.relationCascade) {
-        this.$watch(
-          "parentModel",
-          function (newVal) {
-            this.generateOptions(newVal);
-          },
-          {
-            deep: true,
-          }
-        );
-      }
+      
+        if (this.relationCascade) {
+            this.$watch(
+                "parentModel",
+                function (newVal) {
+                    this.generateOptions(newVal);
+                },
+                {
+                    deep: true,
+                }
+            );
+        } else {
+            this.generateOptions(this.parentModel);
+        }
+
     }
   },
 };
