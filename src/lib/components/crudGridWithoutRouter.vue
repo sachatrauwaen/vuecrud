@@ -77,12 +77,13 @@
         data() {
             return {
                 model: [],
-                filterModel: { sorting: "" },
+                filterModel: {  },
                 totalCount: 0,
                 currentPage: 1,
                 debouncedFetchData: Utils.debounce(this.fetchData, 500),
                 fetchDataId: 0, // Keeps track of the requests of the fetchData method, to track race conditions
                 pageSize: 10,
+                sorting: "",
                 loading: true,
                 selections: []
             };
@@ -327,7 +328,7 @@
             // eslint-disable-next-line
             doOnSort({ column, prop, order }) {
                 const parsedOrder = order === "descending" ? " DESC" : "";
-                this.filterModel.sorting = prop + parsedOrder;
+                this.sorting = prop + parsedOrder;
                 this.fetchData();
             },
             filterEager() {
@@ -338,7 +339,7 @@
             },
             fetchData() {
                 this.loading = true;
-                //this.filterModel.sorting = sorting;
+                this.filterModel.sorting = this.sorting;
                 this.filterModel.skipCount = (this.currentPage - 1) * this.pageSize;
                 this.filterModel.maxResultCount = this.pageSize;
                 if (this.entityType) this.filterModel.entityType = this.entityType;
