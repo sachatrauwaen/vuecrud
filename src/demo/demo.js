@@ -375,7 +375,8 @@ abp.schemas.app.user.create.returnValue = {
             "maxLength": 32,
             "minLength": 0,
             "x-ui-grid-sortable": true,
-            "x-ui-card": 'User'
+            "x-ui-card": 'User',
+            "x-ui-column": 1
         },
         "name": {
             "type": "string",
@@ -632,7 +633,9 @@ abp.schemas.app.user.update.parameters = {
                 "type": "string",
                 "maxLength": 10,
                 "minLength": 0,
-                "x-ui-grid-sortable": true
+                "x-ui-grid-sortable": true,
+                "x-ui-column": 1,
+                "x-ui-column-span": 6
             },
             "name": {
                 "type": "string",
@@ -874,7 +877,7 @@ abp.schemas.app.user.getAll.parameters = {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "title": "UsersResultRequestDto",
         "type": "object",
-        "x-ui-readonly": true,
+        "_x-ui-readonly": true,
         "x-ui-selection": false,
         "properties": {
             "search": {

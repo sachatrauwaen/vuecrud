@@ -73963,12 +73963,12 @@ var field_component = normalizeComponent(
 )
 
 /* harmony default export */ var field = (field_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6cf353da-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/fields.vue?vue&type=template&id=bf0e642e&
-var fieldsvue_type_template_id_bf0e642e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(Object.keys(_vm.tabs).length > 1)?_c('el-tabs',{attrs:{"value":Object.keys(_vm.tabs)[0]}},_vm._l((_vm.tabs),function(gvalue,gkey){return _c('el-tab-pane',{key:gkey,attrs:{"label":_vm.label(gkey),"name":gkey}},[_c('el-row',{attrs:{"gutter":10}},_vm._l((gvalue.columns),function(cvalue,ckey){return _c('el-col',{key:ckey,attrs:{"xs":24/Object.keys(gvalue.columns).length,"sm":24/Object.keys(gvalue.columns).length,"md":24/Object.keys(gvalue.columns).length,"lg":24/Object.keys(gvalue.columns).length,"xl":24/Object.keys(gvalue.columns).length}},_vm._l((cvalue),function(pvalue,pkey){return _c('div',{key:pkey,staticClass:"oa-fields-card"},[(pkey == 'undefined')?_c('div',_vm._l((_vm.filterFields(pvalue)),function(value,key){return _c('oa-field',{key:key,attrs:{"prop":key,"schema":_vm.property(key),"messages":_vm.messages,"connector":_vm.connector,"resource":_vm.resource,"parent-model":_vm.cascadeModel,"readOnly":_vm.readOnly},on:{"propChange":_vm.propChange},model:{value:(_vm.model[key]),callback:function ($$v) {_vm.$set(_vm.model, key, $$v)},expression:"model[key]"}})}),1):_c('el-card',[(pkey != 'undefined')?_c('div',{attrs:{"slot":"header"},slot:"header"},[_c('span',[_vm._v(_vm._s(pkey))])]):_vm._e(),_vm._l((_vm.filterFields(pvalue)),function(value,key){return _c('oa-field',{key:key,attrs:{"prop":key,"schema":_vm.property(key),"messages":_vm.messages,"connector":_vm.connector,"resource":_vm.resource,"parent-model":_vm.cascadeModel,"readOnly":_vm.readOnly},on:{"propChange":_vm.propChange},model:{value:(_vm.model[key]),callback:function ($$v) {_vm.$set(_vm.model, key, $$v)},expression:"model[key]"}})})],2)],1)}),0)}),1)],1)}),1):_c('el-row',{attrs:{"gutter":10}},_vm._l((_vm.columns),function(cvalue,ckey){return _c('el-col',{key:ckey,attrs:{"xs":24/Object.keys(_vm.columns).length,"sm":24/Object.keys(_vm.columns).length,"md":24/Object.keys(_vm.columns).length,"lg":24/Object.keys(_vm.columns).length,"xl":24/Object.keys(_vm.columns).length}},_vm._l((cvalue),function(pvalue,pkey){return _c('div',{key:pkey,staticClass:"oa-fields-card"},[(pkey == 'undefined')?_c('div',_vm._l((_vm.filterFields(pvalue)),function(value,key){return _c('oa-field',{key:key,attrs:{"prop":key,"schema":_vm.property(key),"messages":_vm.messages,"connector":_vm.connector,"resource":_vm.resource,"parent-model":_vm.cascadeModel,"readOnly":_vm.readOnly},on:{"propChange":_vm.propChange},model:{value:(_vm.model[key]),callback:function ($$v) {_vm.$set(_vm.model, key, $$v)},expression:"model[key]"}})}),1):_c('el-card',[(pkey != 'undefined')?_c('div',{attrs:{"slot":"header"},slot:"header"},[_c('span',[_vm._v(_vm._s(pkey))])]):_vm._e(),_vm._l((_vm.filterFields(pvalue)),function(value,key){return _c('oa-field',{key:key,attrs:{"prop":key,"schema":_vm.property(key),"messages":_vm.messages,"connector":_vm.connector,"resource":_vm.resource,"parent-model":_vm.cascadeModel,"readOnly":_vm.readOnly},on:{"propChange":_vm.propChange},model:{value:(_vm.model[key]),callback:function ($$v) {_vm.$set(_vm.model, key, $$v)},expression:"model[key]"}})})],2)],1)}),0)}),1)],1)}
-var fieldsvue_type_template_id_bf0e642e_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6cf353da-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/fields.vue?vue&type=template&id=0c7b6b4e&
+var fieldsvue_type_template_id_0c7b6b4e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(Object.keys(_vm.tabs).length > 1)?_c('el-tabs',{attrs:{"value":Object.keys(_vm.tabs)[0]}},_vm._l((_vm.tabs),function(gvalue,gkey){return _c('el-tab-pane',{key:gkey,attrs:{"label":_vm.label(gkey),"name":gkey}},[_c('el-row',{attrs:{"gutter":10}},_vm._l((gvalue.columns),function(cvalue,ckey){return _c('el-col',{key:ckey,attrs:{"xs":cvalue.span,"sm":cvalue.span,"md":cvalue.span,"lg":cvalue.span,"xl":cvalue.span}},_vm._l((cvalue),function(pvalue,pkey){return _c('div',{key:pkey,staticClass:"oa-fields-card"},[(pkey == 'undefined')?_c('div',_vm._l((_vm.filterFields(pvalue.fields)),function(value,key){return _c('oa-field',{key:key,attrs:{"prop":key,"schema":_vm.property(key),"messages":_vm.messages,"connector":_vm.connector,"resource":_vm.resource,"parent-model":_vm.cascadeModel,"readOnly":_vm.readOnly},on:{"propChange":_vm.propChange},model:{value:(_vm.model[key]),callback:function ($$v) {_vm.$set(_vm.model, key, $$v)},expression:"model[key]"}})}),1):_c('el-card',[(pkey != 'undefined')?_c('div',{attrs:{"slot":"header"},slot:"header"},[_c('span',[_vm._v(_vm._s(pkey))])]):_vm._e(),_vm._l((_vm.filterFields(pvalue.fields)),function(value,key){return _c('oa-field',{key:key,attrs:{"prop":key,"schema":_vm.property(key),"messages":_vm.messages,"connector":_vm.connector,"resource":_vm.resource,"parent-model":_vm.cascadeModel,"readOnly":_vm.readOnly},on:{"propChange":_vm.propChange},model:{value:(_vm.model[key]),callback:function ($$v) {_vm.$set(_vm.model, key, $$v)},expression:"model[key]"}})})],2)],1)}),0)}),1)],1)}),1):_c('el-row',{attrs:{"gutter":10}},_vm._l((_vm.columns),function(cvalue,ckey){return _c('el-col',{key:ckey,attrs:{"xs":cvalue.span,"sm":cvalue.span,"md":cvalue.span,"lg":cvalue.span,"xl":cvalue.span}},_vm._l((cvalue.cards),function(pvalue,pkey){return _c('div',{key:pkey,staticClass:"oa-fields-card"},[(pkey == 'undefined')?_c('div',_vm._l((_vm.filterFields(pvalue.fields)),function(value,key){return _c('oa-field',{key:key,attrs:{"prop":key,"schema":_vm.property(key),"messages":_vm.messages,"connector":_vm.connector,"resource":_vm.resource,"parent-model":_vm.cascadeModel,"readOnly":_vm.readOnly},on:{"propChange":_vm.propChange},model:{value:(_vm.model[key]),callback:function ($$v) {_vm.$set(_vm.model, key, $$v)},expression:"model[key]"}})}),1):_c('el-card',[(pkey != 'undefined')?_c('div',{attrs:{"slot":"header"},slot:"header"},[_c('span',[_vm._v(_vm._s(pkey))])]):_vm._e(),_vm._l((_vm.filterFields(pvalue.fields)),function(value,key){return _c('oa-field',{key:key,attrs:{"prop":key,"schema":_vm.property(key),"messages":_vm.messages,"connector":_vm.connector,"resource":_vm.resource,"parent-model":_vm.cascadeModel,"readOnly":_vm.readOnly},on:{"propChange":_vm.propChange},model:{value:(_vm.model[key]),callback:function ($$v) {_vm.$set(_vm.model, key, $$v)},expression:"model[key]"}})})],2)],1)}),0)}),1)],1)}
+var fieldsvue_type_template_id_0c7b6b4e_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/lib/components/fields.vue?vue&type=template&id=bf0e642e&
+// CONCATENATED MODULE: ./src/lib/components/fields.vue?vue&type=template&id=0c7b6b4e&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.includes.js
 var es_array_includes = __webpack_require__("caad");
@@ -73979,21 +73979,7 @@ var es_string_includes = __webpack_require__("2532");
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/fields.vue?vue&type=script&lang=js&
 
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 //
 //
 //
@@ -74198,16 +74184,24 @@ var es_string_includes = __webpack_require__("2532");
         var column = el["x-ui-column"];
 
         if (column in columns == false) {
-          columns[column] = {};
+          var columnSpan = el["x-ui-column-span"] || 0;
+          columns[column] = {
+            fields: {},
+            span: columnSpan
+          };
         }
 
-        columns[column][key] = el;
+        columns[column].fields[key] = el;
       }
 
       var cardCols = {};
 
       for (var col in columns) {
-        cardCols[col] = this.generateCards(columns[col]);
+        //columns[col].span = columns[col].span || (24 / columns[col].fields.length);
+        cardCols[col] = {
+          cards: this.generateCards(columns[col].fields),
+          span: columns[col].span || 24 / Object.keys(columns).length
+        };
       }
 
       return cardCols;
@@ -74220,10 +74214,12 @@ var es_string_includes = __webpack_require__("2532");
         var card = el["x-ui-card"];
 
         if (card in cards == false) {
-          cards[card] = {};
+          cards[card] = {
+            fields: {}
+          };
         }
 
-        cards[card][key] = el;
+        cards[card].fields[key] = el;
       }
 
       return cards;
@@ -74268,8 +74264,8 @@ var fieldsvue_type_style_index_0_lang_css_ = __webpack_require__("e852");
 
 var fields_component = normalizeComponent(
   components_fieldsvue_type_script_lang_js_,
-  fieldsvue_type_template_id_bf0e642e_render,
-  fieldsvue_type_template_id_bf0e642e_staticRenderFns,
+  fieldsvue_type_template_id_0c7b6b4e_render,
+  fieldsvue_type_template_id_0c7b6b4e_staticRenderFns,
   false,
   null,
   null,
