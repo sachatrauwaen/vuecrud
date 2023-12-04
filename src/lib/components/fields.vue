@@ -10,7 +10,7 @@
                             :md="cvalue.span"
                             :lg="cvalue.span"
                             :xl="cvalue.span">
-                        <div v-for="(pvalue, pkey) in cvalue" :key="pkey" class="oa-fields-card">
+                        <div v-for="(pvalue, pkey) in cvalue.cards" :key="pkey" class="oa-fields-card">
                             <div v-if="pkey == 'undefined'">
                                 <oa-field v-for="(value, key) in filterFields(pvalue.fields)"
                                           :key="key"
