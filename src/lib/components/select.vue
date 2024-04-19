@@ -31,14 +31,14 @@ export default {
     resource: String,
     prop: String,
     connector: {},
-    parentModel: {},
+    parentModel: {}
   },
   data() {
     return {
       options: [],
       hideNone: false,
       noneLabel: "None",
-      noneValue: undefined,
+      noneValue: undefined
     };
   },
   computed: {
@@ -48,7 +48,7 @@ export default {
       },
       set(val) {
         this.$emit("input", val);
-      },
+      }
     },
     enumCascade() {
       return this.sch["x-enum-cascade"];
@@ -113,7 +113,7 @@ export default {
         }
         this.options.push({
           value: this.sch.enum[i],
-          label: label,
+          label: label
         });
       }
     } else if (this.schema["x-enum-action"]) {
@@ -138,10 +138,10 @@ export default {
           this.generateOptions(newVal);
         },
         {
-          deep: true,
+          deep: true
         }
       );
     }
-  },
+  }
 };
 </script>

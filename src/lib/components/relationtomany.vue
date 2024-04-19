@@ -79,7 +79,7 @@ export default {
     resource: String,
     prop: String,
     label: String,
-    parentModel: {},
+    parentModel: {}
   },
   data: function () {
     return {
@@ -129,7 +129,7 @@ export default {
       },
       set(val) {
         this.$emit("input", val);
-      },
+      }
     },
     isMobile() {
       return Utils.isMobile(window);
@@ -148,7 +148,7 @@ export default {
           function (t) {
             return {
               label: t[this.relationTextField],
-              value: t,
+              value: t
             };
           }.bind(this)
         );
@@ -202,7 +202,7 @@ export default {
         this.loading = true;
         if (this.relationCascade) {
           let req = {
-            query: query,
+            query: query
           };
           req = Object.assign(req, this.parentModel.model);
           this.connector
@@ -280,7 +280,7 @@ export default {
       if (this.fullscreen) {
         document.body.classList.remove("dialog-open");
       }
-    },
+    }
   },
   created() {
     if (this.relationSmall) {
@@ -292,7 +292,7 @@ export default {
                     this.generateOptions(newVal);
                 },
                 {
-                    deep: true,
+                    deep: true
                 }
             );
         } else {
@@ -300,6 +300,6 @@ export default {
         }
 
     }
-  },
+  }
 };
 </script>

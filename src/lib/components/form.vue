@@ -143,7 +143,7 @@ export default {
         if (prop.required && prop.type != "object") {
           itemRules.push({
             required: true,
-            message: "Please input a value",
+            message: "Please input a value"
           });
           rules[key] = itemRules;
         }
@@ -169,7 +169,7 @@ export default {
           }
           itemRules.push({
             required: true,
-            message: "Please input a value",
+            message: "Please input a value"
           });
         }
       }
@@ -207,7 +207,7 @@ export default {
     },
     labelWidthCalculated() {
       return defaults.labelWidth;
-    },
+    }
   },
   methods: {
     property(key) {

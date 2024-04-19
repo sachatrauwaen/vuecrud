@@ -31,55 +31,55 @@ export default {
     };
   },
   computed: {
-      actions() {
-          if (this.readOnly) {
-              return [                  
-                  {
-                      name: "Close",
-                      type: "primary",
-                      execute: () => {
-                          this.redirect();
-                          //this.$router.go(-1); // go back
-                      },
-                  },
-              ];
-          } else {
-              return [
-                  {
-                      name: "Save",
-                      type: "primary",
-                      execute: () => {
-                          const onSaveData = () => {
-                              this.$message({
-                                  type: "success",
-                                  message: "Save completed",
-                              });
-                              this.redirect();
-                              //this.$router.go(-1); // go back
+    actions() {
+      if (this.readOnly) {
+        return [
+          {
+            name: "Close",
+            type: "primary",
+            execute: () => {
+              this.redirect();
+              //this.$router.go(-1); // go back
+            },
+          },
+        ];
+      } else {
+        return [
+          {
+            name: "Save",
+            type: "primary",
+            execute: () => {
+              const onSaveData = () => {
+                this.$message({
+                  type: "success",
+                  message: "Save completed",
+                });
+                this.redirect();
+                //this.$router.go(-1); // go back
 
-                              // Refresh data
-                              this.fetchData();
-                          };
+                // Refresh data
+                this.fetchData();
+              };
 
-                          const onValidate = (valid) => {
-                              if (valid) this.saveData(this.model).then(onSaveData);
-                              else return false;
-                          };
+              const onValidate = (valid) => {
+                if (valid) this.saveData(this.model).then(onSaveData);
+                else return false;
+              };
 
-                          this.$refs.form.validate(onValidate);
-                      },
-                  },
-                  {
-                      name: "Cancel",
-                      execute: () => {
-                          this.redirect();
-                          //this.$router.go(-1); // go back
-                      },
-                  },
-              ];
-          }
+              this.$refs.form.validate(onValidate);
+            },
+          },
+          {
+            name: "Cancel",
+            execute: () => {
+              this.redirect();
+              //this.$router.go(-1); // go back
+            },
+          },
+        ];
+      }
 
-      },
+    },
     // module () {
     //   return this.$route.params.module
     // },
@@ -126,17 +126,17 @@ export default {
       this.loading = true;
       if (this.isnew) {
         this.connector
-            .pService(this.resource, "init", { entityType: this.entityType })
-            .then((data) => {
-                this.model = data;
-                this.$nextTick(() => {
-                    this.$refs.form.clearValidate();
-                });
-              
-            })
-            .always(() => {
-                this.loading = false;
+          .pService(this.resource, "init", { entityType: this.entityType })
+          .then((data) => {
+            this.model = data;
+            this.$nextTick(() => {
+              this.$refs.form.clearValidate();
             });
+
+          })
+          .always(() => {
+            this.loading = false;
+          });
       } else {
         if (this.isMultiLingual) {
           this.connector
@@ -144,21 +144,21 @@ export default {
               id: this.id,
               language: this.language,
             })
-              .then((data) => {
-                  this.model = data;
-              })
-              .always(() => {
-                  this.loading = false;
-              });
+            .then((data) => {
+              this.model = data;
+            })
+            .always(() => {
+              this.loading = false;
+            });
         } else {
           this.connector
             .pService(this.resource, "get", { id: this.id })
-              .then((data) => {
-                  this.model = data;
-              })
-                .always(() => {
-                    this.loading = false;
-                });
+            .then((data) => {
+              this.model = data;
+            })
+            .always(() => {
+              this.loading = false;
+            });
         }
       }
     },
@@ -174,21 +174,21 @@ export default {
         data.entityType = this.entityType;
       }
       this.loading = true;
-        return this.connector.pService(this.resource, "create", data).then(() => {
-        
-        })
+      return this.connector
+        .pService(this.resource, "create", data)
+        .then(() => { })
         .always(() => {
-            this.loading = false;
+          this.loading = false;
         });
     },
     update(data) {
       this.loading = true;
       data.id = this.id; // TODO is this line necessary?
-        return this.connector.pService(this.resource, "update", data).then(() => {            
-            
-        })
+      return this.connector
+        .pService(this.resource, "update", data)
+        .then(() => { })
         .always(() => {
-            this.loading = false;
+          this.loading = false;
         });
     },
   },
@@ -198,7 +198,7 @@ export default {
   },
   watch: {
     // TODO this seems suboptimal, and won't work when using without router
-    $route: function() {
+    $route: function () {
       this.fetchData();
     }
   }

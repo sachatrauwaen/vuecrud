@@ -124,7 +124,7 @@ export default {
         return this.value;
       },
       set(val) {
-          this.$emit("input", val);          
+          this.$emit("input", val);
       }
     },
     isMobile() {
@@ -138,7 +138,7 @@ export default {
     }
   },
   watch: {
-    value(val) {          
+    value(val) {
       if (val && !this.relationSmall) {
         this.options = [
           {
@@ -303,7 +303,7 @@ export default {
     }
     if (this.schema["x-rel-hideNone"]) {
       this.hideNone = this.schema["x-rel-hideNone"];
-    }    
+    }
   }
 };
 </script>
