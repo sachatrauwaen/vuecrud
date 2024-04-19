@@ -6,6 +6,7 @@
     "scripts": {
         "serve": "vue-cli-service serve src/demo/main.js",
         "build": "vue-cli-service build --target lib --name vuecrud src/lib/index.js --env.patch",
+        "watch": "vue-cli-service serve --watch src/demo/main.js",
         "lint": "vue-cli-service lint",
         "build-patch": "vue-cli-service build --target lib --name vuecrud src/lib/index.js --env.patch",
         "build-minor": "vue-cli-service build --target lib --name vuecrud src/lib/index.js --env.minor",
