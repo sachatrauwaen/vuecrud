@@ -19,6 +19,4 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
-/.vs/vuecrud/config/applicationhost.config
-/.vs/slnx.sqlite
-/.vs
+.vs/
