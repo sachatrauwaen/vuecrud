@@ -3,6 +3,7 @@
         v-model="model"
         type="datetime"
         format="dd/MM/yyyy HH:mm"
+        value-format="yyyy-MM-ddTHH:mm"
         :picker-options="{firstDayOfWeek: 1}"
         :disabled="disabled"
     ></el-date-picker>
