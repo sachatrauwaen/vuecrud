@@ -173,7 +173,7 @@ export default {
             },
             set(val) {
                 this.$emit("input", val);
-                // this.$emit("propChange", this.prop, val);
+                this.$emit("propChange", this.prop, val);
             }
         },
 
