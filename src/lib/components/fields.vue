@@ -195,7 +195,9 @@
             },
             propChange(key, value) {
                 this.$set(this.model, key, value);
-                this.$emit("propChange", this.prop, this.model);
+                if (this.prop) {
+                    this.$emit("propChange", this.prop, this.model);
+                }
             },
             generateColumns(fields) {
                 var columns = {};
