@@ -71,7 +71,7 @@ export default {
                     sch.enum
                     ? components.ViewEnum // (type == "array" ? components.ViewEnumArray : components.ViewEnum)
                     : type == "boolean"
-                        ? components.ViewBoolean
+                   ? components.ViewBoolean
                     //: type == "integer" || type == "number"
                     //    ? components.ViewNumber
                     //: type == "array" && this.schema.items.format == "date-time"
@@ -173,6 +173,7 @@ export default {
             },
             set(val) {
                 this.$emit("input", val);
+                this.$emit("propChange", this.prop, val);
             }
         },
 
