@@ -88085,8 +88085,8 @@ var relationtomany_component = normalizeComponent(
 )
 
 /* harmony default export */ var relationtomany = (relationtomany_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5b672bac-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/relation.vue?vue&type=template&id=b92701c0
-var relationvue_type_template_id_b92701c0_render = function render() {
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5b672bac-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/relation.vue?vue&type=template&id=3bc1e0c7
+var relationvue_type_template_id_3bc1e0c7_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_vm.relationSmall ? _c('el-select', {
@@ -88095,6 +88095,9 @@ var relationvue_type_template_id_b92701c0_render = function render() {
       "filterable": "",
       "disabled": _vm.disabled,
       "clearable": ""
+    },
+    on: {
+      "clear": _vm.clear
     },
     model: {
       value: _vm.model,
@@ -88186,9 +88189,9 @@ var relationvue_type_template_id_b92701c0_render = function render() {
     }
   })], 1) : _vm._e()], 2);
 };
-var relationvue_type_template_id_b92701c0_staticRenderFns = [];
+var relationvue_type_template_id_3bc1e0c7_staticRenderFns = [];
 
-// CONCATENATED MODULE: ./src/lib/components/relation.vue?vue&type=template&id=b92701c0
+// CONCATENATED MODULE: ./src/lib/components/relation.vue?vue&type=template&id=3bc1e0c7
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/relation.vue?vue&type=script&lang=js
 
@@ -88424,8 +88427,8 @@ var relationvue_type_template_id_b92701c0_staticRenderFns = [];
 
 var relation_component = normalizeComponent(
   components_relationvue_type_script_lang_js,
-  relationvue_type_template_id_b92701c0_render,
-  relationvue_type_template_id_b92701c0_staticRenderFns,
+  relationvue_type_template_id_3bc1e0c7_render,
+  relationvue_type_template_id_3bc1e0c7_staticRenderFns,
   false,
   null,
   null,

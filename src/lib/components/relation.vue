@@ -1,6 +1,6 @@
 <template>
   <div>
-      <el-select v-if="relationSmall" v-model="model" :value-key="relationValueField" filterable :disabled="disabled" clearable>
+      <el-select v-if="relationSmall" v-model="model" :value-key="relationValueField" filterable :disabled="disabled" clearable v-on:clear="clear">
           <el-option v-if="!hideNone"
                      :label="noneLabel"
                      :value="noneValue"></el-option>
