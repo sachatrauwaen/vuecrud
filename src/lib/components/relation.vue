@@ -282,9 +282,7 @@ export default {
                 }
             );
         }
-        else {
-            this.generateOptions(this.parentModel);
-        }
+        this.generateOptions(this.parentModel);        
     } else {
       if (this.value) {
         this.options = [
