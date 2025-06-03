@@ -84517,8 +84517,8 @@ var crudForm_component = normalizeComponent(
 )
 
 /* harmony default export */ var components_crudForm = (crudForm_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5b672bac-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudFormWithoutRouter.vue?vue&type=template&id=5c689840
-var crudFormWithoutRoutervue_type_template_id_5c689840_render = function render() {
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5b672bac-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudFormWithoutRouter.vue?vue&type=template&id=410ac9d0
+var crudFormWithoutRoutervue_type_template_id_410ac9d0_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('oa-form', {
@@ -84544,9 +84544,9 @@ var crudFormWithoutRoutervue_type_template_id_5c689840_render = function render(
     }
   });
 };
-var crudFormWithoutRoutervue_type_template_id_5c689840_staticRenderFns = [];
+var crudFormWithoutRoutervue_type_template_id_410ac9d0_staticRenderFns = [];
 
-// CONCATENATED MODULE: ./src/lib/components/crudFormWithoutRouter.vue?vue&type=template&id=5c689840
+// CONCATENATED MODULE: ./src/lib/components/crudFormWithoutRouter.vue?vue&type=template&id=410ac9d0
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudFormWithoutRouter.vue?vue&type=script&lang=js
 
@@ -84562,7 +84562,8 @@ var crudFormWithoutRoutervue_type_template_id_5c689840_staticRenderFns = [];
     return {
       model: {},
       loading: true,
-      language: ""
+      language: "",
+      modified: false // Track if the form has been modified
     };
   },
   computed: {
@@ -84601,7 +84602,19 @@ var crudFormWithoutRoutervue_type_template_id_5c689840_staticRenderFns = [];
         }, {
           name: "Cancel",
           execute: function execute() {
-            _this.redirect();
+            if (_this.modified) {
+              _this.$confirm("You have unsaved changes. Are you sure you want to cancel?", "Warning", {
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+                type: "warning"
+              }).then(function () {
+                _this.redirect();
+              }).catch(function () {
+                // Do nothing, user cancelled
+              });
+            } else {
+              _this.redirect();
+            }
             //this.$router.go(-1); // go back
           }
         }];
@@ -84657,6 +84670,7 @@ var crudFormWithoutRoutervue_type_template_id_5c689840_staticRenderFns = [];
           _this2.model = data;
           _this2.$nextTick(function () {
             _this2.$refs.form.clearValidate();
+            _this2.modified = false; // Reset modified state on fetch
           });
         }).always(function () {
           _this2.loading = false;
@@ -84668,6 +84682,9 @@ var crudFormWithoutRoutervue_type_template_id_5c689840_staticRenderFns = [];
             language: this.language
           }).then(function (data) {
             _this2.model = data;
+            _this2.$nextTick(function () {
+              _this2.modified = false; // Reset modified state on fetch
+            });
           }).always(function () {
             _this2.loading = false;
           });
@@ -84676,6 +84693,9 @@ var crudFormWithoutRoutervue_type_template_id_5c689840_staticRenderFns = [];
             id: this.id
           }).then(function (data) {
             _this2.model = data;
+            _this2.$nextTick(function () {
+              _this2.modified = false; // Reset modified state on fetch
+            });
           }).always(function () {
             _this2.loading = false;
           });
@@ -84715,6 +84735,12 @@ var crudFormWithoutRoutervue_type_template_id_5c689840_staticRenderFns = [];
     // TODO this seems suboptimal, and won't work when using without router
     $route: function $route() {
       this.fetchData();
+    },
+    model: {
+      handler: function handler() {
+        this.modified = true; // Set modified to true when model changes
+      },
+      deep: true
     }
   }
 });
@@ -84730,8 +84756,8 @@ var crudFormWithoutRoutervue_type_template_id_5c689840_staticRenderFns = [];
 
 var crudFormWithoutRouter_component = normalizeComponent(
   components_crudFormWithoutRoutervue_type_script_lang_js,
-  crudFormWithoutRoutervue_type_template_id_5c689840_render,
-  crudFormWithoutRoutervue_type_template_id_5c689840_staticRenderFns,
+  crudFormWithoutRoutervue_type_template_id_410ac9d0_render,
+  crudFormWithoutRoutervue_type_template_id_410ac9d0_staticRenderFns,
   false,
   null,
   null,

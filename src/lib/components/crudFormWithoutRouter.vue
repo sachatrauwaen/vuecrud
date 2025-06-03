@@ -28,6 +28,7 @@ export default {
       model: {},
       loading: true,
       language: "",
+      modified: false, // Track if the form has been modified
     };
   },
   computed: {
@@ -72,7 +73,26 @@ export default {
                   {
                       name: "Cancel",
                       execute: () => {
-                          this.redirect();
+                          if (this.modified) {
+                              this.$confirm(
+                                  "You have unsaved changes. Are you sure you want to cancel?",
+                                  "Warning",
+                                  {
+                                      confirmButtonText: "Yes",
+                                      cancelButtonText: "No",
+                                      type: "warning",
+                                  }
+                              )
+                                  .then(() => {
+                                      this.redirect();
+                                     
+                                  })
+                                  .catch(() => {
+                                      // Do nothing, user cancelled
+                                  });
+                          } else {
+                              this.redirect();
+                          }
                           //this.$router.go(-1); // go back
                       },
                   },
@@ -124,6 +144,7 @@ export default {
     },
     fetchData() {
       this.loading = true;
+      
       if (this.isnew) {
         this.connector
             .pService(this.resource, "init", { entityType: this.entityType })
@@ -131,8 +152,8 @@ export default {
                 this.model = data;
                 this.$nextTick(() => {
                     this.$refs.form.clearValidate();
-                });
-              
+                    this.modified = false; // Reset modified state on fetch
+                });                
             })
             .always(() => {
                 this.loading = false;
@@ -146,6 +167,9 @@ export default {
             })
               .then((data) => {
                   this.model = data;
+                  this.$nextTick(() => {                     
+                      this.modified = false; // Reset modified state on fetch
+                  });
               })
               .always(() => {
                   this.loading = false;
@@ -155,6 +179,9 @@ export default {
             .pService(this.resource, "get", { id: this.id })
               .then((data) => {
                   this.model = data;
+                  this.$nextTick(() => {
+                      this.modified = false; // Reset modified state on fetch
+                  });
               })
                 .always(() => {
                     this.loading = false;
@@ -200,6 +227,12 @@ export default {
     // TODO this seems suboptimal, and won't work when using without router
     $route: function() {
       this.fetchData();
+    },
+    model: {
+        handler() {
+            this.modified = true; // Set modified to true when model changes
+        },
+        deep: true
     }
   }
 };
