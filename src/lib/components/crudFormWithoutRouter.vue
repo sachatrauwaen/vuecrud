@@ -36,7 +36,7 @@ export default {
           if (this.readOnly) {
               return [                  
                   {
-                      name: "Close",
+                      name: this.translate("Close"),
                       type: "primary",
                       execute: () => {
                           this.redirect();
@@ -47,7 +47,7 @@ export default {
           } else {
               return [
                   {
-                      name: "Save",
+                      name: this.translate("Save"),
                       type: "primary",
                       execute: () => {
                           const onSaveData = () => {
@@ -71,18 +71,18 @@ export default {
                       },
                   },
                   {
-                      name: "Cancel",
+                      name: this.translate("Cancel"),
                       execute: () => {
                           if (this.modified) {
                               this.$confirm(
-                                  "You have unsaved changes. Are you sure you want to cancel?",
-                                  "Warning",
+                                  this.translate("Confirm Cancel ?"),
+                                  this.translate("Warning"),
                                   {
-                                      confirmButtonText: "Yes",
-                                      cancelButtonText: "No",
+                                      confirmButtonText: this.translate("Yes"),
+                                      cancelButtonText: this.translate("No"),
                                       type: "warning",
                                   }
-                              )
+                               )
                                   .then(() => {
                                       this.redirect();
                                      
@@ -213,10 +213,14 @@ export default {
       data.id = this.id; // TODO is this line necessary?
         return this.connector.pService(this.resource, "update", data).then(() => {            
             
-        })
-        .always(() => {
-            this.loading = false;
-        });
+    })
+    .always(() => {
+        this.loading = false;
+    });
+    },
+    translate(text) {
+        if (this.messages && this.messages[text]) return this.messages[text];
+        else return text;
     },
   },
   created() {

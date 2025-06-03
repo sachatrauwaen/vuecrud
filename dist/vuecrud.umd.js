@@ -84517,8 +84517,8 @@ var crudForm_component = normalizeComponent(
 )
 
 /* harmony default export */ var components_crudForm = (crudForm_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5b672bac-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudFormWithoutRouter.vue?vue&type=template&id=410ac9d0
-var crudFormWithoutRoutervue_type_template_id_410ac9d0_render = function render() {
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5b672bac-vue-loader-template"}!./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudFormWithoutRouter.vue?vue&type=template&id=1bd2efbd
+var crudFormWithoutRoutervue_type_template_id_1bd2efbd_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('oa-form', {
@@ -84544,9 +84544,9 @@ var crudFormWithoutRoutervue_type_template_id_410ac9d0_render = function render(
     }
   });
 };
-var crudFormWithoutRoutervue_type_template_id_410ac9d0_staticRenderFns = [];
+var crudFormWithoutRoutervue_type_template_id_1bd2efbd_staticRenderFns = [];
 
-// CONCATENATED MODULE: ./src/lib/components/crudFormWithoutRouter.vue?vue&type=template&id=410ac9d0
+// CONCATENATED MODULE: ./src/lib/components/crudFormWithoutRouter.vue?vue&type=template&id=1bd2efbd
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/components/crudFormWithoutRouter.vue?vue&type=script&lang=js
 
@@ -84571,7 +84571,7 @@ var crudFormWithoutRoutervue_type_template_id_410ac9d0_staticRenderFns = [];
       var _this = this;
       if (this.readOnly) {
         return [{
-          name: "Close",
+          name: this.translate("Close"),
           type: "primary",
           execute: function execute() {
             _this.redirect();
@@ -84580,7 +84580,7 @@ var crudFormWithoutRoutervue_type_template_id_410ac9d0_staticRenderFns = [];
         }];
       } else {
         return [{
-          name: "Save",
+          name: this.translate("Save"),
           type: "primary",
           execute: function execute() {
             var onSaveData = function onSaveData() {
@@ -84600,12 +84600,12 @@ var crudFormWithoutRoutervue_type_template_id_410ac9d0_staticRenderFns = [];
             _this.$refs.form.validate(onValidate);
           }
         }, {
-          name: "Cancel",
+          name: this.translate("Cancel"),
           execute: function execute() {
             if (_this.modified) {
-              _this.$confirm("You have unsaved changes. Are you sure you want to cancel?", "Warning", {
-                confirmButtonText: "Yes",
-                cancelButtonText: "No",
+              _this.$confirm(_this.translate("Confirm Cancel ?"), _this.translate("Warning"), {
+                confirmButtonText: _this.translate("Yes"),
+                cancelButtonText: _this.translate("No"),
                 type: "warning"
               }).then(function () {
                 _this.redirect();
@@ -84725,6 +84725,9 @@ var crudFormWithoutRoutervue_type_template_id_410ac9d0_staticRenderFns = [];
       return this.connector.pService(this.resource, "update", data).then(function () {}).always(function () {
         _this4.loading = false;
       });
+    },
+    translate: function translate(text) {
+      if (this.messages && this.messages[text]) return this.messages[text];else return text;
     }
   },
   created: function created() {
@@ -84756,8 +84759,8 @@ var crudFormWithoutRoutervue_type_template_id_410ac9d0_staticRenderFns = [];
 
 var crudFormWithoutRouter_component = normalizeComponent(
   components_crudFormWithoutRoutervue_type_script_lang_js,
-  crudFormWithoutRoutervue_type_template_id_410ac9d0_render,
-  crudFormWithoutRoutervue_type_template_id_410ac9d0_staticRenderFns,
+  crudFormWithoutRoutervue_type_template_id_1bd2efbd_render,
+  crudFormWithoutRoutervue_type_template_id_1bd2efbd_staticRenderFns,
   false,
   null,
   null,
