@@ -94,7 +94,7 @@ export default {
      */
     pService(appService, action, data) {
         this.checkService(appService, action);
-        //if (!abp.services.app[appService][action]) return null; // action dous not exist
+        //if (!abp.services.app[appService][action]) return null; // action does not exist
         if (abp.services.app[appService][action] == undefined) {
             // eslint-disable-next-line        
             return $.when({});
@@ -149,19 +149,19 @@ export default {
         // eslint-disable-next-line        
         if (abp.services.app == undefined){
             // eslint-disable-next-line        
-            console.log('%c ERROR: abp.services.app not exist', 'background: #222; color: #bada55');
+            console.error('%c ERROR: abp.services.app not exist');
             return;
         }
         // eslint-disable-next-line        
         if (abp.services.app[appService] == undefined){
             // eslint-disable-next-line        
-            console.log('%c ERROR: application service '+capitalize(appService)+' not exist', 'background: #222; color: #bada55');
+            console.error('%c ERROR: application service '+capitalize(appService)+' not exist');
             return;
         }
         // eslint-disable-next-line        
         if (abp.services.app[appService][action] == undefined){
             // eslint-disable-next-line        
-            console.log('%c ERROR: method '+capitalize(action)+' on application service '+capitalize(appService)+' not exist', 'background: #222; color: #bada55');
+            console.error('%c ERROR: method '+capitalize(action)+' on application service '+capitalize(appService)+' not exist');
             return;
         }
     }
