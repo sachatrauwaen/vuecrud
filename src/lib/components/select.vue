@@ -38,7 +38,7 @@ export default {
       options: [],
       hideNone: false,
       noneLabel: "None",
-      noneValue: undefined,
+      noneValue: undefined
     };
   },
   computed: {
@@ -48,7 +48,7 @@ export default {
       },
       set(val) {
         this.$emit("input", val);
-      },
+      }
     },
     enumCascade() {
       return this.sch["x-enum-cascade"];
@@ -59,6 +59,9 @@ export default {
     disabled() {
       return this.sch["x-ui-disabled"];
     },
+    relationResource() {
+      return this.sch["x-enum-app"];
+    },   
     sch(){
       return Utils.jsonSchema.getNotNull(this.schema);
     }
@@ -84,7 +87,7 @@ export default {
         var enumValueField = this.sch["x-enum-valuefield"] || "id";
         var enumTextField = this.sch["x-enum-textfield"] || "fullName";
         this.connector.service(
-          this.resource,
+          this.relationResource ? this.relationResource : this.resource,
           enumAction,
           req,
           (data) => {
@@ -113,7 +116,7 @@ export default {
         }
         this.options.push({
           value: this.sch.enum[i],
-          label: label,
+          label: label
         });
       }
     } else if (this.schema["x-enum-action"]) {
@@ -138,10 +141,10 @@ export default {
           this.generateOptions(newVal);
         },
         {
-          deep: true,
+          deep: true
         }
       );
     }
-  },
+  }
 };
 </script>
